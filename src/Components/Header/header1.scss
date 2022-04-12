@@ -1,0 +1,82 @@
+@import '../../Mixin/global.scss';
+.header {
+    position        : fixed;
+    top             : 0px;
+    width           : 100%;
+    height          : $header_height;
+    background-color: $header_background;
+    z-index         : 10;
+    @include ali-set();
+    @extend %row;
+    @extend %between;
+    
+    .logo {
+        width      : 125px;
+        height     : 40px;
+        margin-left: 30px;
+        
+        img {
+            @include image-set(100%, 100%, contain);
+        }
+    }
+}
+
+.nav {
+    margin-right: 30px;
+    
+    .header_ul {
+        @extend %row;
+        @include ali-set();
+        margin-bottom: 0px;
+        
+        li {
+            padding: 8px 16px;
+            
+            .header_a {
+                
+                &:link,
+                &:visited {
+                    color: $font_maincolor;
+                }
+                
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+            
+            .dropdown-menu {
+                color: black;
+            }
+        }
+    }
+}
+
+.preson_info {
+    height: 37px;
+    @include ali-set();
+    
+    svg {
+        margin: 0px 1px;
+    }
+}
+
+.person_info_dropdown {
+    display: none;
+    @extend %col;
+    position: fixed;
+    top     : 53px;
+    right   : 0px;
+    width   : 115px;
+    @include border-set();
+    background-color: $main_backgroundcolor;
+    
+    li {
+        &:hover {
+            background-color: #ebebeb8e;
+        }
+    }
+}
+
+.active {
+    display: block;
+}

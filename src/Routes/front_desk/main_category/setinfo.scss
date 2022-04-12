@@ -1,0 +1,117 @@
+@import '../../../Mixin/global.scss';
+.content {
+    padding-top   : $header_height;
+    padding-bottom: 30px;
+}
+
+.contentin {
+    width : 1236px;
+    margin: 0px auto;
+    @extend %col;
+}
+.card {
+    width: 100%;
+    @extend %row;
+    @extend %between;
+    .big_card,.small_card{
+        margin      : 53px 0px;
+        border-radius   : 5px;
+        .card_content{
+            background-color: $main_backgroundcolor;
+            border-radius   : 0px 0px 4px 4px;
+            font-family     : 'Microsoft YaHei';
+            margin-top      : auto;
+            @include border-set();
+            border-top: 0px;
+        }
+    }
+}
+.big_card {
+    width : 783px;
+    height: 533px;
+    .card_banner{
+        height: 130px;
+        border-bottom: 0px;
+    }
+    .card_content {
+        position: relative;
+        height  : 403px;
+        .head_stickers {
+            width        : 150px;
+            height       : 150px;
+            border-radius: 60%;
+            position: absolute;
+            top     : -110px;
+            left    : 20px;
+            @include border-set($main_backgroundcolor, 5px);
+            img {
+                border-radius: 60%;
+                position: absolute;
+                top:-1px;
+                @include image-set(101%, 101%);
+            }
+        }
+        
+        .information {
+            width  : 745px;
+            height : 73px;
+            padding: 27px 20px 22px 20px;
+            .member_label {
+                padding: 15px 30px 0px 0px;
+                @extend %row;
+                @include ali-set(start);
+                @extend %between;
+                .member_name {
+                    font-size  : 24px;
+                    font-weight: bold;
+                }
+            }
+        }
+        
+        .introduction {
+            width              : 745px;
+            padding            : 0px 20px 20px 20px;
+            
+            .introduction_in {
+                width: 725px;
+                border-radius: 5px;
+                height       : 200px;
+                padding      : 10px;
+                @include border-set();
+                @extend %every_content;
+            }
+        }
+    }
+}
+.small_card {
+    width : 345px;
+    .card_banner{
+        height: 40px;
+    }
+    .card_content{
+        min-height:100px;
+        padding:10px;
+        .account_info{
+            margin-top: 20px;
+            @extend %row;
+            .account_contnet{
+                width: 220px;
+                min-height: 21px;
+                @extend %every_content;
+            }
+        }
+    }
+}
+.card_banner{
+    height: 40px;
+    background-color: $button_color;
+    border-radius:4px 4px 0px 0px ;
+    border-bottom: 0px;
+    @include border-set();
+}
+.edit_pen {
+    svg {
+        display    : flex;
+        margin-left: auto;
+    }
+}

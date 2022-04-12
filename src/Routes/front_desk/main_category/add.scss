@@ -1,0 +1,114 @@
+@import '../../../Mixin/global.scss';
+.content {
+    padding-top   : $header_height;
+    padding-bottom: 30px;
+}
+
+.contentin {
+    width : 1236px;
+    margin: 0px auto;
+    @extend %col;
+}
+.add_title {
+    padding      : 10px 10px;
+    border-bottom: 1px $tr_even solid;
+    color        : $header_background;
+    @extend %between;
+    .title_name{
+        @extend %row;
+        @include ali-set(end);
+        .tag{
+            @extend %row;
+            .small_tag{
+                padding: 3px 7px;
+                font-size: $m;
+                border-radius: 30px;
+                background-color: $form_maincolor;
+                margin-left: 10px;
+                margin-bottom: 4px;
+                @include ali-set();
+                @include jus-set();
+            }
+        }
+    }
+}
+.add_form {
+    .inputbox {
+        padding   : 0px 15px;
+        margin-top: 25px;
+        @extend %between;
+        
+        .set {
+            position: relative;
+            @extend %row;
+        }
+        
+        .form_submit {
+            margin-left     : auto;
+            background-color: $button_color;
+            @include ali-set();
+            @include jus-set();
+        }
+        
+        input,
+        select,
+        textarea {
+            min-height: 35px;
+            color     : $font_maincolor;
+        }
+        
+        .input {
+            background-color: $form_maincolor;
+            resize          : none;
+            width           : 100%;
+            @include border-set($form_border);
+        }
+        
+        .label {
+            display    : flex;
+            position   : absolute;
+            top        : -19px;
+            left       : -5px;
+            font-size  : 14px;
+            font-weight: 600;
+            color      : $from_title;
+        }
+        
+        .upload {
+            background-color: $th_background;
+            border-radius   : 5px;
+            position        : relative;
+            
+            input {
+                height : 100%;
+                width  : 100%;
+                opacity: 0;
+            }
+            
+            .newbtn {
+                position: absolute;
+                top     : 4.5px;
+                left    : 8px;
+                @extend %row;
+                @include ali-set();
+                
+                img {
+                    width      : 26px;
+                    height     : 26px;
+                    margin-left: 5px;
+                }
+                
+                label {
+                    margin-left: 5px;
+                    color      : $main_backgroundcolor;
+                }
+            }
+        }
+        
+        
+    }
+    
+    #filename {
+        padding: 10px 45px 0px 45px;
+    }
+}

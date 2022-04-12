@@ -1,0 +1,37 @@
+@import '../../Mixin/global.scss';
+#admin_header{
+    position        : fixed;
+    top             : 0px;
+    width           : 100%;
+    height          : $header_height;
+    background-color: $admin_header_background;
+    z-index         : 10;
+    @include ali-set();
+    @extend %row;
+    @extend %between;
+    
+    .logo {
+        width      : 125px;
+        height     : 40px;
+        margin-left: 30px;
+        
+        img {
+            @include image-set(100%, 100%, contain);
+        }
+    }
+    .logout{
+        margin-right: 30px;
+    }
+    a{
+        @include ali-set();
+        &:link,&:visited{
+            color: $font_maincolor;
+        }
+        &:hover{
+            text-decoration: underline;
+        }
+        svg{
+            margin-right: 5px;
+        }
+    }
+}

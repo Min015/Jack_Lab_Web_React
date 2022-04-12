@@ -1,0 +1,171 @@
+$header_background:#022840;
+$th_background    :#51718C;
+$header_height    :56px;
+
+$admin_header_background:black;
+
+$button_color:#51718C;
+$button_hover:#66859e;
+
+$boder_color :#CCCCCC;
+$prompt_color:#757575;
+
+$tr_odd :#ADC5D9;
+$tr_even:#D8E6F2;
+
+$form_maincolor:#ADC5D9;
+$form_border   :#D8E6F2;
+$from_title    :#8696a7;
+
+$font_maincolor      :#ffffff;
+$main_backgroundcolor:#ffffff;
+$l                   :17px;
+$m                   :14px;
+$s                   :12px;
+
+@mixin border-set($color:$boder_color, $width:1px, $style: solid) {
+    border: {
+        color: $color;
+        width: $width;
+        style: $style;
+    }
+}
+
+@mixin image-set($height:100%, $width:100%, $obj_fit:cover) {
+    width     : $width;
+    height    : $height;
+    object-fit: $obj_fit;
+}
+
+@mixin ali-set($align-items:center) {
+    display    : flex;
+    align-items: $align-items;
+}
+
+@mixin jus-set($justify-content:center) {
+    display        : flex;
+    justify-content: $justify-content;
+}
+
+%row {
+    display       : flex;
+    flex-direction: row;
+}
+
+%col {
+    display       : flex;
+    flex-direction: column;
+}
+
+%between {
+    display        : flex;
+    justify-content: space-between;
+}
+
+%every_content {
+    display   : inline-block;
+    word-wrap : break-word;
+    overflow-y: auto;
+}
+
+.col-1 {
+    width: 8.333333%
+}
+
+.col-2 {
+    width: 16.666667%
+}
+
+.col-3 {
+    width: 25%
+}
+
+.col-4 {
+    width: 33.333333%
+}
+
+.col-5 {
+    width: 41.666667%
+}
+
+.col-6 {
+    width: 50%
+}
+
+.col-7 {
+    width: 58.333333%
+}
+
+.col-8 {
+    width: 66.666667%
+}
+
+.col-9 {
+    width: 75%
+}
+
+.col-10 {
+    width: 83.333333%
+}
+
+.col-11 {
+    width: 91.666667%
+}
+
+.col-12 {
+    width    : 100%;
+    max-width: 100%;
+}
+
+* {
+    margin : 0px 0px;
+    padding: 0px 0px;
+}
+
+body {
+    font-family: "Microsoft JhengHei";
+}
+
+a {
+    text-decoration: none;
+
+    &:link,
+    &:visited {
+        color: black;
+    }
+
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+ul {
+    li {
+        list-style: none;
+    }
+}
+
+input {
+    background-color: none;
+    outline         : none;
+    border          : 0px;
+    display         : flex;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+}
+
+select {
+    border: none;
+}
+
+::placeholder {
+    color: #797979;
+}
+
+table {
+    border-collapse: collapse;
+}
