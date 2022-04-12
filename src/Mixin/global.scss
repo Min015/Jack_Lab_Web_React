@@ -2,8 +2,6 @@ $header_background:#022840;
 $th_background    :#51718C;
 $header_height    :56px;
 
-$admin_header_background:black;
-
 $button_color:#51718C;
 $button_hover:#66859e;
 
@@ -22,6 +20,12 @@ $main_backgroundcolor:#ffffff;
 $l                   :17px;
 $m                   :14px;
 $s                   :12px;
+
+$admin_header_background:black;
+$admin_main_background:#D8E6F2;
+$admin_sidebar_background:#022840;
+$admin_sidebar_width:300px;
+$sdmin_contentin_width:calc(100% - 300px);
 
 @mixin border-set($color:$boder_color, $width:1px, $style: solid) {
     border: {

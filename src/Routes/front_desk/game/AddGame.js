@@ -4,32 +4,48 @@ import Header from '../../../Components/Header/Header';
 import upload from '../main_category/img/upload.png';
 export default class AddGame extends Component {
     state = {
-
+        filename:"",
     }
     //生命週期
-
+    
     //func
-    handleSelectFile=(files)=>{
-        let filename="";
-        if(files.length>5)
-        {
+    componentDidMount=()=>{
+        const requestOpt = {
+            method: 'put',
+            headers:{'Content-Type':'application/json'},
+            body:JSON.stringify(
+                {
+                    text:'one, two, three'
+                }
+            )
+        }
+        fetch('http:jacklab.ddns.net/api/member/info/garyzero0306@gmail.com',requestOpt)
+            .then(response => response.json())
+            
+    }
+    handleSelectFile = (files) => {
+        console.log(files);
+        if (files.length > 5) {
             alert("一次請勿上傳超過五個檔案")
         }
-        else{
-            filename="<ol>";
-            for (let item=0;item<files.length;item++){
+        else {
+            let filename="<ol>";
+            for (let item = 0; item < files.length; item++) {
                 console.log(files[item].name);
-                filename=filename+"<li>"+files[item].name+"</li>";
+                filename = filename + "<li>" + files[item].name + "</li>";
             }
-            filename=filename+"</ol>";
+            filename+="</ol>";
             document.getElementById('filename').innerHTML = filename;
-            
-        }  
-        
+            console.log(filename);
+            // const f=files.map((item)=><li>{item.name}</li>);
+            // this.setState({
+            //     filename:f,
+            // })
+        }
     }
 
     render() {
-
+        const{filename}=this.state;
         return (
             <div>
                 <Header />
@@ -38,7 +54,7 @@ export default class AddGame extends Component {
                         <div class="add_title">
                             <h2>新增競賽記錄</h2>
                         </div>
-                        <form class="add_form">
+                        <form class="add_form" >
                             <div class="inputbox">
                                 <div class="set col-4">
                                     <select name="" required class="input">
@@ -117,18 +133,19 @@ export default class AddGame extends Component {
 
                             <div class="inputbox">
                                 <div class="upload">
-                                    <input type="file" id="f" multiple="multiple" onChange={e=>this.handleSelectFile(e.target.files)}/>
+                                    <input type="file" id="f" multiple="multiple" onChange={e => this.handleSelectFile(e.target.files)} />
                                     <div class="newbtn">
-                                        <img src={upload}/>
+                                        <img src={upload} />
                                         <label for="f">請選擇檔案(不超過5)</label>
                                     </div>
                                 </div>
                             </div>
                             <div id="filename">
-                                
+                            
                             </div>
                             <div class="inputbox">
-                                <input type="submit" value="送出" class="col-1 form_submit" />
+                                <input type="submit" value="送出" class="col-1 form_submit" formnovalidate="formnovalidate"
+                                onClick={this.componentDidMount()} />
                             </div>
                         </form>
                     </div>

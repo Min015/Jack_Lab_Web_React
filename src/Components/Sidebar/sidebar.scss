@@ -1,0 +1,38 @@
+@import '../../Mixin/global.scss';
+.sidebar{
+    background-color: $header_background;
+    width: $admin_sidebar_width;
+    height: 1000px;
+    position: fixed;
+    color: $font_maincolor;
+    a{
+        &:link,&:visited{
+            color: $font_maincolor;
+        }
+    }
+    .set{
+        .sidebar_title{
+            padding:10px 25px;
+            font-size: $l;
+            @include ali-set();
+            @extend %between;
+            &:hover{
+                background-color:#ffffff46;
+            }
+        }
+        li{
+            // background-color:#1D4259 ;
+            padding:10px 45px;
+            @include ali-set();
+            &:hover{
+                background-color:#ffffff46;
+            }
+            .svg{
+                margin-right: 5px;
+                width: 24px;
+                height: 24px;
+                @include ali-set();
+            }
+        }
+    }
+}

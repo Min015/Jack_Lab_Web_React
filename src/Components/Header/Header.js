@@ -30,7 +30,6 @@ export default class Header extends Component {
     render() {
         const {newclass}=this.state;
         return (
-            <div>
                 <header className="header">
                 <div className="logo">
                     <img src={logo} alt=""/>
@@ -59,7 +58,6 @@ export default class Header extends Component {
                     </ul>
                 </nav>
             </header>
-            </div>
         )
     }
 }

@@ -19,19 +19,28 @@
             @include image-set(100%, 100%, contain);
         }
     }
-    .logout{
+    nav{
+        @extend %row;
         margin-right: 30px;
     }
-    a{
+    .logout{
         @include ali-set();
-        &:link,&:visited{
-            color: $font_maincolor;
-        }
-        &:hover{
-            text-decoration: underline;
-        }
-        svg{
-            margin-right: 5px;
+        margin: 0px 5px;
+        a{
+            @include ali-set();
+            &:link,&:visited,path{
+                color: rgb(175, 175, 175);
+                fill: rgb(175, 175, 175);
+            }
+            &:hover{
+                color:white;
+                path{
+                    fill: white;
+                }
+            }
+            svg{
+                margin-right: 5px;
+            }
         }
     }
 }
