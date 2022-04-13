@@ -4,15 +4,26 @@ import Header from '../../../Components/Header/Header';
 import upload from '../main_category/img/upload.png';
 export default class AddProject extends Component {
     state = {
-
+        array:[],
     }
-    //生命週期
-
     //func
-
+    handleSelectFile = (files) => {
+        if (files.length > 5) {
+            alert("一次請勿上傳超過五個檔案")
+        }
+        else {
+            let array=[] 
+            for (let item = 0; item < files.length; item++) {
+                array.push(files[item].name); 
+            }
+            this.setState({
+                array
+            })
+        }
+    }
 
     render() {
-
+        const{array}=this.state;
         return (
             <div>
                 <Header />
@@ -67,14 +78,18 @@ export default class AddProject extends Component {
 
                             <div class="inputbox">
                                 <div class="upload">
-                                    <input type="file" id="f" multiple="multiple" onchange="selectFile(this.files)" />
+                                    <input type="file" id="f" multiple="multiple" onChange={e => this.handleSelectFile(e.target.files)}/>
                                     <div class="newbtn">
                                         <img src={upload} />
                                         <label for="f">請選擇檔案(不超過5)</label>
                                     </div>
                                 </div>
                             </div>
-                            <div id="filename"></div>
+                            <div id="filename">
+                                <ol>
+                                    {array.map(item=>(<li>{item}</li>))}
+                                </ol>
+                            </div>
                             <div class="inputbox">
                                 <input type="submit" value="送出" class="col-1 form_submit" />
                             </div>

@@ -4,48 +4,26 @@ import Header from '../../../Components/Header/Header';
 import upload from '../main_category/img/upload.png';
 export default class AddGame extends Component {
     state = {
-        filename:"",
+        array:[],
     }
-    //生命週期
-    
     //func
-    componentDidMount=()=>{
-        const requestOpt = {
-            method: 'put',
-            headers:{'Content-Type':'application/json'},
-            body:JSON.stringify(
-                {
-                    text:'one, two, three'
-                }
-            )
-        }
-        fetch('http:jacklab.ddns.net/api/member/info/garyzero0306@gmail.com',requestOpt)
-            .then(response => response.json())
-            
-    }
     handleSelectFile = (files) => {
-        console.log(files);
         if (files.length > 5) {
             alert("一次請勿上傳超過五個檔案")
         }
         else {
-            let filename="<ol>";
+            let array=[] 
             for (let item = 0; item < files.length; item++) {
-                console.log(files[item].name);
-                filename = filename + "<li>" + files[item].name + "</li>";
+                array.push(files[item].name); 
             }
-            filename+="</ol>";
-            document.getElementById('filename').innerHTML = filename;
-            console.log(filename);
-            // const f=files.map((item)=><li>{item.name}</li>);
-            // this.setState({
-            //     filename:f,
-            // })
+            this.setState({
+                array
+            })
         }
     }
 
     render() {
-        const{filename}=this.state;
+        const{array}=this.state;
         return (
             <div>
                 <Header />
@@ -141,11 +119,12 @@ export default class AddGame extends Component {
                                 </div>
                             </div>
                             <div id="filename">
-                            
+                                <ol>
+                                    {array.map(item=>(<li>{item}</li>))}
+                                </ol>
                             </div>
                             <div class="inputbox">
-                                <input type="submit" value="送出" class="col-1 form_submit" formnovalidate="formnovalidate"
-                                onClick={this.componentDidMount()} />
+                                <input type="submit" value="送出" class="col-1 form_submit" formnovalidate="formnovalidate"/>
                             </div>
                         </form>
                     </div>
