@@ -2,10 +2,35 @@ import { Component } from 'react';
 import '../main_category/setinfo.scss';
 import Header from '../../../Components/Header/Header';
 import info from '../main_category/img/info.png';
-import { Link } from 'react-router-dom';
+import CreateTable from './CreateTable';
 export default class SetInfo extends Component {
     state = {
-
+        table_header: [
+            "年分",
+            "類型",
+            "參加組別",
+            "項目名稱",
+            "參加人員",
+            "得獎名次",
+        ],
+        object: [
+            {
+                g_year: 2021,
+                g_type: "資訊應用服務創新大賽",
+                g_group: "Azure雲端創新產業應用組",
+                g_name: "手影隨行",
+                g_participants: "沈舜鴻、柯宣竹、陳奕伶、王子瑜、江糖晴",
+                g_position: "最佳創意",
+            },
+            {
+                g_year: 2021,
+                g_type: "資訊應用服務創新大賽",
+                g_group: "教育資料開放組",
+                g_name: "讀癮",
+                g_participants: "",
+                g_position: "佳作",
+            },
+        ]
     }
     //生命週期
 
@@ -13,7 +38,7 @@ export default class SetInfo extends Component {
 
 
     render() {
-
+        const { object, table_header } = this.state;
         return (
             <div>
                 <Header />
@@ -79,32 +104,7 @@ export default class SetInfo extends Component {
                             </div>
                         </div>
                         <div class="reaults_area">
-                            <table>
-                                <tr>
-                                    <th>年分</th>
-                                    <th>類型</th>
-                                    <th>參加組別</th>
-                                    <th>項目名稱</th>
-                                    <th>參加人員</th>
-                                    <th>得獎名次</th>
-                                </tr>
-                                <tr class="tr_odd">
-                                    <td>2021</td>
-                                    <td>資訊應用服務創新大賽</td>
-                                    <td>Azure 雲端創新產業應用組</td>
-                                    <td>手影隨行</td>
-                                    <td>沈舜鴻、柯宣竹、陳奕伶、王子瑜、江糖晴</td>
-                                    <td>最佳創意</td>
-                                </tr>
-                                <tr class="tr_even">
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                        <CreateTable table_header={table_header} table_content={object} />
                         </div>
                     </div>
 

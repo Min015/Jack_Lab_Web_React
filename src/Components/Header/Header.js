@@ -16,14 +16,12 @@ export default class Header extends Component {
                 drop:true,
                 newclass:'person_info_dropdown active',
             })
-            console.log(this.state.drop);
         }
         else{
             this.setState({
                 drop:false,
                 newclass:'person_info_dropdown',
             })
-            console.log(this.state.drop);
         }
     }
     

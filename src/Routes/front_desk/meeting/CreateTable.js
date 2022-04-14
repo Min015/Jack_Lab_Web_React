@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import '../main_category/category.scss';
+import { Link } from 'react-router-dom';
 export default class CreateTable extends Component {
     //func
     handleSetStyle = (i) => {
@@ -23,14 +24,11 @@ export default class CreateTable extends Component {
                         style = this.handleSetStyle(index);
                         return (
                             <tr className={style}>
-                                <td>{item.g_year}</td>
-                                <td>{item.g_type}</td>
-                                <td>{item.g_group}</td>
-                                <td>{item.g_name}</td>
-                                <td>{item.g_participants}</td>
-                                <td>{item.g_position}</td>
-                                <td>{item.g_file}</td>
-                                <td>{item.g_uploader}</td>
+                                <td><Link to='/Meeting/MeetingInfo'>{item.m_title}</Link></td>
+                                <td>{item.m_date}</td>
+                                <td>{item.m_place}</td>
+                                <td>{item.m_uploader}</td>
+                                <td>{item.m_tag}</td>
                             </tr>
                         )
                     })

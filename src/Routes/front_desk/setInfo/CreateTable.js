@@ -29,8 +29,6 @@ export default class CreateTable extends Component {
                                 <td>{item.g_name}</td>
                                 <td>{item.g_participants}</td>
                                 <td>{item.g_position}</td>
-                                <td>{item.g_file}</td>
-                                <td>{item.g_uploader}</td>
                             </tr>
                         )
                     })

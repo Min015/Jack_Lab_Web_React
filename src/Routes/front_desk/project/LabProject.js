@@ -2,9 +2,27 @@ import { Component } from 'react';
 import '../main_category/category.scss';
 import Header from '../../../Components/Header/Header';
 import { Link } from 'react-router-dom';
+import CreateTable from './CreateTable';
 export default class LabProject extends Component {
     state = {
-
+        table_header: [
+            "類型",
+            "分類",
+            "標題",
+            "建立者",
+            "建立時間",
+            "相關標籤",
+        ],
+        object: [
+            {
+                p_type: "大專生國科會計畫",
+                p_class: "大學部",
+                p_title: "2019-03-06 以深度學習神經網路為基礎不良坐姿檢測與警示系統-v3",
+                p_creater: "千千",
+                p_createTime: "2022-03-25",
+                p_tag: ""
+            },
+        ]
     }
     //生命週期
 
@@ -12,7 +30,7 @@ export default class LabProject extends Component {
 
 
     render() {
-
+        const { object, table_header } = this.state;
         return (
             <div>
                 <Header />
@@ -66,32 +84,7 @@ export default class LabProject extends Component {
                         </div>
 
                         <div class="reaults_area">
-                            <table>
-                                <tr>
-                                    <th>類型</th>
-                                    <th>分類</th>
-                                    <th>標題</th>
-                                    <th>建立者</th>
-                                    <th>建立時間</th>
-                                    <th>相關標籤</th>
-                                </tr>
-                                <tr class="tr_odd">
-                                    <td>大專生國科會計畫</td>
-                                    <td>五專部</td>
-                                    <td><Link to='/Project/ProjectInfo'>2019-03-06 以深度學習神經網路為基礎不良坐姿檢測與警示系統-v3</Link></td>
-                                    <td>千千</td>
-                                    <td>2022-03-25</td>
-                                    <td></td>
-                                </tr>
-                                <tr class="tr_even">
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                            <CreateTable table_header={table_header} table_content={object} />
                         </div>
                     </div>
                 </div>

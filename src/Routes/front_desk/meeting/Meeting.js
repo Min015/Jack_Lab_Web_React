@@ -2,9 +2,25 @@ import { Component } from 'react';
 import '../main_category/category.scss';
 import Header from '../../../Components/Header/Header';
 import { Link } from 'react-router-dom';
+import CreateTable from './CreateTable';
 export default class Meeting extends Component {
     state = {
-
+        table_header: [
+            "會議主題",
+            "會議日期",
+            "會議地點",
+            "記錄者",
+            "相關標籤",
+        ],
+        object: [
+            {
+                m_title: "小專畫面",
+                m_date: "2022-03-29",
+                m_place: "2605",
+                m_uploader: "陳旻愉",
+                m_tag: "",
+            },
+        ]
     }
     //生命週期
 
@@ -12,7 +28,7 @@ export default class Meeting extends Component {
 
 
     render() {
-
+        const { object, table_header } = this.state;
         return (
             <div>
                 <Header />
@@ -57,29 +73,7 @@ export default class Meeting extends Component {
                         </div>
 
                         <div class="reaults_area">
-                            <table>
-                                <tr>
-                                    <th>會議主題</th>
-                                    <th>會議日期</th>
-                                    <th>會議地點</th>
-                                    <th>記錄者</th>
-                                    <th>相關標籤</th>
-                                </tr>
-                                <tr class="tr_odd">
-                                    <td><Link to='/Meeting/MeetingInfo'>小專畫面</Link></td>
-                                    <td>2022-03-29</td>
-                                    <td>2605</td>
-                                    <td>陳旻愉</td>
-                                    <td></td>
-                                </tr>
-                                <tr class="tr_even">
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                            <CreateTable table_header={table_header} table_content={object} />
                         </div>
                     </div>
                 </div>

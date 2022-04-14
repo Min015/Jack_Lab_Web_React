@@ -5,26 +5,36 @@ import { Link } from 'react-router-dom';
 import CreateTable from './CreateTable';
 export default class GameList extends Component {
     state = {
+        table_header: [
+            "年分",
+            "類型",
+            "參加組別",
+            "項目名稱",
+            "參加人員",
+            "得獎名次",
+            "相關檔案",
+            "上傳者",
+        ],
         object: [
             {
-                year: 2021,
-                Gtype: "資訊應用服務創新大賽",
-                Ggroup: "Azure雲端創新產業應用組",
-                Gname: "手影隨行",
-                participants: "沈舜鴻、柯宣竹、陳奕伶、王子瑜、江糖晴",
-                Position: "最佳創意",
-                file: "",
-                Uploader: "王子瑜",
+                g_year: 2021,
+                g_type: "資訊應用服務創新大賽",
+                g_group: "Azure雲端創新產業應用組",
+                g_name: "手影隨行",
+                g_participants: "沈舜鴻、柯宣竹、陳奕伶、王子瑜、江糖晴",
+                g_position: "最佳創意",
+                g_file: "",
+                g_uploader: "王子瑜",
             },
             {
-                year: 2021,
-                Gtype: "資訊應用服務創新大賽",
-                Ggroup: "教育資料開放組",
-                Gname: "讀癮",
-                participants: " ",
-                Position: "佳作",
-                file: "",
-                Uploader: "陳旻愉",
+                g_year: 2021,
+                g_type: "資訊應用服務創新大賽",
+                g_group: "教育資料開放組",
+                g_name: "讀癮",
+                g_participants: "",
+                g_position: "佳作",
+                g_file: "",
+                g_uploader: "陳旻愉",
             },
         ]
     }
@@ -34,7 +44,7 @@ export default class GameList extends Component {
     //func
 
     render() {
-        const {object} = this.state;
+        const { object, table_header } = this.state;
         return (
             <div>
                 <Header />
@@ -44,7 +54,7 @@ export default class GameList extends Component {
                             <form action="">
                                 <div class="select_list">
                                     <select name="year" required class="select">
-                                        <option value="" selected>選擇年分(必填)</option>
+                                        <option value="" defaultValue="選擇年分(必填)">選擇年分(必填)</option>
                                         <option value="">2022</option>
                                         <option value="">2021</option>
                                         <option value="">2020</option>
@@ -77,19 +87,7 @@ export default class GameList extends Component {
                             </form>
                         </div>
                         <div class="reaults_area">
-                            <table>
-                                <tr>
-                                    <th>年分</th>
-                                    <th>類型</th>
-                                    <th>參加組別</th>
-                                    <th>項目名稱</th>
-                                    <th>參加人員</th>
-                                    <th>得獎名次</th>
-                                    <th>相關檔案</th>
-                                    <th>上傳者</th>
-                                </tr>
-                            </table>
-                            <CreateTable game={object}/>
+                            <CreateTable table_header={table_header} table_content={object} />
                         </div>
                     </div>
                 </div>
