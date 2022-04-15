@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './sidebar.scss';
 export default class Sidebar extends Component {
     state = {
@@ -8,19 +8,17 @@ export default class Sidebar extends Component {
     //生命週期
 
     //func
-   
+
 
     render() {
         return (
             <div class="sidebar">
                 <div class="set">
-                    <a href="#">
-                        <div class="sidebar_title">
-                            首頁
-                        </div>
-                    </a>
+                    <div class="sidebar_title">
+                        首頁
+                    </div>
                     <ul>
-                        <a href="#">
+                        <NavLink to='/AdminAlbum' className={(navData) => navData.isActive ? "nowPage" : "" } >
                             <li>
                                 <div class="svg">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -29,8 +27,8 @@ export default class Sidebar extends Component {
                                 </div>
                                 相簿
                             </li>
-                        </a>
-                        <a href="#">
+                        </NavLink>
+                        <NavLink to='/Books' className={(navData) => navData.isActive ? "nowPage" : "" } >
                             <li>
                                 <div class="svg">
                                     <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -39,15 +37,13 @@ export default class Sidebar extends Component {
                                 </div>
                                 出版品
                             </li>
-                        </a>
+                        </NavLink>
                     </ul>
                 </div>
                 <div class="set">
-                    <a href="#">
-                        <div class="sidebar_title">
-                            研究室介紹
-                        </div>
-                    </a>
+                    <div class="sidebar_title">
+                        研究室介紹
+                    </div>
                     <ul>
                         <a href="#">
                             <li>

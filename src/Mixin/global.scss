@@ -23,10 +23,12 @@ $s                   :12px;
 
 $admin_header_background:black;
 $admin_main_background:#D8E6F2;
-$admin_sidebar_background:#022840;
-$admin_sidebar_width:300px;
-$sdmin_contentin_width:calc(100% - 300px);
-
+$admin_sidebar_background:#112639;
+$admin_sidebar_width:250px;
+$sdmin_contentin_width:calc(100% - $admin_sidebar_width);
+$sidebar_nochange_color:#51718C;
+$sidebar_hover_background:#ffffff46;
+$sidebar_nowPage_background:#51718c45;
 @mixin border-set($color:$boder_color, $width:1px, $style: solid) {
     border: {
         color: $color;
@@ -50,7 +52,9 @@ $sdmin_contentin_width:calc(100% - 300px);
     display        : flex;
     justify-content: $justify-content;
 }
-
+@mixin text-a($atext-align:center) {
+    text-align: $atext-align
+}
 %row {
     display       : flex;
     flex-direction: row;
@@ -71,7 +75,9 @@ $sdmin_contentin_width:calc(100% - 300px);
     word-wrap : break-word;
     overflow-y: auto;
 }
-
+.col-05{
+    width: 4.166667%
+}
 .col-1 {
     width: 8.333333%
 }

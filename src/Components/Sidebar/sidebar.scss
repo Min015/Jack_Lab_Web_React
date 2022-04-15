@@ -1,31 +1,33 @@
 @import '../../Mixin/global.scss';
 .sidebar{
-    background-color: $header_background;
+    background-color:$admin_sidebar_background;
     width: $admin_sidebar_width;
     height: 1000px;
     position: fixed;
-    color: $font_maincolor;
-    a{
-        &:link,&:visited{
-            color: $font_maincolor;
-        }
-    }
     .set{
         .sidebar_title{
             padding:10px 25px;
             font-size: $l;
+            color: $font_maincolor;
             @include ali-set();
             @extend %between;
             &:hover{
-                background-color:#ffffff46;
+                background-color:$sidebar_hover_background;
             }
         }
         li{
-            // background-color:#1D4259 ;
             padding:10px 45px;
             @include ali-set();
+            color: $sidebar_nochange_color;
+            path{
+                fill: $sidebar_nochange_color;
+            }
             &:hover{
-                background-color:#ffffff46;
+                //background-color:$sidebar_hover_background;
+                color: $font_maincolor;
+                path{
+                    fill:$font_maincolor;
+                }
             }
             .svg{
                 margin-right: 5px;
@@ -33,6 +35,15 @@
                 height: 24px;
                 @include ali-set();
             }
+        }
+    }
+}
+.nowPage{
+    li{
+        background-color:$sidebar_nowPage_background;
+        color: $font_maincolor !important;
+        path{
+            fill: $font_maincolor !important;
         }
     }
 }

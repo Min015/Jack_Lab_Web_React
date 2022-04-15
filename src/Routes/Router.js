@@ -10,7 +10,8 @@ import AddMeeting from './front_desk/meeting/AddMeeting';
 import ProjectInfo from './front_desk/project/ProjectInfo';
 import MeetingInfo from './front_desk/meeting/MeetingInfo';
 import SetInfo from './front_desk/setInfo/SetInfo';
-import AdminAlbum from './admin/index/AdminAlbum';
+import AdminAlbum from './admin/index/album/AdminAlbum';
+import Books from './admin/index/book/Books';
 export default(
     <BrowserRouter>
     <Routes>
@@ -26,6 +27,8 @@ export default(
     <Route path='/SetInfo' exact element={<SetInfo/>}/>
 
     <Route path='/AdminAlbum' exact element={<AdminAlbum/>}/>
+    <Route path='/Books' exact element={<Books/>}/>
+
 
 
 

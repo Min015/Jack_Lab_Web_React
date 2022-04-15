@@ -29,7 +29,7 @@
         a{
             @include ali-set();
             &:link,&:visited,path{
-                color: rgb(175, 175, 175);
+                color:  rgb(175, 175, 175);
                 fill: rgb(175, 175, 175);
             }
             &:hover{
