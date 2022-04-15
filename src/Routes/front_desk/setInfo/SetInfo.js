@@ -42,17 +42,17 @@ export default class SetInfo extends Component {
         return (
             <div>
                 <Header />
-                <div class="content">
-                    <div class="contentin">
-                        <div class="card">
-                            <div class="big_card">
-                                <div class="card_banner"></div>
-                                <div class="card_content">
-                                    <div class="head_stickers">
+                <div className="content">
+                    <div className="contentin">
+                        <div className="card">
+                            <div className="big_card">
+                                <div className="card_banner"></div>
+                                <div className="card_content">
+                                    <div className="head_stickers">
                                         <img src={info} />
                                     </div>
-                                    <div class="information">
-                                        <div class="edit_pen">
+                                    <div className="information">
+                                        <div className="edit_pen">
                                             <a href="#">
                                                 <svg width="24" height="23" viewBox="0 0 24 23" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
@@ -61,36 +61,36 @@ export default class SetInfo extends Component {
                                                 </svg>
                                             </a>
                                         </div>
-                                        <div class="member_label">
-                                            <div class="member_name">陳旻愉</div>
+                                        <div className="member_label">
+                                            <div className="member_name">陳旻愉</div>
                                             <div>資訊應用菁英班四甲</div>
                                         </div>
                                     </div>
-                                    <div class="introduction">
-                                        <div class="introduction_in">
+                                    <div className="introduction">
+                                        <div className="introduction_in">
                                             這是個人簡介<br />
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="small_card">
-                                <div class="card_banner"></div>
-                                <div class="card_content">
-                                    <div class="account_info">
-                                        <div class="col-3">
+                            <div className="small_card">
+                                <div className="card_banner"></div>
+                                <div className="card_content">
+                                    <div className="account_info">
+                                        <div className="col-3">
                                             帳號
                                         </div>
-                                        <div class="col-9">
-                                            <div class="account_contnet">
+                                        <div className="col-9">
+                                            <div className="account_contnet">
                                                 s1110734015@nutc.edu.tw
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="account_info">
-                                        <div class="col-3" >
+                                    <div className="account_info">
+                                        <div className="col-3" >
                                             修改密碼
                                         </div>
-                                        <div class="edit_pen col-9">
+                                        <div className="edit_pen col-9">
                                             <a href="#">
                                                 <svg width="24" height="23" viewBox="0 0 24 23" fill="none"
                                                     xmlns="http://www.w3.org/2000/svg">
@@ -103,7 +103,7 @@ export default class SetInfo extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div class="reaults_area">
+                        <div className="reaults_area">
                         <CreateTable table_header={table_header} table_content={object} />
                         </div>
                     </div>

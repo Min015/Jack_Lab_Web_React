@@ -28,7 +28,7 @@ export default class CreateTable extends Component {
                                     <td>{item.b_title}</td>
                                     <td>{item.b_author}</td>
                                     <td>{item.b_publisher}</td>
-                                    <td class="album_date">{item.b_time}</td>
+                                    <td className="album_date">{item.b_time}</td>
                                     <td>
                                         <div className="action">
                                             <div className="svg">
