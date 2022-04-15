@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { Link } from 'react-router-dom';
 import './admin_header.scss';
 import logo from './img/logo.png';
 export default class AdminHeader extends Component {
@@ -16,6 +17,9 @@ export default class AdminHeader extends Component {
                         <img src={logo} />
                     </div>
                     <nav>
+                        <div className="logout">
+                            <Link to='/'>去前台</Link>
+                        </div>
                         <div className="logout">
                             <a href="#">
                                 <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">

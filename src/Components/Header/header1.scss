@@ -28,22 +28,10 @@
         @extend %row;
         @include ali-set();
         margin-bottom: 0px;
-        
+        position: relative;
         li {
             padding: 8px 16px;
-            
-            .header_a {
-                
-                &:link,
-                &:visited {
-                    color: $font_maincolor;
-                }
-                
-                &:hover {
-                    text-decoration: none;
-                }
-            }
-            
+            color: $font_maincolor;
             .dropdown-menu {
                 color: black;
             }
@@ -79,4 +67,9 @@
 
 .active {
     display: block;
+}
+.nowP{
+    border-bottom: 4px $main_backgroundcolor solid;
+    position: relative;
+    top:2px;
 }
