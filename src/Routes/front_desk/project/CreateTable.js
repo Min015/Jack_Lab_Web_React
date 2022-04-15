@@ -16,24 +16,28 @@ export default class CreateTable extends Component {
         let style;
         return (
             <table>
-                <tr>
-                    {table_header.map(item => (<th>{item}</th>))}
-                </tr>
-                {table_content.map(
-                    (item, index) => {
-                        style = this.handleSetStyle(index);
-                        return (
-                            <tr className={style}>
-                                <td>{item.p_type}</td>
-                                <td>{item.p_class}</td>
-                                <td><Link to='/Project/ProjectInfo'>{item.p_title}</Link></td>
-                                <td>{item.p_creater}</td>
-                                <td>{item.p_createTime}</td>
-                                <td>{item.p_tag}</td>
-                            </tr>
-                        )
-                    })
-                }
+                <thead>
+                    <tr>
+                        {table_header.map(item => (<th>{item}</th>))}
+                    </tr>
+                </thead>
+                <tbody>
+                    {table_content.map(
+                        (item, index) => {
+                            style = this.handleSetStyle(index);
+                            return (
+                                <tr className={style}>
+                                    <td>{item.p_type}</td>
+                                    <td>{item.p_class}</td>
+                                    <td><Link to='/Project/ProjectInfo'>{item.p_title}</Link></td>
+                                    <td>{item.p_creater}</td>
+                                    <td>{item.p_createTime}</td>
+                                    <td>{item.p_tag}</td>
+                                </tr>
+                            )
+                        })
+                    }
+                </tbody>
             </table >
         )
     }
