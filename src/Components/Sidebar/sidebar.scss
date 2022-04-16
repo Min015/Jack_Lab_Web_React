@@ -39,7 +39,7 @@
     }
 }
 .nowPage{
-    li{
+    li,.sidebar_title{
         background-color:$sidebar_nowPage_background;
         color: $font_maincolor !important;
         path{

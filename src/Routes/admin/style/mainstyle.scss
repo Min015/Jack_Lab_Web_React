@@ -49,7 +49,19 @@
         }
     }
 }
-
+.searchform{
+    @extend %row;
+    *{
+        @include border-set();
+        margin-right: 5px;
+        padding: 0px 2px;
+    }
+    .searchBtn{
+        background-color: $button_color;
+        color: $font_maincolor;
+        border: $button_color;
+    }
+}
 .searchbar {
     @include ali-set();
     @include border-set();
@@ -74,28 +86,27 @@
     }
 }
 
-@mixin text-a($a:center) {
-    text-align: $a
-}
-
 .admin_table {
+    thead{
+        font-weight: bold;
+    }
     tr {
         height       : 38px;
         border-top   : 1px $boder_color solid;
         border-bottom: 1px $boder_color solid;
-
-        .index {
-            text-align: left;
-        }
-
         .check {
             input {
                 margin: 0px auto;
             }
         }
-
-        .album_date {
-            @include text-a();
+        td{
+            position: relative;
+            select{
+                font-size: 16px;
+                position: absolute;
+                top:9px;
+                left: -5px;
+            }
         }
     }
 }
@@ -108,25 +119,30 @@
 
     .svg {
         position       : relative;
-        display        : flex;
-        justify-content: center;
+        @include jus-set();
         width          : 30%;
 
         .hover {
             display         : none;
-            width           : 40px;
+            //width           : 40px;
+            white-space:nowrap;
             position        : absolute;
             text-align      : center;
             padding         : 2px 5px;
             top             : 22px;
             background-color: $main_backgroundcolor;
-            @include border-set();
             border-radius: 4px;
             z-index      : 1;
+            @include border-set();
         }
 
         &:hover .hover {
             display: block;
         }
+    }
+}
+.onchange{
+    *{
+        background-color: antiquewhite;
     }
 }

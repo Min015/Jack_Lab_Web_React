@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import './sidebar.scss';
 export default class Sidebar extends Component {
     state = {
@@ -76,11 +76,11 @@ export default class Sidebar extends Component {
                     </a>
                 </div>
                 <div className="set">
-                    <a href="#">
+                    <NavLink to='/Member' className={(navData) => navData.isActive ? "nowPage" : "" } >
                         <div className="sidebar_title">
                             會員管理
                         </div>
-                    </a>
+                    </NavLink>
                 </div>
                 <div className="set">
                     <a href="#">
