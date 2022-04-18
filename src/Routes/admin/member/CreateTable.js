@@ -52,14 +52,14 @@ export default class CreateTable extends Component {
                                 onChange={this.handelAllChange}
                             />
                         </td>
-                        <td className="col-05">{table_header[1]}</td>
+                        <td className="col-05">#</td>
+                        <td className="col-1">{table_header[0]}</td>
+                        <td>{table_header[1]}</td>
                         <td className="col-1">{table_header[2]}</td>
-                        <td>{table_header[3]}</td>
+                        <td className="col-1">{table_header[3]}</td>
                         <td className="col-1">{table_header[4]}</td>
                         <td className="col-1">{table_header[5]}</td>
-                        <td className="col-1">{table_header[6]}</td>
-                        <td className="col-1">{table_header[7]}</td>
-                        <td className="col-1">{table_header[8]}</td>
+                        <td className="col-1"></td>
                     </tr>
                 </thead>
                 <tbody>

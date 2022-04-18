@@ -18,7 +18,7 @@ export default class Sidebar extends Component {
                         首頁
                     </div>
                     <ul>
-                        <NavLink to='/AdminAlbum' className={(navData) => navData.isActive ? "nowPage" : "" } >
+                        <NavLink to='/AdminAlbum' className={(navData) => navData.isActive ? "nowPage" : ""} >
                             <li>
                                 <div className="svg">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -28,7 +28,7 @@ export default class Sidebar extends Component {
                                 相簿
                             </li>
                         </NavLink>
-                        <NavLink to='/Books' className={(navData) => navData.isActive ? "nowPage" : "" } >
+                        <NavLink to='/Books' className={(navData) => navData.isActive ? "nowPage" : ""} >
                             <li>
                                 <div className="svg">
                                     <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -45,7 +45,7 @@ export default class Sidebar extends Component {
                         研究室介紹
                     </div>
                     <ul>
-                        <a href="#">
+                        <NavLink to='/TeacherIntroduce' className={(navData) => navData.isActive ? "nowPage" : ""} >
                             <li>
                                 <div className="svg">
                                     <svg width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -54,8 +54,8 @@ export default class Sidebar extends Component {
                                 </div>
                                 教師介紹
                             </li>
-                        </a>
-                        <a href="#">
+                        </NavLink>
+                        <NavLink to='/LabIntroduce' className={(navData) => navData.isActive ? "nowPage" : ""} >
                             <li>
                                 <div className="svg">
                                     <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -65,7 +65,7 @@ export default class Sidebar extends Component {
                                 </div>
                                 研究室簡介
                             </li>
-                        </a>
+                        </NavLink>
                     </ul>
                 </div>
                 <div className="set">
@@ -76,9 +76,9 @@ export default class Sidebar extends Component {
                     </a>
                 </div>
                 <div className="set">
-                    <NavLink to='/Member' className={(navData) => navData.isActive ? "nowPage" : "" } >
+                    <NavLink to='/Member' className={(navData) => navData.isActive ? "nowPage" : ""} >
                         <div className="sidebar_title">
-                            會員管理
+                            成員管理
                         </div>
                     </NavLink>
                 </div>
@@ -97,11 +97,38 @@ export default class Sidebar extends Component {
                     </a>
                 </div>
                 <div className="set">
-                    <a href="#">
-                        <div className="sidebar_title">
-                            專案管理
-                        </div>
-                    </a>
+                    <div className="sidebar_title">
+                        專案管理
+                    </div>
+                    <ul>
+                        <NavLink to='/AdminAlbum' className={(navData) => navData.isActive ? "nowPage" : ""} >
+                            <li>
+                                <div className="svg">
+                                    <svg width="22" height="17" viewBox="0 0 22 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <g clip-path="url(#clip0_549_336)">
+                                            <path d="M7.4375 8.5C9.78496 8.5 11.6875 6.59713 11.6875 4.25C11.6875 1.90287 9.78496 0 7.4375 0C5.09004 0 3.1875 1.90287 3.1875 4.25C3.1875 6.59713 5.09004 8.5 7.4375 8.5ZM9.1209 10.0938H5.7541C2.57557 10.0938 0 12.6703 0 15.8479C0 16.4854 0.515313 17 1.15082 17H13.7229C14.3604 17 14.875 16.4854 14.875 15.8479C14.875 12.6703 12.2984 10.0938 9.1209 10.0938ZM15.9076 10.625H13.4556C14.9813 11.8768 15.9375 13.7494 15.9375 15.8479C15.9375 16.2729 15.8113 16.6646 15.6055 17H20.1875C20.7752 17 21.25 16.5219 21.25 15.9076C21.25 13.0023 18.8727 10.625 15.9076 10.625ZM14.3438 8.5C16.399 8.5 18.0625 6.83652 18.0625 4.78125C18.0625 2.72598 16.399 1.0625 14.3438 1.0625C13.51 1.0625 12.7487 1.34655 12.1284 1.8099C12.5109 2.54436 12.75 3.3668 12.75 4.25C12.75 5.42938 12.3539 6.51246 11.7011 7.39467C12.3748 8.075 13.3078 8.5 14.3438 8.5Z" fill="#F8F8F8" />
+                                        </g>
+                                        <defs>
+                                            <clipPath id="clip0_549_336">
+                                                <rect width="21.25" height="17" fill="white" />
+                                            </clipPath>
+                                        </defs>
+                                    </svg>
+                                </div>
+                                專題組管理
+                            </li>
+                        </NavLink>
+                        <NavLink to='/Books' className={(navData) => navData.isActive ? "nowPage" : ""} >
+                            <li>
+                                <div className="svg">
+                                    <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M7.1579 0H10.7368C11.2114 0 11.6666 0.188533 12.0022 0.524125C12.3378 0.859716 12.5263 1.31488 12.5263 1.78947V3.57895H16.1053C16.5799 3.57895 17.035 3.76748 17.3706 4.10307C17.7062 4.43866 17.8947 4.89382 17.8947 5.36842V15.2105C17.8947 15.6851 17.7062 16.1403 17.3706 16.4759C17.035 16.8115 16.5799 17 16.1053 17H1.78947C1.31488 17 0.859716 16.8115 0.524125 16.4759C0.188533 16.1403 0 15.6851 0 15.2105V5.36842C0 4.89382 0.188533 4.43866 0.524125 4.10307C0.859716 3.76748 1.31488 3.57895 1.78947 3.57895H5.36842V1.78947C5.36842 1.31488 5.55695 0.859716 5.89255 0.524125C6.22814 0.188533 6.6833 0 7.1579 0ZM10.7368 3.57895V1.78947H7.1579V3.57895H10.7368ZM7.60526 13.8684L13.5016 7.9721L12.24 6.71053L7.60526 11.3363L5.73526 9.47526L4.47368 10.7368L7.60526 13.8684Z" fill="white" />
+                                    </svg>
+                                </div>
+                                專案管理
+                            </li>
+                        </NavLink>
+                    </ul>
                 </div>
             </div>
         )

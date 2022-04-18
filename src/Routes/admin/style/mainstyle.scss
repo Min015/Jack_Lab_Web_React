@@ -1,4 +1,5 @@
-@import '../../../Mixin/global.scss';
+@import "../../../Mixin/global.scss";
+
 .content_in {
     position        : absolute;
     right           : 0px;
@@ -8,10 +9,10 @@
 
     .in {
         width           : 95%;
-        //height          : 1500px;
         background-color: $main_backgroundcolor;
         margin          : 30px auto;
-        padding-bottom: 15px;
+        padding-bottom  : 15px;
+
         .work {
             padding: 15px 20px;
             @extend %between;
@@ -49,19 +50,23 @@
         }
     }
 }
-.searchform{
+
+.searchform {
     @extend %row;
-    *{
+
+    * {
         @include border-set();
         margin-right: 5px;
-        padding: 0px 2px;
+        padding     : 0px 2px;
     }
-    .searchBtn{
+
+    .searchBtn {
         background-color: $button_color;
-        color: $font_maincolor;
-        border: $button_color;
+        color           : $font_maincolor;
+        border          : $button_color;
     }
 }
+
 .searchbar {
     @include ali-set();
     @include border-set();
@@ -87,64 +92,74 @@
 }
 
 .admin_table {
-    thead{
+    thead {
         font-weight: bold;
+        th{
+            text-align: left;
+        }
     }
+
     tr {
         height       : 38px;
         border-top   : 1px $boder_color solid;
         border-bottom: 1px $boder_color solid;
+
         .check {
             input {
                 margin: 0px auto;
             }
         }
-        td{
-            position: relative;
-            select{
-                font-size: 16px;
-                // @include border-set();
-                // padding: 4px 0px;
+    }
+    .onchange {
+        * {
+            background-color: $admin_check;
+        }
+    }
+    td {
+        position: relative;
+        padding: 5px 5px 5px 0px;
+        max-width: 640px;
+        overflow : hidden;
+        text-overflow : ellipsis;
+        white-space : nowrap;
+        select {
+            font-size : 16px;
+            // @include border-set();
+            // padding: 4px 0px;
 
-                position: absolute;
-                top:9px;
-                left: -5px;
+            position: absolute;
+            top     : 9px;
+            left    : -5px;
+        }
+        .action {
+            @include ali-set();
+            @extend %row;
+            height         : 100%;
+            justify-content: space-evenly;
+        
+            .svg {
+                position: relative;
+                @include jus-set();
+                width: 30%;
+        
+                .hover {
+                    display         : none;
+                    white-space     : nowrap;
+                    position        : absolute;
+                    text-align      : center;
+                    padding         : 2px 5px;
+                    top             : 22px;
+                    background-color: $main_backgroundcolor;
+                    border-radius   : 4px;
+                    z-index         : 1;
+                    @include border-set();
+                }
+        
+                &:hover .hover {
+                    display: block;
+                }
             }
         }
     }
 }
 
-.action {
-    @include ali-set();
-    @extend %row;
-    height         : 100%;
-    justify-content: space-evenly;
-
-    .svg {
-        position       : relative;
-        @include jus-set();
-        width          : 30%;
-
-        .hover {
-            display         : none;
-            white-space:nowrap;
-            position        : absolute;
-            text-align      : center;
-            padding         : 2px 5px;
-            top             : 22px;
-            background-color: $main_backgroundcolor;
-            border-radius: 4px;
-            z-index      : 1;
-            @include border-set();
-        }
-
-        &:hover .hover {
-            display: block;
-        }
-    }
-}
-.onchange{
-    *{
-        background-color:$admin_check;
-    }
-}

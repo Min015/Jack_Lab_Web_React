@@ -13,6 +13,10 @@ import SetInfo from './front_desk/setInfo/SetInfo';
 import AdminAlbum from './admin/index/album/AdminAlbum';
 import Books from './admin/index/book/Books';
 import Member from './admin/member/Member';
+import LabIntroduce from './admin/introduce/lab/LabIntroduce';
+import TeacherIntroduce from './admin/introduce/teacher/TeacherIntroduce';
+import Index from './guest/Index';
+
 export default(
     <BrowserRouter>
     <Routes>
@@ -30,6 +34,11 @@ export default(
     <Route path='/AdminAlbum' exact element={<AdminAlbum/>}/>
     <Route path='/Books' exact element={<Books/>}/>
     <Route path='/Member' exact element={<Member/>}/>
+    <Route path='/TeacherIntroduce' exact element={<TeacherIntroduce/>}/>
+    <Route path='/LabIntroduce' exact element={<LabIntroduce/>}/>
+    
+    
+    <Route path='/Index' exact element={<Index/>}/>
 
 
 

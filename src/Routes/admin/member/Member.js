@@ -2,20 +2,16 @@ import { Component } from 'react';
 import AdminHeader from '../../../Components/Header/AdminHeader';
 import Sidebar from '../../../Components/Sidebar/Sidebar';
 import '../style/mainstyle.scss';
-import search from '../style/img/searchButton.png';
 import CreateTable from './CreateTable';
 export default class Member extends Component {
     state = {
         table_header: [
-            "",
-            "#",
             "學生編號",
             "帳號",
             "姓名",
             "班級",
             "角色",
             "帳號創建日期",
-            "",
         ],
         object: [
             {
@@ -67,13 +63,13 @@ export default class Member extends Component {
         s_class: ["資管所研二", "資管所研一", "資應四A", "資應三A", "資應五甲", "資應四甲", "資管四A", "資管三A", "資管五甲", "資管四甲", "資管四1", "資管三1"],
         role: ["碩士生", "專題生", "財務"],
         academic_sys: ["研究所", "四技", "二技", "五專",],
-        checked:false,
+        checked: false,
     }
     //生命週期
 
     //func
     // handleAllChange=()=>{
-        
+
     //     if(this.state.checked===false){
     //         this.setState({
     //             checked:true,
@@ -88,7 +84,7 @@ export default class Member extends Component {
     //     }
     // }
     render() {
-        const { object, table_header, s_class, role, academic_sys,checked } = this.state;
+        const { object, table_header, s_class, role, academic_sys, checked } = this.state;
         return (
             <div>
                 <AdminHeader />
@@ -122,12 +118,10 @@ export default class Member extends Component {
                                     </div>
                                     <div className="add">
                                         <a href="#">
-                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M13.4737 4.21053V6.72842C13.4737 6.72842 11.7979 6.73684 11.7895 6.72842V4.21053H9.26316C9.26316 4.21053 9.27158 2.53474 9.26316 2.52632H11.7895V0H13.4737V2.52632H16V4.21053H13.4737ZM10.9474 7.57895V5.05263H8.42105V2.52632H1.68421C0.757895 2.52632 0 3.28421 0 4.21053V14.3158C0 15.2421 0.757895 16 1.68421 16H11.7895C12.7158 16 13.4737 15.2421 13.4737 14.3158V7.57895H10.9474ZM1.68421 14.3158L4.21053 10.9474L5.89474 13.4737L8.42105 10.1053L11.7895 14.3158H1.68421Z"
-                                                    fill="white" />
+                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M8 0C9.06087 0 10.0783 0.421427 10.8284 1.17157C11.5786 1.92172 12 2.93913 12 4C12 5.06087 11.5786 6.07828 10.8284 6.82843C10.0783 7.57857 9.06087 8 8 8C6.93913 8 5.92172 7.57857 5.17157 6.82843C4.42143 6.07828 4 5.06087 4 4C4 2.93913 4.42143 1.92172 5.17157 1.17157C5.92172 0.421427 6.93913 0 8 0V0ZM8 10C12.42 10 16 11.79 16 14V16H0V14C0 11.79 3.58 10 8 10Z" fill="white" />
                                             </svg>
+
                                             <p>新增會員</p>
                                         </a>
                                     </div>

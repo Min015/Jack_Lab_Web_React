@@ -18,6 +18,9 @@ export default class AdminHeader extends Component {
                     </div>
                     <nav>
                         <div className="logout">
+                            <Link to='/Index'>去訪客</Link>
+                        </div>
+                        <div className="logout">
                             <Link to='/'>去前台</Link>
                         </div>
                         <div className="logout">

@@ -45,20 +45,19 @@ export default class CreateTable extends Component {
             <table className="col-12 admin_table">
                 <thead>
                     <tr>
-                        {/* {table_header.map(item => (<th>{item}</th>))} */}
-                        <td className="col-05 check">
+                        <th className="col-05 check">
                             <input
                                 type="checkbox"
                                 name='AllChange'
                                 onChange={this.handelAllChange}
                             />
-                        </td>
-                        <td className="col-05">{table_header[1]}</td>
-                        <td>{table_header[2]}</td>
-                        <td>{table_header[3]}</td>
-                        <td>{table_header[4]}</td>
-                        <td>{table_header[5]}</td>
-                        <td className="col-1">{table_header[6]}</td>
+                        </th>
+                        <th className="col-05">#</th>
+                        <th className="col-5 ">{table_header[0]}</th>
+                        <th className="col-3">{table_header[1]}</th>
+                        <th className="col-1">{table_header[2]}</th>
+                        <th className="col-1">{table_header[3]}</th>
+                        <th className="col-1"></th>
                     </tr>
                 </thead>
                 <tbody>

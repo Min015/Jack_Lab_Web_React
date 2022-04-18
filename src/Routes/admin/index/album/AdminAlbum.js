@@ -7,11 +7,8 @@ import CreateTable from './CreateTable';
 export default class AdminAlbum extends Component {
     state = {
         table_header: [
-            "",
-            "#",
             "標題",
             "上傳時間",
-            "",
         ],
         object: [
             {

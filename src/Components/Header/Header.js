@@ -29,11 +29,12 @@ export default class Header extends Component {
         const { newclass } = this.state;
         return (
             <header className="header">
-                <div className="logo">
+                <Link to='/Index' className="logo">
                     <img src={logo} alt="" />
-                </div>
+                </Link>
                 <nav className="nav">
                     <ul className="header_ul">
+                        <Link to='/Index'><li>去訪客</li></Link>
                         <Link to='/AdminAlbum'><li>去後台</li></Link>
                         <NavLink to='/Game' className={(navData) => navData.isActive ? "nowP" : "" } ><li>競賽專區</li></NavLink>
                         <NavLink to='/Project'className={(navData) => navData.isActive ? "nowP" : "" } ><li>LAB專案</li></NavLink>
