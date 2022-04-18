@@ -29,6 +29,7 @@ $sdmin_contentin_width:calc(100% - $admin_sidebar_width);
 $sidebar_nochange_color:#51718C;
 $sidebar_hover_background:#ffffff46;
 $sidebar_nowPage_background:#51718c45;
+$admin_check:antiquewhite;
 @mixin border-set($color:$boder_color, $width:1px, $style: solid) {
     border: {
         color: $color;

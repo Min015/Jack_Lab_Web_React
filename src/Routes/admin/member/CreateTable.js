@@ -74,7 +74,6 @@ export default class CreateTable extends Component {
                                             value={item.s_id}
                                             onChange={(e) => { this.handelOnClick(e.target) }}
                                         />
-
                                     </td>
                                     <td>{index + 1}</td>
                                     <td>{item.s_id}</td>

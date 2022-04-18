@@ -103,6 +103,9 @@
             position: relative;
             select{
                 font-size: 16px;
+                // @include border-set();
+                // padding: 4px 0px;
+
                 position: absolute;
                 top:9px;
                 left: -5px;
@@ -124,7 +127,6 @@
 
         .hover {
             display         : none;
-            //width           : 40px;
             white-space:nowrap;
             position        : absolute;
             text-align      : center;
@@ -143,6 +145,6 @@
 }
 .onchange{
     *{
-        background-color: antiquewhite;
+        background-color:$admin_check;
     }
 }

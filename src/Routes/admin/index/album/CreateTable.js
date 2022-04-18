@@ -1,30 +1,79 @@
 import { Component } from 'react';
 import '../../style/mainstyle.scss';
 export default class CreateTable extends Component {
-
+    state = {
+        array: [],
+        num: this.props.table_content.length,
+    }
+    handelAllChange = e => {
+        const checkboxes = document.getElementsByName('Box');
+        for (let i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].checked = e.target.checked;
+            this.handelOnClick(checkboxes[i]);
+        }
+    }
+    handelOnClick = e => {
+        let array = this.state.array;
+        const AllChange = document.getElementsByName('AllChange');
+        if (e.checked === true) {
+            if (!array.includes(e.value)) {
+                array.push(e.value);
+            }
+            if (array.length === this.state.num) {
+                AllChange[0].checked = true;
+            }
+        }
+        else {
+            array.forEach((item, index) => {
+                if (item === e.value) {
+                    array.splice(index, 1)
+                }
+            })
+            if (array.length !== this.state.num) {
+                AllChange[0].checked = false;
+            }
+        }
+        this.setState({
+            array
+        })
+        console.log(array);
+    }
     render() {
         const { table_header, table_content } = this.props;
+        const { array, } = this.state;
         return (
             <table className="col-12 admin_table">
                 <thead>
                     <tr>
-                        {/* {table_header.map(item => (<th>{item}</th>))} */}
-                        <th className="col-05">{table_header[0]}</th>
-                        <th className="col-05 index">{table_header[1]}</th>
-                        <th>{table_header[2]}</th>
-                        <th className="col-2">{table_header[3]}</th>
-                        <th className="col-1">{table_header[4]}</th>
+                        <td className="col-05 check">
+                            <input
+                                type="checkbox"
+                                name='AllChange'
+                                onChange={this.handelAllChange}
+                            />
+                        </td>
+                        <td className="col-05 ">{table_header[1]}</td>
+                        <td>{table_header[2]}</td>
+                        <td className="col-2">{table_header[3]}</td>
+                        <td className="col-1">{table_header[4]}</td>
                     </tr>
                 </thead>
                 <tbody>
                     {table_content.map(
                         (item, index) => {
                             return (
-                                <tr>
-                                    <td className="check"><input type="checkbox" id={item.id} value="" /></td>
+                                <tr className={array.includes(item.p_id) ? "onchange" : ""} >
+                                    <td className="check">
+                                        <input type="checkbox"
+                                            id=""
+                                            name="Box"
+                                            value={item.p_id}
+                                            onChange={(e) => { this.handelOnClick(e.target) }}
+                                        />
+                                    </td>
                                     <td>{index + 1}</td>
                                     <td>{item.p_title}</td>
-                                    <td class="album_date">{item.p_createTime}</td>
+                                    <td>{item.p_createTime}</td>
                                     <td>
                                         <div className="action">
                                             <div className="svg">
