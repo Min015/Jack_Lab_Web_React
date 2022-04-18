@@ -16,7 +16,9 @@ export default class CreateTable extends Component {
         let array = this.state.array;
         const AllChange = document.getElementsByName('AllChange');
         if (e.checked === true) {
-            array.push(e.value);
+            if(!array.includes(e.value)){
+                array.push(e.value);
+            }
             if(array.length === this.state.num){
                 AllChange[0].checked = true;
             }
