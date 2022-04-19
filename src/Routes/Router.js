@@ -16,6 +16,11 @@ import Member from './admin/member/Member';
 import LabIntroduce from './admin/introduce/lab/LabIntroduce';
 import TeacherIntroduce from './admin/introduce/teacher/TeacherIntroduce';
 import Index from './guest/Index';
+import PermissionManage from './admin/permission/PermissionManage';
+import MeetingManage from './admin/meeting/MeetingManage';
+import GameManage from './admin/game/GameManage';
+import CaseManage from './admin/project/case/CaseManage';
+import GroupManage from './admin/project/group/GroupManage';
 
 export default(
     <BrowserRouter>
@@ -33,9 +38,17 @@ export default(
 
     <Route path='/AdminAlbum' exact element={<AdminAlbum/>}/>
     <Route path='/Books' exact element={<Books/>}/>
-    <Route path='/Member' exact element={<Member/>}/>
     <Route path='/TeacherIntroduce' exact element={<TeacherIntroduce/>}/>
     <Route path='/LabIntroduce' exact element={<LabIntroduce/>}/>
+    <Route path='/PemissionManage' exact element={<PermissionManage/>}/>
+    <Route path='/Member' exact element={<Member/>}/>
+    <Route path='/MeetingManage' exact element={<MeetingManage/>}/>
+    <Route path='/GameManage' exact element={<GameManage/>}/>
+    <Route path='/GroupManage' exact element={<GroupManage/>}/>
+    <Route path='/CaseMange' exact element={<CaseManage/>}/>
+    
+    
+    
     
     
     <Route path='/Index' exact element={<Index/>}/>

@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import '../../style/mainstyle.scss';
+import '../style/mainstyle.scss';
 export default class CreateTable extends Component {
     state = {
         array: [],
@@ -75,7 +75,7 @@ export default class CreateTable extends Component {
 
                                     </td>
                                     <td>{index + 1}</td>
-                                    <td className='bookname'>{item.b_title}</td>
+                                    <td>{item.b_title}</td>
                                     <td>{item.b_author}</td>
                                     <td>{item.b_publisher}</td>
                                     <td>{item.b_time}</td>

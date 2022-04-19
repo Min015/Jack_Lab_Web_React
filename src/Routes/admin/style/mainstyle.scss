@@ -60,6 +60,17 @@
         padding     : 0px 2px;
     }
 
+    .date {
+        border: 0px;
+        @include ali-set();
+        @extend %row;
+
+        input {
+            margin-left: 5px;
+            height     : 100%;
+        }
+    }
+
     .searchBtn {
         background-color: $button_color;
         color           : $font_maincolor;
@@ -94,7 +105,8 @@
 .admin_table {
     thead {
         font-weight: bold;
-        th{
+
+        th {
             text-align: left;
         }
     }
@@ -110,18 +122,17 @@
             }
         }
     }
+
     .onchange {
         * {
             background-color: $admin_check;
         }
     }
+
     td {
         position: relative;
-        padding: 5px 5px 5px 0px;
-        max-width: 640px;
-        overflow : hidden;
-        text-overflow : ellipsis;
-        white-space : nowrap;
+        padding : 5px 5px 5px 0px;
+
         select {
             font-size : 16px;
             // @include border-set();
@@ -131,17 +142,18 @@
             top     : 9px;
             left    : -5px;
         }
+
         .action {
             @include ali-set();
             @extend %row;
             height         : 100%;
             justify-content: space-evenly;
-        
+
             .svg {
                 position: relative;
                 @include jus-set();
                 width: 30%;
-        
+
                 .hover {
                     display         : none;
                     white-space     : nowrap;
@@ -154,12 +166,22 @@
                     z-index         : 1;
                     @include border-set();
                 }
-        
+
                 &:hover .hover {
                     display: block;
                 }
             }
         }
     }
+
+    .bookname {
+        max-width    : 640px;
+        overflow     : hidden;
+        text-overflow: ellipsis;
+        white-space  : nowrap;
+    }
 }
 
+.container.show .innerBox {
+    display: block;
+}

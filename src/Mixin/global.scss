@@ -21,6 +21,21 @@ $l                   :17px;
 $m                   :14px;
 $s                   :12px;
 
+$col-05:4.166667%;
+$col-1:8.333333%;
+$col-2:16.666667%;
+$col-3:25%;
+$col-4:33.333333%;
+$col-5:41.666667%;
+$col-6:50%;
+$col-7:58.333333%;
+$col-8:66.666667%;
+$col-9:75%;
+$col-10:83.333333%;
+$col-11:91.666667%;
+$col-12:100%;
+
+
 $admin_header_background:black;
 $admin_main_background:#D8E6F2;
 $admin_sidebar_background:#112639;
@@ -78,55 +93,56 @@ $admin_teacherTable_h:250px;
     overflow-y: auto;
 }
 .col-05{
-    width: 4.166667%
+    width: $col-05;
 }
 .col-1 {
-    width: 8.333333%
+    width: $col-1;
 }
-
+.col-1_5 {
+    width: $col-1+$col-05;
+}
 .col-2 {
-    width: 16.666667%
+    width: $col-2;
 }
 
 .col-3 {
-    width: 25%
+    width: $col-3;
 }
 
 .col-4 {
-    width: 33.333333%
+    width: $col-4;
 }
 
 .col-5 {
-    width: 41.666667%
+    width: $col-5;
 }
 
 .col-6 {
-    width: 50%
+    width: $col-6;
 }
 
 .col-7 {
-    width: 58.333333%
+    width: $col-7;
 }
 
 .col-8 {
-    width: 66.666667%
+    width: $col-8;
 }
 
 .col-9 {
-    width: 75%
+    width: $col-9;
 }
 
 .col-10 {
-    width: 83.333333%
+    width: $col-10;
 }
 
 .col-11 {
-    width: 91.666667%
+    width: $col-11;
 }
 
 .col-12 {
-    width    : 100%;
-    max-width: 100%;
+    width    :$col-12;
 }
 
 * {

@@ -69,11 +69,11 @@ export default class Sidebar extends Component {
                     </ul>
                 </div>
                 <div className="set">
-                    <a href="#">
+                    <NavLink to='/PemissionManage' className={(navData) => navData.isActive ? "nowPage" : ""} >
                         <div className="sidebar_title">
                             權限管理
                         </div>
-                    </a>
+                    </NavLink>
                 </div>
                 <div className="set">
                     <NavLink to='/Member' className={(navData) => navData.isActive ? "nowPage" : ""} >
@@ -83,25 +83,25 @@ export default class Sidebar extends Component {
                     </NavLink>
                 </div>
                 <div className="set">
-                    <a href="#">
+                <NavLink to='/MeetingManage' className={(navData) => navData.isActive ? "nowPage" : ""} >
                         <div className="sidebar_title">
                             會議管理
                         </div>
-                    </a>
+                </NavLink>
                 </div>
                 <div className="set">
-                    <a href="#">
+                    <NavLink to='/GameManage' className={(navData) => navData.isActive ? "nowPage" : ""} >
                         <div className="sidebar_title">
                             競賽管理
                         </div>
-                    </a>
+                    </NavLink>
                 </div>
                 <div className="set">
                     <div className="sidebar_title">
                         專案管理
                     </div>
                     <ul>
-                        <NavLink to='/AdminAlbum' className={(navData) => navData.isActive ? "nowPage" : ""} >
+                        <NavLink to='/GroupManage' className={(navData) => navData.isActive ? "nowPage" : ""} >
                             <li>
                                 <div className="svg">
                                     <svg width="22" height="17" viewBox="0 0 22 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -118,7 +118,7 @@ export default class Sidebar extends Component {
                                 專題組管理
                             </li>
                         </NavLink>
-                        <NavLink to='/Books' className={(navData) => navData.isActive ? "nowPage" : ""} >
+                        <NavLink to='/CaseMange' className={(navData) => navData.isActive ? "nowPage" : ""} >
                             <li>
                                 <div className="svg">
                                     <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
