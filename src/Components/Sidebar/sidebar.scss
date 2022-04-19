@@ -1,48 +1,73 @@
 @import '../../Mixin/global.scss';
-.sidebar{
-    background-color:$admin_sidebar_background;
-    width: $admin_sidebar_width;
-    height: 1000px;
-    position: fixed;
-    .set{
-        .sidebar_title{
-            padding:10px 25px;
+
+.sidebar {
+    background-color: $admin_sidebar_background;
+    width           : $admin_sidebar_width;
+    height          : calc(100vh - 76px);
+    padding-bottom: 20px;
+    overflow-y      : auto;
+    position        : fixed;
+    .set {
+        .sidebar_title {
+            padding  : 10px 25px;
             font-size: $l;
-            color: $font_maincolor;
+            color    : $font_maincolor;
             @include ali-set();
             @extend %between;
-            &:hover{
-                background-color:$sidebar_hover_background;
-            }
+
+            // &:hover {
+            //     background-color: $sidebar_hover_background;
+            // }
         }
-        li{
-            padding:10px 45px;
+
+        li {
+            padding: 10px 45px;
             @include ali-set();
             color: $sidebar_nochange_color;
-            path{
+
+            path {
                 fill: $sidebar_nochange_color;
             }
-            &:hover{
-                //background-color:$sidebar_hover_background;
+
+            &:hover {
                 color: $font_maincolor;
-                path{
-                    fill:$font_maincolor;
+
+                path {
+                    fill: $font_maincolor;
                 }
             }
-            .svg{
+
+            .svg {
                 margin-right: 5px;
-                width: 24px;
-                height: 24px;
+                width       : 24px;
+                height      : 24px;
                 @include ali-set();
             }
         }
     }
+    &::-webkit-scrollbar {
+        /*-------滾動條整體樣式----*/
+        width : 0px;
+    }
+    &::-webkit-scrollbar-thumb {
+        /*滾動條裡面小方塊樣式*/
+        border-radius: 10px;
+        background: red;
+    }
+    &::-webkit-scrollbar-track {
+        /*滾動條裡面軌道樣式*/
+        border-radius: 0px;
+        background: rgb(240, 185, 185);
+    }
 }
-.nowPage{
-    li,.sidebar_title{
-        background-color:$sidebar_nowPage_background;
-        color: $font_maincolor !important;
-        path{
+
+.nowPage {
+    li,
+    .sidebar_title {
+        background-color: $sidebar_nowPage_background;
+        color           : $font_maincolor !important;
+
+        path {
             fill: $font_maincolor !important;
         }
     }
