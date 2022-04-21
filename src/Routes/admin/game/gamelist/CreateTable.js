@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import '../style/mainstyle.scss';
+import '../../style/mainstyle.scss';
 export default class CreateTable extends Component {
     state = {
         array: [],

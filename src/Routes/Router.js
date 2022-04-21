@@ -18,7 +18,7 @@ import TeacherIntroduce from './admin/introduce/teacher/TeacherIntroduce';
 import Index from './guest/Index';
 import PermissionManage from './admin/permission/PermissionManage';
 import MeetingManage from './admin/meeting/MeetingManage';
-import GameManage from './admin/game/GameManage';
+import GameManage from './admin/game/gamelist/GameManage';
 import CaseManage from './admin/project/case/CaseManage';
 import GroupManage from './admin/project/group/GroupManage';
 

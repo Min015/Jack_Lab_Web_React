@@ -2,41 +2,41 @@ import { Component } from 'react';
 import AdminHeader from '../../../../Components/Header/AdminHeader';
 import Sidebar from '../../../../Components/Sidebar/Sidebar';
 import '../../style/mainstyle.scss';
-import search from '../../style/img/searchButton.png';
 import CreateTable from './CreateTable';
-export default class CaseManage extends Component {
+export default class GameManage extends Component {
     state = {
         table_header: [
             "類型",
-            "分類",
-            "標題",
-            "負責組別",
-            "相關標籤",
-            "建立時間",
+            "參加組別",
+            "項目名稱",
+            "得獎名次",
+            "年分",
         ],
         object: [
             {
-                cM_id:"c01",
-                cM_type: "大專生國科會計畫",
-                cM_class: "五專部",
-                cM_title: "運用強化學習與自適應機制建構智慧互動聊天機器人",
-                cM_principal: "五專一",
-                cM_createTime: "2022-01-25",
-                cM_tag: ""
+                gM_type: "資訊應用服務創新大賽",
+                gM_group: "Azure雲端創新產業應用組",
+                gM_name: "手影隨行",
+                gM_position: "最佳創意",
+                gM_year: 2021,
+            },
+            {
+                gM_type: "資訊應用服務創新大賽",
+                gM_group: "教育資料開放組",
+                gM_name: "讀癮",
+                gM_position: "佳作",
+                gM_year: 2021,
             },
         ],
-        cM_T:["大專生國科會計畫","大專生國科會計畫"],
-        cM_C:["五專部","二技部","四技部","研究所"],
-        cM_Y:["2021","2020","2019","2018"],
-        cM_Tag:["強化學習","自適應","聊天機器人","AI"],
-
+        gM_type:["資訊應用服務創新大賽","黑客松"],
+        gM_Y:["2021","2020","2019","2018"],
     }
     //生命週期
 
     //func
 
     render() {
-        const { object, table_header,cM_T,cM_C,cM_Y,cM_Tag } = this.state;
+        const { object, table_header,gM_type,gM_Y } = this.state;
         return (
             <div>
                 <AdminHeader />
@@ -48,33 +48,28 @@ export default class CaseManage extends Component {
                                 <div className="edit_button">
                                     <div className="add">
                                         <a href="#">
-                                            <p>刪除專案</p>
+                                            <p>刪除記錄</p>
                                         </a>
                                     </div>
                                     <div className="add">
                                         <a href="#">
-                                            <p>新增專案</p>
+                                            <p>新增記錄</p>
+                                        </a>
+                                    </div>
+                                    <div className="add">
+                                        <a href="#">
+                                            <p>新增競賽</p>
                                         </a>
                                     </div>
                                 </div>
                                 <form className="searchform">
-                                    <select name="" defaultValue={cM_T[0]}>
-                                        {cM_T.map(item =>
+                                    <select name="" defaultValue={gM_type[0]}>
+                                        {gM_type.map(item =>
                                             <option value={item}>{item}</option>
                                         )}
                                     </select>
-                                    <select name="" defaultValue={cM_C[0]}>
-                                        {cM_C.map(item =>
-                                            <option value={item}>{item}</option>
-                                        )}
-                                    </select>
-                                    <select name="" defaultValue={cM_Tag[0]}>
-                                        {cM_Tag.map(item =>
-                                            <option value={item}>{item}</option>
-                                        )}
-                                    </select>
-                                    <select name="" defaultValue={cM_Y[0]}>
-                                        {cM_Y.map(item =>
+                                    <select name="" defaultValue={gM_Y[0]}>
+                                        {gM_Y.map(item =>
                                             <option value={item}>{item}</option>
                                         )}
                                     </select>

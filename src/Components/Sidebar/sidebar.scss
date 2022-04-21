@@ -42,6 +42,9 @@
                 width       : 24px;
                 height      : 24px;
                 @include ali-set();
+                svg{
+                    margin: 0px auto;
+                }
             }
         }
     }
