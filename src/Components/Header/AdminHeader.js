@@ -13,9 +13,9 @@ export default class AdminHeader extends Component {
         return (
             <div>
                 <header id="admin_header">
-                    <div className="logo">
+                    <Link to='/Index' className="logo">
                         <img src={logo} />
-                    </div>
+                    </Link>
                     <nav>
                         <div className="logout">
                             <Link to='/Index'>去訪客</Link>

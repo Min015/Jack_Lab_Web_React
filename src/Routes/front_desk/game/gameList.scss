@@ -5,7 +5,7 @@
 }
 
 .contentin {
-    width : 1236px;
+    width : $front_desk_width;
     margin: 0px auto;
     @extend %col;
 }
