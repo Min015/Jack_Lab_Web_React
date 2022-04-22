@@ -7,9 +7,9 @@ import CreateTable from './CreateTable';
 export default class CaseManage extends Component {
     state = {
         table_header: [
-            "類型",
-            "分類",
-            "標題",
+            "專案類型",
+            "專案分類",
+            "專案名",
             "負責組別",
             "相關標籤",
             "建立時間",

@@ -19,9 +19,12 @@ import Index from './guest/Index';
 import PermissionManage from './admin/permission/PermissionManage';
 import MeetingManage from './admin/meeting/MeetingManage';
 import GameManage from './admin/game/gamelist/GameManage';
+import GTypeManage from './admin/game/class/GTypeManage';
+
 import CaseManage from './admin/project/case/CaseManage';
 import GroupManage from './admin/project/group/GroupManage';
-
+import TypeManage from './admin/project/type/TypeManage';
+import PClassManage from './admin/project/class/PClassManage';
 export default(
     <BrowserRouter>
     <Routes>
@@ -38,14 +41,23 @@ export default(
 
     <Route path='/AdminAlbum' exact element={<AdminAlbum/>}/>
     <Route path='/Books' exact element={<Books/>}/>
+
     <Route path='/TeacherIntroduce' exact element={<TeacherIntroduce/>}/>
     <Route path='/LabIntroduce' exact element={<LabIntroduce/>}/>
+
     <Route path='/PemissionManage' exact element={<PermissionManage/>}/>
+
     <Route path='/Member' exact element={<Member/>}/>
+
     <Route path='/MeetingManage' exact element={<MeetingManage/>}/>
+
     <Route path='/GameManage' exact element={<GameManage/>}/>
+    <Route path='/GTypeManage' exact element={<GTypeManage/>}/>
+
+    <Route path='/CaseManage' exact element={<CaseManage/>}/>
     <Route path='/GroupManage' exact element={<GroupManage/>}/>
-    <Route path='/CaseMange' exact element={<CaseManage/>}/>
+    <Route path='/TypeMange' exact element={<TypeManage/>}/>
+    <Route path='/PClassMange' exact element={<PClassManage/>}/>
     
     
     

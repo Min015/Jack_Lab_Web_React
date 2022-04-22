@@ -6,7 +6,7 @@ import CreateTable from './CreateTable';
 export default class GameManage extends Component {
     state = {
         table_header: [
-            "類型",
+            "競賽類型",
             "參加組別",
             "項目名稱",
             "得獎名次",

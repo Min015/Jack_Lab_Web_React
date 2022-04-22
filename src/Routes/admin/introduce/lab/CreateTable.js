@@ -62,7 +62,7 @@ export default class CreateTable extends Component {
                     {table_content.map(
                         (item, index) => {
                             return (
-                                <tr className={array.includes(item.l_id) ? "onchange" : ""}>
+                                <tr key={index} className={array.includes(item.l_id) ? "onchange" : ""}>
                                     <td className="check">
                                         <input type="checkbox"
                                             id=""

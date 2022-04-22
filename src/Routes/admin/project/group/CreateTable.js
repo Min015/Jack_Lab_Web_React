@@ -53,9 +53,9 @@ export default class CreateTable extends Component {
                             />
                         </th>
                         <th className="col-05">#</th>
-                        <th className="col-5 ">{table_header[0]}</th>
-                        <th className="col-3">{table_header[1]}</th>
-                        <th className="col-1">{table_header[2]}</th>
+                        <th>{table_header[0]}</th>
+                        <th className="col-4">{table_header[1]}</th>
+                        <th className="col-1_5">{table_header[2]}</th>
                         <th className="col-1"></th>
                     </tr>
                 </thead>
@@ -63,7 +63,7 @@ export default class CreateTable extends Component {
                     {table_content.map(
                         (item, index) => {
                             return (
-                                <tr className={array.includes(item.b_id) ? "onchange" : ""}>
+                                <tr key={index} className={array.includes(item.b_id) ? "onchange" : ""}>
                                     <td className="check">
                                         <input type="checkbox"
                                             id=""

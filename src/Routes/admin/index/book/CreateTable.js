@@ -53,10 +53,10 @@ export default class CreateTable extends Component {
                             />
                         </th>
                         <th className="col-05">#</th>
-                        <th className="col-5 ">{table_header[0]}</th>
+                        <th>{table_header[0]}</th>
                         <th className="col-3">{table_header[1]}</th>
                         <th className="col-1">{table_header[2]}</th>
-                        <th className="col-1">{table_header[3]}</th>
+                        <th className="col-1_5">{table_header[3]}</th>
                         <th className="col-1"></th>
                     </tr>
                 </thead>
