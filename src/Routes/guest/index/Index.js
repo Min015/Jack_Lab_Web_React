@@ -1,8 +1,6 @@
 import { Component } from 'react';
-import '../../Components/Header/header1.scss';
-import Header from '../../Components/Header/Header';
-import GuestHeader from '../../Components/Header/GuestHeader';
-
+import GuestHeader from '../../../Components/Header/GuestHeader';
+import Carousel from './Carousel';
 export default class Index extends Component {
     state = {
         
@@ -17,8 +15,9 @@ export default class Index extends Component {
             <div>
                 <GuestHeader/>
                 <div className="content">
+                    {/* <Carousel/> */}
                     <div className="contentin">
-                        
+                        B
                     </div>
                 </div>
             </div>
