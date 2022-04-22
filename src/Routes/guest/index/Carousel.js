@@ -1,4 +1,4 @@
-import React,{ Component } from 'react';
+import React, { Component } from 'react';
 import './Carousel.scss';
 export default class MysCarousel extends Component {
     constructor() {
@@ -28,11 +28,11 @@ export default class MysCarousel extends Component {
     }
     change = (index) => { //點擊下面的按鈕切換當前顯示的圖片
         this.setState({
-            showIndex:index,
+            showIndex: index,
         })
     }
     next = () => { //下一張
-        let { showIndex, imgs } = this.state;
+        let { showIndex,imgs} = this.state;
         if (showIndex >= imgs.length - 1) {
             showIndex = 0;
         } else {
