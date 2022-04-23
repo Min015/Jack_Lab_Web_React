@@ -53,8 +53,8 @@ export default class AddGame extends Component {
                             </div>
                             <div className="inputbox">
                                 <div className="set col-4">
-                                    <input type="text" name="" id="" placeholder="參加組別" required className="input" />
-                                    <label for="" className="label">輸入參加組別(必填)</label>
+                                    <input type="text" name="" id="" placeholder="參加組別" className="input" />
+                                    <label for="" className="label">輸入參加組別</label>
                                 </div>
                                 <div className="set col-4">
                                     <select name="" required className="input" >
@@ -92,20 +92,6 @@ export default class AddGame extends Component {
                                         <option value="">2017</option>
                                     </select>
                                     <label for="" className="label">選擇參與人員(必填)</label>
-                                </div>
-                            </div>
-                            <div className="inputbox">
-                                <div className="set col-12">
-                                    <select name="" className="input">
-                                        <option value="" disabled selected>選擇標籤</option>
-                                        <option value="">2022</option>
-                                        <option value="">2021</option>
-                                        <option value="">2020</option>
-                                        <option value="">2019</option>
-                                        <option value="">2018</option>
-                                        <option value="">2017</option>
-                                    </select>
-                                    <label for="" className="label">選擇標籤</label>
                                 </div>
                             </div>
 

@@ -173,6 +173,13 @@ export default class Sidebar extends Component {
                         </NavLink>
                     </ul>
                 </div>
+                <div className="set">
+                    <NavLink to='/TagManage' className={(navData) => navData.isActive ? "nowPage" : ""} >
+                        <div className="sidebar_title">
+                            標籤管理
+                        </div>
+                    </NavLink>
+                </div>
             </div>
         )
     }

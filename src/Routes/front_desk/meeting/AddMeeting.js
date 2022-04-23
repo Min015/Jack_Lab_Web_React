@@ -70,21 +70,11 @@ export default class AddMeeting extends Component {
                                     <label for="" className="label">選擇參與人員(必填)</label>
                                 </div>
                             </div>
-
                             <div className="inputbox">
                                 <div className="set col-12">
-                                    <select name="Tag" className="input">
-                                        <option value="" disabled selected>標籤</option>
-                                        <option value="">2022</option>
-                                        <option value="">2021</option>
-                                        <option value="">2020</option>
-                                        <option value="">2019</option>
-                                        <option value="">2018</option>
-                                        <option value="">2017</option>
-                                    </select>
-                                    <label for="" className="label">選擇標籤</label>
+                                    <input type="text" name="" id="" placeholder="標籤"  className="input" />
+                                    <label for="" className="label">輸入標籤</label>
                                 </div>
-
                             </div>
                             <div className="inputbox">
                                 <div className="upload">

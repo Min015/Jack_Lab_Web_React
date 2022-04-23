@@ -56,11 +56,6 @@ export default class GameManage extends Component {
                                             <p>新增記錄</p>
                                         </a>
                                     </div>
-                                    <div className="add">
-                                        <a href="#">
-                                            <p>新增競賽</p>
-                                        </a>
-                                    </div>
                                 </div>
                                 <form className="searchform">
                                     <select name="" defaultValue={gM_type[0]}>

@@ -27,6 +27,8 @@ import TypeManage from './admin/project/type/TypeManage';
 import PClassManage from './admin/project/class/PClassManage';
 
 import Index from './guest/index/Index';
+import TagManage from './admin/tag/TagManage';
+
 export default(
     <BrowserRouter>
     <Routes>
@@ -60,6 +62,8 @@ export default(
     <Route path='/GroupManage' exact element={<GroupManage/>}/>
     <Route path='/TypeMange' exact element={<TypeManage/>}/>
     <Route path='/PClassMange' exact element={<PClassManage/>}/>
+    
+    <Route path='/TagManage' exact element={<TagManage/>}/>
     
     
     
