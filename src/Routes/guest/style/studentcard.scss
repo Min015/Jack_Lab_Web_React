@@ -1,0 +1,47 @@
+@import '../../../Mixin/global.scss';
+.content {
+    padding-top   : $header_height;
+    padding-bottom: 30px;
+}
+.contentin {
+    width : $front_desk_width;
+    margin: 0px auto;
+    @extend %col;
+}
+.stu_card{
+    @extend %row;
+    flex-wrap: wrap;
+}
+.card{
+    margin-top: 5px;
+    width: $col-3;
+    height: 400px;
+    text-align: center;
+    .card_in{
+        margin: 5px;
+        width: 100%;
+        color: $font_maincolor;
+        background-color: $studentcard_background;
+        @include border-set;
+        @extend %col;
+        .stu_i{
+            width: 245px;
+            height: 245px;
+            border-radius: 50%;
+            background-color: aliceblue;
+            margin: 10px auto;
+            img{
+                border-radius: 50%;
+                @include image-set();
+            }
+        }
+        
+        .stu_n,.stu_c{
+            margin-top: 15px;
+            
+        }
+        .stu_n{
+            font-size: 20px;
+        }
+    }
+}

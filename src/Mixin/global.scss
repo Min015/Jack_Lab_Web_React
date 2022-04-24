@@ -48,6 +48,9 @@ $sidebar_hover_background:#ffffff46;
 $sidebar_nowPage_background:#51718c45;
 $admin_check:antiquewhite;
 $admin_teacherTable_h:250px;
+
+
+$studentcard_background:#ADC5D9;
 @mixin border-set($color:$boder_color, $width:1px, $style: solid) {
     border: {
         color: $color;

@@ -28,6 +28,7 @@ import PClassManage from './admin/project/class/PClassManage';
 
 import Index from './guest/index/Index';
 import TagManage from './admin/tag/TagManage';
+import Student from './guest/lab_member/Student';
 
 export default(
     <BrowserRouter>
@@ -70,7 +71,7 @@ export default(
     
     
     <Route path='/Index' exact element={<Index/>}/>
-
+    <Route path='/Student' exact element={<Student/>}/>
 
 
 
