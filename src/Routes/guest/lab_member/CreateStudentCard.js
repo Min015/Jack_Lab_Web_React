@@ -6,7 +6,7 @@ export default class CreateStudentCard extends Component {
     render() {
         const { student } = this.props;
         return (
-            <div className='stu_card'>
+            <div id='stu_card'>
                 {student.map((item) => {
                     return (
                         <div className='card'>

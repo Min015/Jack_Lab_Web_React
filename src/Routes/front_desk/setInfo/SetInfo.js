@@ -7,10 +7,10 @@ export default class SetInfo extends Component {
     state = {
         table_header: [
             "年分",
-            "類型",
-            "參加組別",
+            "比賽類型",
+            // "參加組別",
             "項目名稱",
-            "參加人員",
+            // "參加人員",
             "得獎名次",
         ],
         object: [
@@ -73,7 +73,7 @@ export default class SetInfo extends Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className="small_card">
+                            {/* <div className="small_card">
                                 <div className="card_banner"></div>
                                 <div className="card_content">
                                     <div className="account_info">
@@ -101,7 +101,7 @@ export default class SetInfo extends Component {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                         <div className="reaults_area">
                         <CreateTable table_header={table_header} table_content={object} />

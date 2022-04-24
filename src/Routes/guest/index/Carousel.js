@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Carousel.scss';
+import '../style/Carousel.scss';
 export default class MysCarousel extends Component {
     constructor() {
         super();

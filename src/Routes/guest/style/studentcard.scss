@@ -8,10 +8,10 @@
     margin: 0px auto;
     @extend %col;
 }
-.stu_card{
+#stu_card{
     @extend %row;
     flex-wrap: wrap;
-}
+    
 .card{
     margin-top: 5px;
     width: $col-3;
@@ -44,4 +44,5 @@
             font-size: 20px;
         }
     }
+}
 }
