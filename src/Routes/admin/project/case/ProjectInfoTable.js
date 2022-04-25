@@ -75,7 +75,7 @@ export default class ProjectInfoTable extends Component {
 
                                     </td>
                                     <td>{index + 1}</td>
-                                    {console.log(item.proj_record_file.proj_file_name)}
+                                    {/* {console.log(item.proj_record_file.proj_file_name)} */}
                                     <td>{item.proj_record_file.proj_file_name}</td>
                                     <td>{item.proj_record_uploader}</td>
                                     <td>{item.proj_record_createTime}</td>

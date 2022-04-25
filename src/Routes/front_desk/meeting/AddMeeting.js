@@ -21,7 +21,23 @@ export default class AddMeeting extends Component {
             })
         }
     }
-
+    handleGetnow=()=>{
+        const dt=new Date();
+        const yyyy=dt.getFullYear();
+        const MM=dt.getMonth();
+        const dd=dt.getDate();
+        const hh=dt.getHours();
+        const mm=dt.getMinutes();
+        const ss=dt.getSeconds();
+        console.log(yyyy+"-"+MM+"-"+dd+" "+hh+":"+mm+":"+ss);
+        const today=new Date().toISOString().split("T");
+        const ISO=today[0]+"T"+hh+":"+mm;
+        console.log("ISO=>"+ISO);
+        return(ISO);
+    }
+    handleGetSelectDT=(e)=>{
+        console.log("value=>"+e.target.value);
+    }
 
     render() {
         const { array } = this.state;
@@ -48,7 +64,7 @@ export default class AddMeeting extends Component {
                             </div>
                             <div className="inputbox">
                                 <div className="set col-4">
-                                    <input type="datetime-local" name="" id="" required className="input" />
+                                    <input type="datetime-local" name="" max={this.handleGetnow()} required className="input" onChange={(e)=>this.handleGetSelectDT(e)} />
                                     <label for="" className="label">輸入會議時間(必填)</label>
                                 </div>
                                 <div className="set col-4">
@@ -72,7 +88,7 @@ export default class AddMeeting extends Component {
                             </div>
                             <div className="inputbox">
                                 <div className="set col-12">
-                                    <input type="text" name="" id="" placeholder="標籤" className="input" />
+                                    <input type="text" name="" id="" placeholder="標籤" className="input"/>
                                     <label for="" className="label">輸入標籤</label>
                                 </div>
                             </div>
