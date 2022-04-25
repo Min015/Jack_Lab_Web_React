@@ -20,7 +20,9 @@ export default class Meeting extends Component {
                 m_uploader: "陳旻愉",
                 m_tag: "",
             },
-        ]
+        ],
+        year: ["時間範圍(必填)", "2022", "2021", "2020", "2019", "2018", "2017", "2016"],
+        meeting_tag: ["選擇標籤"],
     }
     //生命週期
 
@@ -28,7 +30,7 @@ export default class Meeting extends Component {
 
 
     render() {
-        const { object, table_header } = this.state;
+        const { object, table_header, year,meeting_tag } = this.state;
         return (
             <div>
                 <Header />
@@ -38,22 +40,18 @@ export default class Meeting extends Component {
                             <form action="">
                                 <div className="select_list">
                                     <select name="year" required className="select">
-                                        <option value="" selected>時間範圍(必填)</option>
-                                        <option value="">2022</option>
-                                        <option value="">2021</option>
-                                        <option value="">2020</option>
-                                        <option value="">2019</option>
-                                        <option value="">2018</option>
-                                        <option value="">2017</option>
+                                        {year.map((item) => {
+                                            return (
+                                                <option value={item}>{item}</option>
+                                            )
+                                        })}
                                     </select>
-                                    <select name="type" required className="select">
-                                        <option value="" selected>選擇標籤</option>
-                                        <option value="">2022</option>
-                                        <option value="">2021</option>
-                                        <option value="">2020</option>
-                                        <option value="">2019</option>
-                                        <option value="">2018</option>
-                                        <option value="">2017</option>
+                                    <select name="type" className="select">
+                                        {meeting_tag.map((item) => {
+                                            return (
+                                                <option value={item}>{item}</option>
+                                            )
+                                        })}
                                     </select>
                                 </div>
                                 <div className="search_add">

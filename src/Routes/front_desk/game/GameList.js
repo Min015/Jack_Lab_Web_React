@@ -36,7 +36,9 @@ export default class GameList extends Component {
                 g_file: "",
                 g_uploader: "陳旻愉",
             },
-        ]
+        ],
+        year: ["選擇年分(必填)", "2022", "2021", "2020", "2019", "2018", "2017", "2016"],
+        game_type: ["選擇類型", "資訊應用服務創新大賽", "黑克松"],
     }
 
     //生命週期
@@ -44,7 +46,7 @@ export default class GameList extends Component {
     //func
 
     render() {
-        const { object, table_header } = this.state;
+        const { object, table_header, year,game_type } = this.state;
         return (
             <div>
                 <Header />
@@ -54,22 +56,18 @@ export default class GameList extends Component {
                             <form action="">
                                 <div className="select_list">
                                     <select name="year" required className="select">
-                                        <option value="" defaultValue="選擇年分(必填)">選擇年分(必填)</option>
-                                        <option value="">2022</option>
-                                        <option value="">2021</option>
-                                        <option value="">2020</option>
-                                        <option value="">2019</option>
-                                        <option value="">2018</option>
-                                        <option value="">2017</option>
+                                        {year.map((item) => {
+                                            return (
+                                                <option value={item}>{item}</option>
+                                            )
+                                        })}
                                     </select>
                                     <select name="type" className="select">
-                                        <option value="" selected>選擇類型</option>
-                                        <option value="">2022</option>
-                                        <option value="">2021</option>
-                                        <option value="">2020</option>
-                                        <option value="">2019</option>
-                                        <option value="">2018</option>
-                                        <option value="">2017</option>
+                                        {game_type.map((item) => {
+                                            return (
+                                                <option value={item}>{item}</option>
+                                            )
+                                        })}
                                     </select>
                                 </div>
                                 <div className="search_add">

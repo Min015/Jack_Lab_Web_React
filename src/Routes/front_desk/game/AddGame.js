@@ -4,7 +4,9 @@ import Header from '../../../Components/Header/Header';
 import upload from '../main_category/img/upload.png';
 export default class AddGame extends Component {
     state = {
-        array:[],
+        array: [],
+        game_type: ["資訊應用服務創新大賽", "黑克松"],
+        game_rank: ["第一名", "第二名", "第三名", "佳作", "NO"]
     }
     //func
     handleSelectFile = (files) => {
@@ -12,9 +14,9 @@ export default class AddGame extends Component {
             alert("一次請勿上傳超過五個檔案")
         }
         else {
-            let array=[] 
+            let array = []
             for (let item = 0; item < files.length; item++) {
-                array.push(files[item].name); 
+                array.push(files[item].name);
             }
             this.setState({
                 array
@@ -23,7 +25,7 @@ export default class AddGame extends Component {
     }
 
     render() {
-        const{array}=this.state;
+        const { array, game_type,game_rank } = this.state;
         return (
             <div>
                 <Header />
@@ -36,13 +38,11 @@ export default class AddGame extends Component {
                             <div className="inputbox">
                                 <div className="set col-4">
                                     <select name="" required className="input">
-                                        <option value="" disabled selected>競賽類型</option>
-                                        <option value="">2022</option>
-                                        <option value="">2021</option>
-                                        <option value="">2020</option>
-                                        <option value="">2019</option>
-                                        <option value="">2018</option>
-                                        <option value="">2017</option>
+                                        {game_type.map((item) => {
+                                            return (
+                                                <option value={item}>{item}</option>
+                                            )
+                                        })}
                                     </select>
                                     <label for="" className="label">選擇競賽類型(必填)</label>
                                 </div>
@@ -58,12 +58,11 @@ export default class AddGame extends Component {
                                 </div>
                                 <div className="set col-4">
                                     <select name="" required className="input" >
-                                        <option value="" disabled selected>得獎名次</option>
-                                        <option value="">第一名</option>
-                                        <option value="">第二名</option>
-                                        <option value="">第三名</option>
-                                        <option value="">佳作</option>
-                                        <option value="">NO</option>
+                                        {game_rank.map((item) => {
+                                            return (
+                                                <option value={item}>{item}</option>
+                                            )
+                                        })}
                                     </select>
                                     <label for="" className="label">選擇得獎名次(必填)</label>
                                 </div>
@@ -76,13 +75,13 @@ export default class AddGame extends Component {
                             </div>
                             <div className="inputbox">
                                 <div className="set col-4">
-                                    <input type="date" className="input" />
+                                    <input type="date" className="input" required />
                                     <label for="" className="label">選擇競賽時間(必填)</label>
                                 </div>
                             </div>
                             <div className="inputbox">
                                 <div className="set col-12">
-                                    <select name="" className="input">
+                                    <select name="" className="input" required>
                                         <option value="" disabled selected>參與人員</option>
                                         <option value="">2022</option>
                                         <option value="">2021</option>
@@ -106,11 +105,11 @@ export default class AddGame extends Component {
                             </div>
                             <div id="filename">
                                 <ol>
-                                    {array.map(item=>(<li>{item}</li>))}
+                                    {array.map(item => (<li>{item}</li>))}
                                 </ol>
                             </div>
                             <div className="inputbox">
-                                <input type="submit" value="送出" className="col-1 form_submit" formnovalidate="formnovalidate"/>
+                                <input type="submit" value="送出" className="col-1 form_submit" formnovalidate="formnovalidate" />
                             </div>
                         </form>
                     </div>

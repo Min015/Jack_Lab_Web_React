@@ -1,10 +1,9 @@
 import { Component } from 'react';
 import '../main_category/meetingInfo.scss';
 import Header from '../../../Components/Header/Header';
-import { Link } from 'react-router-dom';
 export default class MeetingInfo extends Component {
     state = {
-
+        files:["先假裝它是word","先假裝它是ppt","先假裝它是講稿","先假裝它是錄音檔","先假裝它是圖片",]
     }
     //生命週期
 
@@ -12,7 +11,7 @@ export default class MeetingInfo extends Component {
 
 
     render() {
-
+        const {files}=this.state;
         return (
             <div>
                 <Header />
@@ -73,11 +72,9 @@ export default class MeetingInfo extends Component {
                                 <div className="magin_top_70">
                                     <p>相關檔案</p>
                                     <ol>
-                                        <li>先假裝它是word</li>
-                                        <li>先假裝它是ppt</li>
-                                        <li>先假裝它是講稿</li>
-                                        <li>先假裝它是錄音檔</li>
-                                        <li>先假裝它是圖片</li>
+                                        {files.map((item)=>(
+                                            <li>{item}</li>
+                                        ))}
                                     </ol>
                                 </div>
                             </div>

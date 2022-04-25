@@ -4,10 +4,14 @@ import Header from '../../../Components/Header/Header';
 import upload from '../main_category/img/upload.png';
 export default class AddProject extends Component {
     state = {
-        array: [],
+        proj_type: ["大專生國科會計畫", "大專", "小專"],
+        proj_class: ["選擇分類"],
+        proj_group: ["五專一", "二技1", "二技2", "大學1", "大學2"],
+
     }
 
     render() {
+        const { proj_type, proj_class,proj_group } = this.state;
         return (
             <div>
                 <Header />
@@ -20,27 +24,23 @@ export default class AddProject extends Component {
                             <div className="inputbox">
                                 <div className="set col-4">
                                     <select name="" required className="input">
-                                        <option value="">專案類型</option>
-                                        <option value="">2022</option>
-                                        <option value="">2021</option>
-                                        <option value="">2020</option>
-                                        <option value="">2019</option>
-                                        <option value="">2018</option>
-                                        <option value="">2017</option>
+                                        {proj_type.map((item) => {
+                                            return (
+                                                <option value={item}>{item}</option>
+                                            )
+                                        })}
                                     </select>
                                     <label for="" className="label">選擇專案類型(必填)</label>
                                 </div>
                                 <div className="set col-4">
-                                    <select name="" required className="input">
-                                        <option value="">專案分類</option>
-                                        <option value="">2022</option>
-                                        <option value="">2021</option>
-                                        <option value="">2020</option>
-                                        <option value="">2019</option>
-                                        <option value="">2018</option>
-                                        <option value="">2017</option>
+                                    <select name="" className="input">
+                                        {proj_class.map((item) => {
+                                            return (
+                                                <option value={item}>{item}</option>
+                                            )
+                                        })}
                                     </select>
-                                    <label for="" className="label">選擇專案分類(必填)</label>
+                                    <label for="" className="label">選擇專案分類</label>
                                 </div>
                             </div>
                             <div className="inputbox">
@@ -58,20 +58,18 @@ export default class AddProject extends Component {
                             <div className="inputbox">
                                 <div className="set col-12">
                                     <select name="group" required className="input">
-                                        <option value="">指派小組(必填)</option>
-                                        <option value="">2022</option>
-                                        <option value="">2021</option>
-                                        <option value="">2020</option>
-                                        <option value="">2019</option>
-                                        <option value="">2018</option>
-                                        <option value="">2017</option>
+                                        {proj_group.map((item) => {
+                                            return (
+                                                <option value={item}>{item}</option>
+                                            )
+                                        })}
                                     </select>
                                     <label for="" className="label">選擇指派小組(必填)</label>
                                 </div>
                             </div>
                             <div className="inputbox">
                                 <div className="set col-12">
-                                    <input type="text" name="" id="" placeholder="標籤"  className="input" />
+                                    <input type="text" name="" id="" placeholder="標籤" className="input" />
                                     <label for="" className="label">輸入標籤</label>
                                 </div>
                             </div>

@@ -22,7 +22,10 @@ export default class LabProject extends Component {
                 p_createTime: "2022-03-25",
                 p_tag: ""
             },
-        ]
+        ],
+        year: ["選擇年分(必填)", "2022", "2021", "2020", "2019", "2018", "2017", "2016"],
+        proj_type: ["選擇類型(必填)", "大專生國科會計畫", "大專", "小專"],
+        proj_class: ["選擇分類"],
     }
     //生命週期
 
@@ -30,7 +33,7 @@ export default class LabProject extends Component {
 
 
     render() {
-        const { object, table_header } = this.state;
+        const { object, table_header, year,proj_type,proj_class } = this.state;
         return (
             <div>
                 <Header />
@@ -40,31 +43,25 @@ export default class LabProject extends Component {
                             <form action="">
                                 <div className="select_list">
                                     <select name="year" required className="select">
-                                        <option value="" selected>選擇年分(必填)</option>
-                                        <option value="">2022</option>
-                                        <option value="">2021</option>
-                                        <option value="">2020</option>
-                                        <option value="">2019</option>
-                                        <option value="">2018</option>
-                                        <option value="">2017</option>
+                                        {year.map((item) => {
+                                            return (
+                                                <option value={item}>{item}</option>
+                                            )
+                                        })}
                                     </select>
                                     <select name="type" required className="select">
-                                        <option value="" selected>選擇類型(必填)</option>
-                                        <option value="">2022</option>
-                                        <option value="">2021</option>
-                                        <option value="">2020</option>
-                                        <option value="">2019</option>
-                                        <option value="">2018</option>
-                                        <option value="">2017</option>
+                                        {proj_type.map((item) => {
+                                            return (
+                                                <option value={item}>{item}</option>
+                                            )
+                                        })}
                                     </select>
-                                    <select name="class" required className="select">
-                                        <option value="" selected>選擇分類(必填)</option>
-                                        <option value="">2022</option>
-                                        <option value="">2021</option>
-                                        <option value="">2020</option>
-                                        <option value="">2019</option>
-                                        <option value="">2018</option>
-                                        <option value="">2017</option>
+                                    <select name="class" className="select">
+                                        {proj_class.map((item) => {
+                                            return (
+                                                <option value={item}>{item}</option>
+                                            )
+                                        })}
                                     </select>
                                 </div>
                                 <div className="search_add">
