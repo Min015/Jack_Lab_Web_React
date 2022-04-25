@@ -56,7 +56,7 @@ export default class CreateTable extends Component {
                         <td className="col-1">{table_header[0]}</td>
                         <td>{table_header[1]}</td>
                         <td className="col-1">{table_header[2]}</td>
-                        <td className="col-1">{table_header[3]}</td>
+                        <td className="col-1_5">{table_header[3]}</td>
                         <td className="col-1">{table_header[4]}</td>
                         <td className="col-1_5">{table_header[5]}</td>
                         <td className="col-1"></td>

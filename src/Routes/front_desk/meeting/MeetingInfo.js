@@ -40,7 +40,6 @@ export default class MeetingInfo extends Component {
                         <div className="meeting">
                             <div className="col-5 something_content meeting_content">
                                 這是開會的內容
-
                             </div>
                             <div className="col-6 meeting_info">
                                 <div className="else_info">

@@ -1,10 +1,31 @@
 import { Component } from 'react';
 import '../main_category/projectInfo.scss';
 import Header from '../../../Components/Header/Header';
-import { Link } from 'react-router-dom';
+import AddProjectInfo from './AddProjectInfo';
 export default class ProjectInfo extends Component {
     state = {
-
+        table_header: [
+            "檔名",
+            "上傳者",
+            "上傳時間",
+            "備註"
+        ],
+        object: [
+            {
+                file_id:"",
+                file_name: "以深度學習神經網路為基礎不良坐姿檢測與警示系統",
+                file_uploader: "千千",
+                file_createTime: "2019-03-06",
+                file_record: "v3",
+            },
+            {
+                file_id:"",
+                file_name: "以深度學習神經網路為基礎不良坐姿檢測與警示系統",
+                file_uploader: "千千",
+                file_createTime: "2019-03-07",
+                file_record: "v4",
+            },
+        ],
     }
     //生命週期
 
@@ -12,7 +33,7 @@ export default class ProjectInfo extends Component {
 
 
     render() {
-
+        const {table_header,object}=this.state;
         return (
             <div>
                 <Header />
@@ -48,29 +69,9 @@ export default class ProjectInfo extends Component {
                         </div>
                         <div className="project_content something_content">
                             這是專案的內容描述
-
                         </div>
                         <div className="reaults_area">
-                            <table>
-                                <tr>
-                                    <th>檔名</th>
-                                    <th>上傳者</th>
-                                    <th>上傳時間</th>
-                                    <th>備註</th>
-                                </tr>
-                                <tr className="tr_odd">
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr className="tr_even">
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </table>
+                            <AddProjectInfo table_header={table_header} table_content={object} />
                         </div>
                     </div>
                 </div>
