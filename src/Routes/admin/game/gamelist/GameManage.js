@@ -14,6 +14,7 @@ export default class GameManage extends Component {
         ],
         object: [
             {
+                gM_id:"a",
                 gM_type: "資訊應用服務創新大賽",
                 gM_group: "Azure雲端創新產業應用組",
                 gM_name: "手影隨行",
@@ -21,6 +22,7 @@ export default class GameManage extends Component {
                 gM_year: 2021,
             },
             {
+                gM_id:"b",
                 gM_type: "資訊應用服務創新大賽",
                 gM_group: "教育資料開放組",
                 gM_name: "讀癮",

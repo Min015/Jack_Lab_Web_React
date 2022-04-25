@@ -7,7 +7,6 @@ export default class AddProject extends Component {
         proj_type: ["大專生國科會計畫", "大專", "小專"],
         proj_class: ["選擇分類"],
         proj_group: ["五專一", "二技1", "二技2", "大學1", "大學2"],
-
     }
 
     render() {
@@ -45,13 +44,13 @@ export default class AddProject extends Component {
                             </div>
                             <div className="inputbox">
                                 <div className="set col-12">
-                                    <input type="text" name="" id="" placeholder="專案名稱" required className="input" />
+                                    <input type="text" name="" id="" placeholder="專案名稱" required maxLength="50" className="input" />
                                     <label for="" className="label">輸入專案名稱(必填)</label>
                                 </div>
                             </div>
                             <div className="inputbox">
                                 <div className="set col-12">
-                                    <textarea name="" id="" rows="20" placeholder="內容描述" required className="input"></textarea>
+                                    <textarea name="" id="" rows="20" placeholder="內容描述" required maxLength="2000" className="input"></textarea>
                                     <label for="" className="label">輸入內容描述(必填)</label>
                                 </div>
                             </div>

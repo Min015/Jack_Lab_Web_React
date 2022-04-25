@@ -32,7 +32,9 @@ export default class CreateTable extends Component {
                                     <td>{item.g_name}</td>
                                     <td>{item.g_participants}</td>
                                     <td>{item.g_position}</td>
-                                    <td>{item.g_file}</td>
+                                    <td>
+                                        <button value={item.g_file}>下載檔案</button>
+                                    </td>
                                     <td>{item.g_uploader}</td>
                                 </tr>
                             )

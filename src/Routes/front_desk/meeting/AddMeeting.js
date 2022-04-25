@@ -4,7 +4,7 @@ import Header from '../../../Components/Header/Header';
 import upload from '../main_category/img/upload.png';
 export default class AddMeeting extends Component {
     state = {
-        array:[],
+        array: [],
     }
     //func
     handleSelectFile = (files) => {
@@ -12,9 +12,9 @@ export default class AddMeeting extends Component {
             alert("一次請勿上傳超過五個檔案")
         }
         else {
-            let array=[] 
+            let array = []
             for (let item = 0; item < files.length; item++) {
-                array.push(files[item].name); 
+                array.push(files[item].name);
             }
             this.setState({
                 array
@@ -24,7 +24,7 @@ export default class AddMeeting extends Component {
 
 
     render() {
-        const{array}=this.state;
+        const { array } = this.state;
         return (
             <div>
                 <Header />
@@ -36,13 +36,13 @@ export default class AddMeeting extends Component {
                         <form className="add_form">
                             <div className="inputbox">
                                 <div className="set col-12">
-                                    <input type="text" name="" id="" placeholder="會議主題" required className="input" />
+                                    <input type="text" name="" placeholder="會議主題" required maxLength="50" className="input" />
                                     <label for="" className="label">輸入會議主題(必填)</label>
                                 </div>
                             </div>
                             <div className="inputbox">
                                 <div className="set col-12">
-                                    <textarea name="" id="" placeholder="會議內容" rows="20" required className="input"></textarea>
+                                    <textarea name="" id="" placeholder="會議內容" rows="20" required maxLength="2000" className="input"></textarea>
                                     <label for="" className="label">輸入會議內容(必填)</label>
                                 </div>
                             </div>
@@ -52,7 +52,7 @@ export default class AddMeeting extends Component {
                                     <label for="" className="label">輸入會議時間(必填)</label>
                                 </div>
                                 <div className="set col-4">
-                                    <input type="text" name="" id="" placeholder="會議地點" required className="input" />
+                                    <input type="text" name="" id="" placeholder="會議地點" required maxLength="20" className="input" />
                                     <label for="" className="label">輸入會議地點(必填)</label>
                                 </div>
                             </div>
@@ -72,7 +72,7 @@ export default class AddMeeting extends Component {
                             </div>
                             <div className="inputbox">
                                 <div className="set col-12">
-                                    <input type="text" name="" id="" placeholder="標籤"  className="input" />
+                                    <input type="text" name="" id="" placeholder="標籤" className="input" />
                                     <label for="" className="label">輸入標籤</label>
                                 </div>
                             </div>
@@ -80,14 +80,16 @@ export default class AddMeeting extends Component {
                                 <div className="upload">
                                     <input type="file" id="f" multiple="multiple" onChange={e => this.handleSelectFile(e.target.files)} />
                                     <div className="newbtn">
-                                        <img src={upload} />
+                                        <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M20 2H10L8 0H0V16H20V2ZM11 9V13H9V9H6L10.01 5L14 9H11Z" fill="white" />
+                                        </svg>
                                         <label for="f">請選擇檔案(不超過5)</label>
                                     </div>
                                 </div>
                             </div>
                             <div id="filename">
                                 <ol>
-                                    {array.map(item=>(<li>{item}</li>))}
+                                    {array.map(item => (<li>{item}</li>))}
                                 </ol>
                             </div>
                             <div className="inputbox">

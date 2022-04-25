@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import '../main_category/category.scss';
-export default class AddProjectInfo extends Component {
+export default class ProjectInfoTable extends Component {
     //func
     handleSetStyle = (i) => {
         if (i % 2 === 0) {

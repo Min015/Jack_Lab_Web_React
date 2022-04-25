@@ -10,16 +10,24 @@ import AddMeeting from './front_desk/meeting/AddMeeting';
 import ProjectInfo from './front_desk/project/ProjectInfo';
 import MeetingInfo from './front_desk/meeting/MeetingInfo';
 import SetInfo from './front_desk/setInfo/SetInfo';
+
 import AdminAlbum from './admin/index/album/AdminAlbum';
 import Books from './admin/index/book/Books';
-import Member from './admin/member/Member';
+
 import LabIntroduce from './admin/introduce/lab/LabIntroduce';
 import TeacherIntroduce from './admin/introduce/teacher/TeacherIntroduce';
 
 import PermissionManage from './admin/permission/PermissionManage';
+
+import Member from './admin/member/Member';
+
 import MeetingManage from './admin/meeting/MeetingManage';
+import Ad_MeetingInfo from './admin/meeting/MeetingInfo';
+
 import GameManage from './admin/game/gamelist/GameManage';
+import GameInfo from './admin/game/gamelist/GameInfo';
 import GTypeManage from './admin/game/class/GTypeManage';
+import Ad_ProjectInfo from './admin/project/case/ProjectInfo';
 
 import CaseManage from './admin/project/case/CaseManage';
 import GroupManage from './admin/project/group/GroupManage';
@@ -29,6 +37,7 @@ import PClassManage from './admin/project/class/PClassManage';
 import Index from './guest/index/Index';
 import TagManage from './admin/tag/TagManage';
 import Student from './guest/lab_member/Student';
+
 
 export default(
     <BrowserRouter>
@@ -55,11 +64,16 @@ export default(
     <Route path='/Member' exact element={<Member/>}/>
 
     <Route path='/MeetingManage' exact element={<MeetingManage/>}/>
+    <Route path='/MeetingManage/MeetingInfo' exact element={<Ad_MeetingInfo/>}/>
+
 
     <Route path='/GameManage' exact element={<GameManage/>}/>
+    <Route path='/GameManage/GameInfo' exact element={<GameInfo/>}/>
     <Route path='/GTypeManage' exact element={<GTypeManage/>}/>
 
+
     <Route path='/CaseManage' exact element={<CaseManage/>}/>
+    <Route path='/CaseManage/CaseInfo' exact element={<Ad_ProjectInfo/>}/>
     <Route path='/GroupManage' exact element={<GroupManage/>}/>
     <Route path='/TypeMange' exact element={<TypeManage/>}/>
     <Route path='/PClassMange' exact element={<PClassManage/>}/>

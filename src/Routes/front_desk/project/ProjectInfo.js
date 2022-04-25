@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import '../main_category/projectInfo.scss';
 import Header from '../../../Components/Header/Header';
-import AddProjectInfo from './AddProjectInfo';
+import AddProjectInfo from './ProjectInfoTable';
 export default class ProjectInfo extends Component {
     state = {
         table_header: [

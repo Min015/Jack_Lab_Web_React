@@ -1,0 +1,101 @@
+@import "../../../Mixin/global.scss";
+.info_form {
+    padding-top: 5px;
+    .inputbox {
+        padding: 0px 15px;
+        margin-top: 25px;
+        @extend %between;
+        
+        .set {
+            position: relative;
+            @extend %row;
+        }
+        
+        .form_submit {
+            // margin-left     : auto;
+            background-color: $button_color;
+            @include ali-set();
+            @include jus-set();
+            color: $font_maincolor;
+            font-size: $m;
+        }
+        
+        input,
+        select,
+        textarea {
+            min-height: 35px;
+            color: $font_maincolor;
+            border: none;
+        }
+        
+        .input {
+            // background-color: $form_maincolor;
+            color: black;
+            resize: none;
+            width: 100%;
+            @include border-set($form_border);
+            &:focus {
+                @include border-set($form_maincolor, 2px);
+            }
+        }
+        
+        .label {
+            display: flex;
+            position: absolute;
+            top: -19px;
+            left: -5px;
+            font-size: 14px;
+            font-weight: 600;
+            color: $from_title;
+        }
+        
+        .upload {
+            background-color: $th_background;
+            border-radius: 5px;
+            width: 200px;
+            position: relative;
+            
+            input {
+                height: 100%;
+                width: 100%;
+                opacity: 0;
+            }
+            
+            .newbtn {
+                position: absolute;
+                top: 6px;
+                left: 8px;
+                @extend %row;
+                @include ali-set();
+                
+                img {
+                    width: 26px;
+                    height: 26px;
+                    margin-left: 5px;
+                }
+                
+                label {
+                    margin-left: 5px;
+                    color: $main_backgroundcolor;
+                }
+            }
+        }
+    }
+    
+    #filename {
+        padding: 10px 45px 0px 45px;
+    }
+}
+.proj_record{
+    width: 100%;
+    .workinfo {
+        padding: 15px 0px;
+        @extend %between;
+        @extend %row;
+        .edit_button{
+            .add{
+                margin-left: 0px;
+            }
+        }
+    }
+}
