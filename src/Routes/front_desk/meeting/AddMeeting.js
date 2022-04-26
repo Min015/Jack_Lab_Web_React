@@ -1,11 +1,57 @@
 import { Component } from 'react';
 import '../main_category/add.scss';
 import Header from '../../../Components/Header/Header';
-import upload from '../main_category/img/upload.png';
 export default class AddMeeting extends Component {
     state = {
         array: [],
+        title: "",
+        content: "",
+        title: {
+            value: "",
+            errormsg: "請輸入",
+        },
+        content: {
+            value: "",
+            errormsg: "請輸入",
+        },
+        time: {
+            value: "",
+            errormsg: "請輸入",
+        },
+        place: {
+            value: "",
+            errormsg: "請輸入",
+        },
+        member: {
+            value: "",
+            errormsg: "請輸入",
+        },
     }
+
+    handleInputChange(event) {
+        const target = event.target;
+        let { value, name } = target;
+        console.log(value);
+        value = value.trim();
+        if (value != "") {
+            this.setState({
+                [name]: {
+                    value,
+                    errormsg: "",
+                }
+            });
+        }
+        else {
+            this.setState({
+                [name]: {
+                    value,
+                    errormsg: "請輸入",
+                }
+            });
+        }
+        console.log(this.state.meeting.member.value +"---");
+    }
+
     //func
     handleSelectFile = (files) => {
         if (files.length > 5) {
@@ -21,26 +67,18 @@ export default class AddMeeting extends Component {
             })
         }
     }
-    handleGetnow=()=>{
-        const dt=new Date();
-        const yyyy=dt.getFullYear();
-        const MM=dt.getMonth();
-        const dd=dt.getDate();
-        const hh=dt.getHours();
-        const mm=dt.getMinutes();
-        const ss=dt.getSeconds();
-        console.log(yyyy+"-"+MM+"-"+dd+" "+hh+":"+mm+":"+ss);
-        const today=new Date().toISOString().split("T");
-        const ISO=today[0]+"T"+hh+":"+mm;
-        console.log("ISO=>"+ISO);
-        return(ISO);
-    }
-    handleGetSelectDT=(e)=>{
-        console.log("value=>"+e.target.value);
+    handleGetnow = () => {
+        const dt = new Date();
+        const hh = dt.getHours() < 10 ? '0' + dt.getHours() : dt.getHours();
+        const mm = dt.getMinutes() < 10 ? '0' + dt.getMinutes() : dt.getMinutes();
+        const today = new Date().toISOString().split("T");
+        const ISO = today[0] + "T" + hh + ":" + mm;
+        // console.log("ISO=>" + ISO);
+        return (ISO);
     }
 
     render() {
-        const { array } = this.state;
+        const { array, title, content, time, member, tag, place } = this.state;
         return (
             <div>
                 <Header />
@@ -52,30 +90,71 @@ export default class AddMeeting extends Component {
                         <form className="add_form">
                             <div className="inputbox">
                                 <div className="set col-12">
-                                    <input type="text" name="" placeholder="會議主題" required maxLength="50" className="input" />
-                                    <label for="" className="label">輸入會議主題(必填)</label>
+                                    <input
+                                        type="text"
+                                        name="title"
+                                        placeholder="會議主題"
+                                        required
+                                        maxLength="50"
+                                        className="input"
+                                        value={title.value}
+                                        onChange={this.handleInputChange.bind(this)}
+                                    />
+                                    <label className="label">輸入會議主題<div className='error_msg'>{title.errormsg}</div></label>
+
                                 </div>
                             </div>
                             <div className="inputbox">
                                 <div className="set col-12">
-                                    <textarea name="" id="" placeholder="會議內容" rows="20" required maxLength="2000" className="input"></textarea>
-                                    <label for="" className="label">輸入會議內容(必填)</label>
+                                    <textarea
+                                        name="content"
+                                        placeholder="會議內容"
+                                        rows="20"
+                                        required
+                                        maxLength="2000"
+                                        className="input"
+                                        value={content.value}
+                                        onChange={this.handleInputChange.bind(this)}
+                                    ></textarea>
+                                    <label className="label">輸入會議內容<div className='error_msg'>{content.errormsg}</div></label>
+
                                 </div>
                             </div>
                             <div className="inputbox">
                                 <div className="set col-4">
-                                    <input type="datetime-local" name="" max={this.handleGetnow()} required className="input" onChange={(e)=>this.handleGetSelectDT(e)} />
-                                    <label for="" className="label">輸入會議時間(必填)</label>
+                                    <input
+                                        type="datetime-local"
+                                        name="time"
+                                        max={this.handleGetnow()}
+                                        required className="input"
+                                        value={time.value}
+                                        onChange={this.handleInputChange.bind(this)}
+                                    />
+                                    <label className="label">輸入會議時間<div className='error_msg'>{time.errormsg}</div></label>
                                 </div>
                                 <div className="set col-4">
-                                    <input type="text" name="" id="" placeholder="會議地點" required maxLength="20" className="input" />
-                                    <label for="" className="label">輸入會議地點(必填)</label>
+                                    <input type="text"
+                                        name="place"
+                                        placeholder="會議地點"
+                                        required
+                                        maxLength="20"
+                                        className="input"
+                                        value={place.value}
+                                        onChange={this.handleInputChange.bind(this)}
+                                    />
+                                    <label className="label">輸入會議地點<div className='error_msg'>{place.errormsg}</div></label>
                                 </div>
                             </div>
                             <div className="inputbox">
                                 <div className="set col-12">
-                                    <select name="group" required className="input">
-                                        <option value="" disabled selected>參與人員</option>
+                                    <select 
+                                    name="member" 
+                                    required 
+                                    className="input"
+                                    
+
+                                    >
+                                        <option value="">參與人員</option>
                                         <option value="">2022</option>
                                         <option value="">2021</option>
                                         <option value="">2020</option>
@@ -83,13 +162,17 @@ export default class AddMeeting extends Component {
                                         <option value="">2018</option>
                                         <option value="">2017</option>
                                     </select>
-                                    <label for="" className="label">選擇參與人員(必填)</label>
+                                    <label className="label">選擇參與人員<div className='error_msg'>{member.errormsg}</div></label>
                                 </div>
                             </div>
                             <div className="inputbox">
                                 <div className="set col-12">
-                                    <input type="text" name="" id="" placeholder="標籤" className="input"/>
-                                    <label for="" className="label">輸入標籤</label>
+                                    <input type="text" 
+                                    name=""
+                                    placeholder="標籤" 
+                                    className="input"
+                                    />
+                                    <label className="label">輸入標籤</label>
                                 </div>
                             </div>
                             <div className="inputbox">
@@ -99,7 +182,7 @@ export default class AddMeeting extends Component {
                                         <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M20 2H10L8 0H0V16H20V2ZM11 9V13H9V9H6L10.01 5L14 9H11Z" fill="white" />
                                         </svg>
-                                        <label for="f">請選擇檔案(不超過5)</label>
+                                        <label>請選擇檔案(不超過5)</label>
                                     </div>
                                 </div>
                             </div>

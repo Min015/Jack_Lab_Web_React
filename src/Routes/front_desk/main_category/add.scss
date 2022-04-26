@@ -40,7 +40,11 @@
         
         .set {
             position: relative;
-            @extend %row;
+            @extend %col;
+            .error_msg{
+                color: red;
+                font-size: $m;
+            }
         }
         
         .form_submit {
@@ -69,9 +73,10 @@
             position   : absolute;
             top        : -19px;
             left       : -5px;
-            font-size  : 14px;
+            font-size  : $m;
             font-weight: 600;
             color      : $from_title;
+            @include ali-set();
         }
         
         .upload {
