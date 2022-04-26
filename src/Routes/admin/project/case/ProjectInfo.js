@@ -44,7 +44,7 @@ export default class ProjectInfo extends Component {
         proj_class: ["五專部", "二技部", "四技部", "碩班"],
         proj_group: ["五專一", "二技1", "二技2", "大學1", "大學2"],
         table_header: [
-            "檔名",
+            // "檔名",
             "上傳者",
             "上傳時間",
             "備註"
@@ -154,20 +154,10 @@ export default class ProjectInfo extends Component {
                                                         </a>
                                                     </div>
                                                 </div>
-                                                {/* <form className="searchform">
-                                                    <select name="" defaultValue={gM_type[0]}>
-                                                        {gM_type.map(item =>
-                                                            <option value={item}>{item}</option>
-                                                        )}
-                                                    </select>
-                                                    <select name="" defaultValue={gM_Y[0]}>
-                                                        {gM_Y.map(item =>
-                                                            <option value={item}>{item}</option>
-                                                        )}
-                                                    </select>
+                                                <form className="searchform">
                                                     <input type="text" placeholder="輸入搜尋值" />
                                                     <input type="submit" value="送出" className="searchBtn" />
-                                                </form> */}
+                                                </form>
                                             </div>
                                             <ProjectInfoTable table_header={table_header} table_content={object.proj_record} />
                                         </div>
