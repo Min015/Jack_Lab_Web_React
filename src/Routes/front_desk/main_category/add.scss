@@ -133,6 +133,7 @@
             position: relative;
         }
         .selectlist{
+            display: none;
             position: absolute;
             background-color: aliceblue;
             top:1px;
@@ -153,12 +154,14 @@
                 }
                 input{
                     margin:0px 5px;
+                    width: 0px;
+                    height: 0px;
                 }
                 input[type=checkbox] {
                     display: none;
                 }
                 &:hover{
-                    background-color: aqua;
+                    background-color: rgb(180, 240, 240);
                 }
             }
             .selected{
@@ -189,4 +192,10 @@
     #filename {
         padding: 10px 45px 0px 45px;
     }
+}
+.active {
+    display: block !important;
+}
+.choose{
+
 }

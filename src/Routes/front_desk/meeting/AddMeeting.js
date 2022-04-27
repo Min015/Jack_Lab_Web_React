@@ -3,29 +3,29 @@ import '../main_category/add.scss';
 import Header from '../../../Components/Header/Header';
 export default class AddMeeting extends Component {
     state = {
-        array: [],
-        participate: [],
-        title: "",
-        content: "",
+        array: [],//file
+        participate: [],//已選擇
+        drop: false,
+        nowclass:"selectlist",
         title: {
             value: "",
-            errormsg: "請輸入",
+            errormsg: "必填",
         },
         content: {
             value: "",
-            errormsg: "請輸入",
+            errormsg: "必填",
         },
         time: {
             value: "",
-            errormsg: "請輸入",
+            errormsg: "必填",
         },
         place: {
             value: "",
-            errormsg: "請輸入",
+            errormsg: "必填",
         },
         member: {
             value: "",
-            errormsg: "請輸入",
+            errormsg: "必填",
         },
         student: [
             {
@@ -48,7 +48,7 @@ export default class AddMeeting extends Component {
                 s_account: "s05",
                 s_name: "邱冠翔",
             },
-        ]
+        ],//全部學生
 
     }
 
@@ -69,7 +69,7 @@ export default class AddMeeting extends Component {
             this.setState({
                 [name]: {
                     value,
-                    errormsg: "請輸入",
+                    errormsg: "必填",
                 }
             });
         }
@@ -77,11 +77,9 @@ export default class AddMeeting extends Component {
     }
     handelOnClick = e => {
         let participate = this.state.participate;
-        console.log(e);
         if (e.checked === true) {
             if (!participate.includes(e.value)) {
-                participate.push(e.value
-                );
+                participate.push(e.value);
             }
         }
         else {
@@ -119,9 +117,40 @@ export default class AddMeeting extends Component {
         // console.log("ISO=>" + ISO);
         return (ISO);
     }
-
+    handleGrop_down=()=>{
+        if (this.state.drop === false) {
+            this.setState({
+                drop: true,
+                nowclass: 'selectlist active',
+            })
+        }
+        else {
+            this.setState({
+                drop: false,
+                nowclass: 'selectlist',
+            })
+        }
+    }
+    handelMouseDown=(e)=>{
+        const className=(e.target.className);
+        const name=className.split(" ");
+        // console.log(e.target.className)
+        if(name[0]!=="choose"){
+            // console.log("A");
+            this.setState({
+                drop: false,
+                nowclass: 'selectlist',
+            })
+        }
+        else{
+            this.setState({
+                drop: true,
+                nowclass: 'selectlist active',
+            })
+        }
+    }
     render() {
-        const { array, title, content, time, member, tag, place, student, participate } = this.state;
+        const { array, title, content, time, member, tag, place, student, participate,nowclass } = this.state;
         return (
             <div>
                 <Header />
@@ -130,7 +159,10 @@ export default class AddMeeting extends Component {
                         <div className="add_title">
                             <h2>新增會議記錄</h2>
                         </div>
-                        <form className="add_form">
+                        <form className="add_form"
+                            onClick={this.handelMouseDown}
+                        >
+                        {/* 輸入會議主題 */}
                             <div className="inputbox">
                                 <div className="set col-12">
                                     <input
@@ -147,6 +179,7 @@ export default class AddMeeting extends Component {
 
                                 </div>
                             </div>
+                        {/* 輸入會議內容 */}
                             <div className="inputbox">
                                 <div className="set col-12">
                                     <textarea
@@ -163,6 +196,7 @@ export default class AddMeeting extends Component {
 
                                 </div>
                             </div>
+                            {/* 輸入會議時間地點 */}
                             <div className="inputbox">
                                 <div className="set col-4">
                                     <input
@@ -188,9 +222,13 @@ export default class AddMeeting extends Component {
                                     <label className="label">輸入會議地點<div className='error_msg'>{place.errormsg}</div></label>
                                 </div>
                             </div>
+                            {/* 參與人員 */}
                             <div className="inputbox">
                                 <div className="set col-12">
-                                    <div className='input'>
+                                    <div 
+                                    className='choose input'
+                                    onClick={this.handleGrop_down}
+                                    >
                                         {participate.length === 0 ? "參與人員" : ""}
                                         {participate.map((item) =>
                                             <div className='oncheck'>
@@ -209,23 +247,23 @@ export default class AddMeeting extends Component {
                                                         </svg>
                                                     </span>
                                                 </label>
-
                                             </div>
                                         )}
                                     </div>
                                     <div className='locator'>
-                                        <div className='selectlist'>
-                                            {student.map((item) => {
+                                        <div className={nowclass}>
+                                            {student.map((item,index) => {
                                                 const v = item.s_account + "," + item.s_name
                                                 return (
                                                     <div className={participate.includes(v) ? "option selected" : "option noS"}>
                                                         <input
                                                             type='checkbox'
-                                                            id={v}
+                                                            id={index}
                                                             value={v}
+                                                            className='choose'
                                                             onChange={(e) => { this.handelOnClick(e.target) }}
                                                         />
-                                                        <label for={v}>{item.s_name}</label>
+                                                        <label for={index} className='choose'>{item.s_name}</label>
                                                     </div>
                                                 )
                                             }
@@ -237,6 +275,7 @@ export default class AddMeeting extends Component {
                                     <label className="label">選擇參與人員<div className='error_msg'>{member.errormsg}</div></label>
                                 </div>
                             </div>
+                            {/* 標籤 */}
                             <div className="inputbox">
                                 <div className="set col-12">
                                     <input type="text"
@@ -247,6 +286,7 @@ export default class AddMeeting extends Component {
                                     <label className="label">輸入標籤</label>
                                 </div>
                             </div>
+                            {/* 檔案 */}
                             <div className="inputbox">
                                 <div className="upload">
                                     <input type="file" id="f" multiple="multiple" onChange={e => this.handleSelectFile(e.target.files)} />
@@ -263,6 +303,7 @@ export default class AddMeeting extends Component {
                                     {array.map(item => (<li>{item}</li>))}
                                 </ol>
                             </div>
+                            {/* 送出 */}
                             <div className="inputbox">
                                 <input type="submit" value="送出" className="col-1 form_submit" />
                             </div>

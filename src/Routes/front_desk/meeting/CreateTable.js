@@ -26,7 +26,7 @@ export default class CreateTable extends Component {
                         (item, index) => {
                             style = this.handleSetStyle(index);
                             return (
-                                <tr className={style}>
+                                <tr key={index} className={style}>
                                     <td><Link to='/Meeting/MeetingInfo'>{item.m_title}</Link></td>
                                     <td>{item.m_date}</td>
                                     <td>{item.m_place}</td>
