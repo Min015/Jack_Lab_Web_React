@@ -1,0 +1,108 @@
+@import '../../Mixin/global.scss';
+.login_background {
+    display: none;
+    position        : absolute;
+    top             : 0px;
+    width           : 100%;
+    background-color: rgba(0, 0, 0, 0.496);
+    height          : 100vh;
+    .signupFrm {
+        font-family    : "lato", sans-serif;
+        display        : flex;
+        justify-content: center;
+        align-items    : center;
+        height         : 100vh;
+    }
+}
+
+.form {
+    background-color: white;
+    width           : 400px;
+    border-radius   : 8px;
+    padding         : 20px 40px;
+    box-shadow      : 0 10px 25px rgba(92, 99, 105, .2);
+
+    .title {
+        font-size    : 50px;
+        margin-bottom: 50px;
+        color        : $button_color;
+    }
+
+    .inputContainer {
+        position     : relative;
+        height       : 45px;
+        width        : 90%;
+        margin-top   : 20px;
+        margin-bottom: 20px;
+
+        .input {
+            position     : absolute;
+            top          : 0px;
+            left         : 0px;
+            height       : 100%;
+            width        : 100%;
+            border       : 1px solid #DADCE0;
+            border-radius: 7px;
+            font-size    : 16px;
+            padding      : 0 20px;
+            outline      : none;
+            background   : none;
+            z-index      : 1;
+        }
+
+        ::placeholder {
+            color: transparent;
+        }
+
+        .input:focus+.label {
+            top        : -7px;
+            left       : 3px;
+            z-index    : 10;
+            font-size  : 14px;
+            font-weight: 600;
+            color      : #8696a7;
+        }
+
+        .input:not(:placeholder-shown)+.label {
+            top        : -7px;
+            left       : 3px;
+            z-index    : 10;
+            font-size  : 14px;
+            font-weight: 600;
+        }
+
+        .label {
+            position        : absolute;
+            top             : 15px;
+            left            : 15px;
+            padding         : 0 4px;
+            background-color: white;
+            color           : #DADCE0;
+            font-size       : 16px;
+            transition      : 0.5s;
+            z-index         : 0;
+        }
+    }
+
+    .submitBtn {
+        display         : block;
+        margin-left     : auto;
+        padding         : 15px 30px;
+        border          : none;
+        background-color: $button_color;
+        color           : white;
+        // border-radius   : 6px;
+        cursor          : pointer;
+        font-size       : 16px;
+        margin-top      : 30px;
+        float           : right;
+
+        &:hover {
+            background-color: $button_hover;
+            transform       : translateY(-2px);
+        }
+    }
+}
+.active {
+    display: block;
+}

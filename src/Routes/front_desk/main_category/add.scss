@@ -59,6 +59,7 @@
         textarea {
             min-height: 35px;
             color     : $font_maincolor;
+            background-color: rgba(245, 245, 220, 0);
         }
         
         .input {
@@ -66,10 +67,17 @@
             color: $font_maincolor;
             background-color: $form_maincolor;
             min-height: 35px;
+            flex-wrap: wrap;
             resize          : none;
             width           : 100%;
             @include border-set($form_border);
             @include ali-set();
+            p{
+                background-color:rgba(122, 122, 231, 0.484);
+                padding: 2px 5px ;
+                border-radius: 2px;
+                margin: 2.5px;
+            }
         }
         .oncheck{
             @extend %row;

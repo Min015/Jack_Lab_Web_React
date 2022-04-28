@@ -6,7 +6,8 @@ export default class AddMeeting extends Component {
         array: [],//file
         participate: [],//已選擇
         drop: false,
-        nowclass:"selectlist",
+        long:0,
+        nowclass: "selectlist",
         title: {
             value: "",
             errormsg: "必填",
@@ -49,6 +50,7 @@ export default class AddMeeting extends Component {
                 s_name: "邱冠翔",
             },
         ],//全部學生
+        tag: [],
 
     }
 
@@ -57,7 +59,7 @@ export default class AddMeeting extends Component {
         let { value, name } = target;
         console.log(value);
         value = value.trim();
-        if (value != "") {
+        if (value !== "") {
             this.setState({
                 [name]: {
                     value,
@@ -117,7 +119,7 @@ export default class AddMeeting extends Component {
         // console.log("ISO=>" + ISO);
         return (ISO);
     }
-    handleGrop_down=()=>{
+    handleGrop_down = () => {
         if (this.state.drop === false) {
             this.setState({
                 drop: true,
@@ -131,26 +133,52 @@ export default class AddMeeting extends Component {
             })
         }
     }
-    handelMouseDown=(e)=>{
-        const className=(e.target.className);
-        const name=className.split(" ");
+    handelMouseDown = (e) => {
+        const className = (e.target.className);
+        const name = className.split(" ");
         // console.log(e.target.className)
-        if(name[0]!=="choose"){
+        if (name[0] !== "choose") {
             // console.log("A");
             this.setState({
                 drop: false,
                 nowclass: 'selectlist',
             })
         }
-        else{
+        else {
             this.setState({
                 drop: true,
                 nowclass: 'selectlist active',
             })
         }
     }
+    heandleAddTag = (e) => {
+        // console.log(e.target.value);
+        const tag = this.state.tag;
+        if (e.keyCode === 13) {
+            if (!tag.includes(e.target.value)) {
+                tag.push(e.target.value);
+            }
+            console.log("Enter");
+            e.target.value = "";
+            console.log(tag);
+        }
+    }
+    heandleDelTag = (e) => {
+
+    }
+    headleGetLong=(e)=>{
+        const long=e.target.value.length;
+        if(long>=20){
+            alert("一個標籤勿超過20字");           
+            e.target.value = "";
+        }
+        this.setState({
+            long
+        })
+    }
+
     render() {
-        const { array, title, content, time, member, tag, place, student, participate,nowclass } = this.state;
+        const { array, title, content, time, member, tag, place, student, participate, nowclass,long } = this.state;
         return (
             <div>
                 <Header />
@@ -159,10 +187,11 @@ export default class AddMeeting extends Component {
                         <div className="add_title">
                             <h2>新增會議記錄</h2>
                         </div>
-                        <form className="add_form"
+                        <form
+                            className="add_form"
                             onClick={this.handelMouseDown}
                         >
-                        {/* 輸入會議主題 */}
+                            {/* 輸入會議主題 */}
                             <div className="inputbox">
                                 <div className="set col-12">
                                     <input
@@ -179,7 +208,7 @@ export default class AddMeeting extends Component {
 
                                 </div>
                             </div>
-                        {/* 輸入會議內容 */}
+                            {/* 輸入會議內容 */}
                             <div className="inputbox">
                                 <div className="set col-12">
                                     <textarea
@@ -225,13 +254,16 @@ export default class AddMeeting extends Component {
                             {/* 參與人員 */}
                             <div className="inputbox">
                                 <div className="set col-12">
-                                    <div 
-                                    className='choose input'
-                                    onClick={this.handleGrop_down}
+                                    <div
+                                        className='choose input'
+                                        onClick={this.handleGrop_down}
                                     >
                                         {participate.length === 0 ? "參與人員" : ""}
-                                        {participate.map((item) =>
-                                            <div className='oncheck'>
+                                        {participate.map((item, index) =>
+                                            <div
+                                                className='oncheck'
+                                                key={index}
+                                            >
                                                 <p >{item}</p>
                                                 <label className='deselect'>
                                                     <input
@@ -252,10 +284,13 @@ export default class AddMeeting extends Component {
                                     </div>
                                     <div className='locator'>
                                         <div className={nowclass}>
-                                            {student.map((item,index) => {
+                                            {student.map((item, index) => {
                                                 const v = item.s_account + "," + item.s_name
                                                 return (
-                                                    <div className={participate.includes(v) ? "option selected" : "option noS"}>
+                                                    <div
+                                                        className={participate.includes(v) ? "option selected" : "option noS"}
+                                                        key={index}
+                                                    >
                                                         <input
                                                             type='checkbox'
                                                             id={index}
@@ -267,22 +302,28 @@ export default class AddMeeting extends Component {
                                                     </div>
                                                 )
                                             }
-
                                             )}
                                         </div>
                                     </div>
-
                                     <label className="label">選擇參與人員<div className='error_msg'>{member.errormsg}</div></label>
                                 </div>
                             </div>
                             {/* 標籤 */}
                             <div className="inputbox">
                                 <div className="set col-12">
-                                    <input type="text"
-                                        name=""
-                                        placeholder="標籤"
-                                        className="input"
-                                    />
+                                    <div className="input">
+                                        {tag.map((item)=>(
+                                            <p>{item}</p>
+                                        ))}
+                                        <input 
+                                            type="text"
+                                            name=""
+                                            placeholder=""
+                                            size={long}
+                                            onKeyDown={this.heandleAddTag}
+                                            onChange={this.headleGetLong}
+                                        />
+                                    </div>
                                     <label className="label">輸入標籤</label>
                                 </div>
                             </div>
