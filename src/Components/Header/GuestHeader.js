@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { POST_function } from '../../Service/login/login.js';
 import { Link, NavLink } from "react-router-dom";
 import "./header1.scss";
 import "./login.scss";
@@ -6,9 +7,30 @@ import logo from "./img/logo.png";
 export default class GuestHeader extends Component {
     state = {
         drop: false,
+        post: [],
+        payload:{
+            account:"",
+            password: "",
+        }
     }
     //生命週期
 
+    POST = async() => {
+        const payload = this.state.payload
+        console.log(payload);
+        console.log(payload);
+
+        try {
+            const req = await POST_function(payload);
+            console.log(req.data);
+            console.log(req.status);
+
+
+        } catch (err) {
+            console.log(err);
+        }
+        return false;
+    }
     //func
     drop_down = () => {
         if (this.state.drop === false) {
@@ -24,14 +46,34 @@ export default class GuestHeader extends Component {
     }
     handelMouseDown = (e) => {
         // console.log(e.target)
-        if(e.target.className==="signupFrm"){
+        if (e.target.className === "signupFrm") {
             this.setState({
                 drop: false,
             })
         }
     }
+    handelInput=(e)=>{
+        const payload=this.state.payload;
+        if(e.target.name==="account"){
+            this.setState({
+                payload:{
+                    account:e.target.value,
+                    password:payload.password,
+                }
+            })
+        }
+        else if(e.target.name==="password"){
+            this.setState({
+                payload:{
+                    account:payload.account,
+                    password:e.target.value,
+                }
+            })
+        }
+        console.log(this.state.payload);
+    }
     render() {
-        const{drop}=this.state
+        const { drop } = this.state
         return (
             <header className="header">
                 <Link to="/Index" className="logo">
@@ -64,12 +106,12 @@ export default class GuestHeader extends Component {
                         </div>
                     </ul>
                 </nav>
-                <div 
-                className={drop?"login_background active":"login_background" }
-                onClick={this.handelMouseDown}
+                <div
+                    className={drop ? "login_background active" : "login_background"}
+                    onClick={this.handelMouseDown}
                 >
                     <div className="signupFrm">
-                        <form action="" method="post" className="form">
+                        <form className="form">
                             <h1 className="title">登入</h1>
                             <div className="inputContainer">
                                 <input
@@ -77,7 +119,8 @@ export default class GuestHeader extends Component {
                                     className="input"
                                     placeholder=" "
                                     required="required"
-                                    name="Email"
+                                    name="account"
+                                    onChange={this.handelInput}
                                 />
                                 <label for="Email" className="label">
                                     帳號
@@ -89,18 +132,20 @@ export default class GuestHeader extends Component {
                                     className="input"
                                     placeholder=" "
                                     required="required"
-                                    name="Password"
+                                    name="password"
+                                    onChange={this.handelInput}
                                 />
                                 <label for="Password" className="label">
                                     密碼
                                 </label>
                             </div>
-                            <input
-                                type="submit"
+                            <button
                                 className="submitBtn"
-                                value="登入"
-                                name="Login"
-                            />
+                                // name="Login"
+                                onClick={this.POST} 
+                            >
+                                登入
+                            </button>
                         </form>
                     </div>
                 </div>
