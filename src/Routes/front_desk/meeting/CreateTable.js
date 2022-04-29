@@ -31,7 +31,7 @@ export default class CreateTable extends Component {
                                 <tr key={index} className={style}>
                                     <td>
                                         <Link
-                                            to='/Meeting/MeetingInfo'
+                                            to='/meeting/meetinginfo'
                                             onClick={GET_MeetingInfo(item.Id)}
                                         >
                                             {item.Title}

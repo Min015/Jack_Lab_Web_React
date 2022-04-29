@@ -29,7 +29,7 @@ export default class CreateTable extends Component {
                                 <tr className={style}>
                                     <td>{item.p_type}</td>
                                     <td>{item.p_class}</td>
-                                    <td><Link to='/Project/ProjectInfo'>{item.p_title}</Link></td>
+                                    <td><Link to='/project/projectinfo'>{item.p_title}</Link></td>
                                     <td>{item.p_creater}</td>
                                     <td>{item.p_createTime}</td>
                                     <td>{item.p_tag}</td>

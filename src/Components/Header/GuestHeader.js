@@ -71,25 +71,25 @@ export default class GuestHeader extends Component {
         const { drop } = this.state
         return (
             <header className="header">
-                <Link to="/Index" className="logo">
+                <Link to="/index" className="logo">
                     <img src={logo} alt="" />
                 </Link>
                 <nav className="nav">
                     <ul className="header_ul">
-                        <Link to="/SetInfo">
+                        <Link to="/setinfo">
                             <li>去前台</li>
                         </Link>
-                        <Link to="/AdminAlbum">
+                        <Link to="/adminalbum">
                             <li>去後台</li>
                         </Link>
                         <div
-                            to="/Student"
+                            to="/student"
                             className={(navData) => (navData.isActive ? "nowP" : "")}
                         >
                             <li>實驗室介紹</li>
                         </div>
                         <Link
-                            to="/Student"
+                            to="/student"
                             className={(navData) => (navData.isActive ? "nowP" : "")}
                         >
                             <li>歷屆成員</li>

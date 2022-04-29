@@ -6,7 +6,7 @@ export default class AddMeeting extends Component {
         array: [],//file
         participate: [],//已選擇
         drop: false,
-        long:0,
+        long: 0,
         nowclass: "selectlist",
         title: {
             value: "",
@@ -166,10 +166,10 @@ export default class AddMeeting extends Component {
     heandleDelTag = (e) => {
 
     }
-    headleGetLong=(e)=>{
-        const long=e.target.value.length;
-        if(long>=20){
-            alert("一個標籤勿超過20字");           
+    headleGetLong = (e) => {
+        const long = e.target.value.length;
+        if (long >= 20) {
+            alert("一個標籤勿超過20字");
             e.target.value = "";
         }
         this.setState({
@@ -178,7 +178,7 @@ export default class AddMeeting extends Component {
     }
 
     render() {
-        const { array, title, content, time, member, tag, place, student, participate, nowclass,long } = this.state;
+        const { array, title, content, time, member, tag, place, student, participate, nowclass, long } = this.state;
         return (
             <div>
                 <Header />
@@ -312,10 +312,10 @@ export default class AddMeeting extends Component {
                             <div className="inputbox">
                                 <div className="set col-12">
                                     <div className="input">
-                                        {tag.map((item)=>(
+                                        {tag.map((item) => (
                                             <p>{item}</p>
                                         ))}
-                                        <input 
+                                        <input
                                             type="text"
                                             name=""
                                             placeholder=""

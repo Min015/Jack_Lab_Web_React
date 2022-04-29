@@ -29,16 +29,16 @@ export default class Header extends Component {
         const { newclass } = this.state;
         return (
             <header className="header">
-                <Link to='/Index' className="logo">
+                <Link to='/index' className="logo">
                     <img src={logo} alt="" />
                 </Link>
                 <nav className="nav">
                     <ul className="header_ul">
-                        <Link to='/Index'><li>去訪客</li></Link>
-                        <Link to='/AdminAlbum'><li>去後台</li></Link>
-                        <NavLink to='/Game' className={(navData) => navData.isActive ? "nowP" : "" } ><li>競賽專區</li></NavLink>
-                        <NavLink to='/Project'className={(navData) => navData.isActive ? "nowP" : "" } ><li>LAB專案</li></NavLink>
-                        <NavLink to='/Meeting'className={(navData) => navData.isActive ? "nowP" : "" } ><li>會議記錄</li></NavLink>
+                        <Link to='/index'><li>去訪客</li></Link>
+                        <Link to='/adminalbum'><li>去後台</li></Link>
+                        <NavLink to='/game' className={(navData) => navData.isActive ? "nowP" : "" } ><li>競賽專區</li></NavLink>
+                        <NavLink to='/project'className={(navData) => navData.isActive ? "nowP" : "" } ><li>LAB專案</li></NavLink>
+                        <NavLink to='/meeting'className={(navData) => navData.isActive ? "nowP" : "" } ><li>會議記錄</li></NavLink>
                         <div className="preson_info"
                             onClick={this.drop_down}
                         >
@@ -51,8 +51,8 @@ export default class Header extends Component {
                         </div>
                         <div className={newclass}>
                             <ul>
-                                <li id="set_info"><Link to='/SetInfo'>個人資料</Link></li>
-                                <li id="set_info"><Link to='/SetInfo'>修改密碼</Link></li>
+                                <li id="set_info"><Link to='/setinfo'>個人資料</Link></li>
+                                <li id="set_info"><Link to='/setinfo'>修改密碼</Link></li>
                                 <li id="logout"><a href="#">登出</a></li>
                             </ul>
                         </div>

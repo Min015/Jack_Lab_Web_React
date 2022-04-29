@@ -1,5 +1,5 @@
 import React from 'react'
-import {BrowserRouter,Routes,Route,Navigate,} from 'react-router-dom'
+import {BrowserRouter,Routes,Route,Navigate,useParams} from 'react-router-dom'
 
 import GameList from './front_desk/game/GameList';
 import AddGame from './front_desk/game/AddGame';
@@ -37,55 +37,61 @@ import PClassManage from './admin/project/class/PClassManage';
 import Index from './guest/index/Index';
 import TagManage from './admin/tag/TagManage';
 import Student from './guest/lab_member/Student';
+import NoRoute from '../Components/Notfound/NoRoute';
 
 
 export default(
     <BrowserRouter>
     <Routes>
     <Route path='/' exact element={<Navigate to='/Index'/>}/>
-    <Route path='/Game' exact element={<GameList/>}/>
-    <Route path='/Game/AddGame' exact element={<AddGame/>}/>
-    <Route path='/Project' exact element={<LabProject/>}/>
-    <Route path='/Project/AddProject' exact element={<AddProject/>}/>
-    <Route path='/Project/ProjectInfo' exact element={<ProjectInfo/>}/>
-    <Route path='/Meeting' exact element={<Meeting/>}/>
-    <Route path='/Meeting/AddMeeting' exact element={<AddMeeting/>}/>
-    <Route path='/Meeting/MeetingInfo' exact element={<MeetingInfo/>}/>
-    <Route path='/SetInfo' exact element={<SetInfo/>}/>
+    <Route path='/game' exact element={<GameList/>}/>
+    <Route path='/game/addgame' exact element={<AddGame/>}/>
+    <Route path='/project' exact element={<LabProject/>}/>
+    <Route path='/project/addproject' exact element={<AddProject/>}/>
+    <Route path='/project/projectinfo' exact element={<ProjectInfo/>}/>
+    <Route path='/meeting' exact element={<Meeting/>}/>
+    <Route path='/meeting/addmeeting' exact element={<AddMeeting/>}/>
+    <Route path='/meeting/meetinginfo' exact element={<MeetingInfo/>}/>
+    <Route path='/setinfo' exact element={<SetInfo/>}/>
 
-    <Route path='/AdminAlbum' exact element={<AdminAlbum/>}/>
-    <Route path='/Books' exact element={<Books/>}/>
+    <Route path='/adminalbum' exact element={<AdminAlbum/>}/>
+    <Route path='/books' exact element={<Books/>}/>
 
-    <Route path='/TeacherIntroduce' exact element={<TeacherIntroduce/>}/>
-    <Route path='/LabIntroduce' exact element={<LabIntroduce/>}/>
+    <Route path='/teacherintroduce' exact element={<TeacherIntroduce/>}/>
+    <Route path='/labintroduce' exact element={<LabIntroduce/>}/>
 
-    <Route path='/PemissionManage' exact element={<PermissionManage/>}/>
+    <Route path='/pemissionManage' exact element={<PermissionManage/>}/>
 
-    <Route path='/Member' exact element={<Member/>}/>
+    <Route path='/member' exact element={<Member/>}/>
 
-    <Route path='/MeetingManage' exact element={<MeetingManage/>}/>
-    <Route path='/MeetingManage/MeetingInfo' exact element={<Ad_MeetingInfo/>}/>
-
-
-    <Route path='/GameManage' exact element={<GameManage/>}/>
-    <Route path='/GameManage/GameInfo' exact element={<GameInfo/>}/>
-    <Route path='/GTypeManage' exact element={<GTypeManage/>}/>
+    <Route path='/meetingmanage' exact element={<MeetingManage/>}/>
+    <Route path='/meetingmanage/meetinginfo' exact element={<Ad_MeetingInfo/>}/>
 
 
-    <Route path='/CaseManage' exact element={<CaseManage/>}/>
-    <Route path='/CaseManage/CaseInfo' exact element={<Ad_ProjectInfo/>}/>
-    <Route path='/GroupManage' exact element={<GroupManage/>}/>
-    <Route path='/TypeMange' exact element={<TypeManage/>}/>
-    <Route path='/PClassMange' exact element={<PClassManage/>}/>
+    <Route path='/gamemanage' exact element={<GameManage/>}/>
+    <Route path='/gamemanage/gameinfo' exact element={<GameInfo/>}/>
+    <Route path='/gtypemanage' exact element={<GTypeManage/>}/>
+
+
+    <Route path='/casemanage' exact element={<CaseManage/>}/>
+    <Route path='/casemanage/caseinfo' exact element={<Ad_ProjectInfo/>}/>
+    <Route path='/groupmanage' exact element={<GroupManage/>}/>
+    <Route path='/typemange' exact element={<TypeManage/>}/>
+    <Route path='/pclassmange' exact element={<PClassManage/>}/>
     
-    <Route path='/TagManage' exact element={<TagManage/>}/>
-    
-    
+    <Route path='/tagmanage' exact element={<TagManage/>}/>
     
     
     
-    <Route path='/Index' exact element={<Index/>}/>
-    <Route path='/Student' exact element={<Student/>}/>
+    
+    
+    <Route path='/index' exact element={<Index/>}/>
+    <Route path='/student' exact element={<Student/>}/>
+
+    
+    <Route path='*' exact element={<NoRoute/>}/>
+    {/* 找不到 */}
+
 
 
 

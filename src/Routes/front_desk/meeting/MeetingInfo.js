@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component} from 'react';
 import '../main_category/meetingInfo.scss';
 import Header from '../../../Components/Header/Header';
 import {GET_MeetingInfo} from '../../../Service/meeting/Meeting.js';

@@ -13,15 +13,15 @@ export default class AdminHeader extends Component {
         return (
             <div>
                 <header id="admin_header">
-                    <Link to='/Index' className="logo">
+                    <Link to='/index' className="logo">
                         <img src={logo} />
                     </Link>
                     <nav>
                         <div className="logout">
-                            <Link to='/Index'>去訪客</Link>
+                            <Link to='/index'>去訪客</Link>
                         </div>
                         <div className="logout">
-                            <Link to='/'>去前台</Link>
+                            <Link to='/setinfo'>去前台</Link>
                         </div>
                         <div className="logout">
                             <a href="#">
