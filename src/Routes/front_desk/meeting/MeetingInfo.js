@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import '../main_category/meetingInfo.scss';
 import Header from '../../../Components/Header/Header';
+import {GET_MeetingInfo} from '../../../Service/meeting/Meeting.js';
 export default class MeetingInfo extends Component {
     state = {
         files:["先假裝它是word","先假裝它是ppt","先假裝它是講稿","先假裝它是錄音檔","先假裝它是圖片",]
@@ -8,7 +9,16 @@ export default class MeetingInfo extends Component {
     //生命週期
 
     //func
-
+    componentDidMount = async () => {
+        try {
+            const res = await GET_MeetingInfo();
+            this.setState({ data: res.data.data });
+            console.log(this.state.data);
+            console.log(this.state.data);
+        } catch (err) {
+            console.log(err);
+        }
+    }
 
     render() {
         const {files}=this.state;

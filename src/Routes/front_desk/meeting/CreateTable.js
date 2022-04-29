@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import '../main_category/category.scss';
 import { Link } from 'react-router-dom';
+import { GET_MeetingInfo } from '../../../Service/meeting/Meeting.js';
 export default class CreateTable extends Component {
     //func
     handleSetStyle = (i) => {
@@ -13,6 +14,7 @@ export default class CreateTable extends Component {
     }
     render() {
         const { table_header, table_content } = this.props;
+        console.log(table_content);
         let style;
         return (
             <table>
@@ -27,11 +29,18 @@ export default class CreateTable extends Component {
                             style = this.handleSetStyle(index);
                             return (
                                 <tr key={index} className={style}>
-                                    <td><Link to='/Meeting/MeetingInfo'>{item.m_title}</Link></td>
-                                    <td>{item.m_date}</td>
-                                    <td>{item.m_place}</td>
-                                    <td>{item.m_uploader}</td>
-                                    <td>{item.m_tag}</td>
+                                    <td>
+                                        <Link
+                                            to='/Meeting/MeetingInfo'
+                                            onClick={GET_MeetingInfo(item.Id)}
+                                        >
+                                            {item.Title}
+                                        </Link>
+                                    </td>
+                                    <td>{item.Time}</td>
+                                    <td>{item.Place}</td>
+                                    <td>{item.uploader.Name}</td>
+                                    <td>{item.tag}</td>
                                 </tr>
                             )
                         })

@@ -42,7 +42,7 @@ import Student from './guest/lab_member/Student';
 export default(
     <BrowserRouter>
     <Routes>
-    <Route path='/' exact element={<Navigate to='/SetInfo'/>}/>
+    <Route path='/' exact element={<Navigate to='/Index'/>}/>
     <Route path='/Game' exact element={<GameList/>}/>
     <Route path='/Game/AddGame' exact element={<AddGame/>}/>
     <Route path='/Project' exact element={<LabProject/>}/>

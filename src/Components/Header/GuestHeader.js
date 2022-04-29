@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { POST_function } from '../../Service/login/login.js';
+import { POST_function } from '../../Service/login/Login.js';
 import { Link, NavLink } from "react-router-dom";
 import "./header1.scss";
 import "./login.scss";
@@ -8,8 +8,8 @@ export default class GuestHeader extends Component {
     state = {
         drop: false,
         post: [],
-        payload:{
-            account:"",
+        payload: {
+            account: "",
             password: "",
         }
     }
@@ -20,16 +20,11 @@ export default class GuestHeader extends Component {
         console.log(payload);
         console.log(payload);
 
-        try {
-            const req = await POST_function(payload);
-            console.log(req.data);
-            console.log(req.status);
+        const req = await POST_function(payload);
+        console.log("data", req);
+        console.log(req.status);
+        alert(req.status);
 
-
-        } catch (err) {
-            console.log(err);
-        }
-        return false;
     }
     //func
     drop_down = () => {
@@ -52,21 +47,21 @@ export default class GuestHeader extends Component {
             })
         }
     }
-    handelInput=(e)=>{
-        const payload=this.state.payload;
-        if(e.target.name==="account"){
+    handelInput = (e) => {
+        const payload = this.state.payload;
+        if (e.target.name === "account") {
             this.setState({
-                payload:{
-                    account:e.target.value,
-                    password:payload.password,
+                payload: {
+                    account: e.target.value,
+                    password: payload.password,
                 }
             })
         }
-        else if(e.target.name==="password"){
+        else if (e.target.name === "password") {
             this.setState({
-                payload:{
-                    account:payload.account,
-                    password:e.target.value,
+                payload: {
+                    account: payload.account,
+                    password: e.target.value,
                 }
             })
         }
@@ -142,7 +137,7 @@ export default class GuestHeader extends Component {
                             <button
                                 className="submitBtn"
                                 // name="Login"
-                                onClick={this.POST} 
+                                onClick={this.POST.bind(this)}
                             >
                                 登入
                             </button>

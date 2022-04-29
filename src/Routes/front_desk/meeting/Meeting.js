@@ -3,6 +3,7 @@ import '../main_category/category.scss';
 import Header from '../../../Components/Header/Header';
 import { Link } from 'react-router-dom';
 import CreateTable from './CreateTable';
+import { GET_Meeting } from '../../../Service/meeting/Meeting.js';
 export default class Meeting extends Component {
     state = {
         table_header: [
@@ -23,14 +24,25 @@ export default class Meeting extends Component {
         ],
         year: ["時間範圍(必填)", "2022", "2021", "2020", "2019", "2018", "2017", "2016"],
         meeting_tag: ["選擇標籤"],
+        data: [],
     }
     //生命週期
+    componentDidMount = async () => {
+        try {
+            const res = await GET_Meeting();
+            this.setState({ data: res.data.data });
+            console.log(this.state.data);
+            console.log(this.state.data);
+        } catch (err) {
+            console.log(err);
+        }
+    }
 
     //func
 
 
     render() {
-        const { object, table_header, year,meeting_tag } = this.state;
+        const { object, table_header, year, meeting_tag, data } = this.state;
         return (
             <div>
                 <Header />
@@ -71,7 +83,7 @@ export default class Meeting extends Component {
                         </div>
 
                         <div className="reaults_area">
-                            <CreateTable table_header={table_header} table_content={object} />
+                            <CreateTable table_header={table_header} table_content={data} />
                         </div>
                     </div>
                 </div>

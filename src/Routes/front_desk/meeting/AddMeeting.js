@@ -154,7 +154,7 @@ export default class AddMeeting extends Component {
     heandleAddTag = (e) => {
         // console.log(e.target.value);
         const tag = this.state.tag;
-        if (e.keyCode === 13) {
+        if (e.keyCode === 32) {
             if (!tag.includes(e.target.value)) {
                 tag.push(e.target.value);
             }
@@ -346,7 +346,7 @@ export default class AddMeeting extends Component {
                             </div>
                             {/* 送出 */}
                             <div className="inputbox">
-                                <input type="submit" value="送出" className="col-1 form_submit" />
+                                <input type="submit" value="送出" className="col-1 form_submit"></input>
                             </div>
                         </form>
                     </div>
