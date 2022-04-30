@@ -93,6 +93,15 @@
             background-color: $tr_even;
         }
         
+        .tr_odd,.tr_even{
+            span{
+                background-color: rgba(117, 117, 250, 0.484);
+                padding         : 2px 5px;
+                border-radius   : 30px;
+                margin          : 2.5px;
+            }
+        }
+
         th,
         td {
             @include border-set($main_backgroundcolor);

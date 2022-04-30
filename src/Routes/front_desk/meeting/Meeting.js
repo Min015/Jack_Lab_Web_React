@@ -33,7 +33,6 @@ export default class Meeting extends Component {
 
     render() {
         const {table_header, year, meeting_tag, data } = this.state;
-        console.log(data);
         return (
             <div>
                 <Header />

@@ -25,7 +25,9 @@ export default class MeetingInfo extends Component {
     Download = async (filename) => {
         try {
             const res = await GET_download(filename);
-            console.log(res)
+            const url=res.config.url;
+            console.log(url);
+            return(url);
         } catch (err) {
             console.log(err);
         }
@@ -104,9 +106,13 @@ export default class MeetingInfo extends Component {
                                         {data.files?.map((item, index) => (
                                             <li
                                                 key={index}
-                                                onClick={() => this.Download(item.Name)}
+                                                onClick={this.Download(item.Name)}
                                             >
+                                                {/* `http://localhost/${this.Download(item.Name)` */}
+                                                <a href={`http://localhost/${this.Download(item.Name).then()}`}>
                                                 {item.Name}
+                                                </a>
+                                                
                                             </li>
                                         ))}
                                     </ol>
