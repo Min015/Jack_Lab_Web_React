@@ -1,14 +1,15 @@
 import { Component } from 'react';
 import '../main_category/add.scss';
 import Header from '../../../Components/Header/Header';
-import { GET_Members } from '../../../Service/meeting/Meeting.js';
+import { GET_Members} from '../../../Service/meeting/Meeting.js';
+import { POST_AddMeeting} from '../../../Service/meeting/Sendform';
+
 export default class AddMeeting extends Component {
     state = {
         array: [],//file
         participate: [],//已選擇
-        participateName: [],
-        drop: false,
         long: 0,
+        drop: false,
         nowclass: "selectlist",
         title: {
             value: "",
@@ -30,12 +31,13 @@ export default class AddMeeting extends Component {
             value: "",
             errormsg: "必填",
         },
-
         tag: [],
         Members: [],
 
     }
 
+
+    //生命週期
     componentDidMount = async () => {
         try {
             const res = await GET_Members();
@@ -44,12 +46,30 @@ export default class AddMeeting extends Component {
             console.log(err);
         }
     }
+    Submit = async () => {
+        const addmember=this.state.participate.map((item)=>{return(item.account)});
+        const payload = {
+            title: this.state.title.value,
+            content: this.state.content.value,
+            time: this.state.time.value,
+            place: this.state.place.value,
+            uploader: "s05751869@gmail.com",
+            files: this.state.array,
+            member: addmember,
+            tag: this.state.tag,
+        }
+        try {
+            const req = await POST_AddMeeting(payload);
+            console.log(req.message);
+        } catch (err) {
+            console.log(err);
+        }
+    }
 
-
+    //func
     handleInputChange(event) {
         const target = event.target;
         let { value, name } = target;
-        console.log(value);
         value = value.trim();
         if (value !== "") {
             this.setState({
@@ -67,35 +87,9 @@ export default class AddMeeting extends Component {
                 }
             });
         }
-        console.log(this.state.meeting.member.value + "---");
     }
+
     handelOnClick = e => {
-        let participate = this.state.participate;
-        let participateName = this.state.participateName;
-        if (e.checked === true) {
-            if (!participate.includes(e.id)) {
-                participate.push(e.id);
-                participateName.push(e.value)
-            }
-        }
-        else {
-            participate.forEach((item, index) => {
-                if (item === e.id) {
-                    participate.splice(index, 1)
-                }
-            })
-            participateName.forEach((item, index) => {
-                if (item === e.value) {
-                    participateName.splice(index, 1)
-                }
-            })
-        }
-        this.setState({
-            participate
-        })
-        console.log(participate);
-    }
-    handelOnClick2 = e => {
         let participate = this.state.participate;
         const account = e.id;
         const name = e.value;
@@ -104,23 +98,23 @@ export default class AddMeeting extends Component {
             name
         }
         if (e.checked === true) {
-            if (!participate.find((item)=>JSON.stringify(item)===JSON.stringify(obj))) {
+            if (!participate.find((item) => JSON.stringify(item) === JSON.stringify(obj))) {
                 participate.push(obj);
-                console.log("加入");
+                // console.log("加入");
             }
             this.setState({
                 participate,
             })
         }
         else {
-            let newarray=participate.filter((item)=>item.account!==obj.account)
-            console.log(newarray);
-            console.log("刪除");
+            let newarray = participate.filter((item) => item.account !== obj.account)
+            // console.log("刪除");
             this.setState({
-                participate:newarray,
+                participate: newarray,
             })
         }
     }
+
     handleSelectFile = (files) => {
         if (files.length > 5) {
             alert("一次請勿上傳超過五個檔案")
@@ -128,22 +122,24 @@ export default class AddMeeting extends Component {
         else {
             let array = []
             for (let item = 0; item < files.length; item++) {
-                array.push(files[item].name);
+                array.push(files[item]);
+                console.log(files[item]);
             }
             this.setState({
                 array
             })
         }
     }
+
     handleGetnow = () => {
         const dt = new Date();
         const hh = dt.getHours() < 10 ? '0' + dt.getHours() : dt.getHours();
         const mm = dt.getMinutes() < 10 ? '0' + dt.getMinutes() : dt.getMinutes();
         const today = new Date().toISOString().split("T");
         const ISO = today[0] + "T" + hh + ":" + mm;
-        // console.log("ISO=>" + ISO);
         return (ISO);
     }
+
     handleGrop_down = () => {
         if (this.state.drop === false) {
             this.setState({
@@ -158,6 +154,7 @@ export default class AddMeeting extends Component {
             })
         }
     }
+
     handelMouseDown = (e) => {
         const cn = (e.target.className);
         const name = cn.split(" ");
@@ -174,6 +171,7 @@ export default class AddMeeting extends Component {
             })
         }
     }
+
     heandleAddTag = (e) => {
         const tag = this.state.tag;
         if (e.keyCode === 32) {
@@ -181,9 +179,9 @@ export default class AddMeeting extends Component {
                 tag.push(e.target.value);
             }
             e.target.value = "";
-            console.log(tag);
         }
     }
+
     heandleDelTag = (e) => {
         const thistag = e.target.id;
         let tag = this.state.tag;
@@ -197,7 +195,6 @@ export default class AddMeeting extends Component {
         this.setState({
             tag
         })
-        console.log(tag)
     }
 
     headleGetLong = (e) => {
@@ -212,7 +209,8 @@ export default class AddMeeting extends Component {
     }
 
     render() {
-        const { array, title, content, time, member, tag, place, student, participate, participateName, nowclass, long, Members } = this.state;
+        const { array, title, content, time, member, tag, place, participate, nowclass, long, Members } = this.state;
+        
         return (
             <div>
                 <Header />
@@ -305,7 +303,7 @@ export default class AddMeeting extends Component {
                                                             id={item.account}
                                                             value={item.name}
                                                             checked
-                                                            onChange={(e) => { this.handelOnClick2(e.target) }}
+                                                            onChange={(e) => { this.handelOnClick(e.target) }}
                                                         />
                                                         <span>
                                                             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -330,32 +328,13 @@ export default class AddMeeting extends Component {
                                                             id={item.Account}
                                                             value={item.student.Name}
                                                             className='choose'
-                                                            onChange={(e) => { this.handelOnClick2(e.target) }}
+                                                            onChange={(e) => { this.handelOnClick(e.target) }}
                                                         />
                                                         <label for={item.Account} className='choose'>{item.student.Name}</label>
                                                     </div>
                                                 )
                                             }
                                             )}
-                                            {/* {student.map((item, index) => {
-                                            const v = item.s_account + "," + item.s_name
-                                            return (
-                                                <div
-                                                    className={participate.includes(v) ? "option selected" : "option noS"}
-                                                    key={index}
-                                                >
-                                                    <input
-                                                        type='checkbox'
-                                                        id={index}
-                                                        value={v}
-                                                        className='choose'
-                                                        onChange={(e) => { this.handelOnClick(e.target) }}
-                                                    />
-                                                    <label for={index} className='choose'>{item.s_name}</label>
-                                                </div>
-                                            )
-                                        }
-                                        )} */}
                                         </div>
                                     </div>
                                     <label className="label">選擇參與人員<div className='error_msg'>{member.errormsg}</div></label>
@@ -404,12 +383,17 @@ export default class AddMeeting extends Component {
                             </div>
                             <div id="filename">
                                 <ol>
-                                    {array.map(item => (<li>{item}</li>))}
+                                    {array.map(item => (<li>{item.name}</li>))}
                                 </ol>
                             </div>
                             {/* 送出 */}
                             <div className="inputbox">
-                                <input type="submit" value="送出" className="col-1 form_submit"></input>
+                                <button
+                                    className="col-1 form_submit"
+                                    onClick={this.Submit}
+                                >
+                                    送出
+                                </button>
                             </div>
                         </form>
                     </div>

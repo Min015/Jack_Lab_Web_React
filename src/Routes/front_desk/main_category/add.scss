@@ -62,13 +62,18 @@
         }
 
         input,
+        button,
         select,
         textarea {
             min-height      : 35px;
             color           : $font_maincolor;
             background-color: rgba(245, 245, 220, 0);
+            
         }
-
+        button{
+            border: 0px;
+            cursor: pointer;
+        }
         .input {
             font-size       : $m;
             color           : $font_maincolor;

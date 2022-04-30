@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { POST_function } from '../../Service/login/Login.js';
+import { POST_login,set_token } from '../../Service/login/Login.js';
 import { Link, NavLink } from "react-router-dom";
 import "./header1.scss";
 import "./login.scss";
@@ -20,7 +20,7 @@ export default class GuestHeader extends Component {
         console.log(payload);
         console.log(payload);
 
-        const req = await POST_function(payload);
+        const req = await POST_login(payload);
         console.log("data", req);
         console.log(req.status);
         alert(req.status);

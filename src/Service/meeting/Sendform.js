@@ -8,14 +8,10 @@ const _axios = axios.create({
     headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',//跨域
-        // 'Authorization': `bearer ${token}`//權限
+        // 'Authorization': `Bearer ${token}`//權限
         //'Authorization': `${token}`//權限
     }
 })
-
-export function POST_login(payload) {
-    return _axios.post('/api/login', payload)
-}
-export function set_token(token) {
-    return localStorage.setItem('user_token',token);
+export function POST_AddMeeting(payload) {
+    return _axios.post('api/meeting', payload)
 }
