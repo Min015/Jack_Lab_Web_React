@@ -110,7 +110,7 @@ export default class GuestHeader extends Component {
                             <h1 className="title">登入</h1>
                             <div className="inputContainer">
                                 <input
-                                    type="email"
+                                    type="text"
                                     className="input"
                                     placeholder=" "
                                     required="required"

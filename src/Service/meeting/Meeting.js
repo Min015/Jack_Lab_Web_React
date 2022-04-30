@@ -21,5 +21,9 @@ export function GET_Meeting() {
     return _axios.get('/api/meeting')
 }
 export function GET_MeetingInfo(id) {
-    return _axios.get(`/api//meeting/${id}`)
+    return _axios.get(`/api/meeting/${id}`)
+}
+
+export function GET_download(filename) {
+    return _axios.get(`api/download/meeting/${filename}`)
 }

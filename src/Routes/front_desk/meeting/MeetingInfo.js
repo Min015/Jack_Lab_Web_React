@@ -1,27 +1,40 @@
-import { Component} from 'react';
+import { Component } from 'react';
 import '../main_category/meetingInfo.scss';
 import Header from '../../../Components/Header/Header';
-import {GET_MeetingInfo} from '../../../Service/meeting/Meeting.js';
+import { GET_MeetingInfo, GET_download } from '../../../Service/meeting/Meeting.js';
+import { useParams, useLocation, } from 'react-router-dom';
 export default class MeetingInfo extends Component {
     state = {
-        files:["先假裝它是word","先假裝它是ppt","先假裝它是講稿","先假裝它是錄音檔","先假裝它是圖片",]
+        Id: "1",
+        data: [],
     }
     //生命週期
-
-    //func
     componentDidMount = async () => {
+        // console.log(this.props);
+        const id = this.state.Id;
         try {
-            const res = await GET_MeetingInfo();
+            const res = await GET_MeetingInfo(id);
             this.setState({ data: res.data.data });
-            console.log(this.state.data);
-            console.log(this.state.data);
+            // console.log(this.state.data);
         } catch (err) {
             console.log(err);
         }
     }
 
+    //func
+    Download = async (filename) => {
+        try {
+            const res = await GET_download(filename);
+            console.log(res)
+        } catch (err) {
+            console.log(err);
+        }
+    }
     render() {
-        const {files}=this.state;
+        const { data } = this.state;
+        const dt =data.Time?.split(" ");
+        dt?.map((item, index) => (console.log(item, index)))
+        console.log(dt);
         return (
             <div>
                 <Header />
@@ -29,12 +42,17 @@ export default class MeetingInfo extends Component {
                     <div className="contentin">
                         <div className="add_title">
                             <div className="title_name">
-                                <h2>小專畫面</h2>
-                                <div className="tag">
-                                    <div className="small_tag">
-                                        <a href="../html/project.html">#小專</a>
-                                    </div>
-                                </div>
+                                <h2>{data.Title}</h2>
+                                {data.tag?.map((item, index) => {
+                                    return (
+                                        <div key={index} className="tag">
+                                            <div className="small_tag">
+                                                <p>#{item.Name}</p>
+                                            </div>
+                                        </div>
+                                    )
+                                })}
+
                             </div>
                             <div className="edit_button">
                                 <div className="add">
@@ -49,40 +67,47 @@ export default class MeetingInfo extends Component {
                         </div>
                         <div className="meeting">
                             <div className="col-5 something_content meeting_content">
-                                這是開會的內容
+                                {data.Content}
                             </div>
                             <div className="col-6 meeting_info">
                                 <div className="else_info">
                                     <div className="col-3">
                                         <p>時間</p>
                                         <div className="info_block_content">
-                                            2022-03-29
+                                            {data.Time}
                                         </div>
                                     </div>
                                     <div className="col-3">
                                         <p>地點</p>
                                         <div className="info_block_content">
-                                            2606
+                                            {data.Place}
                                         </div>
                                     </div>
                                     <div className="col-3">
                                         <p>紀錄者</p>
                                         <div className="info_block_content">
-                                            陳旻愉
+                                            {data.uploader?.Name}
                                         </div>
                                     </div>
                                 </div>
                                 <div className="magin_top_70">
                                     <p>參與人員</p>
                                     <div className="participant something_content">
-                                        這是參與開會的人們
+                                        {data.member?.map((item, index) =>
+                                            <span>{`${item.Name}　`}</span>
+                                        )}
                                     </div>
                                 </div>
                                 <div className="magin_top_70">
                                     <p>相關檔案</p>
                                     <ol>
-                                        {files.map((item)=>(
-                                            <li>{item}</li>
+                                        {data.files?.map((item, index) => (
+                                            <li
+                                                key={index}
+                                                onClick={() => this.Download(item.Name)}
+                                            >
+                                                {item.Name}
+                                            </li>
                                         ))}
                                     </ol>
                                 </div>

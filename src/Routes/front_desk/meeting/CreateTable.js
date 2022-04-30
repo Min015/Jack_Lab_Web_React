@@ -1,7 +1,6 @@
 import { Component } from 'react';
 import '../main_category/category.scss';
 import { Link } from 'react-router-dom';
-import { GET_MeetingInfo } from '../../../Service/meeting/Meeting.js';
 export default class CreateTable extends Component {
     //func
     handleSetStyle = (i) => {
@@ -14,13 +13,12 @@ export default class CreateTable extends Component {
     }
     render() {
         const { table_header, table_content } = this.props;
-        console.log(table_content);
         let style;
         return (
             <table>
                 <thead>
                     <tr>
-                        {table_header.map(item => (<th>{item}</th>))}
+                        {table_header.map((item,index) => (<th key={`th${index}`}>{item}</th>))}
                     </tr>
                 </thead>
                 <tbody>
@@ -28,11 +26,10 @@ export default class CreateTable extends Component {
                         (item, index) => {
                             style = this.handleSetStyle(index);
                             return (
-                                <tr key={index} className={style}>
+                                <tr key={`tr${index}`} className={style}>
                                     <td>
-                                        <Link
-                                            to='/meeting/meetinginfo'
-                                            onClick={GET_MeetingInfo(item.Id)}
+                                    <Link
+                                            to={`/meeting/meetinginfo/${item.Id}`}
                                         >
                                             {item.Title}
                                         </Link>
@@ -40,7 +37,12 @@ export default class CreateTable extends Component {
                                     <td>{item.Time}</td>
                                     <td>{item.Place}</td>
                                     <td>{item.uploader.Name}</td>
-                                    <td>{item.tag}</td>
+                                    <td>
+                                        {item.tag.map((item,index)=>{
+                                            return(<span>{item.Name} </span>)
+                                        })}
+                                    </td>
+                                    {console.log(item)}
                                 </tr>
                             )
                         })

@@ -13,26 +13,16 @@ export default class Meeting extends Component {
             "記錄者",
             "相關標籤",
         ],
-        object: [
-            {
-                m_title: "小專畫面",
-                m_date: "2022-03-29",
-                m_place: "2605",
-                m_uploader: "陳旻愉",
-                m_tag: "",
-            },
-        ],
+        data: [],
         year: ["時間範圍(必填)", "2022", "2021", "2020", "2019", "2018", "2017", "2016"],
         meeting_tag: ["選擇標籤"],
-        data: [],
+        
     }
     //生命週期
     componentDidMount = async () => {
         try {
             const res = await GET_Meeting();
-            this.setState({ data: res.data.data });
-            console.log(this.state.data);
-            console.log(this.state.data);
+            this.setState({ data: res.data.data});
         } catch (err) {
             console.log(err);
         }
@@ -42,7 +32,8 @@ export default class Meeting extends Component {
 
 
     render() {
-        const { object, table_header, year, meeting_tag, data } = this.state;
+        const {table_header, year, meeting_tag, data } = this.state;
+        console.log(data);
         return (
             <div>
                 <Header />
@@ -52,16 +43,16 @@ export default class Meeting extends Component {
                             <form action="">
                                 <div className="select_list">
                                     <select name="year" required className="select">
-                                        {year.map((item) => {
+                                        {year.map((item,index) => {
                                             return (
-                                                <option value={item}>{item}</option>
+                                                <option key={index} value={item}>{item}</option>
                                             )
                                         })}
                                     </select>
                                     <select name="type" className="select">
-                                        {meeting_tag.map((item) => {
+                                        {meeting_tag.map((item,index) => {
                                             return (
-                                                <option value={item}>{item}</option>
+                                                <option key={index} value={item}>{item}</option>
                                             )
                                         })}
                                     </select>
