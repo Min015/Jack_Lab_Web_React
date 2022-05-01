@@ -2,6 +2,7 @@ import { Component } from 'react';
 import '../main_category/add.scss';
 import Header from '../../../Components/Header/Header';
 import { GET_Members, GET_MeetingInfo } from '../../../Service/meeting/Meeting.js';
+import { Link } from 'react-router-dom';
 
 
 export default class UpdateMeeting extends Component {
@@ -421,12 +422,13 @@ export default class UpdateMeeting extends Component {
                                 </ol>
                             </div>
                             {/* 送出 */}
-                            <div className="inputbox">
+                            <div id="work_col">
                                 <button
                                     className="col-1 form_submit"
-                                // onClick={this.Update}
                                 >
-                                    修改
+                                    <Link to={`/meeting/meetinginfo/${this.state.Id}`}>
+                                    返回
+                                    </Link>
                                 </button>
                                 <button
                                     className="col-1 form_submit"

@@ -12,7 +12,7 @@ export default class AddMeeting extends Component {
         tag: [],//已輸入的tag
         Members: [],//所有人員名單
         drop: false,
-        disabled:false,
+        disabled: false,
         nowclass: "selectlist",
         title: {
             value: "",
@@ -47,19 +47,24 @@ export default class AddMeeting extends Component {
     }
     Submit = async () => {
         const addmember = this.state.participate.map((item) => { return (item.account) });
-        const payload = {
-            title: this.state.title.value,
-            content: this.state.content.value,
-            time: this.state.time.value,
-            place: this.state.place.value,
-            uploader: "s05751869@gmail.com",
-            files: this.state.array,
-            member: addmember,
-            tag: this.state.tag,
-        }
+        const data = new FormData();
+        data.append('title', this.state.title.value);
+        data.append('content', this.state.content.value);
+        data.append('time', this.state.time.value);
+        data.append('place', this.state.place.value);
+        data.append('uploader', "s05751869@gmail.com");
+        this.state.array.map((item, index) =>
+            data.append(`files[${index}]`, item)
+        )
+        addmember.map((item, index) =>
+            data.append(`member[${index}]`, item)
+        )
+        this.state.tag.map((item, index) =>
+            data.append(`tag[${index}]`, item)
+        )
         try {
-            const req = await POST_AddMeeting(payload);
-            console.log(req.message);
+            const req = await POST_AddMeeting(data);
+            console.log(req);
             window.location.replace('http://localhost:3000/meeting');
         } catch (err) {
             console.log(err);
@@ -202,13 +207,13 @@ export default class AddMeeting extends Component {
         if (tag.length === 5) {
             e.target.value = "";
             this.setState({
-                disabled:true,
+                disabled: true,
             })
             alert("一次請勿輸入超過五個標籤");
         }
         else {
             this.setState({
-                disabled:false,
+                disabled: false,
             })
             if (e.keyCode === 32) {
                 if (!tag.includes(e.target.value) && (e.target.value) !== "" && (e.target.value) !== " ") {
@@ -223,7 +228,7 @@ export default class AddMeeting extends Component {
         const thistag = e.target.id;
         let tag = this.state.tag;
         this.setState({
-            disabled:false,
+            disabled: false,
         })
         if (tag.includes(thistag)) {
             tag.forEach((item, index) => {
@@ -239,7 +244,7 @@ export default class AddMeeting extends Component {
 
 
     render() {
-        const { array, title, content, time, member, tag, place, participate, nowclass, long, Members,disabled } = this.state;
+        const { array, title, content, time, member, tag, place, participate, nowclass, long, Members, disabled } = this.state;
 
         return (
             <div>
@@ -249,7 +254,7 @@ export default class AddMeeting extends Component {
                         <div className="add_title">
                             <h2>新增會議記錄</h2>
                         </div>
-                        <form
+                        <div
                             className="add_form"
                             onClick={this.handelMouseDown.bind(this)}
                         >
@@ -426,7 +431,7 @@ export default class AddMeeting extends Component {
                                     送出
                                 </button>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>

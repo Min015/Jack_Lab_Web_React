@@ -68,12 +68,13 @@
             min-height      : 35px;
             color           : $font_maincolor;
             background-color: rgba(245, 245, 220, 0);
-            
         }
-        button{
+
+        button {
             border: 0px;
             cursor: pointer;
         }
+
         .input {
             font-size       : $m;
             color           : $font_maincolor;
@@ -91,7 +92,8 @@
                 border-radius   : 2px;
                 margin          : 2.5px;
             }
-            svg{
+
+            svg {
                 margin-left: 3px
             }
         }
@@ -99,25 +101,27 @@
         .oncheck {
             @extend %row;
             @include ali-set();
-            p{
+
+            p {
                 @extend %row;
                 @include ali-set();
+
                 .deselect {
                     padding     : 0;
                     margin-right: 3px;
                     cursor      : pointer;
-    
+
                     input[type=checkbox] {
                         display: none;
                     }
-    
+
                     input[type=checkbox]+span {
                         display: flex;
                         width  : 15px;
                     }
                 }
             }
-            
+
         }
 
         .label {
@@ -232,6 +236,28 @@
             }
         }
 
+    }
+    #work_col {
+        padding   : 0px 15px;
+        margin-top: 25px;
+        @extend %between;
+
+        .form_submit {
+            background-color: $button_color;
+            @include ali-set();
+            @include jus-set();
+        }
+
+        button {
+            min-height      : 35px;
+            background-color: rgba(245, 245, 220, 0);
+            border          : 0px;
+            color           : $font_maincolor;
+            cursor          : pointer;
+            a{
+                color           : $font_maincolor;
+            }
+        }
     }
 
     #filename {
