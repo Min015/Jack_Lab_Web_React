@@ -1,8 +1,8 @@
 import { Component } from 'react';
 import '../main_category/add.scss';
 import Header from '../../../Components/Header/Header';
-import { GET_Members } from '../../../Service/meeting/Meeting.js';
-import { POST_AddMeeting } from '../../../Service/meeting/Sendform';
+import { GET_Members } from '../../../Service/meeting/Meeting';
+import { POST_AddMeeting } from '../../../Service/fileupload/Sendform';
 
 export default class AddMeeting extends Component {
     state = {
@@ -14,6 +14,9 @@ export default class AddMeeting extends Component {
         drop: false,
         disabled: false,
         nowclass: "selectlist",
+        all_file_max_size: 1024 * 1024 * 50,//50M
+        one_file_max_size: 1024 * 1024 * 30,//30M
+        mimes_type: ['zip','7z','rar','svg','png','jpg','jpeg','csv','txt','xlx','xls','xlsx','pdf','doc','docx','ppt','pptx'],//媒體類型
         title: {
             value: "",
             errormsg: "必填",
@@ -33,10 +36,11 @@ export default class AddMeeting extends Component {
         member: {
             errormsg: "必填",
         },
+        uploader: "s05751869@gmail.com",
     }
 
 
-    //生命週期
+    //載入所有人員名單
     componentDidMount = async () => {
         try {
             const res = await GET_Members();
@@ -45,33 +49,41 @@ export default class AddMeeting extends Component {
             console.log(err);
         }
     }
+    //送出
     Submit = async () => {
-        const addmember = this.state.participate.map((item) => { return (item.account) });
-        const data = new FormData();
-        data.append('title', this.state.title.value);
-        data.append('content', this.state.content.value);
-        data.append('time', this.state.time.value);
-        data.append('place', this.state.place.value);
-        data.append('uploader', "s05751869@gmail.com");
-        this.state.array.map((item, index) =>
-            data.append(`files[${index}]`, item)
-        )
-        addmember.map((item, index) =>
-            data.append(`member[${index}]`, item)
-        )
-        this.state.tag.map((item, index) =>
-            data.append(`tag[${index}]`, item)
-        )
-        try {
-            const req = await POST_AddMeeting(data);
-            console.log(req);
-            window.location.replace('http://localhost:3000/meeting');
-        } catch (err) {
-            console.log(err);
+        const { title, content, time, place, uploader, array, participate, tag, member } = this.state;
+        const errormsg = "必填";
+        if (title.errormsg !== errormsg && content.errormsg !== errormsg && time.errormsg !== errormsg && place.errormsg !== errormsg && member.errormsg !== errormsg) {
+            const addmember = participate.map((item) => { return (item.account) });
+            const data = new FormData();
+            data.append('title', title.value);
+            data.append('content', content.value);
+            data.append('time', time.value);
+            data.append('place', place.value);
+            data.append('uploader', uploader);
+            array.map((item, index) =>
+                data.append(`files[${index}]`, item)
+            )
+            addmember.map((item, index) =>
+                data.append(`member[${index}]`, item)
+            )
+            tag.map((item, index) =>
+                data.append(`tag[${index}]`, item)
+            )
+            try {
+                const req = await POST_AddMeeting(data);
+                console.log(req);
+                window.location.replace('http://localhost:3000/meeting');
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        else{
+            alert("您有必填欄位尚未填寫，請確認");
         }
     }
 
-    //func
+    //確定是否填寫
     handleInputChange(event) {
         const target = event.target;
         let { value, name } = target;
@@ -135,14 +147,29 @@ export default class AddMeeting extends Component {
     }
     //選檔案
     handleSelectFile = (files) => {
+        let nowsize=0;
+        const{all_file_max_size,one_file_max_size,mimes_type}=this.state;
         if (files.length > 5) {
             alert("一次請勿上傳超過五個檔案")
         }
         else {
-            let array = []
-            for (let item = 0; item < files.length; item++) {
-                array.push(files[item]);
-                console.log(files[item]);
+            let array = [];
+            for (let index = 0; index < files.length; index++) {
+                const file_type=files[index].name.split(".").pop();
+                if(!mimes_type.includes(file_type)){
+                    const media_type=mimes_type.map((item)=>` ${item}`);
+                    alert(`上傳檔案類型錯誤,請選擇${media_type}類型的檔案`);
+                }
+                else{
+                    const thissize=files[index].size;
+                nowsize+=thissize;
+                if(thissize>one_file_max_size||nowsize>all_file_max_size){
+                    alert("檔案過大，請重新選擇(單個檔案物超過30M，總大小物超過50M");
+                }
+                else{
+                    array.push(files[index]);
+                }
+                }
             }
             this.setState({
                 array
@@ -242,10 +269,8 @@ export default class AddMeeting extends Component {
         })
     }
 
-
     render() {
-        const { array, title, content, time, member, tag, place, participate, nowclass, long, Members, disabled } = this.state;
-
+        const { array, title, content, time, member, tag, place, participate, nowclass, long, Members, disabled,mimes_type } = this.state;
         return (
             <div>
                 <Header />
@@ -408,7 +433,12 @@ export default class AddMeeting extends Component {
                             {/* 檔案 */}
                             <div className="inputbox">
                                 <div className="upload">
-                                    <input type="file" id="f" multiple="multiple" onChange={e => this.handleSelectFile(e.target.files)} />
+                                    <input 
+                                    type="file"
+                                    id="f" 
+                                    multiple="multiple" 
+                                    onChange={e => this.handleSelectFile(e.target.files)}
+                                    />
                                     <div className="newbtn">
                                         <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M20 2H10L8 0H0V16H20V2ZM11 9V13H9V9H6L10.01 5L14 9H11Z" fill="white" />

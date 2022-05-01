@@ -3,18 +3,22 @@ import '../main_category/add.scss';
 import Header from '../../../Components/Header/Header';
 import { GET_Members, GET_MeetingInfo } from '../../../Service/meeting/Meeting.js';
 import { Link } from 'react-router-dom';
-
+import { POST_UpdateMeeting } from '../../../Service/fileupload/Sendform';
 
 export default class UpdateMeeting extends Component {
     state = {
-        Id: "1",
+        Id: "11",
         array: [],//file
         participate: [],//已選擇
         long: 0,//一個tag的長度
         tag: [],//已輸入的tag
         Members: [],//所有人員名單
         drop: false,
+        disabled: false,
         nowclass: "selectlist",
+        all_file_max_size: 1024 * 1024 * 50,//50M
+        one_file_max_size: 1024 * 1024 * 30,//30M
+        mimes_type: ['zip', '7z', 'rar', 'svg', 'png', 'jpg', 'jpeg', 'csv', 'txt', 'xlx', 'xls', 'xlsx', 'pdf', 'doc', 'docx', 'ppt', 'pptx'],//媒體類型
         title: {
             value: "",
             errormsg: "必填",
@@ -34,43 +38,87 @@ export default class UpdateMeeting extends Component {
         member: {
             errormsg: "必填",
         },
-        OldData: [],
+        uploader: "s05751869@gmail.com",
     }
 
 
-    //生命週期
+
+    //載入所有人員名單
     componentDidMount = async () => {
         try {
             const res = await GET_Members();
             this.setState({ Members: res.data.data });
             const ref = await GET_MeetingInfo(this.state.Id);
-            this.setState({ OldData: ref.data.data });
+            const meeting_time = ref.data.data.Time.split(":");
+            const Mtime = meeting_time[0].split(" ");
+            this.setState({
+                OldData: ref.data.data,
+                title: {
+                    value: ref.data.data.Title,
+                },
+                content: {
+                    value: ref.data.data.Content,
+                },
+                time: {
+                    value: `${Mtime[0]}T${Mtime[1]}:${meeting_time[1]}`
+                },
+                place: {
+                    value: ref.data.data.Place,
+                },
+                tag: ref.data.data.tag.map(item => item.Name),
+                participate: ref.data.data.member.map((item) => {
+                    return {
+                        account: item.Account,
+                        name: item.Name
+                    };
+                }),
+                member:{
+                    errormsg: "",
+                },
+                array: ref.data.data.files,
+            });
+            console.log(this.state.OldData);
         } catch (err) {
             console.log(err);
         }
     }
-    // Update = async () => {
-    //     const addmember=this.state.participate.map((item)=>{return(item.account)});
-    //     const payload = {
-    //         title: this.state.title.value,
-    //         content: this.state.content.value,
-    //         time: this.state.time.value,
-    //         place: this.state.place.value,
-    //         uploader: "s05751869@gmail.com",
-    //         files: this.state.array,
-    //         member: addmember,
-    //         tag: this.state.tag,
-    //     }
-    //     try {
-    //         const req = await POST_AddMeeting(payload);
-    //         console.log(req.message);
-    //         window.location.replace('http://localhost:3000/meeting');
-    //     } catch (err) {
-    //         console.log(err);
-    //     }
-    // }
+    //修改
+    Update = async () => {
+        const {Id, title, content, time, place, uploader, array, participate, tag, member } = this.state;
+        const errormsg = "必填";
+        if (title.errormsg !== errormsg && content.errormsg !== errormsg && time.errormsg !== errormsg && place.errormsg !== errormsg && member.errormsg !== errormsg) {
+            const addmember = participate.map((item) => { return (item.account) });
+            const data = new FormData();
+            data.append('_method', 'PUT');
+            data.append('id', Id);
+            data.append('title', title.value);
+            data.append('content', content.value);
+            data.append('time', time.value);
+            data.append('place', place.value);
+            data.append('uploader', uploader);
+            array.map((item, index) =>
+                data.append(`files[${index}]`, item)
+            )
+            addmember.map((item, index) =>
+                data.append(`member[${index}]`, item)
+            )
+            tag.map((item, index) =>
+                data.append(`tag[${index}]`, item)
+            )
+            try {
+                const req = await POST_UpdateMeeting(data);
+                console.log(req);
+                window.location.replace('http://localhost:3000/meeting');
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        else {
+            alert("您有必填欄位尚未填寫，請確認");
+        }
+    }
 
-    //func
+    //確定是否填寫
     handleInputChange(event) {
         const target = event.target;
         let { value, name } = target;
@@ -134,14 +182,30 @@ export default class UpdateMeeting extends Component {
     }
     //選檔案
     handleSelectFile = (files) => {
+        let nowsize = 0;
+        const { all_file_max_size, one_file_max_size, mimes_type } = this.state;
         if (files.length > 5) {
             alert("一次請勿上傳超過五個檔案")
         }
         else {
-            let array = []
-            for (let item = 0; item < files.length; item++) {
-                array.push(files[item]);
-                console.log(files[item]);
+            let array = [];
+            for (let index = 0; index < files.length; index++) {
+                const file_type = files[index].name.split(".").pop();
+                console.log(files[index]);
+                if (!mimes_type.includes(file_type)) {
+                    const media_type = mimes_type.map((item) => ` ${item}`);
+                    alert(`上傳檔案類型錯誤,請選擇${media_type}類型的檔案`);
+                }
+                else {
+                    const thissize = files[index].size;
+                    nowsize += thissize;
+                    if (thissize > one_file_max_size || nowsize > all_file_max_size) {
+                        alert("檔案過大，請重新選擇(單個檔案物超過30M，總大小物超過50M");
+                    }
+                    else {
+                        array.push(files[index]);
+                    }
+                }
             }
             this.setState({
                 array
@@ -241,10 +305,9 @@ export default class UpdateMeeting extends Component {
         })
     }
 
-
     render() {
-        const { array, title, content, time, member, tag, place, participate, nowclass, long, Members, OldData } = this.state;
-        console.log(OldData.Title);
+        const { array, title, content, time, member, tag, place, participate, nowclass, long, Members, disabled, mimes_type } = this.state;
+        // console.log(array);
         return (
             <div>
                 <Header />
@@ -253,7 +316,7 @@ export default class UpdateMeeting extends Component {
                         <div className="add_title">
                             <h2>修改會議記錄</h2>
                         </div>
-                        <form
+                        <div
                             className="add_form"
                             onClick={this.handelMouseDown.bind(this)}
                         >
@@ -263,7 +326,6 @@ export default class UpdateMeeting extends Component {
                                     <input
                                         type="text"
                                         name="title"
-                                        // defaultValue={OldData.Title}
                                         placeholder="會議主題"
                                         required
                                         maxLength="50"
@@ -271,7 +333,7 @@ export default class UpdateMeeting extends Component {
                                         value={title.value}
                                         onChange={this.handleInputChange.bind(this)}
                                     />
-                                    <label className="label">輸入會議主題<div className='error_msg'>{title.errormsg}</div></label>
+                                    <label className="label">會議主題<div className='error_msg'>{title.errormsg}</div></label>
 
                                 </div>
                             </div>
@@ -288,7 +350,7 @@ export default class UpdateMeeting extends Component {
                                         value={content.value}
                                         onChange={this.handleInputChange.bind(this)}
                                     ></textarea>
-                                    <label className="label">輸入會議內容<div className='error_msg'>{content.errormsg}</div></label>
+                                    <label className="label">會議內容<div className='error_msg'>{content.errormsg}</div></label>
 
                                 </div>
                             </div>
@@ -300,10 +362,10 @@ export default class UpdateMeeting extends Component {
                                         name="time"
                                         max={this.handleGetnow()}
                                         required className="input"
-                                        value={time.value}
+                                        defaultValue={time.value}
                                         onChange={this.handleInputChange.bind(this)}
                                     />
-                                    <label className="label">輸入會議時間<div className='error_msg'>{time.errormsg}</div></label>
+                                    <label className="label">會議時間<div className='error_msg'>{time.errormsg}</div></label>
                                 </div>
                                 <div className="set col-4">
                                     <input type="text"
@@ -315,7 +377,7 @@ export default class UpdateMeeting extends Component {
                                         value={place.value}
                                         onChange={this.handleInputChange.bind(this)}
                                     />
-                                    <label className="label">輸入會議地點<div className='error_msg'>{place.errormsg}</div></label>
+                                    <label className="label">會議地點<div className='error_msg'>{place.errormsg}</div></label>
                                 </div>
                             </div>
                             {/* 參與人員 */}
@@ -372,14 +434,14 @@ export default class UpdateMeeting extends Component {
                                             )}
                                         </div>
                                     </div>
-                                    <label className="label">選擇參與人員<div className='error_msg'>{member.errormsg}</div></label>
+                                    <label className="label">參與人員<div className='error_msg'>{member.errormsg}</div></label>
                                 </div>
                             </div>
                             {/* 標籤 */}
                             <div className="inputbox">
                                 <div className="set col-12">
                                     <div className="input">
-                                        {tag.map((item) => (
+                                        {tag?.map((item) => (
                                             <p key={item}>
                                                 {item}
                                                 <span
@@ -397,17 +459,23 @@ export default class UpdateMeeting extends Component {
                                             placeholder=""
                                             size={long}
                                             className='input_tag'
+                                            disabled={disabled}
                                             onKeyDown={this.heandleAddTag}
                                             onChange={this.headleGetLong}
                                         />
                                     </div>
-                                    <label className="label">輸入標籤</label>
+                                    <label className="label">標籤</label>
                                 </div>
                             </div>
                             {/* 檔案 */}
                             <div className="inputbox">
                                 <div className="upload">
-                                    <input type="file" id="f" multiple="multiple" onChange={e => this.handleSelectFile(e.target.files)} />
+                                    <input
+                                        type="file"
+                                        id="f"
+                                        multiple="multiple"
+                                        onChange={e => this.handleSelectFile(e.target.files)}
+                                    />
                                     <div className="newbtn">
                                         <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M20 2H10L8 0H0V16H20V2ZM11 9V13H9V9H6L10.01 5L14 9H11Z" fill="white" />
@@ -418,7 +486,7 @@ export default class UpdateMeeting extends Component {
                             </div>
                             <div id="filename">
                                 <ol>
-                                    {array.map(item => (<li>{item.name}</li>))}
+                                    {array.map(item => (<li>{item.name}{item.Name}</li>))}
                                 </ol>
                             </div>
                             {/* 送出 */}
@@ -427,17 +495,17 @@ export default class UpdateMeeting extends Component {
                                     className="col-1 form_submit"
                                 >
                                     <Link to={`/meeting/meetinginfo/${this.state.Id}`}>
-                                    返回
+                                        返回
                                     </Link>
                                 </button>
                                 <button
                                     className="col-1 form_submit"
-                                // onClick={this.Update}
+                                    onClick={this.Update}
                                 >
                                     修改
                                 </button>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>

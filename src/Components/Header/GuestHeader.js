@@ -17,14 +17,15 @@ export default class GuestHeader extends Component {
 
     POST = async() => {
         const payload = this.state.payload
-        console.log(payload);
-        console.log(payload);
-
+        // console.log(payload);
         const req = await POST_login(payload);
-        console.log("data", req);
-        console.log(req.status);
-        alert(req.status);
-
+        if(req.data.success===true){
+            console.log(req.data.message);
+            window.location.replace('http://localhost:3000/meeting');
+        }
+        else{
+            alert(req.data.message);
+        }
     }
     //func
     drop_down = () => {
@@ -65,7 +66,7 @@ export default class GuestHeader extends Component {
                 }
             })
         }
-        console.log(this.state.payload);
+        // console.log(this.state.payload);
     }
     render() {
         const { drop } = this.state
@@ -106,7 +107,7 @@ export default class GuestHeader extends Component {
                     onClick={this.handelMouseDown}
                 >
                     <div className="signupFrm">
-                        <form className="form">
+                        <div className="form">
                             <h1 className="title">登入</h1>
                             <div className="inputContainer">
                                 <input
@@ -136,12 +137,11 @@ export default class GuestHeader extends Component {
                             </div>
                             <button
                                 className="submitBtn"
-                                // name="Login"
                                 onClick={this.POST.bind(this)}
                             >
                                 登入
                             </button>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </header>

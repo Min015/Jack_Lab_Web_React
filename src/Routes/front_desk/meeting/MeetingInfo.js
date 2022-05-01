@@ -5,7 +5,7 @@ import { GET_MeetingInfo, GET_download,DELETE_Meeting} from '../../../Service/me
 import { useParams, useLocation, Link, } from 'react-router-dom';
 export default class MeetingInfo extends Component {
     state = {
-        Id: "1",
+        Id: "11",
         data: [],
     }
     //生命週期
@@ -24,7 +24,7 @@ export default class MeetingInfo extends Component {
     //func
     Download = async (filename) => {
         try {
-            let url = "http://localhost/";
+            let url = "http://localhost";
             const res = await GET_download(filename);
             url += res.config.url;
             window.open(url);
@@ -43,10 +43,7 @@ export default class MeetingInfo extends Component {
     }
     render() {
         const { data } = this.state;
-        // const dt =data.Time?.split(" ");
-        // dt?.map((item, index) => (console.log(item, index)))
         console.log(data);
-
         return (
             <div>
                 <Header />
