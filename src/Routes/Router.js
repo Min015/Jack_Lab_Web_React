@@ -38,6 +38,7 @@ import Index from './guest/index/Index';
 import TagManage from './admin/tag/TagManage';
 import Student from './guest/lab_member/Student';
 import NoRoute from '../Components/Notfound/NoRoute';
+import UpdateMeeting from './front_desk/meeting/UpdateMeeting';
 
 export default (
     <BrowserRouter>
@@ -50,6 +51,7 @@ export default (
             <Route path='/project/projectinfo' exact element={<ProjectInfo />} />
             <Route path='/meeting' exact element={<Meeting />}/>
             <Route path='/meeting/meetinginfo/:id' exact element={<MeetingInfo/>}/>
+            <Route path='/meeting/updatemeeting/:id' exact element={<UpdateMeeting/>}/>
             <Route path='/meeting/addmeeting' exact element={<AddMeeting />} />
 
             <Route path='/setinfo' exact element={<SetInfo />} />

@@ -39,7 +39,7 @@ export default class CreateTable extends Component {
                                     <td>{item.uploader.Name}</td>
                                     <td>
                                         {item.tag.map((item,index)=>{
-                                            return(<span key={`tag${index}`}>{item.Name} </span>)
+                                            return(<span className='table_tag' key={`tag${index}`}>{`${item.Name}`} </span>)
                                         })}
                                     </td>
                                 </tr>

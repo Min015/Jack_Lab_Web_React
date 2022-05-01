@@ -31,3 +31,6 @@ export function GET_download(filename) {
 export function GET_Members() {
     return _axios.get('/api/member')
 }
+export function DELETE_Meeting(id) {
+    return _axios.delete(`/api/meeting/${id}`)
+}

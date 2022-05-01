@@ -64,9 +64,10 @@
     height          : 34px;
     font-size       : $m;
     background-color: $button_color;
-    a {
+    a,.func_btn {
         height: 100%;
         width : 100%;
+        color: $font_maincolor;
         background-color: $button_color;
         @include ali-set();
         @include jus-set();
@@ -78,6 +79,9 @@
         
         &:hover {
             background-color: $button_hover;
+        }
+        svg,p{
+            margin: 0px 5px;
         }
     }
 }
@@ -94,9 +98,11 @@
         }
         
         .tr_odd,.tr_even{
-            span{
+            .table_tag{
+                display:inline-block;
+                min-width: 30px;
                 background-color: rgba(117, 117, 250, 0.484);
-                padding         : 2px 5px;
+                padding         : 5px 10px;
                 border-radius   : 30px;
                 margin          : 2.5px;
             }

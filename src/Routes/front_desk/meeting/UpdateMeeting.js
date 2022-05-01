@@ -1,18 +1,18 @@
 import { Component } from 'react';
 import '../main_category/add.scss';
 import Header from '../../../Components/Header/Header';
-import { GET_Members } from '../../../Service/meeting/Meeting.js';
-import { POST_AddMeeting } from '../../../Service/meeting/Sendform';
+import { GET_Members, GET_MeetingInfo } from '../../../Service/meeting/Meeting.js';
 
-export default class AddMeeting extends Component {
+
+export default class UpdateMeeting extends Component {
     state = {
+        Id: "1",
         array: [],//file
         participate: [],//已選擇
         long: 0,//一個tag的長度
         tag: [],//已輸入的tag
         Members: [],//所有人員名單
         drop: false,
-        disabled:false,
         nowclass: "selectlist",
         title: {
             value: "",
@@ -33,6 +33,7 @@ export default class AddMeeting extends Component {
         member: {
             errormsg: "必填",
         },
+        OldData: [],
     }
 
 
@@ -41,30 +42,32 @@ export default class AddMeeting extends Component {
         try {
             const res = await GET_Members();
             this.setState({ Members: res.data.data });
+            const ref = await GET_MeetingInfo(this.state.Id);
+            this.setState({ OldData: ref.data.data });
         } catch (err) {
             console.log(err);
         }
     }
-    Submit = async () => {
-        const addmember = this.state.participate.map((item) => { return (item.account) });
-        const payload = {
-            title: this.state.title.value,
-            content: this.state.content.value,
-            time: this.state.time.value,
-            place: this.state.place.value,
-            uploader: "s05751869@gmail.com",
-            files: this.state.array,
-            member: addmember,
-            tag: this.state.tag,
-        }
-        try {
-            const req = await POST_AddMeeting(payload);
-            console.log(req.message);
-            window.location.replace('http://localhost:3000/meeting');
-        } catch (err) {
-            console.log(err);
-        }
-    }
+    // Update = async () => {
+    //     const addmember=this.state.participate.map((item)=>{return(item.account)});
+    //     const payload = {
+    //         title: this.state.title.value,
+    //         content: this.state.content.value,
+    //         time: this.state.time.value,
+    //         place: this.state.place.value,
+    //         uploader: "s05751869@gmail.com",
+    //         files: this.state.array,
+    //         member: addmember,
+    //         tag: this.state.tag,
+    //     }
+    //     try {
+    //         const req = await POST_AddMeeting(payload);
+    //         console.log(req.message);
+    //         window.location.replace('http://localhost:3000/meeting');
+    //     } catch (err) {
+    //         console.log(err);
+    //     }
+    // }
 
     //func
     handleInputChange(event) {
@@ -202,13 +205,13 @@ export default class AddMeeting extends Component {
         if (tag.length === 5) {
             e.target.value = "";
             this.setState({
-                disabled:true,
+                disabled: true,
             })
             alert("一次請勿輸入超過五個標籤");
         }
         else {
             this.setState({
-                disabled:false,
+                disabled: false,
             })
             if (e.keyCode === 32) {
                 if (!tag.includes(e.target.value) && (e.target.value) !== "" && (e.target.value) !== " ") {
@@ -223,7 +226,7 @@ export default class AddMeeting extends Component {
         const thistag = e.target.id;
         let tag = this.state.tag;
         this.setState({
-            disabled:false,
+            disabled: false,
         })
         if (tag.includes(thistag)) {
             tag.forEach((item, index) => {
@@ -239,15 +242,15 @@ export default class AddMeeting extends Component {
 
 
     render() {
-        const { array, title, content, time, member, tag, place, participate, nowclass, long, Members,disabled } = this.state;
-
+        const { array, title, content, time, member, tag, place, participate, nowclass, long, Members, OldData } = this.state;
+        console.log(OldData.Title);
         return (
             <div>
                 <Header />
                 <div className="content">
                     <div className="contentin">
                         <div className="add_title">
-                            <h2>新增會議記錄</h2>
+                            <h2>修改會議記錄</h2>
                         </div>
                         <form
                             className="add_form"
@@ -259,6 +262,7 @@ export default class AddMeeting extends Component {
                                     <input
                                         type="text"
                                         name="title"
+                                        // defaultValue={OldData.Title}
                                         placeholder="會議主題"
                                         required
                                         maxLength="50"
@@ -392,7 +396,6 @@ export default class AddMeeting extends Component {
                                             placeholder=""
                                             size={long}
                                             className='input_tag'
-                                            disabled={disabled}
                                             onKeyDown={this.heandleAddTag}
                                             onChange={this.headleGetLong}
                                         />
@@ -421,9 +424,15 @@ export default class AddMeeting extends Component {
                             <div className="inputbox">
                                 <button
                                     className="col-1 form_submit"
-                                    onClick={this.Submit}
+                                // onClick={this.Update}
                                 >
-                                    送出
+                                    修改
+                                </button>
+                                <button
+                                    className="col-1 form_submit"
+                                // onClick={this.Update}
+                                >
+                                    修改
                                 </button>
                             </div>
                         </form>
