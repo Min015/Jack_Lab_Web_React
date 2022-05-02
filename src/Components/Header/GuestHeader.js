@@ -84,7 +84,7 @@ export default class GuestHeader extends Component {
                         </Link>
                         <div
                             to="/student"
-                            className={(navData) => (navData.isActive ? "nowP" : "")}
+                            className={isActive =>(!isActive ? " nowP" : "")}
                         >
                             <li>實驗室介紹</li>
                         </div>

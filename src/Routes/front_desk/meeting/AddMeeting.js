@@ -164,7 +164,7 @@ export default class AddMeeting extends Component {
                     const thissize=files[index].size;
                 nowsize+=thissize;
                 if(thissize>one_file_max_size||nowsize>all_file_max_size){
-                    alert("檔案過大，請重新選擇(單個檔案物超過30M，總大小物超過50M");
+                    alert("檔案過大，請重新選擇(單個檔案勿超過30M，總大小物超過50M");
                 }
                 else{
                     array.push(files[index]);

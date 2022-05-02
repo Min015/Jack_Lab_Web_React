@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
 import '../style/Carousel.scss';
 export default class MysCarousel extends Component {
-    constructor() {
-        super();
-        this.state = {
-            imgs: [
-                './img/img1.jpg',
-                './img/img2.jpg',
-                './img/img3.jpg',
-            ],   // 圖片數組
-            showIndex: 0, //顯示第幾個圖片
-            timer: null,  // 定時器
-        }
+    state = {
+        imgs: [
+            './img/img1.jpg',
+            './img/img2.jpg',
+            './img/img3.jpg',
+        ],   // 圖片數組
+        showIndex: 0, //顯示第幾個圖片
+        timer: null,  // 定時器
     }
     stop = () => { //暫停
         let { timer } = this.state;
