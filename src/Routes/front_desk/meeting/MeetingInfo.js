@@ -59,16 +59,17 @@ export default class MeetingInfo extends Component {
                         <div className="add_title">
                             <div className="title_name">
                                 <h2>{data.Title}</h2>
-                                {data.tag?.map((item, index) => {
-                                    return (
-                                        <div key={index} className="tag">
-                                            <div className="small_tag">
-                                                <p>#{item.Name}</p>
-                                            </div>
-                                        </div>
-                                    )
-                                })}
+                                <div className="tag">
+                                    {data.tag?.map((item, index) => {
+                                        return (
 
+                                            <div key={index} className="small_tag">
+                                                {item.Name}
+                                            </div>
+
+                                        )
+                                    })}
+                                </div>
                             </div>
                             <div className="edit_button">
                                 <div className="add">

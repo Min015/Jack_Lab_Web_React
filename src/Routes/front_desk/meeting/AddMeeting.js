@@ -16,7 +16,7 @@ export default class AddMeeting extends Component {
         nowclass: "selectlist",
         all_file_max_size: 1024 * 1024 * 50,//50M
         one_file_max_size: 1024 * 1024 * 30,//30M
-        mimes_type: ['zip','7z','rar','svg','png','jpg','jpeg','csv','txt','xlx','xls','xlsx','pdf','doc','docx','ppt','pptx'],//媒體類型
+        mimes_type: ['zip', '7z', 'rar', 'svg', 'png', 'jpg', 'jpeg', 'csv', 'txt', 'xlx', 'xls', 'xlsx', 'pdf', 'doc', 'docx', 'ppt', 'pptx'],//媒體類型
         title: {
             value: "",
             errormsg: "必填",
@@ -78,7 +78,7 @@ export default class AddMeeting extends Component {
                 console.log(err);
             }
         }
-        else{
+        else {
             alert("您有必填欄位尚未填寫，請確認");
         }
     }
@@ -147,28 +147,28 @@ export default class AddMeeting extends Component {
     }
     //選檔案
     handleSelectFile = (files) => {
-        let nowsize=0;
-        const{all_file_max_size,one_file_max_size,mimes_type}=this.state;
+        let nowsize = 0;
+        const { all_file_max_size, one_file_max_size, mimes_type } = this.state;
         if (files.length > 5) {
             alert("一次請勿上傳超過五個檔案")
         }
         else {
             let array = [];
             for (let index = 0; index < files.length; index++) {
-                const file_type=files[index].name.split(".").pop();
-                if(!mimes_type.includes(file_type)){
-                    const media_type=mimes_type.map((item)=>` ${item}`);
+                const file_type = files[index].name.split(".").pop();
+                if (!mimes_type.includes(file_type)) {
+                    const media_type = mimes_type.map((item) => ` ${item}`);
                     alert(`上傳檔案類型錯誤,請選擇${media_type}類型的檔案`);
                 }
-                else{
-                    const thissize=files[index].size;
-                nowsize+=thissize;
-                if(thissize>one_file_max_size||nowsize>all_file_max_size){
-                    alert("檔案過大，請重新選擇(單個檔案勿超過30M，總大小物超過50M");
-                }
-                else{
-                    array.push(files[index]);
-                }
+                else {
+                    const thissize = files[index].size;
+                    nowsize += thissize;
+                    if (thissize > one_file_max_size || nowsize > all_file_max_size) {
+                        alert("檔案過大，請重新選擇(單個檔案勿超過30M，總大小物超過50M");
+                    }
+                    else {
+                        array.push(files[index]);
+                    }
                 }
             }
             this.setState({
@@ -270,7 +270,7 @@ export default class AddMeeting extends Component {
     }
 
     render() {
-        const { array, title, content, time, member, tag, place, participate, nowclass, long, Members, disabled,mimes_type } = this.state;
+        const { array, title, content, time, member, tag, place, participate, nowclass, long, Members, disabled, mimes_type } = this.state;
         return (
             <div>
                 <Header />
@@ -367,8 +367,9 @@ export default class AddMeeting extends Component {
                                                         />
                                                         <span>
                                                             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                <path d="M0.33546 0.33546C0.550319 0.120665 0.841693 0 1.1455 0C1.44932 0 1.74069 0.120665 1.95555 0.33546L6.00692 4.38683L10.0583 0.33546C10.2744 0.126752 10.5638 0.0112672 10.8642 0.0138777C11.1646 0.0164882 11.452 0.136985 11.6644 0.349417C11.8768 0.561848 11.9973 0.849216 12 1.14963C12.0026 1.45004 11.8871 1.73946 11.6784 1.95555L7.62701 6.00692L11.6784 10.0583C11.8871 10.2744 12.0026 10.5638 12 10.8642C11.9973 11.1646 11.8768 11.452 11.6644 11.6644C11.452 11.8768 11.1646 11.9973 10.8642 12C10.5638 12.0026 10.2744 11.8871 10.0583 11.6784L6.00692 7.62701L1.95555 11.6784C1.73946 11.8871 1.45004 12.0026 1.14963 12C0.849216 11.9973 0.561848 11.8768 0.349417 11.6644C0.136985 11.452 0.0164882 11.1646 0.0138777 10.8642C0.0112672 10.5638 0.126752 10.2744 0.33546 10.0583L4.38683 6.00692L0.33546 1.95555C0.120665 1.74069 0 1.44932 0 1.1455C0 0.841693 0.120665 0.550319 0.33546 0.33546Z" fill="#6248FF" />
+                                                                <path d="M0.33546 0.33546C0.550319 0.120665 0.841693 0 1.1455 0C1.44932 0 1.74069 0.120665 1.95555 0.33546L6.00692 4.38683L10.0583 0.33546C10.2744 0.126752 10.5638 0.0112672 10.8642 0.0138777C11.1646 0.0164882 11.452 0.136985 11.6644 0.349417C11.8768 0.561848 11.9973 0.849216 12 1.14963C12.0026 1.45004 11.8871 1.73946 11.6784 1.95555L7.62701 6.00692L11.6784 10.0583C11.8871 10.2744 12.0026 10.5638 12 10.8642C11.9973 11.1646 11.8768 11.452 11.6644 11.6644C11.452 11.8768 11.1646 11.9973 10.8642 12C10.5638 12.0026 10.2744 11.8871 10.0583 11.6784L6.00692 7.62701L1.95555 11.6784C1.73946 11.8871 1.45004 12.0026 1.14963 12C0.849216 11.9973 0.561848 11.8768 0.349417 11.6644C0.136985 11.452 0.0164882 11.1646 0.0138777 10.8642C0.0112672 10.5638 0.126752 10.2744 0.33546 10.0583L4.38683 6.00692L0.33546 1.95555C0.120665 1.74069 0 1.44932 0 1.1455C0 0.841693 0.120665 0.550319 0.33546 0.33546Z" fill="#022840" />
                                                             </svg>
+
                                                         </span>
                                                     </label>
                                                 </p>
@@ -410,9 +411,10 @@ export default class AddMeeting extends Component {
                                                 <span
                                                     onClick={this.heandleDelTag}
                                                 >
-                                                    <svg id={item} width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M0.33546 0.33546C0.550319 0.120665 0.841693 0 1.1455 0C1.44932 0 1.74069 0.120665 1.95555 0.33546L6.00692 4.38683L10.0583 0.33546C10.2744 0.126752 10.5638 0.0112672 10.8642 0.0138777C11.1646 0.0164882 11.452 0.136985 11.6644 0.349417C11.8768 0.561848 11.9973 0.849216 12 1.14963C12.0026 1.45004 11.8871 1.73946 11.6784 1.95555L7.62701 6.00692L11.6784 10.0583C11.8871 10.2744 12.0026 10.5638 12 10.8642C11.9973 11.1646 11.8768 11.452 11.6644 11.6644C11.452 11.8768 11.1646 11.9973 10.8642 12C10.5638 12.0026 10.2744 11.8871 10.0583 11.6784L6.00692 7.62701L1.95555 11.6784C1.73946 11.8871 1.45004 12.0026 1.14963 12C0.849216 11.9973 0.561848 11.8768 0.349417 11.6644C0.136985 11.452 0.0164882 11.1646 0.0138777 10.8642C0.0112672 10.5638 0.126752 10.2744 0.33546 10.0583L4.38683 6.00692L0.33546 1.95555C0.120665 1.74069 0 1.44932 0 1.1455C0 0.841693 0.120665 0.550319 0.33546 0.33546Z" fill="#6248FF" />
+                                                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M0.33546 0.33546C0.550319 0.120665 0.841693 0 1.1455 0C1.44932 0 1.74069 0.120665 1.95555 0.33546L6.00692 4.38683L10.0583 0.33546C10.2744 0.126752 10.5638 0.0112672 10.8642 0.0138777C11.1646 0.0164882 11.452 0.136985 11.6644 0.349417C11.8768 0.561848 11.9973 0.849216 12 1.14963C12.0026 1.45004 11.8871 1.73946 11.6784 1.95555L7.62701 6.00692L11.6784 10.0583C11.8871 10.2744 12.0026 10.5638 12 10.8642C11.9973 11.1646 11.8768 11.452 11.6644 11.6644C11.452 11.8768 11.1646 11.9973 10.8642 12C10.5638 12.0026 10.2744 11.8871 10.0583 11.6784L6.00692 7.62701L1.95555 11.6784C1.73946 11.8871 1.45004 12.0026 1.14963 12C0.849216 11.9973 0.561848 11.8768 0.349417 11.6644C0.136985 11.452 0.0164882 11.1646 0.0138777 10.8642C0.0112672 10.5638 0.126752 10.2744 0.33546 10.0583L4.38683 6.00692L0.33546 1.95555C0.120665 1.74069 0 1.44932 0 1.1455C0 0.841693 0.120665 0.550319 0.33546 0.33546Z" fill="#022840" />
                                                     </svg>
+
                                                 </span>
                                             </p>
                                         ))}
@@ -433,11 +435,11 @@ export default class AddMeeting extends Component {
                             {/* 檔案 */}
                             <div className="inputbox">
                                 <div className="upload">
-                                    <input 
-                                    type="file"
-                                    id="f" 
-                                    multiple="multiple" 
-                                    onChange={e => this.handleSelectFile(e.target.files)}
+                                    <input
+                                        type="file"
+                                        id="f"
+                                        multiple="multiple"
+                                        onChange={e => this.handleSelectFile(e.target.files)}
                                     />
                                     <div className="newbtn">
                                         <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">

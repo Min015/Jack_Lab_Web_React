@@ -41,7 +41,7 @@
 .add_form {
     .inputbox {
         padding   : 0px 15px;
-        margin-top: 25px;
+        margin-top: 50px;
         @extend %between;
 
         .set {
@@ -55,6 +55,7 @@
         }
 
         .form_submit {
+            font-size: $m;
             margin-left     : auto;
             background-color: $button_color;
             @include ali-set();
@@ -65,6 +66,7 @@
         button,
         select,
         textarea {
+            font-size: $m;
             min-height      : 35px;
             color           : $font_maincolor;
             background-color: rgba(245, 245, 220, 0);
@@ -87,7 +89,8 @@
             @include ali-set();
 
             p {
-                background-color: rgba(117, 117, 250, 0.484);
+                background-color: $tag_backgroud;
+                color: $font_maincolor;
                 padding         : 2px 5px;
                 border-radius   : 2px;
                 margin          : 2.5px;
@@ -127,9 +130,9 @@
         .label {
             display    : flex;
             position   : absolute;
-            top        : -19px;
+            top        : -25px;
             left       : -5px;
-            font-size  : $m;
+            font-size  : $l;
             font-weight: 600;
             color      : $from_title;
             @include ali-set();

@@ -8,16 +8,16 @@
         @extend %row;
         @include ali-set(end);
         .tag{
+            margin-left: 20px;
             @extend %row;
             .small_tag{
-                padding: 3px 7px;
-                font-size: $m;
-                border-radius: 30px;
-                background-color: $form_maincolor;
-                margin-left: 10px;
-                margin-bottom: 4px;
-                @include ali-set();
-                @include jus-set();
+                display:inline-block;
+                text-align: center;
+                min-width: 30px;
+                background-color: $tag_backgroud;
+                color: $font_maincolor;
+                border-radius   : 30px;
+                margin          : 2.5px;
             }
         }
     }
@@ -60,23 +60,27 @@
             @extend %row;
             @extend %between;
             .info_block_content{
-                padding: 15px 5px 10px 5px;
-                border-bottom: 1px black solid;
+                padding: 0px 5px;
+                // border-bottom: 1px black solid;
             }
+        }
+        p{
+            font-size: $l;
+            font-weight: bold;
+            margin-bottom: 10px;
         }
         .magin_top_70{
             margin-top: 70px;
             .participant{
                 min-height: 150px;
                 max-height: 350px;
-                margin-top: 5px;
                 width: 578px;
             }
             ol{
-                padding-top: 10px;
                 padding-left: 45px;
                 li{
                     text-decoration: underline;
+                    margin-bottom: 10px;
                     &:hover{
                         color: rgb(69, 69, 221);
                     }
