@@ -11,10 +11,14 @@ export default class MeetingInfo extends Component {
     }
     //生命週期
     componentDidMount = async () => {
-        // console.log(this.props);
-        const id = this.state.Id;
+        const { match } = this.props;
+        console.log(match);
+        const { params } = match;
+        this.setState({
+            Id: params.id,
+        })
         try {
-            const res = await GET_MeetingInfo(id);
+            const res = await GET_MeetingInfo(params.id);
             this.setState({ data: res.data.data });
             // console.log(this.state.data);
         } catch (err) {
@@ -27,6 +31,7 @@ export default class MeetingInfo extends Component {
         try {
             let url = "http://localhost";
             const res = await GET_download(filename);
+            // return res;
             url += res.config.url;
             window.open(url);
         } catch (err) {
@@ -143,7 +148,9 @@ export default class MeetingInfo extends Component {
                             </div>
                         </div>
                     </div>
+
                 </div>
+
             </div>
         )
     }

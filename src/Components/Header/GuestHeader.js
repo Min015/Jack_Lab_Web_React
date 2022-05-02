@@ -88,12 +88,12 @@ export default class GuestHeader extends Component {
                         >
                             <li>實驗室介紹</li>
                         </div>
-                        <Link
+                        <div
                             to="/student"
                             className={(navData) => (navData.isActive ? "nowP" : "")}
                         >
                             <li>歷屆成員</li>
-                        </Link>
+                        </div>
                         <div
                             onClick={this.drop_down}
                         >

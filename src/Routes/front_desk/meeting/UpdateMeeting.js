@@ -2,12 +2,12 @@ import { Component } from 'react';
 import '../main_category/add.scss';
 import Header from '../../../Components/Header/Header';
 import { GET_Members, GET_MeetingInfo } from '../../../Service/meeting/Meeting.js';
-import { Link } from 'react-router-dom';
+import { Redirect,Link } from 'react-router-dom';
 import { POST_UpdateMeeting } from '../../../Service/fileupload/Sendform';
 
 export default class UpdateMeeting extends Component {
     state = {
-        Id: "1",
+        Id: "",
         array: [],//file
         participate: [],//已選擇
         long: 0,//一個tag的長度
@@ -45,10 +45,15 @@ export default class UpdateMeeting extends Component {
 
     //載入所有人員名單
     componentDidMount = async () => {
+        const{match}=this.props;
+        const{params}=match;
+        this.setState({
+            Id:params.id,
+        })
         try {
             const res = await GET_Members();
             this.setState({ Members: res.data.data });
-            const ref = await GET_MeetingInfo(this.state.Id);
+            const ref = await GET_MeetingInfo(params.id);
             const meeting_time = ref.data.data.Time.split(":");
             const Mtime = meeting_time[0].split(" ");
             this.setState({

@@ -17,8 +17,6 @@ export default class Meeting extends Component {
         ],
         data: [],
         year: [],
-        meeting_tag: ["選擇標籤"],
-        
     }
     //生命週期
     componentDidMount = async () => {
@@ -37,7 +35,7 @@ export default class Meeting extends Component {
 
 
     render() {
-        const {table_header, year, meeting_tag, data } = this.state;
+        const {table_header, year, data } = this.state;
         return (
             <div>
                 <Header />
@@ -48,13 +46,6 @@ export default class Meeting extends Component {
                                 <div className="select_list">
                                     <select name="year" required className="select">
                                         {year.map((item,index) => {
-                                            return (
-                                                <option key={index} value={item}>{item}</option>
-                                            )
-                                        })}
-                                    </select>
-                                    <select name="type" className="select">
-                                        {meeting_tag.map((item,index) => {
                                             return (
                                                 <option key={index} value={item}>{item}</option>
                                             )
@@ -78,7 +69,8 @@ export default class Meeting extends Component {
                         </div>
 
                         <div className="reaults_area">
-                            <CreateTable table_header={table_header} table_content={data} onDetail={(id,title)=><Link to={`/meeting/meetinginfo/${id}`} >{title}</Link>} />
+                            <CreateTable table_header={table_header} table_content={data} />
+                            {/* onDetail={(id,title)=><Link to={`/meeting/meetinginfo/${id}`} >{title}</Link>} */}
                         </div>
                     </div>
                 </div>

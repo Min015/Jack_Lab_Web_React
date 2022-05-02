@@ -36,7 +36,7 @@ export default class AddMeeting extends Component {
         member: {
             errormsg: "必填",
         },
-        uploader: "s1110734015@nutc.edu.tw",
+        uploader: "jacklab",
     }
 
 
@@ -60,7 +60,7 @@ export default class AddMeeting extends Component {
             data.append('content', content.value);
             data.append('time', time.value);
             data.append('place', place.value);
-            data.append('uploader', uploader);
+            // data.append('uploader', uploader);
             array.map((item, index) =>
                 data.append(`files[${index}]`, item)
             )

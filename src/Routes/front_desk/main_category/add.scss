@@ -246,6 +246,13 @@
             background-color: $button_color;
             @include ali-set();
             @include jus-set();
+            a{
+                width: 100%;
+                height: 100%;
+                @include ali-set();
+            @include jus-set();
+            
+            }
         }
 
         button {

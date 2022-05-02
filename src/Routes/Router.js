@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Routes, Route, Navigate,useNavigate,useParams } from 'react-router-dom'
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 
 import GameList from './front_desk/game/GameList';
 import AddGame from './front_desk/game/AddGame';
@@ -42,56 +42,56 @@ import UpdateMeeting from './front_desk/meeting/UpdateMeeting';
 
 export default (
     <BrowserRouter>
-        <Routes>
-            <Route path='/' exact element={<Navigate to='/Index' />} />
-            <Route path='/game' exact element={<GameList />} />
-            <Route path='/game/addgame' exact element={<AddGame />} />
-            <Route path='/project' exact element={<LabProject />} />
-            <Route path='/project/addproject' exact element={<AddProject />} />
-            <Route path='/project/projectinfo' exact element={<ProjectInfo />} />
-            <Route path='/meeting' exact element={<Meeting />}/>
-            <Route path='/meeting/meetinginfo/:id' exact element={<MeetingInfo/>} />
-            <Route path='/meeting/updatemeeting/:id' exact element={<UpdateMeeting/>}/>
-            <Route path='/meeting/addmeeting' exact element={<AddMeeting />} />
+        <Switch>
+            <Route path='/' exact component={()=><Redirect to='/Index' />} />
+            <Route path='/game' exact component={GameList} />
+            <Route path='/game/addgame' exact component={AddGame } />
+            <Route path='/project' exact component={LabProject} />
+            <Route path='/project/addproject' exact component={AddProject} />
+            <Route path='/project/projectinfo' exact component={ProjectInfo} />
+            <Route path='/meeting' exact component={Meeting}/>
+            <Route path='/meeting/meetinginfo/:id' exact component={MeetingInfo} />
+            <Route path='/meeting/updatemeeting/:id' exact component={UpdateMeeting}/>
+            <Route path='/meeting/addmeeting' exact component={AddMeeting} />
 
-            <Route path='/setinfo' exact element={<SetInfo />} />
+            <Route path='/setinfo' exact component={SetInfo} />
 
-            <Route path='/adminalbum' exact element={<AdminAlbum />} />
-            <Route path='/books' exact element={<Books />} />
+            <Route path='/adminalbum' exact component={AdminAlbum } />
+            <Route path='/books' exact component={Books} />
 
-            <Route path='/teacherintroduce' exact element={<TeacherIntroduce />} />
-            <Route path='/labintroduce' exact element={<LabIntroduce />} />
+            <Route path='/teacherintroduce' exact component={TeacherIntroduce} />
+            <Route path='/labintroduce' exact component={LabIntroduce} />
 
-            <Route path='/pemissionManage' exact element={<PermissionManage />} />
+            <Route path='/pemissionManage' exact component={PermissionManage } />
 
-            <Route path='/member' exact element={<Member />} />
+            <Route path='/member' exact component={Member} />
 
-            <Route path='/meetingmanage' exact element={<MeetingManage />} />
-            <Route path="/meetingmanage/meetinginfo" exact element={<AdMeetingInfo/>} />
-
-
-            <Route path='/gamemanage' exact element={<GameManage />} />
-            <Route path='/gamemanage/gameinfo' exact element={<GameInfo />} />
-            <Route path='/gtypemanage' exact element={<GTypeManage />} />
+            <Route path='/meetingmanage' exact component={MeetingManage} />
+            <Route path="/meetingmanage/meetinginfo" exact component={AdMeetingInfo} />
 
 
-            <Route path='/casemanage' exact element={<CaseManage />} />
-            <Route path='/casemanage/caseinfo' exact element={<AdProjectInfo />} />
-            <Route path='/groupmanage' exact element={<GroupManage />} />
-            <Route path='/typemange' exact element={<TypeManage />} />
-            <Route path='/pclassmange' exact element={<PClassManage />} />
-
-            <Route path='/tagmanage' exact element={<TagManage />} />
+            <Route path='/gamemanage' exact component={GameManage} />
+            <Route path='/gamemanage/gameinfo' exact component={GameInfo} />
+            <Route path='/gtypemanage' exact component={GTypeManage} />
 
 
+            <Route path='/casemanage' exact component={CaseManage} />
+            <Route path='/casemanage/caseinfo' exact component={AdProjectInfo} />
+            <Route path='/groupmanage' exact component={GroupManage} />
+            <Route path='/typemange' exact component={TypeManage} />
+            <Route path='/pclassmange' exact component={PClassManage} />
+
+            <Route path='/tagmanage' exact component={TagManage} />
 
 
 
-            <Route path='/index' exact element={<Index />} />
-            <Route path='/student' exact element={<Student />} />
 
 
-            <Route path='*' exact element={<NoRoute />} />
+            <Route path='/index' exact component={Index} />
+            <Route path='/student' exact component={Student} />
+
+
+            <Route path='*' exact component={NoRoute} />
             {/* 找不到 */}
 
 
@@ -99,6 +99,6 @@ export default (
 
 
 
-        </Routes>
+        </Switch>
     </BrowserRouter>
 );

@@ -100,8 +100,10 @@
         .tr_odd,.tr_even{
             .table_tag{
                 display:inline-block;
+                text-align: center;
                 min-width: 30px;
-                background-color: rgba(117, 117, 250, 0.484);
+                background-color: #51718cb3;
+                color: white;
                 padding         : 5px 10px;
                 border-radius   : 30px;
                 margin          : 2.5px;

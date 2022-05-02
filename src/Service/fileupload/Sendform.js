@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50IjoiamFja2xhYiIsInJvbGVzIjpbMV0sImV4cCI6MTY1MTU0NzQxNX0=.f3a478eaa8513874a49b96dfb6a8e850091eecc4992182f71b1ef8a7257deaff'
+const token = localStorage.getItem("user_token")
 
 const _axios = axios.create({
     baseURL: 'http://localhost',//後端的url
