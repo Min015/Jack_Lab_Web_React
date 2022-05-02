@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate,useNavigate,useParams } from 'react-router-dom'
 
 import GameList from './front_desk/game/GameList';
 import AddGame from './front_desk/game/AddGame';
@@ -50,7 +50,7 @@ export default (
             <Route path='/project/addproject' exact element={<AddProject />} />
             <Route path='/project/projectinfo' exact element={<ProjectInfo />} />
             <Route path='/meeting' exact element={<Meeting />}/>
-            <Route path='/meeting/meetinginfo/:id' exact element={<MeetingInfo/>}/>
+            <Route path='/meeting/meetinginfo/:id' exact element={<MeetingInfo/>} />
             <Route path='/meeting/updatemeeting/:id' exact element={<UpdateMeeting/>}/>
             <Route path='/meeting/addmeeting' exact element={<AddMeeting />} />
 
@@ -67,7 +67,7 @@ export default (
             <Route path='/member' exact element={<Member />} />
 
             <Route path='/meetingmanage' exact element={<MeetingManage />} />
-            <Route path="/meetingmanage/meetinginfo" exact element={<AdMeetingInfo />} />
+            <Route path="/meetingmanage/meetinginfo" exact element={<AdMeetingInfo/>} />
 
 
             <Route path='/gamemanage' exact element={<GameManage />} />

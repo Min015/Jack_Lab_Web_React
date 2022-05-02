@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJiNzgxMjVlZC1mN2E5LTQzMTItOTc5Yi00NGYwN2NmZjM1NGYiLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNjUxMDQxNzQzLCJleHAiOjQ4MDQ2NDE3NDN9.us5JAEPGRHuvX5mfRU-eRxfnh_MF7mjJ3c8YaUSm4yk'
+const token = localStorage.getItem("user_token")
 
 const _axios = axios.create({
     baseURL: 'http://localhost',//後端的url
@@ -8,7 +8,7 @@ const _axios = axios.create({
     headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',//跨域
-        // 'Authorization': `Bearer ${token}`//權限
+        'Authorization': `bearer ${token}`//權限
         //'Authorization': `${token}`//權限
     }
 })
@@ -29,7 +29,7 @@ export function GET_download(filename) {
 }
 
 export function GET_Members() {
-    return _axios.get('/api/member')
+    return _axios.get('/api/manager/user')//暫定
 }
 export function DELETE_Meeting(id) {
     return _axios.delete(`/api/meeting/${id}`)

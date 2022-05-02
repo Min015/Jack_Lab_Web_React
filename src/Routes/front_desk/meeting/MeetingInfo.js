@@ -1,11 +1,12 @@
 import { Component } from 'react';
 import '../main_category/meetingInfo.scss';
 import Header from '../../../Components/Header/Header';
-import { GET_MeetingInfo, GET_download,DELETE_Meeting} from '../../../Service/meeting/Meeting.js';
-import { useParams, useLocation, Link, } from 'react-router-dom';
+import { GET_MeetingInfo, GET_download, DELETE_Meeting } from '../../../Service/meeting/Meeting.js';
+import { useParams, useLocation, Link } from 'react-router-dom';
+
 export default class MeetingInfo extends Component {
     state = {
-        Id: "11",
+        Id: "1",
         data: [],
     }
     //生命週期
@@ -34,7 +35,7 @@ export default class MeetingInfo extends Component {
     }
     Delete = async (id) => {
         try {
-            const res =await DELETE_Meeting(id);
+            const res = await DELETE_Meeting(id);
             console.log(res);
             window.location.replace('http://localhost:3000/meeting')
         } catch (err) {
@@ -44,6 +45,7 @@ export default class MeetingInfo extends Component {
     render() {
         const { data } = this.state;
         console.log(data);
+
         return (
             <div>
                 <Header />
@@ -65,9 +67,9 @@ export default class MeetingInfo extends Component {
                             </div>
                             <div className="edit_button">
                                 <div className="add">
-                                    <div 
-                                    className='func_btn'
-                                    onClick={(e)=>this.Delete(this.state.Id,e)}
+                                    <div
+                                        className='func_btn'
+                                        onClick={(e) => this.Delete(this.state.Id, e)}
                                     >
                                         <svg width="15" height="19" viewBox="0 0 15 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <g clip-path="url(#clip0_450_27)">

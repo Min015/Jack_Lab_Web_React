@@ -36,7 +36,7 @@ export default class AddMeeting extends Component {
         member: {
             errormsg: "必填",
         },
-        uploader: "s05751869@gmail.com",
+        uploader: "s1110734015@nutc.edu.tw",
     }
 
 

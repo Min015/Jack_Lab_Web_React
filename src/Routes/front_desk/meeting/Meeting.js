@@ -1,9 +1,11 @@
 import { Component } from 'react';
 import '../main_category/category.scss';
 import Header from '../../../Components/Header/Header';
-import { Link } from 'react-router-dom';
+import { Link,useParams } from 'react-router-dom';
 import CreateTable from './CreateTable';
 import { GET_Meeting } from '../../../Service/meeting/Meeting.js';
+
+
 export default class Meeting extends Component {
     state = {
         table_header: [
@@ -14,7 +16,7 @@ export default class Meeting extends Component {
             "相關標籤",
         ],
         data: [],
-        year: ["時間範圍(必填)", "2022", "2021", "2020", "2019", "2018", "2017", "2016"],
+        year: [],
         meeting_tag: ["選擇標籤"],
         
     }
@@ -22,7 +24,10 @@ export default class Meeting extends Component {
     componentDidMount = async () => {
         try {
             const res = await GET_Meeting();
-            this.setState({ data: res.data.data});
+            this.setState({ 
+                data: res.data.data,
+            
+            });
         } catch (err) {
             console.log(err);
         }
@@ -73,7 +78,7 @@ export default class Meeting extends Component {
                         </div>
 
                         <div className="reaults_area">
-                            <CreateTable table_header={table_header} table_content={data} />
+                            <CreateTable table_header={table_header} table_content={data} onDetail={(id,title)=><Link to={`/meeting/meetinginfo/${id}`} >{title}</Link>} />
                         </div>
                     </div>
                 </div>

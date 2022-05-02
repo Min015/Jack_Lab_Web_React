@@ -7,7 +7,7 @@ import { POST_UpdateMeeting } from '../../../Service/fileupload/Sendform';
 
 export default class UpdateMeeting extends Component {
     state = {
-        Id: "11",
+        Id: "1",
         array: [],//file
         participate: [],//已選擇
         long: 0,//一個tag的長度
@@ -38,7 +38,7 @@ export default class UpdateMeeting extends Component {
         member: {
             errormsg: "必填",
         },
-        uploader: "s05751869@gmail.com",
+        uploader: "s1110734015@nutc.edu.tw",
     }
 
 

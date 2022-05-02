@@ -12,13 +12,13 @@ export default class CreateTable extends Component {
         }
     }
     render() {
-        const { table_header, table_content } = this.props;
+        const { table_header, table_content, onDetail } = this.props;
         let style;
         return (
             <table>
                 <thead>
                     <tr>
-                        {table_header.map((item,index) => (<th key={`th${index}`}>{item}</th>))}
+                        {table_header.map((item, index) => (<th key={`th${index}`}>{item}</th>))}
                     </tr>
                 </thead>
                 <tbody>
@@ -27,8 +27,10 @@ export default class CreateTable extends Component {
                             style = this.handleSetStyle(index);
                             return (
                                 <tr key={`tr${index}`} className={style}>
+
                                     <td>
-                                    <Link
+                                        {onDetail(item.Id, item.Title)}
+                                        <Link
                                             to={`/meeting/meetinginfo/${item.Id}`}
                                         >
                                             {item.Title}
@@ -38,8 +40,8 @@ export default class CreateTable extends Component {
                                     <td>{item.Place}</td>
                                     <td>{item.uploader.Name}</td>
                                     <td>
-                                        {item.tag.map((item,index)=>{
-                                            return(<span className='table_tag' key={`tag${index}`}>{`${item.Name}`} </span>)
+                                        {item.tag.map((item, index) => {
+                                            return (<span className='table_tag' key={`tag${index}`}>{`${item.Name}`} </span>)
                                         })}
                                     </td>
                                 </tr>

@@ -17,14 +17,13 @@ export default class GuestHeader extends Component {
 
     POST = async() => {
         const payload = this.state.payload
-        // console.log(payload);
-        const req = await POST_login(payload);
-        if(req.data.success===true){
-            console.log(req.data.message);
+        try{
+            const req = await POST_login(payload);
+            set_token(req.data.data);
             window.location.replace('http://localhost:3000/meeting');
         }
-        else{
-            alert(req.data.message);
+        catch(err){
+           alert(err.response.data.message);
         }
     }
     //func
