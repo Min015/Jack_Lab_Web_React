@@ -19,6 +19,10 @@
                     color: $font_maincolor;
                     border-radius   : 30px;
                     margin          : 2.5px;
+                    padding: 4px 8px;
+                    &:hover{
+                        cursor: pointer;
+                    }
                 }
             }
         }
@@ -27,7 +31,6 @@
         @extend %row;
         .add {
             margin-left: 15px;
-            width           : 121px;
             height          : 34px;
             font-size       : $m;
             background-color: $button_color;

@@ -41,7 +41,7 @@ export default class GuestHeader extends Component {
         }
     }
     handelMouseDown = (e) => {
-        if (e.target.className === "signupFrm" ||e.target.className === "close_btn") {
+        if (e.target.className === "signupFrm") {
             this.setState({
                 drop: false,
             })
@@ -65,7 +65,6 @@ export default class GuestHeader extends Component {
                 }
             })
         }
-        // console.log(this.state.payload);
     }
     render() {
         const { drop } = this.state
@@ -107,13 +106,13 @@ export default class GuestHeader extends Component {
                 >
                     <div className="signupFrm">
                         <div className="form">
-                            <h1 className="title">
+                            <h1 className="Login_title">
                                 登入
                                 <div className="close">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M24 2.4L21.6 0L12 9.6L2.4 0L0 2.4L9.6 12L0 21.6L2.4 24L12 14.4L21.6 24L24 21.6L14.4 12L24 2.4Z" fill="#51718C" />
                                     </svg>
-                                    <div className="close_btn"/>
+                                    <div className="close_btn" onClick={this.drop_down} />
                                 </div>
                             </h1>
                             <div className="inputContainer">
@@ -142,12 +141,14 @@ export default class GuestHeader extends Component {
                                     密碼
                                 </label>
                             </div>
-                            <button
-                                className="submitBtn"
-                                onClick={this.POST.bind(this)}
-                            >
-                                登入
-                            </button>
+                            <div id='one_btn'>
+                                <button
+                                    className="submitBtn"
+                                    onClick={this.POST.bind(this)}
+                                >
+                                    登入
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

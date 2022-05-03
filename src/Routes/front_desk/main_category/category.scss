@@ -14,15 +14,15 @@
 }
 
 .works_area {
-    position           : sticky;
-    z-index            : 1;
-    top                : 56px;
-    display            : flex;
-    margin             : 44px 0px;
-    height             : 34px;
-    width              : 100%;
-    // background-color: $main_backgroundcolor;
-    width              : 100%;
+    position        : sticky;
+    z-index         : 1;
+    top             : 56px;
+    display         : flex;
+    margin          : 44px 0px;
+    height          : 34px;
+    width           : 100%;
+    background-color: $front_desk_content_background;
+    width           : 100%;
 
     .select_list {
         display       : flex;
@@ -64,7 +64,7 @@
 }
 
 .add {
-    width           : 121px;
+    // width           : 121px;
     height          : 34px;
     font-size       : $m;
     background-color: $button_color;
@@ -89,9 +89,12 @@
             background-color: $button_hover;
         }
 
-        svg,
+        svg {
+            margin-left: 5px;
+        }
+
         p {
-            margin: 0px 5px;
+            margin: 0px 10px 0px 5px;
         }
     }
 }

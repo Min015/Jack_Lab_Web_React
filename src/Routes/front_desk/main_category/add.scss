@@ -149,7 +149,6 @@
                 height : 100%;
                 width  : 100%;
                 opacity: 0;
-
             }
 
             input,
@@ -169,7 +168,6 @@
                 label {
                     margin-left: 5px;
                     color      : $main_backgroundcolor;
-
                 }
             }
 
@@ -182,7 +180,6 @@
         .selectlist {
             display            : none;
             position           : absolute;
-            // background-color: rgb(3, 115, 212);
             top                : 1px;
             z-index            : 1;
             width              : 100%;

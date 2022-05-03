@@ -1,13 +1,15 @@
 import { Component } from 'react';
 import '../main_category/meetingInfo.scss';
+import '../main_category/popup_window.scss';
 import Header from '../../../Components/Header/Header';
 import { GET_MeetingInfo, GET_download, DELETE_Meeting } from '../../../Service/meeting/Meeting.js';
-import { useParams, useLocation, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default class MeetingInfo extends Component {
     state = {
-        Id: "1",
+        Id: "",
         data: [],
+        drop: false,
     }
     //生命週期
     componentDidMount = async () => {
@@ -46,8 +48,29 @@ export default class MeetingInfo extends Component {
             console.log(err);
         }
     }
+
+    handelMouseDown = (e) => {
+        if (e.target.className === "window") {
+            this.setState({
+                drop: false,
+            })
+        }
+    }
+    drop_down = () => {
+        if (this.state.drop === false) {
+            this.setState({
+                drop: true,
+            })
+        }
+        else {
+            this.setState({
+                drop: false,
+            })
+        }
+    }
+    
     render() {
-        const { data } = this.state;
+        const { data, drop } = this.state;
         return (
             <div id='meeting_info'>
                 <Header />
@@ -72,7 +95,7 @@ export default class MeetingInfo extends Component {
                                 <div className="add">
                                     <div
                                         className='func_btn'
-                                        onClick={(e) => this.Delete(this.state.Id, e)}
+                                        onClick={this.drop_down}
                                     >
                                         <svg width="15" height="19" viewBox="0 0 15 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <g clip-path="url(#clip0_450_27)">
@@ -146,7 +169,33 @@ export default class MeetingInfo extends Component {
                             </div>
                         </div>
                     </div>
-
+                    <div
+                        className={drop ? "popup_background active" : "popup_background"}
+                        onClick={this.handelMouseDown}
+                    >
+                        <div className="window">
+                            <div className="form">
+                                <h2 className='message'>
+                                    是否要刪除會議紀錄「{data.Title}」
+                                </h2>
+                                <div id='btn_block'>
+                                    <button
+                                        id='close'
+                                        className="submitBtn"
+                                        onClick={this.drop_down}
+                                    >
+                                        取消
+                                    </button>
+                                    <button
+                                        className="submitBtn"
+                                        onClick={(e) => this.Delete(this.state.Id, e)}
+                                    >
+                                        確定
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
