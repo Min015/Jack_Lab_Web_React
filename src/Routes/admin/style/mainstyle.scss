@@ -23,29 +23,37 @@
 
 .edit_button {
     @extend %row;
-
-    .add {
+    .work_btn {
         margin-right    : 15px;
         width           : 105px;
         height          : 34px;
         font-size       : $m;
-        background-color: $button_color;
-
-        a {
+        p {
             height: 100%;
             width : 100%;
             @include ali-set();
             @include jus-set();
             @extend %row;
             color: $font_maincolor;
-
-            &:hover {
-                background-color: $button_hover;
-            }
-
             svg,
             p {
                 margin: 0px 5px;
+            }
+        }
+    }
+    .add_btn{
+        background-color: $button_color;
+        p{
+            &:hover {
+                background-color: $button_hover;
+            }
+        }
+    }
+    .delete_btn{
+        background-color: $delete_button;
+        p{
+            &:hover {
+                background-color: $delete_button_hover;
             }
         }
     }

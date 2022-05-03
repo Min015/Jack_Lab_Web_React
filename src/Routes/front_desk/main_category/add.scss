@@ -3,6 +3,7 @@
 .content {
     padding-top   : $header_height;
     padding-bottom: 30px;
+    background-color: $front_desk_content_background;
 }
 
 .contentin {
@@ -55,7 +56,7 @@
         }
 
         .form_submit {
-            font-size: $m;
+            font-size       : $m;
             margin-left     : auto;
             background-color: $button_color;
             @include ali-set();
@@ -66,7 +67,7 @@
         button,
         select,
         textarea {
-            font-size: $m;
+            font-size       : $m;
             min-height      : 35px;
             color           : $font_maincolor;
             background-color: rgba(245, 245, 220, 0);
@@ -90,7 +91,7 @@
 
             p {
                 background-color: $tag_backgroud;
-                color: $font_maincolor;
+                color           : $font_maincolor;
                 padding         : 2px 5px;
                 border-radius   : 2px;
                 margin          : 2.5px;
@@ -148,6 +149,14 @@
                 height : 100%;
                 width  : 100%;
                 opacity: 0;
+
+            }
+
+            input,
+            .newbtn,
+            svg,
+            label {
+                cursor: pointer;
             }
 
             .newbtn {
@@ -157,17 +166,13 @@
                 @extend %row;
                 @include ali-set();
 
-                img {
-                    width      : 26px;
-                    height     : 26px;
-                    margin-left: 5px;
-                }
-
                 label {
                     margin-left: 5px;
                     color      : $main_backgroundcolor;
+
                 }
             }
+
         }
 
         .locator {
@@ -240,21 +245,21 @@
         }
 
     }
+
     #work_col {
         padding   : 0px 15px;
         margin-top: 25px;
         @extend %between;
-
         .form_submit {
             background-color: $button_color;
             @include ali-set();
             @include jus-set();
-            a{
-                width: 100%;
+            font-size: $m;
+            a {
+                width : 100%;
                 height: 100%;
                 @include ali-set();
-            @include jus-set();
-            
+                @include jus-set();
             }
         }
 
@@ -264,8 +269,9 @@
             border          : 0px;
             color           : $font_maincolor;
             cursor          : pointer;
-            a{
-                color           : $font_maincolor;
+
+            a {
+                color: $font_maincolor;
             }
         }
     }

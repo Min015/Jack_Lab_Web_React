@@ -78,15 +78,11 @@ export default class Member extends Component {
                         <div className="in">
                             <div className="work">
                                 <div className="edit_button">
-                                    <div className="add">
-                                        <a href="#">
-                                            <p>刪除成員</p>
-                                        </a>
+                                    <div className="work_btn add_btn">
+                                        <p>新增成員</p>
                                     </div>
-                                    <div className="add">
-                                        <a href="#">
-                                            <p>新增成員</p>
-                                        </a>
+                                    <div className="work_btn delete_btn">
+                                        <p>批量刪除</p>
                                     </div>
                                 </div>
                                 <form className="searchform">
@@ -95,7 +91,7 @@ export default class Member extends Component {
                                             <option value={item}>{item}</option>
                                         )}
                                     </select>
-                                    <input type="text" placeholder="輸入搜尋值" />
+                                    <input type="text" placeholder="搜尋" />
                                     <input type="submit" value="送出" className="searchBtn" />
                                 </form>
                             </div>

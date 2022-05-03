@@ -43,19 +43,15 @@ export default class TagManage extends Component {
                         <div className="in">
                             <div className="work">
                                 <div className="edit_button">
-                                    <div className="add">
-                                        <a href="#">
-                                            <p>刪除標籤</p>
-                                        </a>
+                                    <div className="work_btn add_btn">
+                                        <p>新增標籤</p>
                                     </div>
-                                    <div className="add">
-                                        <a href="#">
-                                            <p>新增標籤</p>
-                                        </a>
+                                    <div className="work_btn delete_btn">
+                                        <p>批量刪除</p>
                                     </div>
                                 </div>
                                 <form action="" className="searchbar">
-                                    <input type="text" required placeholder="輸入搜尋值" />
+                                    <input type="text" required placeholder="搜尋" />
                                     <div className="submit">
                                         <input type="image" src={search} alt="送出" />
                                     </div>

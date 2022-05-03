@@ -63,7 +63,7 @@ export default class AddProject extends Component {
                                             )
                                         })}
                                     </select>
-                                    <label for="" className="label">選擇指派小組(必填)</label>
+                                    <label for="" className="label">選擇負責小組(必填)</label>
                                 </div>
                             </div>
                             <div className="inputbox">

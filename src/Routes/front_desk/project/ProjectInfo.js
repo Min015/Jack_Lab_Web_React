@@ -35,7 +35,7 @@ export default class ProjectInfo extends Component {
     render() {
         const {table_header,object}=this.state;
         return (
-            <div>
+            <div id='project_info'>
                 <Header />
                 <div className="content">
                     <div className="contentin">

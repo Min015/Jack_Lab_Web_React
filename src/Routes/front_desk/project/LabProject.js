@@ -5,6 +5,10 @@ import { Link } from 'react-router-dom';
 import CreateTable from './CreateTable';
 export default class LabProject extends Component {
     state = {
+        all_data: 101,//總資料筆數
+        now_page: 1,//現在頁面
+        all_page: 0,
+        page:[],
         table_header: [
             "類型",
             "分類",
@@ -28,19 +32,37 @@ export default class LabProject extends Component {
         proj_class: ["選擇分類"],
     }
     //生命週期
-
+    componentDidMount = async () => {
+        let {now_page,all_data,page} = this.state;
+        let all_page = 0;
+        if (all_data % 10 === 0) {
+            all_page = all_data / 10;
+        }
+        else {
+            all_page = (all_data - all_data % 10) / 10 + 1;
+        }
+        this.setState({
+            all_page
+        })
+        console.log(`總頁數有${all_page}`);
+        for(let i=now_page-2;i<=now_page+2;i++){
+            if(i>0 &&i<=all_page){
+                page.push(i);
+            }
+        }
+    }
     //func
 
 
     render() {
-        const { object, table_header, year,proj_type,proj_class } = this.state;
+        const { object, table_header, year,proj_type,proj_class,page } = this.state;
         return (
             <div>
                 <Header />
                 <div className="content">
                     <div className="contentin">
                         <div className="works_area">
-                            <form action="">
+                            
                                 <div className="select_list">
                                     <select name="year" required className="select">
                                         {year.map((item) => {
@@ -63,11 +85,10 @@ export default class LabProject extends Component {
                                             )
                                         })}
                                     </select>
+                                    <input type="text" placeholder="輸入搜尋值" className="search" />
+                                    <input type="submit" value="送出" className="submit" />
                                 </div>
                                 <div className="search_add">
-                                    <input type="search" placeholder="輸入搜尋值" className="search" />
-                                    <input type="submit" value="送出" className="submit" />
-
                                     <div className="add">
                                         <Link to='/project/addproject'>
                                             <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -77,11 +98,28 @@ export default class LabProject extends Component {
                                         </Link>
                                     </div>
                                 </div>
-                            </form>
+                            
                         </div>
 
                         <div className="reaults_area">
                             <CreateTable table_header={table_header} table_content={object} />
+                        </div>
+                        <div className='page'>
+                            <div className='one_page'>
+                                <svg width="11" height="18" viewBox="0 0 11 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M0 9L9 18L10.4 16.5L3 9L10.4 1.5L9 0L0 9Z" fill="white" />
+                                </svg>
+                            </div>
+                            <div className='page_group'>
+                                {page.map((item,index)=>
+                                (<a key={index}><div className='one_page'>{item}</div></a>)
+                                )}
+                            </div>
+                            <div className='one_page'>
+                                <svg width="11" height="18" viewBox="0 0 11 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1.4 0L0 1.5L7.4 9L0 16.5L1.4 18L10.4 9L1.4 0Z" fill="white" />
+                                </svg>
+                            </div>
                         </div>
                     </div>
                 </div>

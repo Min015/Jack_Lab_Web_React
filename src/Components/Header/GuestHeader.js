@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { POST_login,set_token } from '../../Service/login/Login.js';
+import { POST_login, set_token } from '../../Service/login/Login.js';
 import { Link, NavLink } from "react-router-dom";
 import "./header1.scss";
 import "./login.scss";
@@ -15,15 +15,16 @@ export default class GuestHeader extends Component {
     }
     //生命週期
 
-    POST = async() => {
+    POST = async () => {
         const payload = this.state.payload
-        try{
+        try {
             const req = await POST_login(payload);
+            console.log(req);
             set_token(req.data.data);
-            window.location.replace('http://localhost:3000/meeting');
+            // window.location.replace('http://localhost:3000/meeting');
         }
-        catch(err){
-           alert(err.response.data.message);
+        catch (err) {
+            alert(err.response.data.message);
         }
     }
     //func
@@ -40,8 +41,7 @@ export default class GuestHeader extends Component {
         }
     }
     handelMouseDown = (e) => {
-        // console.log(e.target)
-        if (e.target.className === "signupFrm") {
+        if (e.target.className === "signupFrm" ||e.target.className === "close_btn") {
             this.setState({
                 drop: false,
             })
@@ -84,7 +84,7 @@ export default class GuestHeader extends Component {
                         </Link>
                         <div
                             to="/student"
-                            className={isActive =>(!isActive ? " nowP" : "")}
+                            className={isActive => (!isActive ? " nowP" : "")}
                         >
                             <li>實驗室介紹</li>
                         </div>
@@ -107,7 +107,15 @@ export default class GuestHeader extends Component {
                 >
                     <div className="signupFrm">
                         <div className="form">
-                            <h1 className="title">登入</h1>
+                            <h1 className="title">
+                                登入
+                                <div className="close">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M24 2.4L21.6 0L12 9.6L2.4 0L0 2.4L9.6 12L0 21.6L2.4 24L12 14.4L21.6 24L24 21.6L14.4 12L24 2.4Z" fill="#51718C" />
+                                    </svg>
+                                    <div className="close_btn"/>
+                                </div>
+                            </h1>
                             <div className="inputContainer">
                                 <input
                                     type="text"

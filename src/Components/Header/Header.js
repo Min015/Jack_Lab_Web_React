@@ -52,6 +52,7 @@ export default class Header extends Component {
                         <div className={newclass}>
                             <ul>
                                 <li id="set_info"><Link to='/setinfo'>個人資料</Link></li>
+                                <li id="set_info"><Link to='/setinfo'>我的小組</Link></li>
                                 <li id="set_info"><Link to='/setinfo'>修改密碼</Link></li>
                                 <li id="logout"><a href="#">登出</a></li>
                             </ul>

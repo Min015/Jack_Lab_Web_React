@@ -14,14 +14,14 @@ export default class TeacherIntroduce extends Component {
         ],
         object: [
             {
-                t_id:"t01",
+                t_id: "t01",
                 teacher_name: "姜琇森",
                 teacher_position: "教授",
                 teacher_photo: "",
                 teacher_introduce: "",
             },
         ]
-}
+    }
     render() {
         const { object, table_header } = this.state;
         return (
@@ -33,19 +33,15 @@ export default class TeacherIntroduce extends Component {
                         <div className="in">
                             <div className="work">
                                 <div className="edit_button">
-                                    <div className="add">
-                                        <a href="#">
-                                            <p>刪除教師</p>
-                                        </a>
+                                    <div className="work_btn add_btn">
+                                        <p>新增教師</p>
                                     </div>
-                                    <div className="add">
-                                        <a href="#">
-                                            <p>新增教師</p>
-                                        </a>
+                                    <div className="work_btn delete_btn">
+                                        <p>批量刪除</p>
                                     </div>
                                 </div>
                                 <form action="" className="searchbar">
-                                    <input type="text" required placeholder="輸入搜尋值" />
+                                    <input type="text" required placeholder="搜尋" />
                                     <div className="submit">
                                         <input type="image" src={search} alt="送出" />
                                     </div>

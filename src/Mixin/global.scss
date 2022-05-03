@@ -1,9 +1,13 @@
+$front_desk_content_background:rgb(255, 255, 255);
+$front_desk_contentin_background:rgb(255, 255, 255);
+
 $header_background:#022840;
-$th_background    :#51718C;
 $header_height    :56px;
 
 $button_color:#51718C;
 $button_hover:#66859e;
+$delete_button:#b53b2e;
+$delete_button_hover:#d02513;
 
 $scrollbar_thumb:#51718C;
 $scrollbar_track:#D8E6F2;
@@ -16,6 +20,7 @@ $prompt_color:#757575;
 
 $front_desk_width:1200px;
 
+$th_background    :#51718C;
 $tr_odd :#ADC5D9;
 $tr_even:#D8E6F2;
 

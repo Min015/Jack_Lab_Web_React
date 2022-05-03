@@ -11,15 +11,15 @@ export default class LabIntroduce extends Component {
         ],
         object: [
             {
-                l_id:"l01",
-                l_title:"Web_Lab",
+                l_id: "l01",
+                l_title: "Web_Lab",
                 l_content: "這是內容",
             },
         ]
     }
-    
+
     render() {
-        const{table_header,object}=this.state;
+        const { table_header, object } = this.state;
         return (
             <div>
                 <AdminHeader />
@@ -27,17 +27,13 @@ export default class LabIntroduce extends Component {
                     <Sidebar />
                     <div className="content_in">
                         <div className="in">
-                        <div className="work">
+                            <div className="work">
                                 <div className="edit_button">
-                                    <div className="add">
-                                        <a href="#">
-                                            <p>刪除簡介</p>
-                                        </a>
+                                    <div className="work_btn add_btn">
+                                        <p>新增介紹</p>
                                     </div>
-                                    <div className="add">
-                                        <a href="#">
-                                            <p>新增簡介</p>
-                                        </a>
+                                    <div className="work_btn delete_btn">
+                                        <p>批量刪除</p>
                                     </div>
                                 </div>
                             </div>

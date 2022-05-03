@@ -16,7 +16,7 @@ export default class CaseManage extends Component {
         ],
         object: [
             {
-                cM_id:"c01",
+                cM_id: "c01",
                 cM_type: "大專生國科會計畫",
                 cM_class: "五專部",
                 cM_title: "運用強化學習與自適應機制建構智慧互動聊天機器人",
@@ -25,17 +25,17 @@ export default class CaseManage extends Component {
                 cM_tag: ""
             },
         ],
-        cM_T:["大專生國科會計畫", "大專", "小專"],
-        cM_C:["五專部","二技部","四技部","研究所"],
-        cM_Y:["2021","2020","2019","2018"],
-        cM_Tag:["強化學習","自適應","聊天機器人","AI"],
+        cM_T: ["大專生國科會計畫", "大專", "小專"],
+        cM_C: ["五專部", "二技部", "四技部", "研究所"],
+        cM_Y: ["2021", "2020", "2019", "2018"],
+        cM_Tag: ["強化學習", "自適應", "聊天機器人", "AI"],
     }
     //生命週期
 
     //func
 
     render() {
-        const { object, table_header,cM_T,cM_C,cM_Y,cM_Tag } = this.state;
+        const { object, table_header, cM_T, cM_C, cM_Y, cM_Tag } = this.state;
         return (
             <div>
                 <AdminHeader />
@@ -45,15 +45,11 @@ export default class CaseManage extends Component {
                         <div className="in">
                             <div className="work">
                                 <div className="edit_button">
-                                    <div className="add">
-                                        <a href="#">
-                                            <p>刪除專案</p>
-                                        </a>
+                                    <div className="work_btn add_btn">
+                                        <p>新增專案</p>
                                     </div>
-                                    <div className="add">
-                                        <a href="#">
-                                            <p>新增專案</p>
-                                        </a>
+                                    <div className="work_btn delete_btn">
+                                        <p>批量刪除</p>
                                     </div>
                                 </div>
                                 <form className="searchform">
@@ -77,7 +73,7 @@ export default class CaseManage extends Component {
                                             <option value={item}>{item}</option>
                                         )}
                                     </select>
-                                    <input type="text" placeholder="輸入搜尋值" />
+                                    <input type="text" placeholder="搜尋" />
                                     <input type="submit" value="送出" className="searchBtn" />
                                 </form>
                             </div>

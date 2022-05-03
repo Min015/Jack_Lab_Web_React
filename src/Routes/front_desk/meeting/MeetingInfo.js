@@ -12,7 +12,6 @@ export default class MeetingInfo extends Component {
     //生命週期
     componentDidMount = async () => {
         const { match } = this.props;
-        console.log(match);
         const { params } = match;
         this.setState({
             Id: params.id,
@@ -49,10 +48,8 @@ export default class MeetingInfo extends Component {
     }
     render() {
         const { data } = this.state;
-        console.log(data);
-
         return (
-            <div>
+            <div id='meeting_info'>
                 <Header />
                 <div className="content">
                     <div className="contentin">

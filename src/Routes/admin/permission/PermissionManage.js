@@ -43,15 +43,11 @@ export default class PermissionManage extends Component {
                         <div className="in">
                             <div className="work">
                                 <div className="edit_button">
-                                    <div className="add">
-                                        <a href="#">
-                                            <p>刪除角色</p>
-                                        </a>
+                                    <div className="work_btn add_btn">
+                                        <p>新增角色</p>
                                     </div>
-                                    <div className="add">
-                                        <a href="#">
-                                            <p>新增角色</p>
-                                        </a>
+                                    <div className="work_btn delete_btn">
+                                        <p>批量刪除</p>
                                     </div>
                                 </div>
                             </div>

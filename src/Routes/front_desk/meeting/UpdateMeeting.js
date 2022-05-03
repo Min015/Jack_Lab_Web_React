@@ -2,7 +2,7 @@ import { Component } from 'react';
 import '../main_category/add.scss';
 import Header from '../../../Components/Header/Header';
 import { GET_Members, GET_MeetingInfo } from '../../../Service/meeting/Meeting.js';
-import { Redirect, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { POST_UpdateMeeting } from '../../../Service/fileupload/Sendform';
 
 export default class UpdateMeeting extends Component {
@@ -82,7 +82,6 @@ export default class UpdateMeeting extends Component {
                 },
                 array: ref.data.data.files,
             });
-            console.log(this.state.OldData);
         } catch (err) {
             console.log(err);
         }
@@ -396,7 +395,7 @@ export default class UpdateMeeting extends Component {
                                         {participate.map((item, index) =>
                                             <div
                                                 className='oncheck'
-                                                key={index}
+                                                key={`member${index}`}
                                             >
                                                 <p >{item.name}
                                                     <label className='deselect'>
@@ -423,7 +422,7 @@ export default class UpdateMeeting extends Component {
                                                 return (
                                                     <div
                                                         className={participate.includes(item.Account) ? "option selected" : "option noS"}
-                                                        key={index}
+                                                        key={`select${index}`}
                                                     >
                                                         <input
                                                             type='checkbox'
@@ -447,7 +446,7 @@ export default class UpdateMeeting extends Component {
                                 <div className="set col-12">
                                     <div className="input">
                                         {tag?.map((item) => (
-                                            <p key={item}>
+                                            <p key={`tag${item}`}>
                                                 {item}
                                                 <span
                                                     onClick={this.heandleDelTag}
@@ -491,7 +490,7 @@ export default class UpdateMeeting extends Component {
                             </div>
                             <div id="filename">
                                 <ol>
-                                    {array.map(item => (<li>{item.name}{item.Name}</li>))}
+                                    {array.map((item,index) => (<li key={`file${index}`}>{item.name}{item.Name}</li>))}
                                 </ol>
                             </div>
                             {/* 送出 */}

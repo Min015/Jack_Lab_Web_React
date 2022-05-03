@@ -1,108 +1,110 @@
 @import '../../../Mixin/global.scss';
-.add_title {
-    padding      : 10px 10px;
-    border-bottom: 1px $tr_even solid;
-    color        : $header_background;
-    @extend %between;
-    .title_name{
-        @extend %row;
-        @include ali-set(end);
-        .tag{
+#project_info{
+    .add_title {
+        padding      : 10px 10px;
+        border-bottom: 1px $tr_even solid;
+        color        : $header_background;
+        @extend %between;
+        .title_name{
             @extend %row;
-            .small_tag{
-                padding: 3px 7px;
-                font-size: $m;
-                border-radius: 30px;
-                background-color: $form_maincolor;
-                margin-left: 10px;
-                margin-bottom: 4px;
+            @include ali-set(end);
+            .tag{
+                @extend %row;
+                .small_tag{
+                    padding: 3px 7px;
+                    font-size: $m;
+                    border-radius: 30px;
+                    background-color: $form_maincolor;
+                    margin-left: 10px;
+                    margin-bottom: 4px;
+                    @include ali-set();
+                    @include jus-set();
+                }
+            }
+        }
+    }
+    .edit_button{
+        @extend %row;
+        .add {
+            margin-left: 15px;
+            width           : 121px;
+            height          : 34px;
+            font-size       : $m;
+            background-color: $button_color;
+            a {
+                height: 100%;
+                width : 100%;
+                background-color: $button_color;
                 @include ali-set();
                 @include jus-set();
-            }
-        }
-    }
-}
-.edit_button{
-    @extend %row;
-    .add {
-        margin-left: 15px;
-        width           : 121px;
-        height          : 34px;
-        font-size       : $m;
-        background-color: $button_color;
-        a {
-            height: 100%;
-            width : 100%;
-            background-color: $button_color;
-            @include ali-set();
-            @include jus-set();
-            @extend %row;
-            &:link,
-            &:visited {
-                color: $font_maincolor;
-            }
-            
-            &:hover {
-                background-color: $button_hover;
-            }
-        }
-    }
-}
-.project_content{
-    margin: 30px 0px;
-    height: 270px;
-}
-.something_content{
-    background-color:$form_maincolor; 
-    color: $font_maincolor;
-    padding: 10px;
-    overflow-y: auto;
-    @include border-set($form_border);
-    @extend %every_content;
-}
-.reaults_area {
-    table {
-        width          : 100%;
-        
-        .tr_odd {
-            background-color: $tr_odd;
-        }
-        
-        .tr_even {
-            background-color: $tr_even;
-        }
-        
-        th,
-        td {
-            @include border-set($main_backgroundcolor);
-        }
-        
-        th {
-            height          : 59px;
-            font-size       : $l;
-            color           : $font_maincolor;
-            background-color: $th_background;
-            white-space     : nowrap;
-            min-width       : 78px;
-        }
-        
-        td {
-            height : 51px;
-            padding: 4px 15px;
-            color  : $header_background;
-            
-            a {
-                
+                @extend %row;
                 &:link,
                 &:visited {
-                    color: $header_background;
+                    color: $font_maincolor;
                 }
                 
                 &:hover {
-                    text-decoration: underline;
+                    background-color: $button_hover;
                 }
             }
+        }
+    }
+    .project_content{
+        margin: 30px 0px;
+        height: 270px;
+    }
+    .something_content{
+        background-color:$form_maincolor; 
+        color: $font_maincolor;
+        padding: 10px;
+        overflow-y: auto;
+        @include border-set($form_border);
+        @extend %every_content;
+    }
+    .reaults_area {
+        table {
+            width          : 100%;
             
+            .tr_odd {
+                background-color: $tr_odd;
+            }
+            
+            .tr_even {
+                background-color: $tr_even;
+            }
+            
+            th,
+            td {
+                @include border-set($main_backgroundcolor);
+            }
+            
+            th {
+                height          : 59px;
+                font-size       : $l;
+                color           : $font_maincolor;
+                background-color: $th_background;
+                white-space     : nowrap;
+                min-width       : 78px;
+            }
+            
+            td {
+                height : 51px;
+                padding: 4px 15px;
+                color  : $header_background;
+                
+                a {
+                    
+                    &:link,
+                    &:visited {
+                        color: $header_background;
+                    }
+                    
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+                
+            }
         }
     }
 }

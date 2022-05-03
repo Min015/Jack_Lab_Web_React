@@ -17,7 +17,7 @@ export default class CreateTable extends Component {
             <table>
                 <thead>
                     <tr>
-                        {table_header.map(item => (<th>{item}</th>))}
+                        {table_header.map((item,index) => (<th key={`th${index}`}>{item}</th>))}
                     </tr>
                 </thead>
                 <tbody>
@@ -25,7 +25,7 @@ export default class CreateTable extends Component {
                         (item, index) => {
                             style = this.handleSetStyle(index);
                             return (
-                                <tr className={style}>
+                                <tr key={`tr${index}`} className={style}>
                                     <td>{item.g_year}</td>
                                     <td>{item.g_type}</td>
                                     <td>{item.g_group}</td>

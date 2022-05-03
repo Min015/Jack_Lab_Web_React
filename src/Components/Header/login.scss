@@ -1,11 +1,13 @@
 @import '../../Mixin/global.scss';
+
 .login_background {
-    display: none;
+    display         : none;
     position        : absolute;
     top             : 0px;
     width           : 100%;
     background-color: rgba(0, 0, 0, 0.496);
     height          : 100vh;
+
     .signupFrm {
         font-family    : "lato", sans-serif;
         display        : flex;
@@ -16,7 +18,7 @@
 }
 
 .form {
-    background-color: white;
+    background-color: $main_backgroundcolor;
     width           : 400px;
     border-radius   : 8px;
     padding         : 20px 40px;
@@ -26,6 +28,25 @@
         font-size    : 50px;
         margin-bottom: 50px;
         color        : $button_color;
+        @extend %row;
+
+        .close {
+            position   : relative;
+            display    : flex;
+            height     : 24px;
+            margin-left: auto;
+
+            &:hover {
+                cursor: pointer;
+            }
+
+            .close_btn {
+                position: absolute;
+                top     : 0;
+                height  : 24px;
+                width   : 24px;
+            }
+        }
     }
 
     .inputContainer {
@@ -85,17 +106,17 @@
     }
 
     .submitBtn {
-        display         : block;
-        margin-left     : auto;
-        padding         : 15px 30px;
-        border          : none;
-        background-color: $button_color;
-        color           : white;
+        display            : block;
+        margin-left        : auto;
+        padding            : 15px 30px;
+        border             : none;
+        background-color   : $button_color;
+        color              : white;
         // border-radius   : 6px;
-        cursor          : pointer;
-        font-size       : 16px;
-        margin-top      : 30px;
-        float           : right;
+        cursor             : pointer;
+        font-size          : 16px;
+        margin-top         : 30px;
+        float              : right;
 
         &:hover {
             background-color: $button_hover;
@@ -103,6 +124,7 @@
         }
     }
 }
+
 .active {
     display: block;
 }

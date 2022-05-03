@@ -91,13 +91,14 @@ export default class AddGame extends Component {
                             <div className="inputbox">
                                 <div className="upload">
                                     <input type="file" id="f" multiple="multiple" onChange={e => this.handleSelectFile(e.target.files)} />
-                                    <div className="newbtn">
+                                    <label for='f' className="newbtn">
                                         <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M20 2H10L8 0H0V16H20V2ZM11 9V13H9V9H6L10.01 5L14 9H11Z" fill="white" />
                                         </svg>
-                                        <label for="f">請選擇檔案(不超過5)</label>
-                                    </div>
+                                        <label for='f'>請選擇檔案(不超過5)</label>
+                                    </label>
                                 </div>
+
                             </div>
                             <div id="filename">
                                 <ol>

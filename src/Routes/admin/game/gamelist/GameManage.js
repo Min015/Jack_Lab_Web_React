@@ -14,7 +14,7 @@ export default class GameManage extends Component {
         ],
         object: [
             {
-                gM_id:"a",
+                gM_id: "a",
                 gM_type: "資訊應用服務創新大賽",
                 gM_group: "Azure雲端創新產業應用組",
                 gM_name: "手影隨行",
@@ -22,7 +22,7 @@ export default class GameManage extends Component {
                 gM_year: 2021,
             },
             {
-                gM_id:"b",
+                gM_id: "b",
                 gM_type: "資訊應用服務創新大賽",
                 gM_group: "教育資料開放組",
                 gM_name: "讀癮",
@@ -30,15 +30,15 @@ export default class GameManage extends Component {
                 gM_year: 2021,
             },
         ],
-        gM_type:["資訊應用服務創新大賽","黑客松"],
-        gM_Y:["2021","2020","2019","2018"],
+        gM_type: ["資訊應用服務創新大賽", "黑客松"],
+        gM_Y: ["2021", "2020", "2019", "2018"],
     }
     //生命週期
 
     //func
 
     render() {
-        const { object, table_header,gM_type,gM_Y } = this.state;
+        const { object, table_header, gM_type, gM_Y } = this.state;
         return (
             <div>
                 <AdminHeader />
@@ -48,15 +48,11 @@ export default class GameManage extends Component {
                         <div className="in">
                             <div className="work">
                                 <div className="edit_button">
-                                    <div className="add">
-                                        <a href="#">
-                                            <p>刪除記錄</p>
-                                        </a>
+                                    <div className="work_btn add_btn">
+                                        <p>新增競賽</p>
                                     </div>
-                                    <div className="add">
-                                        <a href="#">
-                                            <p>新增記錄</p>
-                                        </a>
+                                    <div className="work_btn delete_btn">
+                                        <p>批量刪除</p>
                                     </div>
                                 </div>
                                 <form className="searchform">
@@ -70,7 +66,7 @@ export default class GameManage extends Component {
                                             <option value={item}>{item}</option>
                                         )}
                                     </select>
-                                    <input type="text" placeholder="輸入搜尋值" />
+                                    <input type="text" placeholder="搜尋" />
                                     <input type="submit" value="送出" className="searchBtn" />
                                 </form>
                             </div>

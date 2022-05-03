@@ -36,15 +36,11 @@ export default class MeetingManage extends Component {
                         <div className="in">
                             <div className="work">
                                 <div className="edit_button">
-                                    <div className="add">
-                                        <a href="#">
-                                            <p>刪除會議</p>
-                                        </a>
+                                    <div className="work_btn add_btn">
+                                        <p>新增會議</p>
                                     </div>
-                                    <div className="add">
-                                        <a href="#">
-                                            <p>新增會議</p>
-                                        </a>
+                                    <div className="work_btn delete_btn">
+                                        <p>批量刪除</p>
                                     </div>
                                 </div>
                                 <form className="searchform">
@@ -52,7 +48,7 @@ export default class MeetingManage extends Component {
                                         <input type="date" />~
                                         <input type="date" />
                                     </div>
-                                    <input type="text" placeholder="輸入搜尋值" />
+                                    <input type="text" placeholder="搜尋" />
                                     <input type="submit" value="送出" className="searchBtn" />
                                 </form>
                             </div>

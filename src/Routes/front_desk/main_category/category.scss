@@ -1,7 +1,10 @@
 @import '../../../Mixin/global.scss';
+
 .content {
-    padding-top   : $header_height;
-    padding-bottom: 30px;
+    padding-top     : $header_height;
+    padding-bottom  : 30px;
+    min-height      : calc(100vh - 86px);
+    background-color: $front_desk_content_background;
 }
 
 .contentin {
@@ -9,51 +12,51 @@
     margin: 0px auto;
     @extend %col;
 }
+
 .works_area {
-    position        : sticky;
-    z-index         : 1;
-    top             : 56px;
-    display         : flex;
-    margin          : 44px 0px;
-    height          : 34px;
-    width           : 100%;
-    background-color:$main_backgroundcolor;
-    
-    form {
-        width: 100%;
-        @extend %row;
-        @extend %between;
-    }
-    
+    position           : sticky;
+    z-index            : 1;
+    top                : 56px;
+    display            : flex;
+    margin             : 44px 0px;
+    height             : 34px;
+    width              : 100%;
+    // background-color: $main_backgroundcolor;
+    width              : 100%;
+
     .select_list {
+        display       : flex;
+        flex-direction: row;
+
         .select {
             margin-right: 20px;
         }
     }
-    
+
     .select,
     .search {
-        font-size: $m;
-        padding-left: 5px;
-        width       : 142px;
-        height      : 34px;
-        color       : $prompt_color;
+        font-size      : $m;
+        padding-left   : 5px;
+        width          : 142px;
+        // height      : 34px;
+        margin-right   : 20px;
+        color          : $prompt_color;
         @include border-set();
     }
-    
+
     .search_add {
-        width: 375px;
-        @extend %between;
+        margin-left: auto;
     }
-    
+
     .submit {
         width           : 68px;
         height          : 34px;
         background-color: $button_color;
         color           : $font_maincolor;
         font-size       : $m;
+        cursor          : pointer;
         @include jus-set();
-        
+
         &:hover {
             background-color: $button_hover;
         }
@@ -65,46 +68,54 @@
     height          : 34px;
     font-size       : $m;
     background-color: $button_color;
-    a,.func_btn {
-        height: 100%;
-        width : 100%;
-        color: $font_maincolor;
+
+    a,
+    .func_btn {
+        height          : 100%;
+        width           : 100%;
+        color           : $font_maincolor;
         background-color: $button_color;
         @include ali-set();
         @include jus-set();
         @extend %row;
+        cursor: pointer;
+
         &:link,
         &:visited {
             color: $font_maincolor;
         }
-        
+
         &:hover {
             background-color: $button_hover;
         }
-        svg,p{
+
+        svg,
+        p {
             margin: 0px 5px;
         }
     }
 }
+
 .reaults_area {
     table {
-        width          : 100%;
-        
+        width: 100%;
+
         .tr_odd {
             background-color: $tr_odd;
         }
-        
+
         .tr_even {
             background-color: $tr_even;
         }
-        
-        .tr_odd,.tr_even{
-            .table_tag{
-                display:inline-block;
-                text-align: center;
-                min-width: 30px;
+
+        .tr_odd,
+        .tr_even {
+            .table_tag {
+                display         : inline-block;
+                text-align      : center;
+                min-width       : 30px;
                 background-color: $tag_backgroud;
-                color: $font_maincolor;
+                color           : $font_maincolor;
                 padding         : 5px 10px;
                 border-radius   : 30px;
                 margin          : 2.5px;
@@ -115,7 +126,7 @@
         td {
             @include border-set($main_backgroundcolor);
         }
-        
+
         th {
             height          : 59px;
             font-size       : $l;
@@ -124,34 +135,70 @@
             white-space     : nowrap;
             min-width       : 78px;
         }
-        
+
         td {
             height : 51px;
             padding: 4px 15px;
             color  : $header_background;
-            
+
             a {
-                
+                @include ali-set(flex-end);
+
+                svg {
+                    margin-left: 10px;
+                }
+
                 &:link,
                 &:visited {
                     color: $header_background;
                 }
-                
+
                 &:hover {
+                    // border-bottom: 1px black solid;
                     text-decoration: underline;
                 }
             }
-            button{
-                padding:7px 4px;
+
+            button {
+                padding         : 7px 4px;
                 background-color: $button_color;
-                border: 0px;
-                color: $font_maincolor;
-                font-size: $m;
-                &:hover{
-                    cursor: pointer;
+                border          : 0px;
+                color           : $font_maincolor;
+                font-size       : $m;
+
+                &:hover {
+                    cursor          : pointer;
                     background-color: $button_hover
                 }
             }
+        }
+    }
+}
+
+.page {
+    margin-top: 20px;
+    @extend %row;
+    @extend %between;
+
+    .page_group {
+        @extend %row;
+
+        .one_page {
+            margin: 0px 5px;
+        }
+    }
+
+    .one_page {
+        width           : 30px;
+        height          : 36px;
+        color           : $font_maincolor;
+        background-color: $button_color;
+        @include ali-set();
+        @include jus-set();
+
+        &:hover {
+            background-color: $button_hover;
+            cursor          : pointer;
         }
     }
 }
