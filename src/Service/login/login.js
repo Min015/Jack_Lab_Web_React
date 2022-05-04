@@ -19,3 +19,6 @@ export function POST_login(payload) {
 export function set_token(token) {
     return localStorage.setItem('user_token',token);
 }
+export function remove_token() {
+    return localStorage.removeItem('user_token');
+}

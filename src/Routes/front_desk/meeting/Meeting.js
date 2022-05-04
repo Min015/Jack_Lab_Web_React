@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import '../main_category/category.scss';
-import Header from '../../../Components/Header/Header';
+import Header from '../../../Components/Header/front_end/Header';
 import { Link} from 'react-router-dom';
 import CreateTable from './CreateTable';
 import { GET_Meeting } from '../../../Service/meeting/Meeting.js';
@@ -59,7 +59,7 @@ export default class Meeting extends Component {
     render() {
         const { table_header, year, data, page } = this.state;
         return (
-            <div>
+            <div id='fornt_main'>
                 <Header />
                 <div className="content">
                     <div className="contentin">

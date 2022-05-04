@@ -1,0 +1,150 @@
+@import '../../../Mixin/global.scss';
+
+#personal_info {
+    .content {
+        padding-top     : $header_height;
+        padding-bottom  : 30px;
+        background-color: $front_desk_content_background;
+
+        .contentin {
+            width : $front_desk_width;
+            margin: 0px auto;
+            @extend %col;
+        }
+    }
+
+    .card {
+        width: 100%;
+        @extend %row;
+        @extend %between;
+
+        .big_card {
+            margin       : 53px 0px;
+            border-radius: 5px;
+            width        : 100%;
+
+            .card_banner {
+                height          : 130px;
+                border-bottom   : 0px;
+                background-color: $button_color;
+                border-radius   : 4px 4px 0px 0px;
+                @include border-set();
+            }
+
+            .card_content {
+                background-color: $main_backgroundcolor;
+                border-radius   : 0px 0px 4px 4px;
+                font-family     : 'Microsoft YaHei';
+                margin-top      : auto;
+                @include border-set();
+                border-top: 0px;
+                position  : relative;
+            }
+        }
+    }
+
+    .card_content {
+        .head_stickers {
+            width        : 150px;
+            height       : 150px;
+            border-radius: 60%;
+            position     : absolute;
+            top          : -110px;
+            left         : 20px;
+            @include border-set($main_backgroundcolor, 5px);
+
+            img {
+                border-radius: 60%;
+                position     : absolute;
+                top          : -1px;
+                @include image-set(101%, 101%);
+            }
+        }
+
+        .information {
+            height : 73px;
+            padding: 15px 20px 15px 20px;
+
+            .edit_pen {
+                cursor: pointer;
+                svg {
+                    display    : flex;
+                    margin-left: auto;
+                }
+            }
+
+            .member_label {
+                padding: 15px 30px 0px 0px;
+                @extend %row;
+                @include ali-set(start);
+                @extend %between;
+
+                .member_name {
+                    font-size  : 24px;
+                    font-weight: bold;
+                }
+            }
+        }
+
+        .introduction {
+            padding: 0px 20px 20px 20px;
+
+            .introduction_in {
+                border-radius: 5px;
+                display      : block;
+                height       : 100px;
+                padding      : 10px;
+                @include border-set();
+                @extend %every_content;
+
+                &::-webkit-scrollbar {
+                    width: $scrollbar_width;
+                }
+
+                &::-webkit-scrollbar-thumb {
+                    border-radius: 10px;
+                    background   : $scrollbar_thumb;
+                }
+
+                &::-webkit-scrollbar-track {
+                    border-radius: 0px;
+                    background   : $scrollbar_track;
+                }
+            }
+
+        }
+    }
+
+    .reaults_area {
+        table {
+            width: 100%;
+            .tr_odd {
+                background-color: $tr_odd;
+            }
+
+            .tr_even {
+                background-color: $tr_even;
+            }
+
+            th,
+            td {
+                @include border-set($main_backgroundcolor);
+            }
+
+            th {
+                height          : 59px;
+                font-size       : $l;
+                color           : $font_maincolor;
+                background-color: $th_background;
+                white-space     : nowrap;
+                min-width       : 78px;
+            }
+
+            td {
+                height : 51px;
+                padding: 4px 15px;
+                color  : $header_background;
+            }
+        }
+    }
+}

@@ -1,5 +1,4 @@
 import { Component } from 'react';
-import '../main_category/category.scss';
 export default class ProjectInfoTable extends Component {
     //func
     handleSetStyle = (i) => {

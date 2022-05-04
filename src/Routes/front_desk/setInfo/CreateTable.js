@@ -27,10 +27,8 @@ export default class CreateTable extends Component {
                             return (
                                 <tr className={style}>
                                     <td>{item.g_year}</td>
-                                    {/* <td>{item.g_type}</td> */}
                                     <td>{item.g_group}</td>
                                     <td>{item.g_name}</td>
-                                    {/* <td>{item.g_participants}</td> */}
                                     <td>{item.g_position}</td>
                                 </tr>
                             )

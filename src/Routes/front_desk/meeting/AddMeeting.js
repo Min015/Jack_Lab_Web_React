@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import '../main_category/add.scss';
-import Header from '../../../Components/Header/Header';
+import Header from '../../../Components/Header/front_end/Header';
 import { GET_Members } from '../../../Service/meeting/Meeting';
 import { POST_AddMeeting } from '../../../Service/fileupload/Sendform';
 

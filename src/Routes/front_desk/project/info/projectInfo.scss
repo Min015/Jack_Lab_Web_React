@@ -1,6 +1,18 @@
-@import '../../../Mixin/global.scss';
+@import '../../../../Mixin/global.scss';
 
 #project_info {
+    .content {
+        padding-top   : $header_height;
+        padding-bottom: 30px;
+        background-color: $front_desk_content_background;
+        .contentin {
+            width : $front_desk_width;
+            margin: 0px auto;
+            @extend %col;
+        }
+    }
+    
+    
     .add_title {
         padding      : 10px 10px;
         border-bottom: 1px $tr_even solid;
@@ -90,7 +102,6 @@
     .reaults_area {
         table {
             width: 100%;
-
             .tr_odd {
                 background-color: $tr_odd;
             }
@@ -117,19 +128,6 @@
                 height : 51px;
                 padding: 4px 15px;
                 color  : $header_background;
-
-                a {
-
-                    &:link,
-                    &:visited {
-                        color: $header_background;
-                    }
-
-                    &:hover {
-                        text-decoration: underline;
-                    }
-                }
-
             }
         }
     }

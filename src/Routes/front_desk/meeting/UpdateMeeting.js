@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import '../main_category/add.scss';
-import Header from '../../../Components/Header/Header';
+import Header from '../../../Components/Header/front_end/Header';
 import { GET_Members, GET_MeetingInfo } from '../../../Service/meeting/Meeting.js';
 import { Link } from 'react-router-dom';
 import { POST_UpdateMeeting } from '../../../Service/fileupload/Sendform';

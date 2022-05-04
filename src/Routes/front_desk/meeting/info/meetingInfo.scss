@@ -1,127 +1,159 @@
-@import '../../../Mixin/global.scss';
-#meeting_info{
+@import '../../../../Mixin/global.scss';
+
+#meeting_info {
     .add_title {
         padding      : 10px 10px;
         border-bottom: 1px $tr_even solid;
         color        : $header_background;
         @extend %between;
-        .title_name{
+
+        .title_name {
             @extend %row;
             @include ali-set(end);
-            .tag{
+
+            .tag {
                 margin-left: 20px;
                 @extend %row;
-                .small_tag{
-                    display:inline-block;
-                    text-align: center;
-                    min-width: 30px;
+
+                .small_tag {
+                    display         : inline-block;
+                    text-align      : center;
+                    min-width       : 30px;
                     background-color: $tag_backgroud;
-                    color: $font_maincolor;
+                    color           : $font_maincolor;
                     border-radius   : 30px;
                     margin          : 2.5px;
-                    padding: 4px 8px;
-                    &:hover{
+                    padding         : 4px 8px;
+
+                    &:hover {
                         cursor: pointer;
                     }
                 }
             }
         }
     }
-    .edit_button{
+
+    .edit_button {
         @extend %row;
+
         .add {
-            margin-left: 15px;
+            margin-left     : 15px;
             height          : 34px;
             font-size       : $m;
             background-color: $button_color;
-            a {
-                height: 100%;
-                width : 100%;
+
+            a,
+            .func_btn {
+                height          : 100%;
+                width           : 100%;
+                color           : $font_maincolor;
                 background-color: $button_color;
                 @include ali-set();
                 @include jus-set();
                 @extend %row;
+                cursor: pointer;
+
                 &:link,
                 &:visited {
                     color: $font_maincolor;
                 }
-                
+
                 &:hover {
                     background-color: $button_hover;
+                }
+
+                svg {
+                    margin-left: 5px;
+                }
+
+                p {
+                    margin: 0px 10px 0px 5px;
                 }
             }
         }
     }
-    
-    .meeting{
+
+    .meeting {
         margin: 30px 0px;
         @extend %between;
-        .meeting_info{
+
+        .meeting_info {
             padding: 10px;
             @extend %between;
             @extend %col;
-            .else_info{
+
+            .else_info {
                 @extend %row;
                 @extend %between;
-                .info_block_content{
-                    padding: 0px 5px;
+
+                .info_block_content {
+                    padding         : 0px 5px;
                     // border-bottom: 1px black solid;
                 }
             }
-            p{
-                font-size: $l;
-                font-weight: bold;
+
+            p {
+                font-size    : $l;
+                font-weight  : bold;
                 margin-bottom: 10px;
             }
-            .magin_top_70{
+
+            .magin_top_70 {
                 margin-top: 70px;
-                .participant{
+
+                .participant {
                     min-height: 150px;
                     max-height: 350px;
-                    width: 578px;
+                    width     : 578px;
                 }
-                ol{
+
+                ol {
                     padding-left: 45px;
-                    li{
+
+                    li {
                         text-decoration: underline;
-                        margin-bottom: 10px;
-                        &:hover{
+                        margin-bottom  : 10px;
+
+                        &:hover {
                             color: rgb(69, 69, 221);
                         }
                     }
                 }
             }
-            
+
         }
     }
-    .something_content{
-        background-color:$form_maincolor; 
-        color: $font_maincolor;
-        padding: 10px;
-        overflow-y: auto;
+
+    .something_content {
+        background-color: $form_maincolor;
+        color           : $font_maincolor;
+        padding         : 10px;
+        overflow-y      : auto;
         @include border-set($form_border);
         @extend %every_content;
     }
-    .meeting_content{
-        height:530px;
+
+    .meeting_content {
+        height: 530px;
     }
+
     .reaults_area {
         table {
-            width          : 100%;
-            
+            width: 100%;
+
             .tr_odd {
                 background-color: $tr_odd;
             }
-            
+
             .tr_even {
                 background-color: $tr_even;
             }
-            
+
             th,
             td {
                 @include border-set($main_backgroundcolor);
             }
-            
+
             th {
                 height          : 59px;
                 font-size       : $l;
@@ -130,26 +162,25 @@
                 white-space     : nowrap;
                 min-width       : 78px;
             }
-            
+
             td {
                 height : 51px;
                 padding: 4px 15px;
                 color  : $header_background;
-                
+
                 a {
-                    
+
                     &:link,
                     &:visited {
                         color: $header_background;
                     }
-                    
+
                     &:hover {
                         text-decoration: underline;
                     }
                 }
-                
+
             }
         }
     }
 }
-

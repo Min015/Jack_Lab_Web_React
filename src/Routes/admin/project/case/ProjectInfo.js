@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
-import AdminHeader from '../../../../Components/Header/AdminHeader';
+import AdminHeader from '../../../../Components/Header/front_end/Header';
 import Sidebar from '../../../../Components/Sidebar/Sidebar';
 import ProjectInfoTable from './ProjectInfoTable';
 import '../../style/info.scss';

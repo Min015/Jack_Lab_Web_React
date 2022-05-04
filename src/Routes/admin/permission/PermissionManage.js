@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import AdminHeader from '../../../Components/Header/AdminHeader';
+import AdminHeader from '../../../Components/Header/back_end/AdminHeader';
 import Sidebar from '../../../Components/Sidebar/Sidebar';
 import '../style/mainstyle.scss';
 import search from '../style/img/searchButton.png';

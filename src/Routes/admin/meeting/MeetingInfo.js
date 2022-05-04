@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
-import AdminHeader from '../../../Components/Header/AdminHeader';
+import AdminHeader from '../../../Components/Header/back_end/AdminHeader';
 import Sidebar from '../../../Components/Sidebar/Sidebar';
 import '../style/info.scss';
 export default class MeetingInfo extends Component {

@@ -104,9 +104,11 @@
             z-index         : 0;
         }
     }
-    #filename{
+
+    #filename {
         margin-top: 15px;
     }
+
     .enter {
         position  : relative;
         margin-top: 15px;
@@ -123,7 +125,6 @@
             display    : flex;
             position   : absolute;
             top        : 0px;
-            left       : -5px;
             font-size  : $l;
             font-weight: 600;
             color      : $from_title;
@@ -141,7 +142,7 @@
             top             : 0px;
             width           : 100%;
             height          : 30px;
-            border-radius: 5px;
+            border-radius   : 5px;
             @include ali-set();
             @include jus-set();
             cursor: pointer;

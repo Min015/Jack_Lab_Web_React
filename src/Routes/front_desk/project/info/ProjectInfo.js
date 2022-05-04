@@ -1,6 +1,6 @@
 import { Component } from 'react';
-import '../main_category/projectInfo.scss';
-import Header from '../../../Components/Header/Header';
+import './projectInfo.scss';
+import Header from '../../../../Components/Header/front_end/Header';
 import AddProjectInfo from './ProjectInfoTable';
 export default class ProjectInfo extends Component {
     state = {
@@ -121,6 +121,12 @@ export default class ProjectInfo extends Component {
                             <div className="form">
                                 <h1 className="title">
                                     新增專案記錄
+                                    {/* <div className="close">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M24 2.4L21.6 0L12 9.6L2.4 0L0 2.4L9.6 12L0 21.6L2.4 24L12 14.4L21.6 24L24 21.6L14.4 12L24 2.4Z" fill="#51718C" />
+                                        </svg>
+                                        <div className="close_btn" onClick={this.drop_down} />
+                                    </div> */}
                                 </h1>
                                 <div className='col-12 enter'>
                                     <textarea className='long_text'>

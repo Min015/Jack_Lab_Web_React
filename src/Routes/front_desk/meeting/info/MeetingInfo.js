@@ -1,8 +1,8 @@
 import { Component } from 'react';
-import '../main_category/meetingInfo.scss';
-import '../main_category/popup_window.scss';
-import Header from '../../../Components/Header/Header';
-import { GET_MeetingInfo, GET_download, DELETE_Meeting } from '../../../Service/meeting/Meeting.js';
+import './meetingInfo.scss';
+import '../../main_category/popup_window.scss';
+import Header from '../../../../Components/Header/front_end/Header';
+import { GET_MeetingInfo, GET_download, DELETE_Meeting } from '../../../../Service/meeting/Meeting';
 import { Link } from 'react-router-dom';
 
 export default class MeetingInfo extends Component {

@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import '../main_category/category.scss';
-import Header from '../../../Components/Header/Header';
+import Header from '../../../Components/Header/front_end/Header';
 import { Link } from 'react-router-dom';
 import CreateTable from './CreateTable';
 export default class LabProject extends Component {
@@ -57,7 +57,7 @@ export default class LabProject extends Component {
     render() {
         const { object, table_header, year,proj_type,proj_class,page } = this.state;
         return (
-            <div>
+            <div id='fornt_main'>
                 <Header />
                 <div className="content">
                     <div className="contentin">

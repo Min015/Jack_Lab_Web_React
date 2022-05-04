@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import GuestHeader from '../../../Components/Header/GuestHeader';
+import GuestHeader from '../../../Components/Header/front_end/GuestHeader';
 import Carousel from './Carousel';
 import CreateTable from './CreateTable';
 import Booklist from './BooksList';

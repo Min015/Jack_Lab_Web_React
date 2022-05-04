@@ -1,9 +1,9 @@
 import { Component } from "react";
-import { POST_login, set_token } from '../../Service/login/Login.js';
+import { POST_login, set_token } from '../../../Service/login/Login.js';
 import { Link, NavLink } from "react-router-dom";
 import "./header1.scss";
-import "./login.scss";
-import logo from "./img/logo.png";
+import "./popup_window.scss";
+import logo from '../img/logo.png';
 export default class GuestHeader extends Component {
     state = {
         drop: false,
@@ -15,13 +15,13 @@ export default class GuestHeader extends Component {
     }
     //生命週期
 
-    POST = async () => {
+    LOGIN = async () => {
         const payload = this.state.payload
         try {
             const req = await POST_login(payload);
-            console.log(req);
+            // console.log(req);
             set_token(req.data.data);
-            // window.location.replace('http://localhost:3000/meeting');
+            window.location.replace('http://localhost:3000/meeting');
         }
         catch (err) {
             alert(err.response.data.message);
@@ -101,12 +101,12 @@ export default class GuestHeader extends Component {
                     </ul>
                 </nav>
                 <div
-                    className={drop ? "login_background active" : "login_background"}
+                    className={drop ? "popup_background active" : "popup_background"}
                     onClick={this.handelMouseDown}
                 >
-                    <div className="signupFrm">
+                    <div className="window">
                         <div className="form">
-                            <h1 className="Login_title">
+                            <h1 className="title Login_title">
                                 登入
                                 <div className="close">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -144,7 +144,7 @@ export default class GuestHeader extends Component {
                             <div id='one_btn'>
                                 <button
                                     className="submitBtn"
-                                    onClick={this.POST.bind(this)}
+                                    onClick={this.LOGIN.bind(this)}
                                 >
                                     登入
                                 </button>

@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import GuestHeader from '../../../Components/Header/GuestHeader';
+import GuestHeader from '../../../Components/Header/front_end/GuestHeader';
 import CreateStudentCard from './CreateStudentCard';
 import '../style/studentcard.scss';
 export default class Student extends Component {

@@ -7,8 +7,8 @@ import LabProject from './front_desk/project/LabProject';
 import AddProject from './front_desk/project/AddProject';
 import Meeting from './front_desk/meeting/Meeting';
 import AddMeeting from './front_desk/meeting/AddMeeting';
-import ProjectInfo from './front_desk/project/ProjectInfo';
-import MeetingInfo from './front_desk/meeting/MeetingInfo';
+import ProjectInfo from './front_desk/project/info/ProjectInfo';
+import MeetingInfo from './front_desk/meeting/info/MeetingInfo';
 import SetInfo from './front_desk/setInfo/SetInfo';
 
 import AdminAlbum from './admin/index/album/AdminAlbum';

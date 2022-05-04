@@ -1,7 +1,6 @@
 import { Component } from 'react';
 import '../main_category/add.scss';
-import Header from '../../../Components/Header/Header';
-import upload from '../main_category/img/upload.png';
+import Header from '../../../Components/Header/front_end/Header';
 export default class AddGame extends Component {
     state = {
         array: [],
