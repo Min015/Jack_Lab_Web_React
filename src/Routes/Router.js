@@ -30,12 +30,10 @@ import GTypeManage from './admin/game/class/GTypeManage';
 import AdProjectInfo from './admin/project/case/ProjectInfo';
 
 import CaseManage from './admin/project/case/CaseManage';
-import GroupManage from './admin/project/group/GroupManage';
 import TypeManage from './admin/project/type/TypeManage';
-import PClassManage from './admin/project/class/PClassManage';
 
 import Index from './guest/index/Index';
-import TagManage from './admin/tag/TagManage';
+
 import Student from './guest/lab_member/Student';
 import NoRoute from '../Components/Notfound/NoRoute';
 import UpdateMeeting from './front_desk/meeting/UpdateMeeting';
@@ -77,12 +75,9 @@ export default (
 
             <Route path='/casemanage' exact component={CaseManage} />
             <Route path='/casemanage/caseinfo' exact component={AdProjectInfo} />
-            <Route path='/groupmanage' exact component={GroupManage} />
             <Route path='/typemange' exact component={TypeManage} />
-            <Route path='/pclassmange' exact component={PClassManage} />
 
-            <Route path='/tagmanage' exact component={TagManage} />
-
+           
 
 
 

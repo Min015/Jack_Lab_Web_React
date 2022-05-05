@@ -17,16 +17,9 @@ export default class Header extends Component {
     }
     //func
     drop_down = (e) => {
-        if (this.state.drop === false) {
-            this.setState({
-                drop: true,
-            })
-        }
-        else {
-            this.setState({
-                drop: false,
-            })
-        }
+        this.setState({
+            drop:!this.state.drop,
+        })
     }
     handelMouseDown = (e) => {
         if (e.target.className === "window") {
@@ -89,7 +82,6 @@ export default class Header extends Component {
                         <div className={drop ? "person_info_dropdown active" : "person_info_dropdown"}>
                             <ul>
                                 <li><Link to='/setinfo'>個人資料</Link></li>
-                                <li><a to='/setinfo'>我的小組</a></li>
                                 <li><p onClick={this.updatePassword}>修改密碼</p></li>
                                 <li><p onClick={this.logout}>登出</p></li>
                             </ul>

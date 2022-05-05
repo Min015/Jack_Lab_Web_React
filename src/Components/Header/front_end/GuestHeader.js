@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { POST_login, set_token } from '../../../Service/login/Login.js';
+import { POST_login, set_token } from '../../../Service/login/login';
 import { Link, NavLink } from "react-router-dom";
 import "./header1.scss";
 import "./popup_window.scss";

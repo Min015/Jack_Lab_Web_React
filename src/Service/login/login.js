@@ -9,7 +9,7 @@ const _axios = axios.create({
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',//跨域
         'Authorization': `bearer ${token}`//權限
-        //'Authorization': `${token}`//權限
+        
     }
 })
 
