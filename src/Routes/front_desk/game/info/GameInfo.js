@@ -1,54 +1,50 @@
 import { Component } from 'react';
-import './meetingInfo.scss';
-import '../../main_category/popup_window.scss';
 import Header from '../../../../Components/Header/front_end/Header';
-import { GET_MeetingInfo, GET_download, DELETE_Meeting } from '../../../../Service/meeting/Meeting';
 import { Link } from 'react-router-dom';
-
-export default class MeetingInfo extends Component {
+import './gameInfo.scss'
+export default class GameInfo extends Component {
     state = {
-        Id: "",
+        Id: "1",
         data: [],
         drop: false,
     }
     //生命週期
-    componentDidMount = async () => {
-        const { match } = this.props;
-        const { params } = match;
-        this.setState({
-            Id: params.id,
-        })
-        try {
-            const res = await GET_MeetingInfo(params.id);
-            this.setState({ data: res.data.data });
-            console.log(res);
-            // console.log(this.state.data);
-        } catch (err) {
-            console.log(err);
-        }
-    }
+    // componentDidMount = async () => {
+    //     const { match } = this.props;
+    //     const { params } = match;
+    //     this.setState({
+    //         Id: params.id,
+    //     })
+    //     try {
+    //         const res = await GET_MeetingInfo(params.id);
+    //         this.setState({ data: res.data.data });
+    //         // console.log(this.state.data);
+    //     } catch (err) {
+    //         console.log(err);
+    //     }
+    // }
 
     //func
-    Download = async (filename) => {
-        try {
-            let url = "http://localhost";
-            const res = await GET_download(filename);
-            // return res;
-            url += res.config.url;
-            window.open(url);
-        } catch (err) {
-            console.log(err);
-        }
-    }
-    Delete = async (id) => {
-        try {
-            const res = await DELETE_Meeting(id);
-            console.log(res);
-            window.location.replace('http://localhost:3000/meeting')
-        } catch (err) {
-            console.log(err);
-        }
-    }
+    // Download = async (filename) => {
+    //     try {
+    //         let url = "http://localhost";
+    //         const res = await GET_download(filename);
+    //         // return res;
+    //         url += res.config.url;
+    //         window.open(url);
+    //     } catch (err) {
+    //         console.log(err);
+    //     }
+    // }
+    // Delete = async (id) => {
+    //     try {
+    //         const res = await DELETE_Meeting(id);
+    //         console.log(res);
+    //         window.location.replace('http://localhost:3000/meeting')
+    //     } catch (err) {
+    //         console.log(err);
+    //     }
+    // }
 
     handelMouseDown = (e) => {
         if (e.target.className === "window") {
@@ -68,24 +64,16 @@ export default class MeetingInfo extends Component {
     render() {
         const { data, drop } = this.state;
         return (
-            <div id='meeting_info'>
+            <div id='game_info'>
                 <Header />
                 <div className="content">
                     <div className="contentin">
                         <div className="add_title">
                             <div className="title_name">
-                                <h2>{data.Title}</h2>
-                                <div className="tag">
-                                    {data.tag?.map((item, index) => {
-                                        return (
-
-                                            <div key={index} className="small_tag">
-                                                {item.Name}
-                                            </div>
-
-                                        )
-                                    })}
-                                </div>
+                                <h2>
+                                    {/* {data.Title} */}
+                                    項目名稱
+                                </h2>
                             </div>
                             <div className="edit_button">
                                 <div className="add">
@@ -107,7 +95,7 @@ export default class MeetingInfo extends Component {
                                     </div>
                                 </div>
                                 <div className="add">
-                                    <Link to={`/meeting/updatemeeting/${this.state.Id}`}>
+                                    <Link to={``}>
                                         <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M18.5118 2.99361L16.0177 0.489257C15.33 -0.201275 14.1663 -0.156091 13.4205 0.594632C12.6747 1.34349 12.626 2.51381 13.3156 3.20432L15.8097 5.70867C16.4974 6.39921 17.661 6.35405 18.4087 5.60331C19.1545 4.85259 19.2014 3.68603 18.5118 2.99361ZM2.61215 11.4456L7.60035 16.4543L15.7066 8.31654L10.7184 3.30784L2.61215 11.4456ZM0 19L6.5791 17.6773L1.31732 12.3938L0 19Z" fill="white" />
                                         </svg>
@@ -116,53 +104,11 @@ export default class MeetingInfo extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="meeting">
-                            <div className="col-5 something_content meeting_content">
-                                {data.Content}
-                            </div>
-                            <div className="col-6 meeting_info">
-                                <div className="else_info">
-                                    <div className="col-3">
-                                        <p>時間</p>
-                                        <div className="info_block_content">
-                                            {data.Time}
-                                        </div>
-                                    </div>
-                                    <div className="col-3">
-                                        <p>地點</p>
-                                        <div className="info_block_content">
-                                            {data.Place}
-                                        </div>
-                                    </div>
-                                    <div className="col-3">
-                                        <p>紀錄者</p>
-                                        <div className="info_block_content">
-                                            {data.uploader?.Name}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="magin_top_70">
-                                    <p>參與人員</p>
-                                    <div className="participant something_content">
-                                        {data.member?.map((item, index) =>
-                                            <span>{`${item.Name}　`}</span>
-                                        )}
-                                    </div>
-                                </div>
-                                <div className="magin_top_70">
-                                    <p>相關檔案</p>
-                                    <ol>
-                                        {data.files?.map((item, index) => (
-                                            <li
-                                                key={index}
-                                                onClick={(e) => this.Download(item.Name, e)}
-                                            >
-                                                {item.Name}
-                                            </li>
-                                        ))}
-                                    </ol>
-                                </div>
-                            </div>
+                        <div className=''>
+                            A
+                        </div>
+                        <div>
+                            b
                         </div>
                     </div>
                     <div
@@ -181,12 +127,12 @@ export default class MeetingInfo extends Component {
                                 </h1>
 
                                 <h2 className='message'>
-                                    是否要刪除會議紀錄「{data.Title}」
+                                    是否要刪除競賽紀錄紀錄「(競賽名稱){data.Title}」
                                 </h2>
                                 <div id='btn_block'>
                                     <button
                                         className="submitBtn"
-                                        onClick={(e) => this.Delete(this.state.Id, e)}
+                                        // onClick={(e) => this.Delete(this.state.Id, e)}
                                     >
                                         確定
                                     </button>

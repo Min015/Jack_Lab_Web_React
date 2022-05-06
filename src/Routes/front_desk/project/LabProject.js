@@ -11,7 +11,6 @@ export default class LabProject extends Component {
         page:[],
         table_header: [
             "類型",
-            "分類",
             "標題",
             "建立者",
             "建立時間",
@@ -20,7 +19,6 @@ export default class LabProject extends Component {
         object: [
             {
                 p_type: "大專生國科會計畫",
-                p_class: "大學部",
                 p_title: "2019-03-06 以深度學習神經網路為基礎不良坐姿檢測與警示系統-v3",
                 p_creater: "千千",
                 p_createTime: "2022-03-25",

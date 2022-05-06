@@ -25,7 +25,7 @@ import MeetingManage from './admin/meeting/MeetingManage';
 import AdMeetingInfo from './admin/meeting/MeetingInfo';
 
 import GameManage from './admin/game/gamelist/GameManage';
-import GameInfo from './admin/game/gamelist/GameInfo';
+import AdGameInfo from './admin/game/gamelist/GameInfo';
 import GTypeManage from './admin/game/class/GTypeManage';
 import AdProjectInfo from './admin/project/case/ProjectInfo';
 
@@ -37,16 +37,20 @@ import Index from './guest/index/Index';
 import Student from './guest/lab_member/Student';
 import NoRoute from '../Components/Notfound/NoRoute';
 import UpdateMeeting from './front_desk/meeting/UpdateMeeting';
+import GameInfo from './front_desk/game/info/GameInfo';
 
 export default (
     <BrowserRouter>
         <Switch>
             <Route path='/' exact component={()=><Redirect to='/Index' />} />
             <Route path='/game' exact component={GameList} />
+            <Route path='/game/gameinfo/:id' exact component={GameInfo} />
             <Route path='/game/addgame' exact component={AddGame } />
+
             <Route path='/project' exact component={LabProject} />
             <Route path='/project/addproject' exact component={AddProject} />
             <Route path='/project/projectinfo' exact component={ProjectInfo} />
+
             <Route path='/meeting' exact component={Meeting}/>
             <Route path='/meeting/meetinginfo/:id' exact component={MeetingInfo} />
             <Route path='/meeting/updatemeeting/:id' exact component={UpdateMeeting}/>
@@ -69,7 +73,7 @@ export default (
 
 
             <Route path='/gamemanage' exact component={GameManage} />
-            <Route path='/gamemanage/gameinfo' exact component={GameInfo} />
+            <Route path='/gamemanage/gameinfo' exact component={AdGameInfo} />
             <Route path='/gtypemanage' exact component={GTypeManage} />
 
 

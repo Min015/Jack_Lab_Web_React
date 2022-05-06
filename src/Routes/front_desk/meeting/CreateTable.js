@@ -29,7 +29,6 @@ export default class CreateTable extends Component {
                                 <tr key={`tr${index}`} className={style}>
 
                                     <td>
-                                        {/* {onDetail(item.Id, item.Title)} */}
                                         <Link
                                             to={`/meeting/meetinginfo/${item.Id}`}
                                         >

@@ -28,7 +28,6 @@ export default class CreateTable extends Component {
                             return (
                                 <tr className={style}>
                                     <td>{item.p_type}</td>
-                                    <td>{item.p_class}</td>
                                     <td>
                                         <Link to='/project/projectinfo'>
                                             {item.p_title}

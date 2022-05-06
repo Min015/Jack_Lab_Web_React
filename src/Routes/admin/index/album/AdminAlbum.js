@@ -42,7 +42,7 @@ export default class AdminAlbum extends Component {
             if (!array.includes(e.value)) {
                 array.push(e.value);
             }
-            if (array.length === this.state.num) {
+            if (array.length === num) {
                 AllChange[0].checked = true;
             }
         }
@@ -52,7 +52,7 @@ export default class AdminAlbum extends Component {
                     array.splice(index, 1)
                 }
             })
-            if (array.length !== this.state.num) {
+            if (array.length !== num) {
                 AllChange[0].checked = false;
             }
         }
