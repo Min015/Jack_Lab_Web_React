@@ -1,0 +1,15 @@
+@import "../../../Mixin/global.scss";
+
+.content_in {
+    position        : absolute;
+    right           : 0px;
+    min-height      : calc(100vh - 56px);
+    width           : calc(100% - 250px);
+    background-color: $admin_main_background;
+    .in {
+        width           : 95%;
+        background-color: $main_backgroundcolor;
+        margin          : 30px auto;
+        padding-bottom  : 15px;
+    }
+}

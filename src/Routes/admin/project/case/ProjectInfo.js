@@ -1,7 +1,6 @@
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
-import AdminHeader from '../../../../Components/Header/front_end/Header';
-import Sidebar from '../../../../Components/Sidebar/Sidebar';
+import BackLayout from '../../../../Components/Layout/back/BackLayout';
 import ProjectInfoTable from './ProjectInfoTable';
 import '../../style/info.scss';
 export default class ProjectInfo extends Component {
@@ -75,104 +74,95 @@ export default class ProjectInfo extends Component {
         const { object, array, proj_type, proj_class, proj_group, table_header } = this.state;
         console.log(object.mM_file);
         return (
-            <div>
-                <AdminHeader />
-                <div className="content">
-                    <Sidebar />
-                    <div className="content_in">
-                        <div className="in">
-                            <form className="info_form">
-                                <div className="inputbox">
-                                    <div className="set col-4">
-                                        <select name="" defaultValue={object.proj_type} required className="input">
-                                            {proj_type.map((item) => {
-                                                return (
-                                                    <option value={item}>{item}</option>
-                                                )
-                                            })}
-                                        </select>
-                                        <label for="" className="label">專案類型</label>
-                                    </div>
-                                    <div className="set col-4">
-                                        <select name="" defaultValue={object.proj_partition} className="input">
-                                            {proj_class.map((item) => {
-                                                return (
-                                                    <option value={item}>{item}</option>
-                                                )
-                                            })}
-                                        </select>
-                                        <label for="" className="label">專案分類</label>
-                                    </div>
-                                </div>
-                                <div className="inputbox">
-                                    <div className="set col-12">
-                                        <input type="text" name="" placeholder="專案名稱" defaultValue={object.proj_name} required maxLength="50" className="input" />
-                                        <label for="" className="label">專案名稱</label>
-                                    </div>
-                                </div>
-                                <div className="inputbox">
-                                    <div className="set col-12">
-                                        <textarea name="" id="" rows="20" placeholder="內容描述" defaultValue={object.proj_description} required maxLength="2000" className="input"></textarea>
-                                        <label for="" className="label">內容描述</label>
-                                    </div>
-                                </div>
-                                <div className="inputbox">
-                                    <div className="set col-4">
-                                        <select name="group" defaultValue={object.proj_group} required className="input">
-                                            {proj_group.map((item) => {
-                                                return (
-                                                    <option value={item}>{item}</option>
-                                                )
-                                            })}
-                                        </select>
-                                        <label for="" className="label">負責小組</label>
-                                    </div>
-                                    <div className="set col-4">
-                                        <input type="text" name="" placeholder="建立者" defaultValue={object.proj_creater} required maxLength="50" className="input" />
-                                        <label for="" className="label">建立者</label>
-                                    </div>
-                                </div>
-                                <div className="inputbox">
-                                    <div className="set col-12">
-                                        <input type="text" name="" id="" placeholder="標籤" className="input" />
-                                        <label for="" className="label">標籤</label>
-                                    </div>
-                                </div>
-                                <div className="inputbox">
-                                    <div className="set col-12">
-                                        <div className="proj_record">
-                                            <div className="workinfo">
-                                                <div className="edit_button">
-                                                    <div className="add">
-                                                        <a href="#">
-                                                            <p>刪除檔案</p>
-                                                        </a>
-                                                    </div>
-                                                    <div className="add">
-                                                        <a href="#">
-                                                            <p>新增檔案</p>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <form className="searchform">
-                                                    <input type="text" placeholder="輸入搜尋值" />
-                                                    <input type="submit" value="送出" className="searchBtn" />
-                                                </form>
-                                            </div>
-                                            <ProjectInfoTable table_header={table_header} table_content={object.proj_record} />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="inputbox">
-                                    <Link to='/CaseManage' className="col-1 form_submit">返回</Link>
-                                    <input type="submit" value="修改" className="col-1 form_submit" />
-                                </div>
-                            </form>
+            <BackLayout>
+                <form className="info_form">
+                    <div className="inputbox">
+                        <div className="set col-4">
+                            <select name="" defaultValue={object.proj_type} required className="input">
+                                {proj_type.map((item) => {
+                                    return (
+                                        <option value={item}>{item}</option>
+                                    )
+                                })}
+                            </select>
+                            <label for="" className="label">專案類型</label>
+                        </div>
+                        <div className="set col-4">
+                            <select name="" defaultValue={object.proj_partition} className="input">
+                                {proj_class.map((item) => {
+                                    return (
+                                        <option value={item}>{item}</option>
+                                    )
+                                })}
+                            </select>
+                            <label for="" className="label">專案分類</label>
                         </div>
                     </div>
-                </div>
-            </div>
-
+                    <div className="inputbox">
+                        <div className="set col-12">
+                            <input type="text" name="" placeholder="專案名稱" defaultValue={object.proj_name} required maxLength="50" className="input" />
+                            <label for="" className="label">專案名稱</label>
+                        </div>
+                    </div>
+                    <div className="inputbox">
+                        <div className="set col-12">
+                            <textarea name="" id="" rows="20" placeholder="內容描述" defaultValue={object.proj_description} required maxLength="2000" className="input"></textarea>
+                            <label for="" className="label">內容描述</label>
+                        </div>
+                    </div>
+                    <div className="inputbox">
+                        <div className="set col-4">
+                            <select name="group" defaultValue={object.proj_group} required className="input">
+                                {proj_group.map((item) => {
+                                    return (
+                                        <option value={item}>{item}</option>
+                                    )
+                                })}
+                            </select>
+                            <label for="" className="label">負責小組</label>
+                        </div>
+                        <div className="set col-4">
+                            <input type="text" name="" placeholder="建立者" defaultValue={object.proj_creater} required maxLength="50" className="input" />
+                            <label for="" className="label">建立者</label>
+                        </div>
+                    </div>
+                    <div className="inputbox">
+                        <div className="set col-12">
+                            <input type="text" name="" id="" placeholder="標籤" className="input" />
+                            <label for="" className="label">標籤</label>
+                        </div>
+                    </div>
+                    <div className="inputbox">
+                        <div className="set col-12">
+                            <div className="proj_record">
+                                <div className="workinfo">
+                                    <div className="edit_button">
+                                        <div className="add">
+                                            <a href="#">
+                                                <p>刪除檔案</p>
+                                            </a>
+                                        </div>
+                                        <div className="add">
+                                            <a href="#">
+                                                <p>新增檔案</p>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <form className="searchform">
+                                        <input type="text" placeholder="輸入搜尋值" />
+                                        <input type="submit" value="送出" className="searchBtn" />
+                                    </form>
+                                </div>
+                                <ProjectInfoTable table_header={table_header} table_content={object.proj_record} />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="inputbox">
+                        <Link to='/CaseManage' className="col-1 form_submit">返回</Link>
+                        <input type="submit" value="修改" className="col-1 form_submit" />
+                    </div>
+                </form>
+            </BackLayout>
         )
     }
 }

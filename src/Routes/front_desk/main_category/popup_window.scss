@@ -3,18 +3,16 @@
 
 .popup_background {
     display         : none;
-    position        : absolute;
+    position        :fixed;
     top             : 0px;
-    width           : 100%;
+    left            : 0px;
     background-color: rgba(0, 0, 0, 0.496);
-    height          : 100vh;
-
     .window {
         font-family    : "lato", sans-serif;
         display        : flex;
         justify-content: center;
         align-items    : center;
-        height         : 100vh;
+
     }
 }
 

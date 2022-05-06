@@ -1,17 +1,5 @@
 @import '../../../Mixin/global.scss';
 
-.content {
-    padding-top   : $header_height;
-    padding-bottom: 30px;
-    background-color: $front_desk_content_background;
-}
-
-.contentin {
-    width : $front_desk_width;
-    margin: 0px auto;
-    @extend %col;
-}
-
 .add_title {
     padding      : 10px 10px;
     border-bottom: 1px $tr_even solid;

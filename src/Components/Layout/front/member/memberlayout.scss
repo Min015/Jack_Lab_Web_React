@@ -1,0 +1,13 @@
+@import'../../../../Mixin/global.scss';
+.content {
+    padding-top     : $header_height;
+    padding-bottom  : 30px;
+    min-height      : calc(100vh - 86px);
+    background-color: $front_desk_content_background;
+
+    .contentin {
+        width : $front_desk_width;
+        margin: 0px auto;
+        @extend %col;
+    }
+}
