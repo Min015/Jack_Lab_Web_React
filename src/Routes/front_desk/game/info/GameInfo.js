@@ -72,14 +72,14 @@ export default class GameInfo extends Component {
                             <div className="title_name">
                                 <h2>
                                     {/* {data.Title} */}
-                                    項目名稱
+                                    手影隨行
                                 </h2>
                             </div>
                             <div className="edit_button">
                                 <div className="add">
                                     <div
                                         className='func_btn'
-                                        onClick={() => this.drop_down('drop')} 
+                                        onClick={() => this.drop_down('drop')}
                                     >
                                         <svg width="15" height="19" viewBox="0 0 15 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <g clip-path="url(#clip0_450_27)">
@@ -104,12 +104,55 @@ export default class GameInfo extends Component {
                                 </div>
                             </div>
                         </div>
-                        <div className=''>
-                            A
+                        <div className='game'>
+                            <div className='right_block'>
+                                <div className='r_block'>
+                                    <div className='title'>競賽類型</div>
+                                    <div className='info'>資訊應用服務創新大賽</div>
+                                </div>
+                                <div className='r_block'>
+                                    <div className='title'>參加組別</div>
+                                    <div className='info'>Azure雲端創新產業應用組</div>
+                                </div>
+                                <div className='r_block'>
+                                    <div className='title'>競賽時間</div>
+                                    <div className='info'>比賽日期</div>
+                                </div>
+                                <div className='r_block'>
+                                    <div className='title'>得獎名次</div>
+                                    <div className='info'>最佳創意</div>
+                                </div>
+                                <div className='r_block'>
+                                    <div className='title'>上傳者</div>
+                                    <div className='info'>王子瑜</div>
+                                </div>
+                            </div>
+                            <div className='left_block'>
+                                <div>
+                                    <div className='title'>參與人員</div>
+                                    <div className="participant something_content">
+                                        {/* {data.member?.map((item, index) =>
+                                            <span>{`${item.Name}　`}</span>
+                                        )} */}
+                                        沈舜鴻、柯宣竹、陳奕伶、王子瑜、江糖晴
+                                    </div>
+                                </div>
+                                <div className="magin_top_70">
+                                    <div className='title'>相關檔案</div>
+                                    <ol>
+                                        {data.files?.map((item, index) => (
+                                            <li
+                                                key={index}
+                                                onClick={(e) => this.Download(item.Name, e)}
+                                            >
+                                                {item.Name}
+                                            </li>
+                                        ))}
+                                    </ol>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            b
-                        </div>
+
                     </div>
                     <div
                         className={drop ? "popup_background active" : "popup_background"}
@@ -132,7 +175,7 @@ export default class GameInfo extends Component {
                                 <div id='btn_block'>
                                     <button
                                         className="submitBtn"
-                                        // onClick={(e) => this.Delete(this.state.Id, e)}
+                                    // onClick={(e) => this.Delete(this.state.Id, e)}
                                     >
                                         確定
                                     </button>

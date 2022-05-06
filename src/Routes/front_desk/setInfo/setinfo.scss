@@ -47,7 +47,7 @@
         .head_stickers {
             width        : 150px;
             height       : 150px;
-            border-radius: 60%;
+            border-radius: 50%;
             position     : absolute;
             top          : -110px;
             left         : 20px;
@@ -60,16 +60,46 @@
                 @include image-set(101%, 101%);
             }
         }
+        .camera{
+            width        : 25px;
+            height       : 25px;
+            border-radius: 50%;
+            position: absolute;
+            left: 145px;
+            top:10px;
+            z-index: 5px;
+            img {
+                border-radius: 60%;
+                @include image-set(100%, 100%);
+            }
+        }
 
         .information {
             height : 73px;
             padding: 15px 20px 15px 20px;
-
+            position: relative;
             .edit_pen {
+                margin-left: 500px;
                 cursor: pointer;
-                svg {
-                    display    : flex;
-                    margin-left: auto;
+                .edit_introduce{
+                    position: relative;
+                    .colse{
+                        position: absolute;
+                        top: 0px;
+                        width: 100%;
+                        margin-left: auto;
+                        .close_btn{
+                            margin-left: auto;
+                            width: 26px;
+                            height: 26px;
+                        }
+                    }
+                    
+                    svg {
+                        position: relative;
+                        display    : flex;
+                        margin-left: auto;
+                    }
                 }
             }
 

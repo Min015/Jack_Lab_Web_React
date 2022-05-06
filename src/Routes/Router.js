@@ -35,7 +35,7 @@ import TypeManage from './admin/project/type/TypeManage';
 import Index from './guest/index/Index';
 
 import Student from './guest/lab_member/Student';
-import NoRoute from '../Components/Notfound/NoRoute';
+import NoRoute from '../Routes/Notfound/NoRoute';
 import UpdateMeeting from './front_desk/meeting/UpdateMeeting';
 import GameInfo from './front_desk/game/info/GameInfo';
 
