@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import MemberLayout from '../../../../Components/Layout/front/member/MemberLayout';
 import './meetingInfo.scss';
-import '../../main_category/popup_window.scss';
+import '../../../../Mixin/popup_window.scss';
 import { GET_MeetingInfo, GET_download, DELETE_Meeting } from '../../../../Service/meeting/Meeting';
 import { Link } from 'react-router-dom';
 

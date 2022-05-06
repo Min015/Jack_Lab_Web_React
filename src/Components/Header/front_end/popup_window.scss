@@ -131,7 +131,7 @@
 
         .label {
             position        : absolute;
-            top             : 15px;
+            top             : 12px;
             left            : 15px;
             padding         : 0 4px;
             background-color: $main_backgroundcolor;
@@ -196,7 +196,7 @@
     .submitBtn {
         display         : block;
         margin-left     : auto;
-        padding         : 15px 30px;
+        padding         : 10px 20px;
         border          : none;
         background-color: $button_color;
         color           : $font_maincolor;
@@ -204,35 +204,12 @@
         font-size       : 16px;
         margin-top      : 30px;
         float           : right;
-
+        border-radius: 5px;
         &:hover {
             background-color: $button_hover;
         }
     }
 }
-
-#btn_block {
-    @extend %row;
-    @extend %between;
-
-    .submitBtn {
-        margin-left     : auto;
-        display         : block;
-        padding         : 7px 14px;
-        border          : none;
-        background-color: $button_color;
-        color           : $font_maincolor;
-        cursor          : pointer;
-        font-size       : 16px;
-        margin-top      : 30px;
-        border-radius   : 5px;
-
-        &:hover {
-            background-color: $button_hover;
-        }
-    }
-}
-
 .active {
     display: block;
 }

@@ -32,7 +32,6 @@ export default class Header extends Component {
                 logout: !this.state.logout,
             })
         }
-        
     }
     handelMouseDown = (e) => {
         if (e.target.className === "window") {

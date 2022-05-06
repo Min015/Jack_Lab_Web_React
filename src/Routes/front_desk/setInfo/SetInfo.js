@@ -1,7 +1,6 @@
 import { Component } from 'react';
 import MemberLayout from '../../../Components/Layout/front/member/MemberLayout';
 import './setinfo.scss';
-import Header from '../../../Components/Header/front_end/Header';
 import info from './img/info.png';
 import camera from './img/camera.png';
 import CreateTable from './CreateTable';

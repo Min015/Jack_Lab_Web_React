@@ -13,10 +13,6 @@ const _axios = axios.create({
     }
 })
 
-export function POST_function(payload) {
-    return _axios.post('/api/admin', payload)
-}
-
 export function GET_Meeting() {
     return _axios.get('/api/meeting')
 }

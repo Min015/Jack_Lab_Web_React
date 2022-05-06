@@ -1,14 +1,13 @@
 import { Component } from 'react';
 import BackLayout from '../../../Components/Layout/back/BackLayout';
-import AdminHeader from '../../../Components/Header/back_end/AdminHeader';
-import Sidebar from '../../../Components/Sidebar/Sidebar';
 import '../style/mainstyle.scss';
-import './permission_window.scss'
+import '../../../Mixin/popup_window.scss'
 export default class PermissionManage extends Component {
     state = {
         array: [],
-        edit: false,
         add: false,
+        edit: false,
+        del:false,
         table_header: [
             "角色名稱",
         ],
@@ -84,30 +83,24 @@ export default class PermissionManage extends Component {
     //生命週期
 
     //func
-    drop_down = () => {
-        if (this.state.edit === false) {
+    drop_down = (e) => {
+        if (e === 'add') {
             this.setState({
-                edit: true,
+                add: !this.state.add,
             })
         }
-        else {
+        else if(e==='edit'){
             this.setState({
-                edit: false,
+                edit: !this.state.edit,
             })
         }
-    }
-    drop_down2 = () => {
-        if (this.state.add === false) {
+        else if(e==='del'){
             this.setState({
-                add: true,
-            })
-        }
-        else {
-            this.setState({
-                add: false,
+                del: !this.state.del,
             })
         }
     }
+
     handelMouseDown = (e) => {
         if (e.target.className === "window") {
             this.setState({
@@ -171,17 +164,17 @@ export default class PermissionManage extends Component {
 
     }
     render() {
-        const { edit, add, table_header, table_content, permission, array, role_permission } = this.state;
+        const { edit, add, del, table_header, table_content, permission, array, role_permission } = this.state;
         console.log(role_permission);
         return (
             <div id='permission'>
                 <BackLayout>
                     <div className="work">
                         <div className="edit_button">
-                            <div className="work_btn add_btn" onClick={this.drop_down2}>
+                            <div className="work_btn add_btn" onClick={(e)=>this.drop_down('add')}>
                                 <p>新增角色</p>
                             </div>
-                            <div className="work_btn delete_btn">
+                            <div className="work_btn delete_btn" onClick={(e)=>this.drop_down('del')}>
                                 <p>批量刪除</p>
                             </div>
                         </div>
@@ -219,7 +212,7 @@ export default class PermissionManage extends Component {
                                             <td>{item.role_title}</td>
                                             <td>
                                                 <div className="action">
-                                                    <div className="svg" onClick={this.drop_down}>
+                                                    <div className="svg" onClick={(e)=>this.drop_down('edit')}>
                                                         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                             <path d="M17.5375 2.83605L15.1747 0.463507C14.5232 -0.190681 13.4207 -0.147876 12.7142 0.563335C12.0076 1.27278 11.9615 2.3815 12.6148 3.03568L14.9776 5.40822C15.6291 6.06241 16.7315 6.01963 17.4398 5.3084C18.1464 4.59719 18.1908 3.49203 17.5375 2.83605ZM2.47467 10.8432L7.20033 15.5882L14.88 7.87883L10.1543 3.13374L2.47467 10.8432ZM0 18L6.23283 16.7469L1.24799 11.7415L0 18Z" fill="#51718C" />
                                                         </svg>
@@ -252,12 +245,12 @@ export default class PermissionManage extends Component {
                         <div className="form">
                             <h1 className="title">
                                 修改「角色名」權限
-                                {/* <div className="close">
+                                <div className="close">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M24 2.4L21.6 0L12 9.6L2.4 0L0 2.4L9.6 12L0 21.6L2.4 24L12 14.4L21.6 24L24 21.6L14.4 12L24 2.4Z" fill="#51718C" />
                                     </svg>
-                                    <div className="close_btn" onClick={this.updatePassword} />
-                                </div> */}
+                                    <div className="close_btn" onClick={(e)=>this.drop_down('edit')} />
+                                </div>
                             </h1>
                             <div className='permission_table'>
                                 {permission.map((item, index) =>
@@ -269,13 +262,6 @@ export default class PermissionManage extends Component {
                                 )}
                             </div>
                             <div className='btn_block'>
-                                <button
-                                    id='edit'
-                                    className="submitBtn"
-                                    onClick={this.drop_down}
-                                >
-                                    取消
-                                </button>
                                 <button
                                     className="submitBtn"
                                 // onClick={this.LOGOUT}
@@ -295,12 +281,12 @@ export default class PermissionManage extends Component {
                         <div className="form">
                             <h1 className="title">
                                 新增角色
-                                {/* <div className="close">
+                                <div className="close">
                                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M24 2.4L21.6 0L12 9.6L2.4 0L0 2.4L9.6 12L0 21.6L2.4 24L12 14.4L21.6 24L24 21.6L14.4 12L24 2.4Z" fill="#51718C" />
                                     </svg>
-                                    <div className="close_btn" onClick={this.updatePassword} />
-                                </div> */}
+                                    <div className="close_btn" onClick={(e)=>this.drop_down('add')} />
+                                </div>
                             </h1>
                             <div className="inputContainer">
                                 <input
@@ -322,13 +308,7 @@ export default class PermissionManage extends Component {
                                     </div>
                                 )}
                             </div>
-                            <div id='btn_block'>
-                                <button
-                                    className="submitBtn"
-                                    onClick={this.drop_down2}
-                                >
-                                    取消
-                                </button>
+                            <div className='btn_block'>
                                 <button
                                     className="submitBtn"
                                 // onClick={this.LOGOUT}

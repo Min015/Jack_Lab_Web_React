@@ -1,59 +1,62 @@
 @import "../../../Mixin/global.scss";
 
-.content_in {
-    position        : absolute;
-    right           : 0px;
-    min-height      : calc(100vh - 56px);
-    width           : calc(100% - 250px);
-    background-color: $admin_main_background;
-
-    .in {
-        width           : 95%;
-        background-color: $main_backgroundcolor;
-        margin          : 30px auto;
-        padding-bottom  : 15px;
-
-        .work {
-            padding: 15px 20px;
-            @extend %between;
-            @extend %row;
-        }
-    }
-}
-
-.edit_button {
+.work {
+    padding: 15px 20px;
+    @extend %between;
     @extend %row;
-    .work_btn {
-        margin-right    : 15px;
-        width           : 105px;
-        height          : 34px;
-        font-size       : $m;
-        p {
-            height: 100%;
-            width : 100%;
+
+    .edit_button {
+        @extend %row;
+
+        .work_btn {
+            margin-right: 15px;
+            width       : 105px;
+            height      : 34px;
+            font-size   : $m;
+            color       : $font_maincolor;
+            cursor      : pointer;
             @include ali-set();
             @include jus-set();
-            @extend %row;
-            color: $font_maincolor;
-            svg,
-            p {
-                margin: 0px 5px;
-            }
         }
-    }
-    .add_btn{
-        background-color: $button_color;
-        p{
+
+        .add_btn {
+            background-color: $button_color;
+
             &:hover {
                 background-color: $button_hover;
             }
         }
-    }
-    .delete_btn{
-        background-color: $delete_button;
-        p{
+
+        .delete_btn {
+            background-color: $delete_button;
+
             &:hover {
                 background-color: $delete_button_hover;
+            }
+
+        }
+    }
+
+    .searchbar {
+        @include ali-set();
+        @include border-set();
+        @extend %row;
+
+        input {
+            padding-left: 5px;
+            height      : 100%;
+        }
+
+        .submit {
+            position        : relative;
+            left            : -10px;
+            height          : 100%;
+            width           : 27px;
+            background-color: $main_backgroundcolor;
+            @include ali-set();
+
+            input {
+                @include image-set(100%, 100%, contain);
             }
         }
     }
@@ -86,36 +89,14 @@
     }
 }
 
-.searchbar {
-    @include ali-set();
-    @include border-set();
-    @extend %row;
 
-    input {
-        padding-left: 5px;
-        height      : 100%;
-    }
-
-    .submit {
-        position        : relative;
-        left            : -10px;
-        height          : 100%;
-        width           : 27px;
-        background-color: $main_backgroundcolor;
-        @include ali-set();
-
-        input {
-            @include image-set(100%, 100%, contain);
-        }
-    }
-}
 
 .admin_table {
     thead {
         font-weight: bold;
 
         th {
-            text-align: left;
+            text-align   : left;
             padding-right: 5px;
         }
     }
@@ -161,7 +142,9 @@
             .svg {
                 position: relative;
                 @include jus-set();
-                width: 30%;
+                width : 30%;
+                cursor: pointer;
+
                 .hover {
                     display         : none;
                     white-space     : nowrap;
@@ -193,6 +176,7 @@
 .container.show .innerBox {
     display: block;
 }
+
 .active {
     display: block;
 }
