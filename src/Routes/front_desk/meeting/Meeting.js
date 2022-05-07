@@ -7,15 +7,14 @@ import MemberLayout from '../../../Components/Layout/front/member/MemberLayout';
 import '../main_category/category.scss';
 
 import CreateTable from './CreateTable';
-import { GET_Meeting } from '../../../Action/meeting/Meeting';
-// import { GET_Meeting } from '../../../Service/meeting/Meeting.js';
+import{GET_Meeting} from'../../../Action/MeetingAction';
 
 
 const mapStateToProps = state => {
-	const { data } = state;
-	return (
-		data
-	)
+	const { MeetingList } = state.data;
+	return {
+		MeetingList
+	}
 }
 
 const mapDispatchToProps = dispatch => {
@@ -38,7 +37,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				"記錄者",
 				"相關標籤",
 			],
-			data: [],
 			year: ["2022", "2021", "2020", "2019", "2018", "2017"],
 		}
 		//生命週期
@@ -71,15 +69,15 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			//     window.location.replace('http://localhost:3000/index');
 			// }
 			this.props.GET_Meeting();
-
 		}
 
 		//func
 
 
 		render() {
-			const { table_header, year, data, page } = this.state;
-			console.log(this.props.data);
+			const { table_header, year, page} = this.state;
+			const { MeetingList } = this.props;
+			console.log(MeetingList);
 			return (
 				<div id='fornt_main'>
 					<MemberLayout>
@@ -107,7 +105,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							</div>
 						</div>
 						<div className="reaults_area">
-							<CreateTable table_header={table_header} table_content={data} />
+							<CreateTable table_header={table_header} table_content={MeetingList} />
 						</div>
 						<div className='page'>
 							<div className='one_page'>

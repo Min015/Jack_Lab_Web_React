@@ -39,65 +39,82 @@ import NoRoute from '../Routes/Notfound/NoRoute';
 import UpdateMeeting from './front_desk/meeting/UpdateMeeting';
 import GameInfo from './front_desk/game/info/GameInfo';
 
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware, compose } from "redux";
+import thunk from "redux-thunk";
+import reducers from "../Reducers";
+import MeetingMiddlewares from '../Middlewares/MeetingMiddlewares'
+import MemberMiddlewares from '../Middlewares/MemberMiddlewares'
+
+
+const Meetingmiddlewares = [MeetingMiddlewares, thunk];
+const Membermiddlewares = [MemberMiddlewares, thunk];
+const store = createStore(
+	reducers,
+	compose(
+		applyMiddleware(
+			...Meetingmiddlewares,
+			...Membermiddlewares
+			),
+	)
+);
+
+
 export default (
-    <BrowserRouter>
-        <Switch>
-            <Route path='/' exact component={()=><Redirect to='/Index' />} />
-            <Route path='/game' exact component={GameList} />
-            <Route path='/game/gameinfo/:id' exact component={GameInfo} />
-            <Route path='/game/addgame' exact component={AddGame } />
+	<Provider store={store}>
+		<BrowserRouter>
+			<Switch>
+				<Route path='/' exact component={() => <Redirect to='/Index' />} />
+				<Route path='/game' exact component={GameList} />
+				<Route path='/game/gameinfo/:id' exact component={GameInfo} />
+				<Route path='/game/addgame' exact component={AddGame} />
 
-            <Route path='/project' exact component={LabProject} />
-            <Route path='/project/addproject' exact component={AddProject} />
-            <Route path='/project/projectinfo' exact component={ProjectInfo} />
+				<Route path='/project' exact component={LabProject} />
+				<Route path='/project/addproject' exact component={AddProject} />
+				<Route path='/project/projectinfo' exact component={ProjectInfo} />
 
-            <Route path='/meeting' exact component={Meeting}/>
-            <Route path='/meeting/meetinginfo/:id' exact component={MeetingInfo} />
-            <Route path='/meeting/updatemeeting/:id' exact component={UpdateMeeting}/>
-            <Route path='/meeting/addmeeting' exact component={AddMeeting} />
+				<Route path='/meeting' exact component={Meeting} />
+				<Route path='/meeting/meetinginfo/:id' exact component={MeetingInfo} />
+				<Route path='/meeting/updatemeeting/:id' exact component={UpdateMeeting} />
+				<Route path='/meeting/addmeeting' exact component={AddMeeting} />
 
-            <Route path='/setinfo' exact component={SetInfo} />
+				<Route path='/setinfo' exact component={SetInfo} />
 
-            <Route path='/adminalbum' exact component={AdminAlbum } />
-            <Route path='/books' exact component={Books} />
+				<Route path='/adminalbum' exact component={AdminAlbum} />
+				<Route path='/books' exact component={Books} />
 
-            <Route path='/teacherintroduce' exact component={TeacherIntroduce} />
-            <Route path='/labintroduce' exact component={LabIntroduce} />
+				<Route path='/teacherintroduce' exact component={TeacherIntroduce} />
+				<Route path='/labintroduce' exact component={LabIntroduce} />
 
-            <Route path='/pemissionManage' exact component={PermissionManage } />
+				<Route path='/pemissionManage' exact component={PermissionManage} />
 
-            <Route path='/member' exact component={Member} />
+				<Route path='/member' exact component={Member} />
 
-            <Route path='/meetingmanage' exact component={MeetingManage} />
-            <Route path="/meetingmanage/meetinginfo" exact component={AdMeetingInfo} />
-
-
-            <Route path='/gamemanage' exact component={GameManage} />
-            <Route path='/gamemanage/gameinfo' exact component={AdGameInfo} />
-            <Route path='/gtypemanage' exact component={GTypeManage} />
+				<Route path='/meetingmanage' exact component={MeetingManage} />
+				<Route path="/meetingmanage/meetinginfo" exact component={AdMeetingInfo} />
 
 
-            <Route path='/casemanage' exact component={CaseManage} />
-            <Route path='/casemanage/caseinfo' exact component={AdProjectInfo} />
-            <Route path='/typemange' exact component={TypeManage} />
-
-           
+				<Route path='/gamemanage' exact component={GameManage} />
+				<Route path='/gamemanage/gameinfo' exact component={AdGameInfo} />
+				<Route path='/gtypemanage' exact component={GTypeManage} />
 
 
-
-
-            <Route path='/index' exact component={Index} />
-            <Route path='/student' exact component={Student} />
-
-
-            <Route path='*' exact component={NoRoute} />
-            {/* 找不到 */}
+				<Route path='/casemanage' exact component={CaseManage} />
+				<Route path='/casemanage/caseinfo' exact component={AdProjectInfo} />
+				<Route path='/typemange' exact component={TypeManage} />
 
 
 
 
 
 
-        </Switch>
-    </BrowserRouter>
+				<Route path='/index' exact component={Index} />
+				<Route path='/student' exact component={Student} />
+
+
+				<Route path='*' exact component={NoRoute} />
+				{/* 找不到 */}
+			</Switch>
+		</BrowserRouter>
+	</Provider>
 );

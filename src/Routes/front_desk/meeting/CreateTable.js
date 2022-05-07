@@ -22,7 +22,7 @@ export default class CreateTable extends Component {
                     </tr>
                 </thead>
                 <tbody>
-                    {table_content.map(
+                    {table_content?.map(
                         (item, index) => {
                             style = this.handleSetStyle(index);
                             return (
