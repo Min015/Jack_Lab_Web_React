@@ -7,9 +7,9 @@ import { POST_AddMeeting } from '../../../Service/fileupload/Sendform';
 
 
 const mapStateToProps = state => {
-  const { MemberList } = state.data;
+  const { AccountList } = state.data;
   return (
-    MemberList
+    AccountList
   )
 }
 
@@ -288,7 +288,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
     render() {
       const { array, title, content, time, member, tag, place, participate, nowclass, long, Members, disabled, mimes_type } = this.state;
       const {MemberList}=this.props;
-      console.log(MemberList);
+      console.log(this.props);
       return (
         <div>
           <MemberLayout>

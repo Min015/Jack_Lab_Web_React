@@ -66,10 +66,6 @@ const fetch = store => next => action => {
                 .catch(err => {
                     throw new Error(err);
                 })
-                .then(
-                    
-                    // window.location.replace('http://localhost:3000/meeting')
-                    );
             break;
         default:
             console.log('default');

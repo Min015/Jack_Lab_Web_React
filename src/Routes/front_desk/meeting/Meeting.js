@@ -77,7 +77,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		render() {
 			const { table_header, year, page} = this.state;
 			const { MeetingList } = this.props;
-			console.log(MeetingList);
 			return (
 				<div id='fornt_main'>
 					<MemberLayout>
