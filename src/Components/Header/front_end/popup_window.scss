@@ -90,7 +90,7 @@
     .inputContainer {
         position     : relative;
         height       : 45px;
-        width        : 90%;
+        width        : 100%;
         margin-top   : 20px;
         margin-bottom: 20px;
 
@@ -99,7 +99,7 @@
             top          : 0px;
             left         : 0px;
             height       : 100%;
-            width        : 100%;
+            width        : calc(100% - 40px);
             border       : 1px solid $boder_color;
             border-radius: 5px;
             font-size    : 16px;

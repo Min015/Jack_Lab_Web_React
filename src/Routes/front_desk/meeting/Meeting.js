@@ -11,7 +11,7 @@ import{GET_Meeting} from'../../../Action/MeetingAction';
 
 
 const mapStateToProps = state => {
-	const { MeetingList } = state.data;
+	const { MeetingList } = state.meetingReducer;
 	return {
 		MeetingList
 	}

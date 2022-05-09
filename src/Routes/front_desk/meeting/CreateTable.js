@@ -40,9 +40,9 @@ export default class CreateTable extends Component {
                                     </td>
                                     <td>{item.Time}</td>
                                     <td>{item.Place}</td>
-                                    <td>{item.uploader.Name}</td>
+                                    <td>{item.Name}</td>
                                     <td>
-                                        {item.tag.map((item, index) => {
+                                        {item.Tag===undefined?[]:item.Tag.map((item, index) => {
                                             return (<span className='table_tag' key={`tag${index}`}>{`${item.Name}`} </span>)
                                         })}
                                     </td>

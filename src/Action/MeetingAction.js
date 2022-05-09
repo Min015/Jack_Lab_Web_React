@@ -5,11 +5,14 @@ export const GET_Meeting = () => {
     });
   };
 }
-export const GET_MeetingInfo = payload => {
+export const GET_MeetingInfo = (payload,callback) => {
+  console.log("callbackAction",callback);
+  console.log("payload",payload);
   return (dispatch, getState) => {
     dispatch({
       type: "GET_MeetingInfo",
-      payload: payload
+      payload: payload,
+      callback:callback
     });
   };
 }
@@ -29,8 +32,6 @@ export const DELETE_Meeting = payload => {
     });
   };
 }
-
-
 export const POST_AddMeeting = (payload) => {
   return (dispatch) => {
     dispatch({

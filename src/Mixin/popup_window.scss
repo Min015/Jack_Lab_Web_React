@@ -1,12 +1,12 @@
 @import './global.scss';
 
 .popup_background {
-   display         : none;
+   // display         : none;
    position        : fixed;
    top             : 0px;
    left            : 0px;
    width           : 100%;
-   background-color: rgba(0, 0, 0, 0.496);
+   background-color: rgba(0, 0, 0, 0.496);//rgba(0, 0, 0, 0.496);
    height          : 100vh;
 
    .window {
@@ -52,16 +52,23 @@
    .inputContainer {
       position     : relative;
       height       : 45px;
-      width        : 90%;
+      width        : 100%;
       margin-top   : 20px;
       margin-bottom: 20px;
-
+      select{
+         width: 100%;
+         height: 100%;
+         font-size: $m;
+         padding: 0px 20px;
+         border       : 1px solid $boder_color;
+         border-radius: 7px;
+      }
       .input {
          position     : absolute;
          top          : 0px;
          left         : 0px;
          height       : 100%;
-         width        : 100%;
+         width        : calc(100% - 40px);
          border       : 1px solid $boder_color;
          border-radius: 7px;
          font-size    : 16px;

@@ -3,19 +3,21 @@ import { connect } from "react-redux";
 import MemberLayout from '../../../Components/Layout/front/member/MemberLayout';
 import '../main_category/add.scss';
 import { GET_Members } from '../../../Action/MemberAction';
-import { POST_AddMeeting } from '../../../Service/fileupload/Sendform';
+import { POST_AddMeeting } from '../../../Action/MeetingAction';
+// import { POST_AddMeeting } from '../../../Service/fileupload/Sendform';
 
 
 const mapStateToProps = state => {
-  const { AccountList } = state.data;
+  const { memberReducer } = state;
   return (
-    AccountList
+    memberReducer
   )
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    GET_Members: () => dispatch(GET_Members())
+    GET_Members: () => dispatch(GET_Members()),
+    POST_AddMeeting: (payload) => dispatch(POST_AddMeeting(payload)),
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(
@@ -25,7 +27,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
       participate: [],//已選擇
       long: 0,//一個tag的長度
       tag: [],//已輸入的tag
-      Members: [],//所有人員名單
       drop: false,
       disabled: false,
       nowclass: "selectlist",
@@ -58,16 +59,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(
     //載入所有人員名單
     componentDidMount = async () => {
       this.props.GET_Members();
-      // try {
-      //   const res = await GET_Members();
-      //   this.setState({ Members: res.data.data });
-      // } catch (err) {
-      //   console.log(err);
-      // }
     }
     //送出
     Submit = async () => {
-      const { title, content, time, place, uploader, array, participate, tag, member } = this.state;
+      const { title, content, time, place, array, participate, tag, member } = this.state;
       const errormsg = "必填";
       if (title.errormsg !== errormsg && content.errormsg !== errormsg && time.errormsg !== errormsg && place.errormsg !== errormsg && member.errormsg !== errormsg) {
         const addmember = participate.map((item) => { return (item.account) });
@@ -76,23 +71,17 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         data.append('content', content.value);
         data.append('time', time.value);
         data.append('place', place.value);
-        // data.append('uploader', uploader);
         array.map((item, index) =>
           data.append(`files[${index}]`, item)
-        )
+        );
         addmember.map((item, index) =>
           data.append(`member[${index}]`, item)
         )
         tag.map((item, index) =>
           data.append(`tag[${index}]`, item)
-        )
-        try {
-          const req = await POST_AddMeeting(data);
-          console.log(req);
-          window.location.replace('http://localhost:3000/meeting');
-        } catch (err) {
-          console.log(err);
-        }
+        );
+        this.props.POST_AddMeeting(data);
+        this.props.history.push("/meeting");
       }
       else {
         alert("您有必填欄位尚未填寫，請確認");
@@ -133,7 +122,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
       if (e.checked === true) {
         if (!participate.find((item) => JSON.stringify(item) === JSON.stringify(obj))) {
           participate.push(obj);
-          // console.log("加入");
         }
         this.setState({
           participate,
@@ -141,7 +129,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
       }
       else {
         let newarray = participate.filter((item) => item.account !== obj.account)
-        // console.log("刪除");
         this.setState({
           participate: newarray,
         })
@@ -232,6 +219,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
           nowclass: 'selectlist active',
         })
       }
+
     }
     //判斷標籤長度
     headleGetLong = (e) => {
@@ -287,8 +275,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 
     render() {
       const { array, title, content, time, member, tag, place, participate, nowclass, long, Members, disabled, mimes_type } = this.state;
-      const {MemberList}=this.props;
-      console.log(this.props);
+      const { MemberList } = this.props;
       return (
         <div>
           <MemberLayout>
@@ -330,7 +317,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                     onChange={this.handleInputChange.bind(this)}
                   ></textarea>
                   <label className="label">輸入會議內容<div className='error_msg'>{content.errormsg}</div></label>
-
                 </div>
               </div>
               {/* 輸入會議時間地點 */}
@@ -366,7 +352,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                     className='choose input'
                     onClick={this.handleGrop_down}
                   >
-                    {/* {participate.length === 0 ? "參與人員" : ""}
+                    {participate.length === 0 ? "參與人員" : ""}
                     {participate.map((item, index) =>
                       <div
                         className='oncheck'
@@ -390,11 +376,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                           </label>
                         </p>
                       </div>
-                    )} */}
+                    )}
                   </div>
                   <div className='locator'>
                     <div className={nowclass}>
-                      {Members.map((item, index) => {
+                      {MemberList == undefined ? "" : MemberList.map((item, index) => {
                         return (
                           <div
                             className={participate.includes(item.Account) ? "option selected" : "option noS"}
@@ -424,13 +410,16 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                     {tag.map((item) => (
                       <p key={item}>
                         {item}
-                        <span
-                          onClick={this.heandleDelTag}
-                        >
+                        <span>
                           <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M0.33546 0.33546C0.550319 0.120665 0.841693 0 1.1455 0C1.44932 0 1.74069 0.120665 1.95555 0.33546L6.00692 4.38683L10.0583 0.33546C10.2744 0.126752 10.5638 0.0112672 10.8642 0.0138777C11.1646 0.0164882 11.452 0.136985 11.6644 0.349417C11.8768 0.561848 11.9973 0.849216 12 1.14963C12.0026 1.45004 11.8871 1.73946 11.6784 1.95555L7.62701 6.00692L11.6784 10.0583C11.8871 10.2744 12.0026 10.5638 12 10.8642C11.9973 11.1646 11.8768 11.452 11.6644 11.6644C11.452 11.8768 11.1646 11.9973 10.8642 12C10.5638 12.0026 10.2744 11.8871 10.0583 11.6784L6.00692 7.62701L1.95555 11.6784C1.73946 11.8871 1.45004 12.0026 1.14963 12C0.849216 11.9973 0.561848 11.8768 0.349417 11.6644C0.136985 11.452 0.0164882 11.1646 0.0138777 10.8642C0.0112672 10.5638 0.126752 10.2744 0.33546 10.0583L4.38683 6.00692L0.33546 1.95555C0.120665 1.74069 0 1.44932 0 1.1455C0 0.841693 0.120665 0.550319 0.33546 0.33546Z" fill="#022840" />
                           </svg>
+                          <div
+                            className='close'
+                            id={item}
+                            onClick={this.heandleDelTag}></div>
                         </span>
+
                       </p>
                     ))}
                     <input

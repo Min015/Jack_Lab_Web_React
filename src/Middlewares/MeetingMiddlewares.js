@@ -21,7 +21,11 @@ const fetch = store => next => action => {
             console.log('meeting=>', 19);
             _axios
                 .get('/meeting',)
-                .then(response => response.data.data)
+                .then(response => {
+                    if(response.status===200){
+                        return response.data.data;
+                    }
+                })
                 .catch(err => {
                     throw new Error(err);
                 })
@@ -33,17 +37,23 @@ const fetch = store => next => action => {
                 });
             break;
         case "GET_MeetingInfo":
-            console.log('meetinginfo=>', 35);
+            console.log(`meetinginfo=>?id=${action.payload}`);
             _axios
-                .get(`/meeting/${action.payload}`,)
-                .then(response => response.data.data)
+                .get(`/meeting?id=${action.payload}`,)
+                .then(response => {
+                    console.log(response);
+                    if(response.status===200){
+                        return response.data.data;
+                    }
+                })
                 .catch(err => {
                     throw new Error(err);
                 })
                 .then(json => {
                     return next({
                         type: 'SAVE_MeetingInfo',
-                        payload: json
+                        payload: json,
+                        callback:json
                     });
                 });
             break;

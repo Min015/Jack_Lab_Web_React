@@ -42,20 +42,25 @@ import GameInfo from './front_desk/game/info/GameInfo';
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
-import reducers from "../Reducers";
-import MeetingMiddlewares from '../Middlewares/MeetingMiddlewares'
-import MemberMiddlewares from '../Middlewares/MemberMiddlewares'
+import reducer from './../Reducers';
+import MeetingMiddlewares from '../Middlewares/MeetingMiddlewares';
+import MemberMiddlewares from '../Middlewares/MemberMiddlewares';
+import SendfromDataMiddlewares from '../Middlewares/SendfromDataMiddlewares';
+
 
 
 const Meetingmiddlewares = [MeetingMiddlewares, thunk];
 const Membermiddlewares = [MemberMiddlewares, thunk];
+const SendfromDatamiddlewares=[SendfromDataMiddlewares,thunk]
+
 const store = createStore(
-	reducers,
+	reducer,
 	compose(
 		applyMiddleware(
 			...Meetingmiddlewares,
-			...Membermiddlewares
-			),
+			...Membermiddlewares,
+			...SendfromDatamiddlewares,
+		),
 	)
 );
 

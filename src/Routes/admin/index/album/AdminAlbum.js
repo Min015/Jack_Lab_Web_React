@@ -52,6 +52,14 @@ export default class AdminAlbum extends Component {
 			})
 		}
 	}
+	handelMouseDown = (e) => {
+		if (e.target.className === "window") {
+			this.setState({
+				add: false,
+				edit:false,
+			})
+		}
+	}
 	handelAllChange = e => {
 		const checkboxes = document.getElementsByName('Box');
 		for (let i = 0; i < checkboxes.length; i++) {

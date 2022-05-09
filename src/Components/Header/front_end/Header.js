@@ -1,7 +1,10 @@
 import { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import './header1.scss';
+import "./popup_window.scss";
+import '../../../Mixin/popup_window.scss';
 import logo from '../img/logo.png';
+
 export default class Header extends Component {
     state = {
         drop: false,
@@ -93,7 +96,7 @@ export default class Header extends Component {
                             <h2 className='message'>
                                 是否要登出
                             </h2>
-                            <div id='btn_block'>
+                            <div className='btn_block'>
                                 <button
                                     className="submitBtn"
                                     onClick={this.LOGOUT}
@@ -158,7 +161,7 @@ export default class Header extends Component {
                                     確認密碼
                                 </label>
                             </div>
-                            <div id='btn_block'>
+                            <div className='btn_block'>
                                 <button
                                     className="submitBtn"
                                 // onClick={(e) => this.Delete(this.state.Id, e)}

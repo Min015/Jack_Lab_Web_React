@@ -14,6 +14,14 @@ const _axios = axios.create({
 
 const fetch = store => next => action => {
   switch (action.type) {
+    case "POST_Login":
+      _axios
+        .post('/login',action.payload)
+        .then(response => {localStorage.setItem('user_token',response.data.data)})
+        .catch(err => {
+          throw new Error(err);
+        })
+      break;
     case "GET_Members":
       console.log('member=>', 18);
       _axios

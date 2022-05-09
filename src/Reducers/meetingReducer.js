@@ -6,7 +6,6 @@ export default (state = initialState, action) => {
     switch (action.type) {
         case "SAVE_Meeting":
             return { ...state, MeetingList: action.payload };
-
         case "SAVE_MeetingInfo":
             return { ...state, MeetingInfo: action.payload };
 

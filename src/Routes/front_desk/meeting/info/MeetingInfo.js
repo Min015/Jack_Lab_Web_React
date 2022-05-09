@@ -10,7 +10,7 @@ import { GET_MeetingInfo, GET_MeetingDownload, DELETE_Meeting } from '../../../.
 
 
 const mapStateToProps = state => {
-	const { MeetingInfo } = state.data;
+	const { MeetingInfo } = state.meetingReducer;
 	return {
 		MeetingInfo
 	}
@@ -38,7 +38,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			this.setState({
 				Id: params.id,
 			})
-			this.props.GET_MeetingInfo(params.id);
+			const callback = (res) => {
+				console.log(42,res);
+				this.setState({
+					meetinginfo:res,
+				})
+			}
+			this.props.GET_MeetingInfo(params.id,callback);
 		}
 
 		//func
@@ -70,7 +76,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		render() {
 			const { drop } = this.state;
 			const { MeetingInfo } = this.props;
-			console.log(this.props);
+			console.log(MeetingInfo);
 			return (
 				<div id='meeting_info'>
 					<MemberLayout>
@@ -80,11 +86,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								<div className="tag">
 									{MeetingInfo === undefined ? "" : MeetingInfo.tag?.map((item, index) => {
 										return (
-
 											<div key={index} className="small_tag">
 												{item.Name}
 											</div>
-
 										)
 									})}
 								</div>
@@ -139,7 +143,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									<div className="col-3">
 										<p>紀錄者</p>
 										<div className="info_block_content">
-											{MeetingInfo === undefined ? "" : MeetingInfo.uploader?.Name}
+											{MeetingInfo === undefined ? "" :""}
 										</div>
 									</div>
 								</div>
