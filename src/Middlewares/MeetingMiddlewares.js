@@ -37,7 +37,7 @@ const fetch = store => next => action => {
                 });
             break;
         case "GET_MeetingInfo":
-            console.log(`meetinginfo=>?id=${action.payload}`);
+            console.log(`meetinginfo=>?id=${action.callback}`);
             _axios
                 .get(`/meeting?id=${action.payload}`,)
                 .then(response => {
@@ -50,17 +50,20 @@ const fetch = store => next => action => {
                     throw new Error(err);
                 })
                 .then(json => {
+                    if(action.callback){
+                        action.callback(json)
+                    }
                     return next({
                         type: 'SAVE_MeetingInfo',
                         payload: json,
-                        callback:json
+                        
                     });
                 });
             break;
         case "GET_MeetingDownload":
             console.log('download=>', 50);
             _axios
-                .get(`/download/meeting/${action.payload}`,)
+                .get(`/download/meeting?id=${action.payload}`,)
                 .then(response => {
                     window.open(BaseURL + response.config.url);
                 })
@@ -71,7 +74,7 @@ const fetch = store => next => action => {
         case "DELETE_Meeting":
             console.log('delete=>');
             _axios
-                .delete(`/meeting/${action.payload}`,)
+                .delete(`/meeting?id=${action.payload}`,)
                 .then(response => { console.log(response) })
                 .catch(err => {
                     throw new Error(err);

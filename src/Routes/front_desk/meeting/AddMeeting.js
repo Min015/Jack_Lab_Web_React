@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { connect } from "react-redux";
 import MemberLayout from '../../../Components/Layout/front/member/MemberLayout';
 import '../main_category/add.scss';
-import { GET_Members } from '../../../Action/MemberAction';
+import { GET_PublicMembers } from '../../../Action/MemberAction';
 import { POST_AddMeeting } from '../../../Action/MeetingAction';
 // import { POST_AddMeeting } from '../../../Service/fileupload/Sendform';
 
@@ -16,7 +16,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    GET_Members: () => dispatch(GET_Members()),
+    GET_PublicMembers: () => dispatch(GET_PublicMembers()),
     POST_AddMeeting: (payload) => dispatch(POST_AddMeeting(payload)),
   }
 }
@@ -58,7 +58,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 
     //載入所有人員名單
     componentDidMount = async () => {
-      this.props.GET_Members();
+      this.props.GET_PublicMembers();
     }
     //送出
     Submit = async () => {
@@ -66,20 +66,24 @@ export default connect(mapStateToProps, mapDispatchToProps)(
       const errormsg = "必填";
       if (title.errormsg !== errormsg && content.errormsg !== errormsg && time.errormsg !== errormsg && place.errormsg !== errormsg && member.errormsg !== errormsg) {
         const addmember = participate.map((item) => { return (item.account) });
-        const data = new FormData();
-        data.append('title', title.value);
-        data.append('content', content.value);
-        data.append('time', time.value);
-        data.append('place', place.value);
+        let data = new FormData();
+        data.append('Title', title.value);
+        data.append('Content', content.value);
+        data.append('Time', time.value);
+        data.append('Place', place.value);
         array.map((item, index) =>
-          data.append(`files[${index}]`, item)
+          data.append(`Files[${index}]`, item)
         );
         addmember.map((item, index) =>
-          data.append(`member[${index}]`, item)
+          data.append(`Member[${index}]`, item)
         )
         tag.map((item, index) =>
-          data.append(`tag[${index}]`, item)
+          data.append(`Tag[${index}]`, item)
         );
+        // for(var pair of data.entries()) {
+        //   console.log(pair[0]+ ', '+ pair[1]);
+        // }
+        // console.log(data);
         this.props.POST_AddMeeting(data);
         this.props.history.push("/meeting");
       }
@@ -275,7 +279,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 
     render() {
       const { array, title, content, time, member, tag, place, participate, nowclass, long, Members, disabled, mimes_type } = this.state;
-      const { MemberList } = this.props;
+      const { PublicMemberList } = this.props;
       return (
         <div>
           <MemberLayout>
@@ -380,7 +384,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                   </div>
                   <div className='locator'>
                     <div className={nowclass}>
-                      {MemberList == undefined ? "" : MemberList.map((item, index) => {
+                      {PublicMemberList === undefined ? "" : PublicMemberList.map((item, index) => {
                         return (
                           <div
                             className={participate.includes(item.Account) ? "option selected" : "option noS"}
@@ -389,11 +393,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                             <input
                               type='checkbox'
                               id={item.Account}
-                              value={item.student.Name}
+                              value={item.Name}
                               className='choose'
                               onChange={(e) => { this.handelOnClick(e.target) }}
                             />
-                            <label for={item.Account} className='choose'>{item.student.Name}</label>
+                            <label for={item.Account} className='choose'>{item.Name}</label>
                           </div>
                         )
                       }

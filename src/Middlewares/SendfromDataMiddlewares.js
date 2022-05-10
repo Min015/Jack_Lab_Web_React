@@ -16,9 +16,14 @@ const fetch = store => next => action => {
    console.log(action.type);
    switch (action.type) {
       case "POST_AddMeeting":
+         console.log(action.payload)
          _axios
             .post('/meeting',action.payload)
-            .then(response =>console.log("新增成功"))
+            .then(response =>{
+               if(response.status===200){
+                  console.log("新增成功")
+               }
+            })
             .catch(err => {
                throw new Error(err);
             })

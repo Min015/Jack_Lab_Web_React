@@ -56,7 +56,7 @@ export default class Header extends Component {
                     <ul className="header_ul">
                         <Link to='/index'><li>去訪客</li></Link>
                         <Link to='/adminalbum'><li>去後台</li></Link>
-                        <NavLink to='/game' activeClassName="nowP"><li>競賽專區</li></NavLink>
+                        {/* <NavLink to='/game' activeClassName="nowP"><li>競賽專區</li></NavLink> */}
                         <NavLink to='/project' activeClassName="nowP"><li>LAB專案</li></NavLink>
                         <NavLink to='/meeting' activeClassName="nowP"><li>會議記錄</li></NavLink>
                         <div className="preson_info"

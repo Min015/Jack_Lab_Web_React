@@ -131,7 +131,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									<div className="col-3">
 										<p>時間</p>
 										<div className="info_block_content">
-											{MeetingInfo === undefined ? "" : MeetingInfo.Time}
+											{MeetingInfo === undefined ? "" : MeetingInfo.Time.substr(0,10)}
 										</div>
 									</div>
 									<div className="col-3">
@@ -158,10 +158,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								<div className="magin_top_70">
 									<p>相關檔案</p>
 									<ol>
-										{MeetingInfo === undefined ? "" : MeetingInfo.files?.map((item, index) => (
+										{MeetingInfo === undefined ? "" : MeetingInfo.File?.map((item, index) => (
 											<li
 												key={index}
-												onClick={(e) => this.Download(item.Name, e)}
+												onClick={(e) => this.Download(item.Id, e)}
 											>
 												{item.Name}
 											</li>

@@ -38,7 +38,7 @@ export default class CreateTable extends Component {
                                             </svg>
                                         </Link>
                                     </td>
-                                    <td>{item.Time}</td>
+                                    <td>{item.Time.substr(0,10)}</td>
                                     <td>{item.Place}</td>
                                     <td>{item.Name}</td>
                                     <td>

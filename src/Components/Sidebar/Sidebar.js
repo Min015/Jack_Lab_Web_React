@@ -92,7 +92,7 @@ export default class Sidebar extends Component {
                         </div>
                     </NavLink>
                 </div>
-                <div className="set">
+                {/* <div className="set">
                     <div className="sidebar_title">
                         競賽管理
                     </div>
@@ -118,7 +118,7 @@ export default class Sidebar extends Component {
                             </li>
                         </NavLink>
                     </ul>
-                </div>
+                </div> */}
                 <div className="set">
                     <div className="sidebar_title">
                         專案管理

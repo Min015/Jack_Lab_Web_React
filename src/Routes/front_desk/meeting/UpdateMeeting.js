@@ -2,23 +2,23 @@ import { Component } from 'react';
 import { connect } from "react-redux";
 import MemberLayout from '../../../Components/Layout/front/member/MemberLayout';
 import '../main_category/add.scss';
-import { GET_Members, } from '../../../Service/meeting/Meeting.js';
+// import { GET_Members, } from '../../../Service/meeting/Meeting.js';
 import { Link } from 'react-router-dom';
 // import { POST_UpdateMeeting } from '../../../Service/fileupload/Sendform';
+import {GET_PublicMembers} from '../../../Action/MemberAction';
 import { GET_MeetingInfo, POST_UpdateMeeting } from '../../../Action/MeetingAction';
 
 
 const mapStateToProps = state => {
-	const { MeetingInfo } = state.meetingReducer;
-	const { MemberList } = state.memberReducer;
-	return {
-		MeetingInfo, MemberList
-	}
+	const { meetingReducer,memberReducer } = state;
+  return (
+    memberReducer,meetingReducer
+  )
 }
 
 const mapDispatchToProps = dispatch => {
 	return {
-		GET_Members: () => dispatch(GET_Members()),
+		GET_PublicMembers: () => dispatch(GET_PublicMembers()),
 		GET_MeetingInfo: (payload,callback) => dispatch(GET_MeetingInfo(payload,callback)),
 		POST_UpdateMeeting: (payload) => dispatch(POST_UpdateMeeting(payload)),
 	}
@@ -75,7 +75,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					meetinginfo:res,
 				})
 			}
-			this.props.GET_Members();
+			this.props.GET_PublicMembers();
 			this.props.GET_MeetingInfo(params.id,callback);
 			
 			// const { MemberList, MeetingInfo } = this.props;
@@ -338,12 +338,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		render() {
 			const { array, title, content, time, member, tag, place, participate, nowclass, long, disabled, mimes_type,meetinginfo } = this.state;
 			// console.log(array);
-			const { MemberList, MeetingInfo } = this.props;
+			const { PublicMemberList, MeetingInfo } = this.props;
+			console.log(PublicMemberList);
 			const meeting_time = MeetingInfo.Time.split(":");
 			const Mtime = meeting_time[0].split(" ");
-			console.log("callback",meetinginfo);
-			console.log("MemberList",MemberList);
-			console.log("MeetingInfo",MeetingInfo);
+			console.log("callback",this.state.meetinginfo);
+			console.log(MeetingInfo);
 			console.log("state",this.state);
 			return (
 				<div>
@@ -449,7 +449,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									</div>
 									<div className='locator'>
 										<div className={nowclass}>
-											{MemberList === undefined ? "" : MemberList.map((item, index) => {
+											{PublicMemberList === undefined ? "" : PublicMemberList.map((item, index) => {
 												return (
 													<div
 														className={participate.includes(item.Account) ? "option selected" : "option noS"}
