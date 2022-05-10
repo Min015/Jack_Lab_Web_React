@@ -4,7 +4,7 @@ const initialState = {};
 export default (state = initialState, action) => {
   console.log(5,action.type);
   switch (action.type) {
-    case "SAVE_Member":
+    case "SAVE_PublicMember":
       return { ...state, MemberList: action.payload };
 
     default:

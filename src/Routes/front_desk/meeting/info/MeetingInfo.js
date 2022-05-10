@@ -18,7 +18,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		GET_MeetingInfo: (payload) => dispatch(GET_MeetingInfo(payload)),
+		GET_MeetingInfo: (payload,callback) => dispatch(GET_MeetingInfo(payload,callback)),
 		GET_MeetingDownload: (payload) => dispatch(GET_MeetingDownload(payload)),
 		DELETE_Meeting: (payload) => dispatch(DELETE_Meeting(payload)),
 	}
@@ -84,7 +84,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							<div className="title_name">
 								<h2>{MeetingInfo === undefined ? "" : MeetingInfo.Title}</h2>
 								<div className="tag">
-									{MeetingInfo === undefined ? "" : MeetingInfo.tag?.map((item, index) => {
+									{MeetingInfo === undefined ? "" : MeetingInfo.Tag?.map((item, index) => {
 										return (
 											<div key={index} className="small_tag">
 												{item.Name}
@@ -143,15 +143,15 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									<div className="col-3">
 										<p>紀錄者</p>
 										<div className="info_block_content">
-											{MeetingInfo === undefined ? "" :""}
+											{MeetingInfo === undefined ? "" :MeetingInfo.Name}
 										</div>
 									</div>
 								</div>
 								<div className="magin_top_70">
 									<p>參與人員</p>
 									<div className="participant something_content">
-										{MeetingInfo === undefined ? [] : MeetingInfo.member?.map((item, index) =>
-											<span>{`${item.Name}　`}</span>
+										{MeetingInfo === undefined ? [] : MeetingInfo.Member?.map((item, index) =>
+											<span key={index}>{`${item.Name}　`}</span>
 										)}
 									</div>
 								</div>

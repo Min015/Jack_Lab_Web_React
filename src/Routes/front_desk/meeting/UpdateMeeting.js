@@ -19,7 +19,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 	return {
 		GET_Members: () => dispatch(GET_Members()),
-		GET_MeetingInfo: (payload) => dispatch(GET_MeetingInfo(payload)),
+		GET_MeetingInfo: (payload,callback) => dispatch(GET_MeetingInfo(payload,callback)),
 		POST_UpdateMeeting: (payload) => dispatch(POST_UpdateMeeting(payload)),
 	}
 }
