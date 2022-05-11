@@ -26,7 +26,8 @@ $tr_odd :#ADC5D9;
 $tr_even:#D8E6F2;
 
 $selectlist:#dadee2;
-$select_check:#a8b8c9;
+$admin_selectlst:rgb(235, 235, 235);
+$select_check:#859BAE;
 $select_hover:#e9e9e9;
 
 $form_maincolor:#ADC5D9;
@@ -199,6 +200,11 @@ input {
     outline         : none;
     border          : 0px;
     display         : flex;
+}
+textarea,
+select,
+input{
+    font-family: "Microsoft JhengHei";
 }
 
 input:focus,

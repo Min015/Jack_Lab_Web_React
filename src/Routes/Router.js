@@ -23,6 +23,7 @@ import Member from './admin/member/Member';
 
 import MeetingManage from './admin/meeting/MeetingManage';
 import AdMeetingInfo from './admin/meeting/MeetingInfo';
+import AdMeetingAdd from './admin/meeting/MeetingAdd';
 
 import GameManage from './admin/game/gamelist/GameManage';
 import AdGameInfo from './admin/game/gamelist/GameInfo';
@@ -96,7 +97,8 @@ export default (
 				<Route path='/member' exact component={Member} />
 
 				<Route path='/meetingmanage' exact component={MeetingManage} />
-				<Route path="/meetingmanage/meetinginfo" exact component={AdMeetingInfo} />
+				<Route path='/meetingmanage/meetingadd' exact component={AdMeetingAdd} />
+				<Route path="/meetingmanage/meetinginfo/:id" exact component={AdMeetingInfo} />
 
 
 				<Route path='/gamemanage' exact component={GameManage} />

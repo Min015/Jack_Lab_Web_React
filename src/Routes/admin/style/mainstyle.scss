@@ -1,182 +1,198 @@
 @import "../../../Mixin/global.scss";
 
 .work {
-    padding: 15px 20px;
-    @extend %between;
-    @extend %row;
+	padding: 15px 20px;
+	@extend %between;
+	@extend %row;
 
-    .edit_button {
-        @extend %row;
+	.edit_button {
+		@extend %row;
 
-        .work_btn {
-            margin-right: 15px;
-            width       : 105px;
-            height      : 34px;
-            font-size   : $m;
-            color       : $font_maincolor;
-            cursor      : pointer;
-            @include ali-set();
-            @include jus-set();
-        }
+		.work_btn {
+			margin-right: 15px;
+			width       : 105px;
+			height      : 34px;
+			font-size   : $m;
+			color       : $font_maincolor;
+			cursor      : pointer;
+			@include ali-set();
+			@include jus-set();
+		}
 
-        .add_btn {
-            background-color: $button_color;
+		.add_btn {
+			background-color: $button_color;
 
-            &:hover {
-                background-color: $button_hover;
-            }
-        }
+			&:hover {
+				background-color: $button_hover;
+			}
+		}
 
-        .delete_btn {
-            background-color: $delete_button;
+		.delete_btn {
+			background-color: $delete_button;
 
-            &:hover {
-                background-color: $delete_button_hover;
-            }
+			&:hover {
+				background-color: $delete_button_hover;
+			}
 
-        }
-    }
+		}
+	}
 
-    .searchbar {
-        @include ali-set();
-        @include border-set();
-        @extend %row;
+	.searchbar {
+		@include ali-set();
+		@include border-set();
+		@extend %row;
 
-        input {
-            padding-left: 5px;
-            height      : 100%;
-        }
+		input {
+			padding-left: 5px;
+			height      : 100%;
+		}
 
-        .submit {
-            position        : relative;
-            left            : -10px;
-            height          : 100%;
-            width           : 27px;
-            background-color: $main_backgroundcolor;
-            @include ali-set();
+		.submit {
+			position        : relative;
+			left            : -10px;
+			height          : 100%;
+			width           : 27px;
+			background-color: $main_backgroundcolor;
+			@include ali-set();
 
-            input {
-                @include image-set(100%, 100%, contain);
-            }
-        }
-    }
+			input {
+				@include image-set(100%, 100%, contain);
+			}
+		}
+	}
 }
 
 .searchform {
-    @extend %row;
+	@extend %row;
 
-    * {
-        @include border-set();
-        margin-right: 5px;
-        padding     : 0px 2px;
-    }
+	* {
+		@include border-set();
+		margin-right: 5px;
+		padding     : 0px 2px;
+	}
 
-    .date {
-        border: 0px;
-        @include ali-set();
-        @extend %row;
+	.date {
+		border: 0px;
+		@include ali-set();
+		@extend %row;
 
-        input {
-            margin-left: 5px;
-            height     : 100%;
-        }
-    }
+		input {
+			margin-left: 5px;
+			height     : 100%;
+		}
+	}
 
-    .searchBtn {
-        background-color: $button_color;
-        color           : $font_maincolor;
-        border          : $button_color;
-    }
+	.searchBtn {
+		font-size       : $m;
+		background-color: $button_color;
+		color           : $font_maincolor;
+		border          : $button_color;
+		padding         : 0px 10px;
+	}
 }
 
 
 
 .admin_table {
-    thead {
-        font-weight: bold;
+	thead {
+		font-weight: bold;
 
-        th {
-            text-align   : left;
-            padding-right: 5px;
-        }
-    }
+		th {
+			text-align   : left;
+			padding-right: 5px;
+		}
+	}
 
-    tr {
-        height       : 38px;
-        border-top   : 1px $boder_color solid;
-        border-bottom: 1px $boder_color solid;
+	tr {
+		height       : 38px;
+		border-top   : 1px $boder_color solid;
+		border-bottom: 1px $boder_color solid;
 
-        .check {
-            input {
-                margin: 0px auto;
-            }
-        }
-    }
+		.check {
+			input {
+				margin: 0px auto;
+			}
+		}
+	}
 
-    .onchange {
-        * {
-            background-color: $admin_check;
-        }
-    }
+	.onchange {
+		* {
+			background-color: $admin_check !important;
+		}
+	}
 
-    td {
-        position: relative;
-        padding : 5px 5px 5px 0px;
+	td {
+		position: relative;
+		padding : 5px 5px 5px 0px;
 
-        select {
-            font-size : 16px;
-            // @include border-set();
-            // padding: 4px 0px;
+		select {
+			font-size : 16px;
+			// @include border-set();
+			// padding: 4px 0px;
 
-            position: absolute;
-            top     : 9px;
-            left    : -5px;
-        }
+			position: absolute;
+			top     : 9px;
+			left    : -5px;
+		}
 
-        .action {
-            @include ali-set();
-            @extend %row;
-            height         : 100%;
-            justify-content: space-evenly;
+		.pen {
+			margin-left: 5px
+		}
 
-            .svg {
-                position: relative;
-                @include jus-set();
-                width : 30%;
-                cursor: pointer;
+		.action {
+			@include ali-set();
+			@extend %row;
+			height         : 100%;
+			justify-content: space-evenly;
 
-                .hover {
-                    display         : none;
-                    white-space     : nowrap;
-                    position        : absolute;
-                    text-align      : center;
-                    padding         : 2px 5px;
-                    top             : 22px;
-                    background-color: $main_backgroundcolor;
-                    border-radius   : 4px;
-                    z-index         : 1;
-                    @include border-set();
-                }
+			.delete {
+				@extend %row;
+			}
 
-                &:hover .hover {
-                    display: block;
-                }
-            }
-        }
-    }
+			.svg {
+				position: relative;
+				@include jus-set();
+				width : 30%;
+				cursor: pointer;
 
-    .bookname {
-        max-width    : 640px;
-        overflow     : hidden;
-        text-overflow: ellipsis;
-        white-space  : nowrap;
-    }
+				.hover {
+					display         : none;
+					white-space     : nowrap;
+					position        : absolute;
+					text-align      : center;
+					padding         : 2px 5px;
+					top             : 22px;
+					background-color: $main_backgroundcolor;
+					border-radius   : 4px;
+					z-index         : 1;
+					@include border-set();
+				}
+
+				&:hover .hover {
+					display: block;
+				}
+			}
+
+			.close {
+				width           : 18px;
+				height          : 18px;
+				background-color: aqua;
+			}
+		}
+	}
+
+	.bookname {
+		max-width    : 640px;
+		overflow     : hidden;
+		text-overflow: ellipsis;
+		white-space  : nowrap;
+	}
 }
 
 .container.show .innerBox {
-    display: block;
+	display: block;
 }
 
 .active {
-    display: block;
+	display: block;
 }

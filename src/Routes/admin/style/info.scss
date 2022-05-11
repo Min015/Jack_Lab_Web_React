@@ -1,101 +1,291 @@
 @import "../../../Mixin/global.scss";
+
 .info_form {
-    padding-top: 5px;
-    .inputbox {
-        padding: 0px 15px;
-        margin-top: 25px;
-        @extend %between;
-        
-        .set {
-            position: relative;
-            @extend %row;
-        }
-        
-        .form_submit {
-            // margin-left     : auto;
-            background-color: $button_color;
-            @include ali-set();
-            @include jus-set();
-            color: $font_maincolor;
-            font-size: $m;
-        }
-        
-        input,
-        select,
-        textarea {
-            min-height: 35px;
-            color: $font_maincolor;
-            border: none;
-        }
-        
-        .input {
-            // background-color: $form_maincolor;
-            color: black;
-            resize: none;
-            width: 100%;
-            @include border-set($form_border);
-            &:focus {
-                @include border-set($form_maincolor, 2px);
-            }
-        }
-        
-        .label {
-            display: flex;
-            position: absolute;
-            top: -19px;
-            left: -5px;
-            font-size: 14px;
-            font-weight: 600;
-            color: $from_title;
-        }
-        
-        .upload {
-            background-color: $th_background;
-            border-radius: 5px;
-            width: 200px;
-            position: relative;
-            
-            input {
-                height: 100%;
-                width: 100%;
-                opacity: 0;
-            }
-            
-            .newbtn {
-                position: absolute;
-                top: 6px;
-                left: 8px;
-                @extend %row;
-                @include ali-set();
-                
-                img {
-                    width: 26px;
-                    height: 26px;
-                    margin-left: 5px;
-                }
-                
-                label {
-                    margin-left: 5px;
-                    color: $main_backgroundcolor;
-                }
-            }
-        }
-    }
-    
-    #filename {
-        padding: 10px 45px 0px 45px;
-    }
+	padding-top: 5px;
+
+	.focus {
+		@include border-set($form_maincolor, 2px);
+	}
+
+	.inputbox {
+		padding   : 0px 15px;
+		margin-top: 25px;
+		@extend %between;
+
+		.set {
+			position: relative;
+			@extend %col;
+			margin-bottom: 10px;
+
+			.error_msg {
+				color    : red;
+				font-size: $m;
+			}
+			.input_tag {
+				width: 20%;
+				color: $admin_header_background;
+			}
+		}
+
+		.form_submit {
+			// margin-left     : auto;
+			background-color: $button_color;
+			@include ali-set();
+			@include jus-set();
+			color    : $font_maincolor;
+			font-size: $m;
+		}
+
+		input,
+		select,
+		textarea {
+			min-height: 35px;
+			color     : $font_maincolor;
+			border    : none;
+			font-size : $m;
+		}
+
+		.input {
+			// background-color: $form_maincolor;
+			color     : black;
+			resize    : none;
+			width     : 100%;
+			font-size : $m;
+			min-height: 35px;
+			flex-wrap : wrap;
+			resize    : none;
+			width     : 100%;
+			@include ali-set();
+			@include border-set($form_border);
+
+			&:focus {
+				@include border-set($form_maincolor, 2px);
+			}
+
+			p {
+				background-color: $tag_backgroud;
+				color           : $font_maincolor;
+				padding         : 2px 5px;
+				border-radius   : 2px;
+				margin          : 2.5px;
+				@extend %row;
+				@include ali-set();
+
+				span {
+					position: relative;
+
+					.close {
+						position: absolute;
+						top     : 2px;
+						left    : 2px;
+						width   : 18px;
+						height  : 18px;
+						cursor  : pointer;
+					}
+				}
+			}
+
+			svg {
+				margin-left: 3px
+			}
+		}
+
+		.oncheck {
+			@extend %row;
+			@include ali-set();
+
+			p {
+				@extend %row;
+				@include ali-set();
+
+				.deselect {
+					padding     : 0;
+					margin-right: 3px;
+					cursor      : pointer;
+
+					input[type=checkbox] {
+						display: none;
+					}
+
+					input[type=checkbox]+span {
+						display: flex;
+						width  : 15px;
+					}
+				}
+			}
+		}
+
+		.label {
+			display    : flex;
+			position   : absolute;
+			top        : -22px;
+			left       : -5px;
+			font-size  : $m;
+			font-weight: 600;
+			color      : $from_title;
+		}
+
+		.upload {
+			background-color: $th_background;
+			border-radius   : 5px;
+			width           : 200px;
+			position        : relative;
+
+			input {
+				height : 100%;
+				width  : 100%;
+				opacity: 0;
+			}
+
+			input,
+			.newbtn,
+			svg,
+			label {
+				cursor: pointer;
+			}
+
+			.newbtn {
+				position: absolute;
+				top     : 6px;
+				left    : 8px;
+				@extend %row;
+				@include ali-set();
+
+				img {
+					width      : 26px;
+					height     : 26px;
+					margin-left: 5px;
+				}
+
+				label {
+					margin-left: 5px;
+					color      : $main_backgroundcolor;
+				}
+			}
+		}
+
+		.locator {
+			position: relative;
+		}
+
+		.selectlist {
+			display   : none;
+			position  : absolute;
+			top       : 1px;
+			z-index   : 1;
+			width     : 100%;
+			max-height: 150px;
+			overflow-y: auto;
+
+			.option {
+				height       : 33px;
+				border-bottom: 1px $boder_color solid !important;
+				@extend %row;
+				@include ali-set();
+
+				label {
+					width      : 100%;
+					height     : 100%;
+					margin-left: 5px;
+					@include ali-set();
+				}
+
+				input {
+					margin: 0px 5px;
+					width : 0px;
+					height: 0px;
+				}
+
+				input[type=checkbox] {
+					display: none;
+				}
+
+				&:hover {
+					font-weight: bold;
+				}
+			}
+
+			.selected {
+				background-color: $select_check;
+				color           : $font_maincolor;
+			}
+
+			.noS {
+				background-color: $admin_selectlst;
+			}
+
+			&::-webkit-scrollbar {
+				/*-------滾動條整體樣式----*/
+				width: 5px;
+			}
+
+			&::-webkit-scrollbar-thumb {
+				/*滾動條裡面小方塊樣式*/
+				border-radius: 10px;
+				background   : $sidebar_nochange_color;
+			}
+
+			&::-webkit-scrollbar-track {
+				/*滾動條裡面軌道樣式*/
+				border-radius: 0px;
+				background   : $admin_sidebar_background;
+			}
+		}
+	}
+
+	#work_col {
+		padding   : 0px 15px;
+		margin-top: 25px;
+		@extend %between;
+
+		.form_submit {
+			background-color: $button_color;
+			@include ali-set();
+			@include jus-set();
+			font-size: $m;
+
+			a {
+				width : 100%;
+				height: 100%;
+				@include ali-set();
+				@include jus-set();
+			}
+		}
+
+		button {
+			min-height      : 35px;
+			background-color: rgba(245, 245, 220, 0);
+			border          : 0px;
+			color           : $font_maincolor;
+			cursor          : pointer;
+
+			a {
+				color: $font_maincolor;
+			}
+		}
+	}
+
+	#filename {
+		padding: 10px 45px 0px 45px;
+	}
 }
-.proj_record{
-    width: 100%;
-    .workinfo {
-        padding: 15px 0px;
-        @extend %between;
-        @extend %row;
-        .edit_button{
-            .add{
-                margin-left: 0px;
-            }
-        }
-    }
+
+.proj_record {
+	width: 100%;
+
+	.workinfo {
+		padding: 15px 0px;
+		@extend %between;
+		@extend %row;
+
+		.edit_button {
+			.add {
+				margin-left: 0px;
+			}
+		}
+	}
+}
+
+.active {
+	display: block !important;
 }

@@ -6,8 +6,6 @@ export const GET_Meeting = () => {
   };
 }
 export const GET_MeetingInfo = (payload,callback) => {
-  console.log("callbackAction",callback);
-  console.log("payload",payload);
   return (dispatch, getState) => {
     dispatch({
       type: "GET_MeetingInfo",
@@ -40,10 +38,12 @@ export const POST_AddMeeting = (payload) => {
     });
   };
 }
-export const POST_UpdateMeeting = () => {
+export const POST_UpdateMeeting = (payload) => {
+  console.log("MeetingAction42",payload);
   return (dispatch) => {
     dispatch({
       type: "POST_UpdateMeeting",
+      payload: payload,
     });
   };
 }

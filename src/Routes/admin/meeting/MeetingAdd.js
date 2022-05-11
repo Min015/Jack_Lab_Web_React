@@ -4,34 +4,29 @@ import { Link } from 'react-router-dom';
 import BackLayout from '../../../Components/Layout/back/BackLayout';
 import '../style/info.scss';
 import { GET_PublicMembers } from '../../../Action/MemberAction';
-import { GET_MeetingInfo, POST_UpdateMeeting } from '../../../Action/MeetingAction';
+import { POST_AddMeeting } from '../../../Action/MeetingAction';
 const mapStateToProps = state => {
-	console.log(13, state)
-	const { meetingReducer, memberReducer } = state;
-	// const {memberReducer}=state;
+	const { memberReducer } = state;
 	return (
-		meetingReducer, memberReducer
+		memberReducer
 	)
 }
 
 const mapDispatchToProps = dispatch => {
 	return {
 		GET_PublicMembers: () => dispatch(GET_PublicMembers()),
-		GET_MeetingInfo: (payload, callback) => dispatch(GET_MeetingInfo(payload, callback)),
-		POST_UpdateMeeting: (payload) => dispatch(POST_UpdateMeeting(payload)),
+		POST_AddMeeting: (payload) => dispatch(POST_AddMeeting(payload)),
 	}
 }
 export default connect(mapStateToProps, mapDispatchToProps)(
-	class MeetingInfo extends Component {
+	class MeetingAdd extends Component {
 		state = {
-			Id: "",
 			array: [],//file
 			participate: [],//已選擇
 			long: 0,//一個tag的長度
 			tag: [],//已輸入的tag
 			drop: false,
 			disabled: false,
-			nowclass: "selectlist",
 			all_file_max_size: 1024 * 1024 * 50,//50M
 			one_file_max_size: 1024 * 1024 * 30,//30M
 			mimes_type: ['zip', '7z', 'rar', 'svg', 'png', 'jpg', 'jpeg', 'csv', 'txt', 'xlx', 'xls', 'xlsx', 'pdf', 'doc', 'docx', 'ppt', 'pptx'],//媒體類型
@@ -52,66 +47,38 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				errormsg: "*",
 			},
 			member: {
-				errormsg: "",
+				errormsg: "*",
 			},
+			uploader: "jacklab",
 		}
+
 
 		//載入所有人員名單
 		componentDidMount = async () => {
-			const { match } = this.props;
-			const { params } = match;
-			this.setState({
-				Id: params.id,
-			})
-			const callback = (res) => {
-				const meeting_time = res.Time.split(":");
-				const Mtime = meeting_time[0].split(" ");
-				this.setState({
-					title: { value: res.Title },
-					content: { value: res.Content },
-					time: { value: `${Mtime[0]}T${Mtime[1]}:${meeting_time[1]}` },
-					place: { value: res.Place },
-					participate: res.Member.map((item) => {
-						return {
-							account: item.Account,
-							name: item.Name
-						};
-					}),
-					tag: res.Tag.map(item => item.Name),
-					array: res.File,
-				})
-			}
 			this.props.GET_PublicMembers();
-			this.props.GET_MeetingInfo(params.id, callback);
 		}
-		//修改
-		Update = async () => {
-			const { Id, title, content, time, place, array, participate, tag, member } = this.state;
+		//送出
+		Submit = async () => {
+			const { title, content, time, place, array, participate, tag, member } = this.state;
 			const errormsg = "*";
 			if (title.errormsg !== errormsg && content.errormsg !== errormsg && time.errormsg !== errormsg && place.errormsg !== errormsg && member.errormsg !== errormsg) {
 				const addmember = participate.map((item) => { return (item.account) });
-				const data = new FormData();
-				data.append('_method', 'PUT');
-				data.append('Id', Id);
+				let data = new FormData();
 				data.append('Title', title.value);
 				data.append('Content', content.value);
 				data.append('Time', time.value);
 				data.append('Place', place.value);
 				array.map((item, index) =>
-					data.append(`File[${index}]`, item)
-				)
+					data.append(`Files[${index}]`, item)
+				);
 				addmember.map((item, index) =>
 					data.append(`Member[${index}]`, item)
 				)
 				tag.map((item, index) =>
 					data.append(`Tag[${index}]`, item)
-				)
-				for (var pair of data.entries()) {
-					console.log(pair[0] + ', ' + pair[1]);
-				}
-				console.log(data);
-				this.props.POST_UpdateMeeting(data);
-				this.props.history.push(`/meetingmanage`);
+				);
+				this.props.POST_AddMeeting(data);
+				// this.props.history.push("/meeting");
 			}
 			else {
 				alert("您有必填欄位尚未填寫，請確認");
@@ -197,7 +164,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 						const thissize = files[index].size;
 						nowsize += thissize;
 						if (thissize > one_file_max_size || nowsize > all_file_max_size) {
-							alert("檔案過大，請重新選擇(單個檔案物超過30M，總大小物超過50M");
+							alert("檔案過大，請重新選擇(單個檔案勿超過30M，總大小物超過50M");
 						}
 						else {
 							array.push(files[index]);
@@ -238,6 +205,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					drop: true,
 				})
 			}
+
 		}
 		//判斷標籤長度
 		headleGetLong = (e) => {
@@ -292,7 +260,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 
 		render() {
-			const { array, title, content, time, member, tag, place, participate, drop, long, disabled, mimes_type } = this.state;
+			const { array, title, content, time, member, tag, place, participate, long, disabled, drop } = this.state;
 			const { PublicMemberList } = this.props;
 			// console.log(323, this.props);
 			return (
@@ -311,10 +279,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									required
 									maxLength="50"
 									className="input"
-									defaultValue={title.value}
+									value={title.value}
 									onChange={this.handleInputChange.bind(this)}
 								/>
-								<label className="label">會議主題<div className='error_msg'>{title.errormsg}</div></label>
+								<label className="label">輸入會議主題<div className='error_msg'>{title.errormsg}</div></label>
 
 							</div>
 						</div>
@@ -343,10 +311,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									name="time"
 									max={this.handleGetnow()}
 									required className="input"
-									defaultValue={time.value}
+									value={time.value}
 									onChange={this.handleInputChange.bind(this)}
 								/>
-								<label className="label">會議時間<div className='error_msg'>{time.errormsg}</div></label>
+								<label className="label">輸入會議時間<div className='error_msg'>{time.errormsg}</div></label>
 							</div>
 							<div className="set col-4">
 								<input type="text"
@@ -355,17 +323,16 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									required
 									maxLength="20"
 									className="input"
-									defaultValue={place.value}
+									value={place.value}
 									onChange={this.handleInputChange.bind(this)}
 								/>
-								<label className="label">會議地點<div className='error_msg'>{place.errormsg}</div></label>
+								<label className="label">輸入會議地點<div className='error_msg'>{place.errormsg}</div></label>
 							</div>
 						</div>
 						{/* 參與人員 */}
 						<div className="inputbox">
 							<div className={drop === true ? "set col-12 focus" : "set col-12"}>
 								<div
-
 									className='choose input'
 									onClick={this.handleGrop_down}
 								>
@@ -375,7 +342,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 											className='oncheck'
 											key={index}
 										>
-											<p>{item.name}
+											<p >{item.name}
 												<label className='deselect'>
 													<input
 														type='checkbox'
@@ -388,6 +355,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 														<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
 															<path d="M0.33546 0.33546C0.550319 0.120665 0.841693 0 1.1455 0C1.44932 0 1.74069 0.120665 1.95555 0.33546L6.00692 4.38683L10.0583 0.33546C10.2744 0.126752 10.5638 0.0112672 10.8642 0.0138777C11.1646 0.0164882 11.452 0.136985 11.6644 0.349417C11.8768 0.561848 11.9973 0.849216 12 1.14963C12.0026 1.45004 11.8871 1.73946 11.6784 1.95555L7.62701 6.00692L11.6784 10.0583C11.8871 10.2744 12.0026 10.5638 12 10.8642C11.9973 11.1646 11.8768 11.452 11.6644 11.6644C11.452 11.8768 11.1646 11.9973 10.8642 12C10.5638 12.0026 10.2744 11.8871 10.0583 11.6784L6.00692 7.62701L1.95555 11.6784C1.73946 11.8871 1.45004 12.0026 1.14963 12C0.849216 11.9973 0.561848 11.8768 0.349417 11.6644C0.136985 11.452 0.0164882 11.1646 0.0138777 10.8642C0.0112672 10.5638 0.126752 10.2744 0.33546 10.0583L4.38683 6.00692L0.33546 1.95555C0.120665 1.74069 0 1.44932 0 1.1455C0 0.841693 0.120665 0.550319 0.33546 0.33546Z" fill="#022840" />
 														</svg>
+
 													</span>
 												</label>
 											</p>
@@ -401,7 +369,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 											return (
 												<div
 													className={participate2.includes(item.Account) ? "option selected" : "option noS"}
-													key={`select${index}`}
+													key={index}
 												>
 													<input
 														type='checkbox'
@@ -417,15 +385,15 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										)}
 									</div>
 								</div>
-								<label className="label">參與人員<div className='error_msg'>{member.errormsg}</div></label>
+								<label className="label">選擇參與人員<div className='error_msg'>{member.errormsg}</div></label>
 							</div>
 						</div>
 						{/* 標籤 */}
 						<div className="inputbox">
 							<div className="set col-12">
 								<div className="input">
-									{tag?.map((item) => (
-										<p key={`tag${item}`}>
+									{tag.map((item) => (
+										<p key={item}>
 											{item}
 											<span>
 												<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -449,7 +417,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										onChange={this.headleGetLong}
 									/>
 								</div>
-								<label className="label">標籤</label>
+								<label className="label">輸入標籤</label>
 							</div>
 						</div>
 						{/* 檔案 */}
@@ -461,17 +429,17 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									multiple="multiple"
 									onChange={e => this.handleSelectFile(e.target.files)}
 								/>
-								<div className="newbtn">
+								<label for='f' className="newbtn">
 									<svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 										<path d="M20 2H10L8 0H0V16H20V2ZM11 9V13H9V9H6L10.01 5L14 9H11Z" fill="white" />
 									</svg>
 									<label for='f'>請選擇檔案(不超過5)</label>
-								</div>
+								</label>
 							</div>
 						</div>
 						<div id="filename">
 							<ol>
-								{array.map((item, index) => (<li key={`file${index}`}>{item.name}{item.Name}</li>))}
+								{array.map(item => (<li>{item.name}</li>))}
 							</ol>
 						</div>
 						{/* 送出 */}
@@ -485,9 +453,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							</button>
 							<button
 								className="col-1 form_submit"
-								onClick={this.Update}
+								onClick={this.Submit}
 							>
-								修改
+								新增
 							</button>
 						</div>
 					</div>

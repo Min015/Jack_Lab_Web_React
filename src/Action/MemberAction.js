@@ -7,6 +7,7 @@ export const POST_Login = (payload) => {
   };
 }
 export const GET_PublicMembers = () => {
+  console.log("callbackAction")
   return (dispatch) => {
     dispatch({
       type: "GET_PublicMembers",
@@ -46,6 +47,14 @@ export const PUT_ChangeRole = (payload) => {
   return (dispatch) => {
     dispatch({
       type: "PUT_ChangeRole",
+      payload:payload,
+    });
+  };
+}
+export const PUT_ChangeClass = (payload) => {
+  return (dispatch) => {
+    dispatch({
+      type: "PUT_ChangeClass",
       payload:payload,
     });
   };

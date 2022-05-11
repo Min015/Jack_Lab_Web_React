@@ -89,9 +89,21 @@ const fetch = store => next => action => {
     case "PUT_ChangeRole":
       _axios
         .put('/manager/role/user', action.payload)
-        .then(response => { 
-          if(response.status===200){
-            console.log("修改成功")
+        .then(response => {
+          if (response.status === 200) {
+            console.log("修改角色成功")
+          }
+        })
+        .catch(err => {
+          throw new Error(err);
+        })
+      break;
+    case "PUT_ChangeClass":
+      _axios
+        .put('/manager/user/class', action.payload)
+        .then(response => {
+          if (response.status === 200) {
+            console.log("修改班級成功")
           }
         })
         .catch(err => {

@@ -52,7 +52,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			this.props.GET_MeetingDownload(filename);
 		}
 
-		Delete = async (id) => {
+		Delete =(id) => {
 			this.props.DELETE_Meeting(id);
 			this.props.history.push("/meeting")
 		}

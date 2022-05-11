@@ -5,21 +5,23 @@ import '../main_category/add.scss';
 // import { GET_Members, } from '../../../Service/meeting/Meeting.js';
 import { Link } from 'react-router-dom';
 // import { POST_UpdateMeeting } from '../../../Service/fileupload/Sendform';
-import {GET_PublicMembers} from '../../../Action/MemberAction';
+import { GET_PublicMembers } from '../../../Action/MemberAction';
 import { GET_MeetingInfo, POST_UpdateMeeting } from '../../../Action/MeetingAction';
 
 
 const mapStateToProps = state => {
-	const { meetingReducer,memberReducer } = state;
-  return (
-    memberReducer,meetingReducer
-  )
+	console.log(13, state)
+	const { meetingReducer, memberReducer } = state;
+	// const {memberReducer}=state;
+	return (
+		meetingReducer, memberReducer
+	)
 }
 
 const mapDispatchToProps = dispatch => {
 	return {
 		GET_PublicMembers: () => dispatch(GET_PublicMembers()),
-		GET_MeetingInfo: (payload,callback) => dispatch(GET_MeetingInfo(payload,callback)),
+		GET_MeetingInfo: (payload, callback) => dispatch(GET_MeetingInfo(payload, callback)),
 		POST_UpdateMeeting: (payload) => dispatch(POST_UpdateMeeting(payload)),
 	}
 }
@@ -31,7 +33,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			participate: [],//已選擇
 			long: 0,//一個tag的長度
 			tag: [],//已輸入的tag
-			meetinginfo:[],
 			drop: false,
 			disabled: false,
 			nowclass: "selectlist",
@@ -40,27 +41,24 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			mimes_type: ['zip', '7z', 'rar', 'svg', 'png', 'jpg', 'jpeg', 'csv', 'txt', 'xlx', 'xls', 'xlsx', 'pdf', 'doc', 'docx', 'ppt', 'pptx'],//媒體類型
 			title: {
 				value: "",
-				errormsg: "",
+				errormsg: "*",
 			},
 			content: {
 				value: "",
-				errormsg: "",
+				errormsg: "*",
 			},
 			time: {
 				value: "",
-				errormsg: "",
+				errormsg: "*",
 			},
 			place: {
 				value: "",
-				errormsg: "",
+				errormsg: "*",
 			},
 			member: {
 				errormsg: "",
 			},
-			uploader: "s1110734015@nutc.edu.tw",
 		}
-
-
 
 		//載入所有人員名單
 		componentDidMount = async () => {
@@ -70,78 +68,54 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				Id: params.id,
 			})
 			const callback = (res) => {
-				console.log(73,res);
+				const meeting_time = res.Time.split(":");
+				const Mtime = meeting_time[0].split(" ");
 				this.setState({
-					meetinginfo:res,
+					title: { value: res.Title },
+					content: { value: res.Content },
+					time: { value: `${Mtime[0]}T${Mtime[1]}:${meeting_time[1]}` },
+					place: { value: res.Place },
+					participate: res.Member.map((item) => {
+						return {
+							account: item.Account,
+							name: item.Name
+						};
+					}),
+					tag: res.Tag.map(item => item.Name),
+					array: res.File,
 				})
 			}
 			this.props.GET_PublicMembers();
-			this.props.GET_MeetingInfo(params.id,callback);
-			
-			// const { MemberList, MeetingInfo } = this.props;
-
-			// const meeting_time = MeetingInfo.Time.split(":");
-			// const Mtime = meeting_time[0].split(" ");
-
-			// this.setState({
-			// 	title: {
-			// 		value: MeetingInfo.Title,
-			// 	},
-			// 	content: {
-			// 		value: MeetingInfo.Content,
-			// 	},
-			// 	time: {
-			// 		value: `${Mtime[0]}T${Mtime[1]}:${meeting_time[1]}`
-			// 	},
-			// 	place: {
-			// 		value: MeetingInfo.Place,
-			// 	},
-			// 	tag: MeetingInfo.tag.map(item => item.Name),
-			// 	participate: MeetingInfo.member.map((item) => {
-			// 		return {
-			// 			account: item.Account,
-			// 			name: item.Name
-			// 		};
-			// 	}),
-			// 	member: {
-			// 		errormsg: "",
-			// 	},
-			// 	array: MeetingInfo.files,
-			// });
-
-
-
+			this.props.GET_MeetingInfo(params.id, callback);
 		}
 		//修改
 		Update = async () => {
-			const { Id, title, content, time, place, uploader, array, participate, tag, member } = this.state;
-			const errormsg = "必填";
+			const { Id, title, content, time, place, array, participate, tag, member } = this.state;
+			const errormsg = "*";
 			if (title.errormsg !== errormsg && content.errormsg !== errormsg && time.errormsg !== errormsg && place.errormsg !== errormsg && member.errormsg !== errormsg) {
 				const addmember = participate.map((item) => { return (item.account) });
 				const data = new FormData();
 				data.append('_method', 'PUT');
-				data.append('id', Id);
-				data.append('title', title.value);
-				data.append('content', content.value);
-				data.append('time', time.value);
-				data.append('place', place.value);
-				data.append('uploader', uploader);
+				data.append('Id', Id);
+				data.append('Title', title.value);
+				data.append('Content', content.value);
+				data.append('Time', time.value);
+				data.append('Place', place.value);
 				array.map((item, index) =>
-					data.append(`files[${index}]`, item)
+					data.append(`File[${index}]`, item)
 				)
 				addmember.map((item, index) =>
-					data.append(`member[${index}]`, item)
+					data.append(`Member[${index}]`, item)
 				)
 				tag.map((item, index) =>
-					data.append(`tag[${index}]`, item)
+					data.append(`Tag[${index}]`, item)
 				)
-				try {
-					const req = await POST_UpdateMeeting(data);
-					console.log(req);
-					window.location.replace('http://localhost:3000/meeting');
-				} catch (err) {
-					console.log(err);
+				for (var pair of data.entries()) {
+					console.log(pair[0] + ', ' + pair[1]);
 				}
+				console.log(data);
+				this.props.POST_UpdateMeeting(data);
+				this.props.history.push(`/meeting/meetinginfo/${this.state.Id}`);
 			}
 			else {
 				alert("您有必填欄位尚未填寫，請確認");
@@ -165,7 +139,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				this.setState({
 					[name]: {
 						value,
-						errormsg: "必填",
+						errormsg: "*",
 					}
 				});
 			}
@@ -182,7 +156,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			if (e.checked === true) {
 				if (!participate.find((item) => JSON.stringify(item) === JSON.stringify(obj))) {
 					participate.push(obj);
-					// console.log("加入");
 				}
 				this.setState({
 					participate,
@@ -190,7 +163,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			}
 			else {
 				let newarray = participate.filter((item) => item.account !== obj.account)
-				// console.log("刪除");
 				this.setState({
 					participate: newarray,
 				})
@@ -198,7 +170,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			if (participate.length === 0) {
 				this.setState({
 					member: {
-						errormsg: "必填",
+						errormsg: "*",
 					},
 				})
 			}
@@ -221,7 +193,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				let array = [];
 				for (let index = 0; index < files.length; index++) {
 					const file_type = files[index].name.split(".").pop();
-					console.log(files[index]);
 					if (!mimes_type.includes(file_type)) {
 						const media_type = mimes_type.map((item) => ` ${item}`);
 						alert(`上傳檔案類型錯誤,請選擇${media_type}類型的檔案`);
@@ -253,24 +224,15 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 		//下拉式選人判斷
 		handleGrop_down = () => {
-			if (this.state.drop === false) {
-				this.setState({
-					drop: true,
-					nowclass: 'selectlist active',
-				})
-			}
-			else {
-				this.setState({
-					drop: false,
-					nowclass: 'selectlist',
-				})
-			}
+			this.setState({
+				drop: !this.state.drop,
+			})
 		}
 		//下拉式選人關閉
 		handelMouseDown = (e) => {
 			const cn = (e.target.className);
-			const name = cn.split(" ");
-			if (name[0] !== "choose") {
+			const name = cn.substr(0, 6)
+			if (name !== "choose") {
 				this.setState({
 					drop: false,
 					nowclass: 'selectlist',
@@ -318,6 +280,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 		//刪除標籤
 		heandleDelTag = (e) => {
+			console.log(e);
 			const thistag = e.target.id;
 			let tag = this.state.tag;
 			this.setState({
@@ -336,15 +299,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 
 		render() {
-			const { array, title, content, time, member, tag, place, participate, nowclass, long, disabled, mimes_type,meetinginfo } = this.state;
-			// console.log(array);
-			const { PublicMemberList, MeetingInfo } = this.props;
-			console.log(PublicMemberList);
-			const meeting_time = MeetingInfo.Time.split(":");
-			const Mtime = meeting_time[0].split(" ");
-			console.log("callback",this.state.meetinginfo);
-			console.log(MeetingInfo);
-			console.log("state",this.state);
+			const { array, title, content, time, member, tag, place, participate, nowclass, long, disabled, drop } = this.state;
+			const { PublicMemberList } = this.props;
+			console.log(323, this.props);
 			return (
 				<div>
 					<MemberLayout>
@@ -365,7 +322,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										required
 										maxLength="50"
 										className="input"
-										defaultValue={MeetingInfo.Title}
+										defaultValue={title.value}
 										onChange={this.handleInputChange.bind(this)}
 									/>
 									<label className="label">會議主題<div className='error_msg'>{title.errormsg}</div></label>
@@ -382,7 +339,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										required
 										maxLength="2000"
 										className="input"
-										defaultValue={MeetingInfo.Content}
+										defaultValue={content.value}
 										onChange={this.handleInputChange.bind(this)}
 									></textarea>
 									<label className="label">會議內容<div className='error_msg'>{content.errormsg}</div></label>
@@ -397,7 +354,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										name="time"
 										max={this.handleGetnow()}
 										required className="input"
-										defaultValue={`${Mtime[0]}T${Mtime[1]}:${meeting_time[1]}`}
+										defaultValue={time.value}
 										onChange={this.handleInputChange.bind(this)}
 									/>
 									<label className="label">會議時間<div className='error_msg'>{time.errormsg}</div></label>
@@ -409,7 +366,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										required
 										maxLength="20"
 										className="input"
-										defaultValue={MeetingInfo.Place}
+										defaultValue={place.value}
 										onChange={this.handleInputChange.bind(this)}
 									/>
 									<label className="label">會議地點<div className='error_msg'>{place.errormsg}</div></label>
@@ -417,16 +374,16 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							</div>
 							{/* 參與人員 */}
 							<div className="inputbox">
-								<div className="set col-12">
+								<div className={drop === true ? "set col-12 focus" : "set col-12"}>
 									<div
 										className='choose input'
 										onClick={this.handleGrop_down}
 									>
 										{participate.length === 0 ? "參與人員" : ""}
-										{participate.map((item, index) =>
+										{participate.length === 0 ? [] : participate.map((item, index) =>
 											<div
 												className='oncheck'
-												key={`member${index}`}
+												key={index}
 											>
 												<p >{item.name}
 													<label className='deselect'>
@@ -448,21 +405,22 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										)}
 									</div>
 									<div className='locator'>
-										<div className={nowclass}>
+										<div className={drop === false ? "selectlist" : "selectlist active"}>
 											{PublicMemberList === undefined ? "" : PublicMemberList.map((item, index) => {
+												const participate2 = participate.map(item => { return item.account })
 												return (
 													<div
-														className={participate.includes(item.Account) ? "option selected" : "option noS"}
+														className={participate2.includes(`${item.Account}`) ? "option selected" : "option noS"}
 														key={`select${index}`}
 													>
 														<input
 															type='checkbox'
 															id={item.Account}
-															value={item.student.Name}
+															value={item.Name}
 															className='choose'
 															onChange={(e) => { this.handelOnClick(e.target) }}
 														/>
-														<label for={item.Account} className='choose'>{item.student.Name}</label>
+														<label for={item.Account} className='choose'>{item.Name}</label>
 													</div>
 												)
 											}

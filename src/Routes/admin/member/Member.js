@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import BackLayout from '../../../Components/Layout/back/BackLayout';
 import '../style/mainstyle.scss';
 import '../../../Mixin/popup_window.scss';
-import { GET_Role, GET_Class,GET_PrivateMember,POST_UserAdd,PUT_ChangeRole } from '../../../Action/MemberAction';
+import { GET_Role, GET_Class,GET_PrivateMember,POST_UserAdd,PUT_ChangeRole,PUT_ChangeClass } from '../../../Action/MemberAction';
 const mapStateToProps = state => {
 	const { memberReducer } = state;
 	return (
@@ -18,6 +18,7 @@ const mapDispatchToProps = dispatch => {
 		GET_PrivateMember:()=>dispatch(GET_PrivateMember()),
 		POST_UserAdd:(payload)=>dispatch(POST_UserAdd(payload)),
 		PUT_ChangeRole:(payload)=>dispatch(PUT_ChangeRole(payload)),
+		PUT_ChangeClass:(payload)=>dispatch(PUT_ChangeClass(payload)),
 	}
 }
 export default connect(mapStateToProps, mapDispatchToProps)(
@@ -82,6 +83,15 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			}
 			this.props.PUT_ChangeRole(payload);
 		}
+		ChangeClass=(e)=>{
+			const target = e.target;
+			let { value, id } = target;
+			const payload={
+				Account:id,
+				Class:value,
+			}
+			this.props.PUT_ChangeClass(payload);
+		}
 		drop_down = (e) => {
 			if (e === 'add') {
 				this.setState({
@@ -145,7 +155,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 		handelOnClick = e => {
 			let array = this.state.array;
-			const num = this.state.table_content.length;
+			const {PrivateMember } = this.props;
+			const num = PrivateMember.length;
 			const AllChange = document.getElementsByName('AllChange');
 			if (e.checked === true) {
 				if (!array.includes(e.value)) {
@@ -172,9 +183,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 
 		render() {
-			const {table_header, s_class, role, academic_sys, array, add, edit, del, previview,newAccount,newName,newClass,newRole } = this.state;
+			const {table_header, academic_sys, array, add, edit, del, previview,newAccount,newName,newClass,newRole } = this.state;
 			const { ClassList, RoleList,PrivateMember } = this.props;
-			console.log(this.props);
 			return (
 				<BackLayout>
 					<div className="work">
@@ -221,7 +231,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							{PrivateMember===undefined?[]:PrivateMember.map(
 								(item, index) => {
 									return (
-										<tr key={index} className={array.includes(item.Id) ? "onchange" : ""} >
+										<tr key={index} className={array.includes(`${item.Id}`) ? "onchange" : ""} >
 											<td className="check">
 												<input type="checkbox"
 													id=""
@@ -235,12 +245,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 											<td>{item.Account}</td>
 											<td>
 												{item.Name}
-												<svg width="14" height="14" viewBox="0 0 14 14" fill="none"
-													xmlns="http://www.w3.org/2000/svg">
-													<path
-														d="M13.6403 2.20582L11.8025 0.360505C11.2958 -0.148308 10.4384 -0.115015 9.88882 0.43815C9.33927 0.989943 9.30337 1.85228 9.81149 2.36108L11.6492 4.20639C12.156 4.7152 13.0134 4.68193 13.5643 4.12876C14.1139 3.57559 14.1484 2.71602 13.6403 2.20582ZM1.92474 8.43356L5.60026 12.1242L11.5733 6.12798L7.8978 2.43736L1.92474 8.43356ZM0 14L4.84776 13.0254L0.970655 9.13231L0 14Z"
-														fill="#51718C" />
-												</svg>
 											</td>
 											<td>
 												<select 
@@ -254,7 +258,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 												</select>
 											</td>
 											<td>
-												<select name="" defaultValue={item.Class_Id}>
+												<select 
+												id={item.Account}
+												defaultValue={item.Class_Id}
+												onChange={this.ChangeClass.bind(this)}
+												>
 													{ClassList===undefined?[]:ClassList.map(item =>
 														<option value={item.Id}>{item.Name}</option>
 													)}

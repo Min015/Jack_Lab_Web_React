@@ -35,22 +35,22 @@ export default connect(mapStateToProps, mapDispatchToProps)(
       mimes_type: ['zip', '7z', 'rar', 'svg', 'png', 'jpg', 'jpeg', 'csv', 'txt', 'xlx', 'xls', 'xlsx', 'pdf', 'doc', 'docx', 'ppt', 'pptx'],//媒體類型
       title: {
         value: "",
-        errormsg: "必填",
+        errormsg: "*",
       },
       content: {
         value: "",
-        errormsg: "必填",
+        errormsg: "*",
       },
       time: {
         value: "",
-        errormsg: "必填",
+        errormsg: "*",
       },
       place: {
         value: "",
-        errormsg: "必填",
+        errormsg: "*",
       },
       member: {
-        errormsg: "必填",
+        errormsg: "*",
       },
       uploader: "jacklab",
     }
@@ -63,7 +63,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
     //送出
     Submit = async () => {
       const { title, content, time, place, array, participate, tag, member } = this.state;
-      const errormsg = "必填";
+      const errormsg = "*";
       if (title.errormsg !== errormsg && content.errormsg !== errormsg && time.errormsg !== errormsg && place.errormsg !== errormsg && member.errormsg !== errormsg) {
         const addmember = participate.map((item) => { return (item.account) });
         let data = new FormData();
@@ -80,10 +80,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         tag.map((item, index) =>
           data.append(`Tag[${index}]`, item)
         );
-        // for(var pair of data.entries()) {
-        //   console.log(pair[0]+ ', '+ pair[1]);
-        // }
-        // console.log(data);
         this.props.POST_AddMeeting(data);
         this.props.history.push("/meeting");
       }
@@ -109,7 +105,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         this.setState({
           [name]: {
             value,
-            errormsg: "必填",
+            errormsg: "*",
           }
         });
       }
@@ -140,7 +136,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
       if (participate.length === 0) {
         this.setState({
           member: {
-            errormsg: "必填",
+            errormsg: "*",
           },
         })
       }
@@ -194,33 +190,22 @@ export default connect(mapStateToProps, mapDispatchToProps)(
     }
     //下拉式選人判斷
     handleGrop_down = () => {
-      if (this.state.drop === false) {
-        this.setState({
-          drop: true,
-          nowclass: 'selectlist active',
-        })
-      }
-      else {
-        this.setState({
-          drop: false,
-          nowclass: 'selectlist',
-        })
-      }
+      this.setState({
+        drop: !this.state.drop,
+      })
     }
     //下拉式選人關閉
     handelMouseDown = (e) => {
       const cn = (e.target.className);
-      const name = cn.split(" ");
-      if (name[0] !== "choose") {
+      const name = cn.substr(0, 6)
+      if (name !== "choose") {
         this.setState({
           drop: false,
-          nowclass: 'selectlist',
         })
       }
       else {
         this.setState({
           drop: true,
-          nowclass: 'selectlist active',
         })
       }
 
@@ -278,7 +263,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
     }
 
     render() {
-      const { array, title, content, time, member, tag, place, participate, nowclass, long, Members, disabled, mimes_type } = this.state;
+      const { array, title, content, time, member, tag, place, participate, nowclass, long, disabled, drop } = this.state;
       const { PublicMemberList } = this.props;
       return (
         <div>
@@ -351,13 +336,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(
               </div>
               {/* 參與人員 */}
               <div className="inputbox">
-                <div className="set col-12">
+                <div className={drop === true ? "set col-12 focus" : "set col-12"}>
                   <div
                     className='choose input'
                     onClick={this.handleGrop_down}
                   >
                     {participate.length === 0 ? "參與人員" : ""}
-                    {participate.map((item, index) =>
+                    {participate.length === 0 ? [] : participate.map((item, index) =>
                       <div
                         className='oncheck'
                         key={index}
@@ -383,11 +368,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                     )}
                   </div>
                   <div className='locator'>
-                    <div className={nowclass}>
+                    <div className={drop === false ? "selectlist" : "selectlist active"}>
                       {PublicMemberList === undefined ? "" : PublicMemberList.map((item, index) => {
+                        const participate2 = participate.map(item => { return item.account })
                         return (
                           <div
-                            className={participate.includes(item.Account) ? "option selected" : "option noS"}
+                            className={participate2.includes(item.Account) ? "option selected" : "option noS"}
                             key={index}
                           >
                             <input
@@ -423,7 +409,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                             id={item}
                             onClick={this.heandleDelTag}></div>
                         </span>
-
                       </p>
                     ))}
                     <input

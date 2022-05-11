@@ -20,7 +20,7 @@ const fetch = store => next => action => {
         case "GET_Meeting":
             console.log('meeting=>', 19);
             _axios
-                .get('/meeting',)
+                .get('/meeting/list',)
                 .then(response => {
                     if(response.status===200){
                         return response.data.data;

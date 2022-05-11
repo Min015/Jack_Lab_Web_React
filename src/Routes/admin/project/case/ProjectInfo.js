@@ -71,7 +71,7 @@ export default class ProjectInfo extends Component {
     //func
 
     render() {
-        const { object, array, proj_type, proj_class, proj_group, table_header } = this.state;
+        const { object, proj_type, proj_class, proj_group, table_header } = this.state;
         console.log(object.mM_file);
         return (
             <BackLayout>
