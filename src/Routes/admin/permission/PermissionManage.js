@@ -92,7 +92,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 		Delete = async (id) => {
 			this.props.DELETE_Role(id);
-			// this.props.history.push("/pemissionmanage")
 		}
 		handelDeleteAll=()=>{
 			const {array}=this.state;
@@ -101,7 +100,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			for(let i=0;i<array.length;i++){
 				deletearray+=array[i]+",";
 			}
-			console.log(deletearray);
 			this.Delete(deletearray);
 		}
 		////////////////////////////

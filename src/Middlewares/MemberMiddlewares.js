@@ -174,10 +174,36 @@ const fetch = store => next => action => {
     case "DELETE_Role":
       _axios
         .delete(`/manager/role?id=${action.payload}`,)
-        .then(response => { 
+        .then(response => {
           console.log(response)
           if (response.status === 200) {
             console.log("刪除角色成功")
+          }
+        })
+        .catch(err => {
+          throw new Error(err);
+        })
+      break;
+    case "PUT_ChangePassword":
+      _axios
+        .put('/manager/user/password', action.payload)
+        .then(response => {
+          console.log(response);
+          if (response.status === 200) {
+            console.log("修改密碼成功");
+          }
+        })
+        .catch(err => {
+          throw new Error(err);
+        })
+      break;
+    case "DELETE_Member":
+      _axios
+        .delete(`/manager/user?id=${action.payload}`,)
+        .then(response => {
+          console.log(response)
+          if (response.status === 200) {
+            console.log("刪除成員成功")
           }
         })
         .catch(err => {

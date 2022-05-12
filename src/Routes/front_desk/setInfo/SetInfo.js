@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import MemberLayout from '../../../Components/Layout/front/member/MemberLayout';
 import './setinfo.scss';
+import'../../../Mixin/popup_window.scss';
 import info from './img/info.png';
 import camera from './img/camera.png';
 import CreateTable from './CreateTable';
@@ -138,7 +139,7 @@ export default class SetInfo extends Component {
 
                                     </textarea>
                                 </div>
-                                <div id='btn_block'>
+                                <div className='btn_block'>
                                     <button
                                         className="submitBtn"
                                     // onClick={(e) => this.Delete(this.state.Id, e)}
@@ -175,7 +176,7 @@ export default class SetInfo extends Component {
                                         選擇相片
                                     </label>
                                 </div>
-                                <div id='btn_block'>
+                                <div className='btn_block'>
                                     <button
                                         className="submitBtn"
                                     // onClick={(e) => this.Delete(this.state.Id, e)}

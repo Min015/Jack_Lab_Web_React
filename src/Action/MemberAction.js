@@ -98,3 +98,19 @@ export const DELETE_Role = (payload) => {
     });
   };
 }
+export const PUT_ChangePassword = (payload) => {
+  return (dispatch) => {
+    dispatch({
+      type: "PUT_ChangePassword",
+      payload:payload,
+    });
+  };
+}
+export const DELETE_Member = (payload) => {
+  return (dispatch) => {
+    dispatch({
+      type: "DELETE_Member",
+      payload:payload,
+    });
+  };
+}
