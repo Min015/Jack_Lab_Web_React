@@ -265,7 +265,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		render() {
 			const { table_header, academic_sys, array, add, edit, del,delO,delAll, newAccount, newName, newClass, newRole, password, password2,now } = this.state;
 			const { ClassList, RoleList, PrivateMember } = this.props;
-			console.log(now);
+			console.log(PrivateMember);
 			// console.log(password.value);
 			// console.log(password2.value);
 			return (
@@ -275,13 +275,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							<div className="work_btn add_btn" onClick={() => this.drop_down('add')}>
 								<p>新增成員</p>
 							</div>
-							<div onClick={() => this.drop_down('delAll')} className="work_btn delete_btn">
+							<div  className="work_btn delete_btn">
 								<p>批量刪除</p>
 							</div>
 						</div>
 						<form className="searchform">
 							<select name="" defaultValue={academic_sys[0]}>
-								{academic_sys.map(item =>
+								{academic_sys===undefined?[]:academic_sys.map(item =>
 									<option value={item}>{item}</option>
 								)}
 							</select>
@@ -311,7 +311,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							</tr>
 						</thead>
 						<tbody>
-							{PrivateMember === undefined ? [] : PrivateMember.map(
+							{PrivateMember === undefined ? "" : PrivateMember.map(
 								(item, index) => {
 									return (
 										<tr key={index} className={array.includes(`${item.Id}`) ? "onchange" : ""} >

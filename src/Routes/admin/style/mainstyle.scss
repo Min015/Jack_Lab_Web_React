@@ -14,6 +14,7 @@
 			height      : 34px;
 			font-size   : $m;
 			color       : $font_maincolor;
+			border: 0px;
 			cursor      : pointer;
 			@include ali-set();
 			@include jus-set();
