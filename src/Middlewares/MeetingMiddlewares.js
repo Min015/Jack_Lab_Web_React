@@ -18,7 +18,6 @@ const _axios = axios.create({
 const fetch = store => next => action => {
     switch (action.type) {
         case "GET_Meeting":
-            console.log('meeting=>', 19);
             _axios
                 .get('/meeting/list',)
                 .then(response => {
@@ -37,7 +36,6 @@ const fetch = store => next => action => {
                 });
             break;
         case "GET_MeetingInfo":
-            console.log(`meetinginfo=>?id=${action.callback}`);
             _axios
                 .get(`/meeting?id=${action.payload}`,)
                 .then(response => {
@@ -61,7 +59,6 @@ const fetch = store => next => action => {
                 });
             break;
         case "GET_MeetingDownload":
-            console.log('download=>', 50);
             _axios
                 .get(`/download/meeting?id=${action.payload}`,)
                 .then(response => {
@@ -72,7 +69,6 @@ const fetch = store => next => action => {
                 })
             break;
         case "DELETE_Meeting":
-            console.log('delete=>');
             _axios
                 .delete(`/meeting?id=${action.payload}`,)
                 .then(response => { console.log(response) })
@@ -81,7 +77,6 @@ const fetch = store => next => action => {
                 })
             break;
         default:
-            console.log('default');
             break;
     }
     return next(action);

@@ -78,7 +78,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					data.append(`Tag[${index}]`, item)
 				);
 				this.props.POST_AddMeeting(data);
-				// this.props.history.push("/meeting");
+				this.props.history.push("/meetingmanage");
 			}
 			else {
 				alert("您有必填欄位尚未填寫，請確認");

@@ -161,7 +161,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										密碼
 									</label>
 								</div>
-								<div id='one_btn'>
+								<div className='one_btn'>
 									<button
 										className="submitBtn"
 										onClick={this.LOGIN.bind(this)}

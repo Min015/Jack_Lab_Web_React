@@ -1,7 +1,7 @@
 @import './global.scss';
 
 .popup_background {
-   // display         : none;
+   display         : none;
    position        : fixed;
    top             : 0px;
    left            : 0px;
@@ -17,7 +17,9 @@
       height         : 100vh;
    }
 }
-
+.permission_form{
+   width: 450px;
+}
 .form {
    background-color: $main_backgroundcolor;
    border-radius   : 8px;

@@ -13,7 +13,6 @@ const _axios = axios.create({
 })
 
 const fetch = store => next => action => {
-   console.log(action.type);
    switch (action.type) {
       case "POST_AddMeeting":
          console.log(action.payload);
@@ -47,7 +46,6 @@ const fetch = store => next => action => {
          break;
 
       default:
-         console.log('default');
          break;
    }
    return next(action);

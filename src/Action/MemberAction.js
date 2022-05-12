@@ -7,7 +7,6 @@ export const POST_Login = (payload) => {
   };
 }
 export const GET_PublicMembers = () => {
-  console.log("callbackAction")
   return (dispatch) => {
     dispatch({
       type: "GET_PublicMembers",
@@ -55,6 +54,46 @@ export const PUT_ChangeClass = (payload) => {
   return (dispatch) => {
     dispatch({
       type: "PUT_ChangeClass",
+      payload:payload,
+    });
+  };
+}
+export const GET_PermissionList = () => {
+  return (dispatch) => {
+    dispatch({
+      type: "GET_Permission",
+    });
+  };
+}
+export const GET_RolePermission = (payload,callback) => {
+  return (dispatch) => {
+    dispatch({
+      type: "GET_RolePermission",
+      payload:payload,
+      callback:callback
+    });
+  };
+}
+export const PUT_ChangeRolePermission = (payload) => {
+  return (dispatch) => {
+    dispatch({
+      type: "PUT_ChangeRolePermission",
+      payload:payload,
+    });
+  };
+}
+export const POST_RoleAdd = (payload) => {
+  return (dispatch) => {
+    dispatch({
+      type: "POST_RoleAdd",
+      payload:payload,
+    });
+  };
+}
+export const DELETE_Role = (payload) => {
+  return (dispatch) => {
+    dispatch({
+      type: "DELETE_Role",
       payload:payload,
     });
   };

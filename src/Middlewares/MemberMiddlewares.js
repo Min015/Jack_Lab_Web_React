@@ -17,7 +17,9 @@ const fetch = store => next => action => {
     case "POST_Login":
       _axios
         .post('/login', action.payload)
-        .then(response => { localStorage.setItem('user_token', response.data.data) })
+        .then(response => {
+          localStorage.setItem('user_token', response.data.data)
+        })
         .catch(err => {
           throw new Error(err);
         })
@@ -110,8 +112,79 @@ const fetch = store => next => action => {
           throw new Error(err);
         })
       break;
+    case "GET_Permission":
+      _axios
+        .get('/manager/permission',)
+        .then(response => {
+          return response.data.data
+        })
+        .catch(err => {
+          throw new Error(err);
+        })
+        .then(json => {
+          return next({
+            type: 'SAVE_Permission',
+            payload: json
+          });
+        });
+      break;
+    case "GET_RolePermission":
+      _axios
+        .get(`/manager/role?id=${action.payload}`,)
+        .then(response => {
+          return response.data.data
+        })
+        .catch(err => {
+          throw new Error(err);
+        })
+        .then(json => {
+          if (action.callback) {
+            action.callback(json)
+          }
+          return next({
+            type: 'SAVE_RolePermission',
+            payload: json
+          });
+        });
+      break;
+    case "PUT_ChangeRolePermission":
+      _axios
+        .put('/manager/role', action.payload)
+        .then(response => {
+          if (response.status === 200) {
+            console.log("修改角色權限成功")
+          }
+        })
+        .catch(err => {
+          throw new Error(err);
+        })
+      break;
+    case "POST_RoleAdd":
+      _axios
+        .post('/manager/role', action.payload)
+        .then(response => {
+          if (response.status === 200) {
+            console.log("新增角色成功")
+          }
+        })
+        .catch(err => {
+          throw new Error(err);
+        })
+      break;
+    case "DELETE_Role":
+      _axios
+        .delete(`/manager/role?id=${action.payload}`,)
+        .then(response => { 
+          console.log(response)
+          if (response.status === 200) {
+            console.log("刪除角色成功")
+          }
+        })
+        .catch(err => {
+          throw new Error(err);
+        })
+      break;
     default:
-      console.log('default');
       break;
   }
   return next(action);
