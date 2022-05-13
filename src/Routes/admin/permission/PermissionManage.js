@@ -331,11 +331,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									<input
 										type="text"
 										className="input"
-										placeholder="角色名"
+										placeholder=" "
 										required="required"
 										name="account"
 										onChange={this.handelInput}
 									/>
+									<label className="label">
+										角色名
+									</label>
 								</div>
 								<div className='permission_table'>
 									<div className='small_title'>選擇權限</div>

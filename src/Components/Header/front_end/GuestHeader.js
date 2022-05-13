@@ -35,17 +35,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		LOGIN = async () => {
 			const payload = this.state.payload;
 			this.props.POST_Login(payload);
-			window.location.replace('http://localhost:3000/setinfo');
-			// this.props.history.push("/setinfo");
-			// try {
-			//     const req = await POST_login(payload);
-			//     // console.log(req);
-			//     set_token(req.data.data);
-			//     window.location.replace('http://localhost:3000/meeting');
-			// }
-			// catch (err) {
-			//     alert(err.response.data.message);
-			// }
+			// window.location.replace('http://localhost:3000/setinfo');
 		}
 		//func
 		drop_down = () => {

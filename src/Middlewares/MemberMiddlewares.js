@@ -18,7 +18,9 @@ const fetch = store => next => action => {
       _axios
         .post('/login', action.payload)
         .then(response => {
-          localStorage.setItem('user_token', response.data.data)
+          console.log(response);
+          localStorage.setItem('user_token', response.data.data);
+          window.location.replace('http://localhost:3000/setinfo');
         })
         .catch(err => {
           throw new Error(err);
@@ -69,7 +71,10 @@ const fetch = store => next => action => {
     case "GET_PrivateMember":
       _axios
         .get('/manager/user',)
-        .then(response => response.data.data)
+        .then(response => {
+          console.log(response);
+          return response.data.data;
+        })
         .catch(err => {
           throw new Error(err);
         })

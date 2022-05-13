@@ -7,9 +7,7 @@ export default class CaseManage extends Component {
 		array: [],
 		table_header: [
 			"專案類型",
-			"專案分類",
 			"專案名",
-			"負責組別",
 			"相關標籤",
 			"建立時間",
 		],
@@ -17,24 +15,19 @@ export default class CaseManage extends Component {
 			{
 				cM_id: "c01",
 				cM_type: "大專生國科會計畫",
-				cM_class: "五專部",
 				cM_title: "運用強化學習與自適應機制建構智慧互動聊天機器人",
-				cM_principal: "五專一",
 				cM_createTime: "2022-01-25",
 				cM_tag: ""
 			},
 		],
 		cM_T: ["大專生國科會計畫", "大專", "小專"],
-		cM_C: ["五專部", "二技部", "四技部", "研究所"],
-		cM_Y: ["2021", "2020", "2019", "2018"],
-		cM_Tag: ["強化學習", "自適應", "聊天機器人", "AI"],
 	}
 	//生命週期
 
 	//func
 
 	render() {
-		const { table_content, table_header, cM_T, cM_C, cM_Y, cM_Tag, array } = this.state;
+		const { table_content, table_header, cM_T, array } = this.state;
 		return (
 			<BackLayout>
 				<div className="work">
@@ -49,21 +42,6 @@ export default class CaseManage extends Component {
 					<form className="searchform">
 						<select name="" defaultValue={cM_T[0]}>
 							{cM_T.map(item =>
-								<option value={item}>{item}</option>
-							)}
-						</select>
-						<select name="" defaultValue={cM_C[0]}>
-							{cM_C.map(item =>
-								<option value={item}>{item}</option>
-							)}
-						</select>
-						<select name="" defaultValue={cM_Tag[0]}>
-							{cM_Tag.map(item =>
-								<option value={item}>{item}</option>
-							)}
-						</select>
-						<select name="" defaultValue={cM_Y[0]}>
-							{cM_Y.map(item =>
 								<option value={item}>{item}</option>
 							)}
 						</select>
@@ -82,12 +60,10 @@ export default class CaseManage extends Component {
 								/>
 							</th>
 							<th className="col-05">#</th>
-							<th className="col-1_5">{table_header[0]}</th>
-							<th className="col-1">{table_header[1]}</th>
-							<th className="">{table_header[2]}</th>
-							<th className="col-1">{table_header[3]}</th>
-							<th className="col-2">{table_header[4]}</th>
-							<th className="col-1_5">{table_header[5]}</th>
+							<th className="col-2">{table_header[0]}</th>
+							<th className="">{table_header[1]}</th>
+							<th className="col-3">{table_header[2]}</th>
+							<th className="col-1_5">{table_header[3]}</th>
 							<th className="col-1"></th>
 						</tr>
 					</thead>
@@ -107,9 +83,7 @@ export default class CaseManage extends Component {
 										</td>
 										<td>{index + 1}</td>
 										<td>{item.cM_type}</td>
-										<td>{item.cM_class}</td>
 										<td>{item.cM_title}</td>
-										<td>{item.cM_principal}</td>
 										<td>{item.cM_tag}</td>
 										<td>{item.cM_createTime}</td>
 										<td>
