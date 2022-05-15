@@ -66,19 +66,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
           Tag:tag,
           Member:addmember,
         }
-        
-        // let data = new FormData();
-        // data.append('Name', title.value);
-        // data.append('Description', content.value);
-        // data.append('Proj_type', type.value);
-        // tag.map((item, index) =>
-        //   data.append(`Tag[${index}]`, item)
-        // );
-        // addmember.map((item, index) =>
-        //   data.append(`Member[${index}]`, item)
-        // )
         this.props.POST_AddProject(payload);
-        // this.props.history.push("/meetingmanage");
+        this.props.history.push("/casemanage");
       }
       else {
         alert("您有必填欄位尚未填寫，請確認");
@@ -142,37 +131,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
           member: {
             errormsg: "",
           },
-        })
-      }
-    }
-    //選檔案
-    handleSelectFile = (files) => {
-      let nowsize = 0;
-      const { all_file_max_size, one_file_max_size, mimes_type } = this.state;
-      if (files.length > 5) {
-        alert("一次請勿上傳超過五個檔案")
-      }
-      else {
-        let array = [];
-        for (let index = 0; index < files.length; index++) {
-          const file_type = files[index].name.split(".").pop();
-          if (!mimes_type.includes(file_type)) {
-            const media_type = mimes_type.map((item) => ` ${item}`);
-            alert(`上傳檔案類型錯誤,請選擇${media_type}類型的檔案`);
-          }
-          else {
-            const thissize = files[index].size;
-            nowsize += thissize;
-            if (thissize > one_file_max_size || nowsize > all_file_max_size) {
-              alert("檔案過大，請重新選擇(單個檔案勿超過30M，總大小物超過50M");
-            }
-            else {
-              array.push(files[index]);
-            }
-          }
-        }
-        this.setState({
-          array
         })
       }
     }
