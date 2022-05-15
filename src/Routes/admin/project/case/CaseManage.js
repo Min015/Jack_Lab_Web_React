@@ -84,9 +84,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			console.log(array);
 		}
 		render() {
-			const { table_content, table_header, cM_T, array } = this.state;
+			const {table_header, cM_T, array } = this.state;
 			const { Project, ProjectType } = this.props;
-			console.log(Project);
+			// console.log(Project);
 			return (
 				<BackLayout>
 					<div className="work">
@@ -130,7 +130,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							{Project === undefined ? "" : Project.map(
 								(item, index) => {
 									return (
-										<tr key={index} className={array.includes(`${item.Id}`) ? "onchange" : ""}>
+										<tr key={`checkbox${index}`} className={array.includes(`${item.Id}`) ? "onchange" : ""}>
 											<td className="check">
 												<input type="checkbox"
 													name="Box"
@@ -146,7 +146,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 												<div className='list_tag'>
 													{item.Tag.map((item, index) => {
 														return (
-															<div className='tag'>
+															<div key={`listtag${index}`} className='tag'>
 																{item.Name}
 															</div>
 														)

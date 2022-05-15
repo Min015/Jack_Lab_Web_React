@@ -15,7 +15,6 @@ const _axios = axios.create({
 const fetch = store => next => action => {
    switch (action.type) {
       case "POST_AddMeeting":
-         console.log(action.payload);
          _axios
             .post('/meeting', action.payload)
             .then(response => {
@@ -30,7 +29,6 @@ const fetch = store => next => action => {
             })
          break;
       case "POST_UpdateMeeting":
-         console.log(action.payload);
          _axios
             .post('/meeting', action.payload)
             .then(response => {
@@ -44,7 +42,20 @@ const fetch = store => next => action => {
                throw new Error(err);
             })
          break;
-
+      case "POST_AddProjectRecord":
+         _axios
+            .post('/project/record', action.payload)
+            .then(response => {
+               console.log(response);
+               if (response.status === 200) {
+                  console.log("新增專案記錄成功");
+               }
+            })
+            .catch(err => {
+               console.log(err.response.data);
+               throw new Error(err);
+            })
+         break;
       default:
          break;
    }

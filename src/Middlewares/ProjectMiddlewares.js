@@ -133,6 +133,48 @@ const fetch = store => next => action => {
           throw new Error(err);
         })
       break;
+    case "PUT_UpdateProject":
+      _axios
+        .put(`/project`, action.payload)
+        .then(response => {
+          console.log(response);
+          if (response.status === 200) {
+            console.log("修改專案內容成功");
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          throw new Error(err);
+        })
+      break;
+    case "GET_RecordFile":
+      _axios
+        .get(`/download/project?id=${action.payload}`,)
+        .then(response => {
+          console.log(response);
+          if (response.status === 200) {
+            window.open(`${BaseURL}/download/project?id=${action.payload}`)
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          throw new Error(err);
+        })
+      break;
+    case "DELETE_ProjectRecord":
+      _axios
+        .delete(`/project/record?id=${action.payload}`,)
+        .then(response => {
+          console.log(response);
+          if (response.status === 200) {
+            console.log("刪除專案記錄")
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          throw new Error(err);
+        })
+      break;
     default:
       break;
   }
