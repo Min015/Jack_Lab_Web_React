@@ -163,7 +163,7 @@ export default class ProjectInfo extends Component {
 										上傳檔案
 									</label>
 								</div>
-								<div id='btn_block'>
+								<div className='btn_block'>
 									<button
 										className="submitBtn"
 									// onClick={(e) => this.Delete(this.state.Id, e)}

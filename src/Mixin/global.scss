@@ -126,7 +126,9 @@ $studentcard_background:#ADC5D9;
 .col-2 {
     width: $col-2;
 }
-
+.col-2_5 {
+    width: $col-2+$col-05;
+}
 .col-3 {
     width: $col-3;
 }

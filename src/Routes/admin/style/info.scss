@@ -28,15 +28,6 @@
 			}
 		}
 
-		.form_submit {
-			// margin-left     : auto;
-			background-color: $button_color;
-			@include ali-set();
-			@include jus-set();
-			color    : $font_maincolor;
-			font-size: $m;
-		}
-
 		input,
 		select,
 		textarea {
@@ -117,13 +108,9 @@
 		}
 
 		.label {
-			display    : flex;
 			position   : absolute;
 			top        : -22px;
 			left       : -5px;
-			font-size  : $m;
-			font-weight: 600;
-			color      : $from_title;
 		}
 
 		.upload {
@@ -233,7 +220,6 @@
 			}
 		}
 	}
-
 	#work_col {
 		padding   : 0px 15px;
 		margin-top: 25px;
@@ -268,6 +254,15 @@
 
 	#filename {
 		padding: 10px 45px 0px 45px;
+	}
+}
+.margin_t15{
+	margin-top: 15px;
+	.label {
+		display    : flex;
+		font-size  : $l;
+		font-weight: 600;
+		color      : $from_title;
 	}
 }
 
@@ -316,13 +311,13 @@
 			@include ali-set();
 			@include border-set();
 			@extend %row;
-	
+
 			input {
 				padding-left: 5px;
 				height      : 100%;
-				color: black;
+				color       : black;
 			}
-	
+
 			.submit {
 				position        : relative;
 				left            : -10px;
@@ -330,13 +325,89 @@
 				width           : 27px;
 				background-color: $main_backgroundcolor;
 				@include ali-set();
-	
+
 				input {
 					@include image-set(100%, 100%, contain);
 				}
 			}
 		}
 
+	}
+
+	.admin_table {
+		thead {
+			font-weight: bold;
+
+			th {
+				text-align   : left;
+				padding-right: 5px;
+			}
+		}
+
+		tr {
+			height       : 38px;
+			border-top   : 1px $boder_color solid;
+			border-bottom: 1px $boder_color solid;
+
+			.check {
+				input {
+					margin: 0px auto;
+				}
+			}
+		}
+
+		.onchange {
+			td {
+				background-color: $admin_check !important;
+			}
+		}
+
+		td {
+			position: relative;
+			padding : 5px 5px 5px 0px;
+
+			.action {
+				display: block;
+				@include ali-set();
+				@extend %row;
+				justify-content: space-evenly;
+				width: 72.75px;
+				// height         : 42.67px;
+				.delete {
+					@extend %row;
+				}
+
+				.svg {
+					position: relative;
+					@include jus-set();
+					width : 30%;
+					cursor: pointer;
+
+					.hover {
+						display         : none;
+						white-space     : nowrap;
+						position        : absolute;
+						text-align      : center;
+						padding         : 2px 5px;
+						top             : 22px;
+						background-color: $main_backgroundcolor;
+						border-radius   : 4px;
+						z-index         : 1;
+						@include border-set();
+					}
+
+					&:hover .hover {
+						display: block;
+					}
+				}
+
+				.close {
+					width           : 18px;
+					height          : 18px;
+					background-color: aqua;
+				}
+			}
+		}
 	}
 }
 
