@@ -79,18 +79,18 @@ export default class Books extends Component {
                 <div className="work">
                     <div className="edit_button">
                         <div className="work_btn add_btn">
-                            <p>新增書籍</p>
+                            新增書籍
                         </div>
                         <div className="work_btn delete_btn">
-                            <p>批量刪除</p>
+                            批量刪除
                         </div>
                     </div>
-                    <form action="" className="searchbar">
+                    <div action="" className="searchbar">
                         <input type="text" required placeholder="搜尋" />
                         <div className="submit">
                             <input type="image" src={search} alt="送出" />
                         </div>
-                    </form>
+                    </div>
                 </div>
                 <table className="col-12 admin_table">
                     <thead>

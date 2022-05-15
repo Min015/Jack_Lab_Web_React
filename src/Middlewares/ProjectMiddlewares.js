@@ -76,6 +76,63 @@ const fetch = store => next => action => {
           throw new Error(err);
         })
       break;
+    case "GET_Project":
+      _axios
+        .get(`/project/list`,)
+        .then(response => {
+          console.log(response);
+          if (response.status === 200) {
+            return response.data.data;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          throw new Error(err);
+        })
+        .then(json => {
+          return next({
+            type: 'SAVE_Project',
+            payload: json
+          });
+        });
+      break;
+    case "GET_ProjectInfo":
+      _axios
+        .get(`/project?id=${action.payload}`,)
+        .then(response => {
+          console.log(response);
+          if (response.status === 200) {
+            return response.data.data;
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          throw new Error(err);
+        })
+        .then(json => {
+          if (action.callback) {
+            action.callback(json)
+          }
+          return next({
+            type: 'SAVE_ProjectInfo',
+            payload: json,
+          });
+        });
+      break;
+    case "POST_AddProject":
+      _axios
+        .post(`/project`, action.payload)
+        .then(response => {
+          console.log(response);
+          if (response.status === 200) {
+            console.log("建立專案成功");
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          throw new Error(err);
+        })
+      break;
     default:
       break;
   }

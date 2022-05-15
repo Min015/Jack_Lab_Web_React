@@ -29,3 +29,27 @@ export const DELETE_ProjectType = (payload) => {
     });
   };
 }
+export const GET_Project = () => {
+  return (dispatch) => {
+    dispatch({
+      type: "GET_Project",
+    });
+  };
+}
+export const GET_ProjectInfo = (payload,callback) => {
+  return (dispatch) => {
+    dispatch({
+      type: "GET_ProjectInfo",
+      payload:payload,
+      callback:callback,
+    });
+  };
+}
+export const POST_AddProject = (payload) => {
+  return (dispatch) => {
+    dispatch({
+      type: "POST_AddProject",
+      payload:payload,
+    });
+  };
+}

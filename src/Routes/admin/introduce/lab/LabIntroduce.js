@@ -78,7 +78,8 @@ export default class LabIntroduce extends Component {
 							</th>
 							<th className="col-05">#</th>
 							<th className="col-3">{table_header[0]}</th>
-							<th className="col-7">{table_header[1]}</th>
+							<th className="">{table_header[1]}</th>
+							<th>標籤</th>
 							<th className="col-1"></th>
 						</tr>
 					</thead>
@@ -98,6 +99,17 @@ export default class LabIntroduce extends Component {
 										<td>{index + 1}</td>
 										<td>{item.l_title}</td>
 										<td>{item.l_content}</td>
+										<td>
+
+											<div className='list_tag'>
+												<div className='tag'>
+													化標籤
+												</div>
+												<div className='tag'>
+													化標籤
+												</div>
+											</div>
+										</td>
 										<td>
 											<div className="action">
 												<div className="svg">

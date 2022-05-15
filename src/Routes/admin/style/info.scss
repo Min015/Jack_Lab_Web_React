@@ -21,6 +21,7 @@
 				color    : red;
 				font-size: $m;
 			}
+
 			.input_tag {
 				width: 20%;
 				color: $admin_header_background;
@@ -279,10 +280,63 @@
 		@extend %row;
 
 		.edit_button {
-			.add {
-				margin-left: 0px;
+			@extend %row;
+
+			.work_btn {
+				margin-right: 15px;
+				width       : 105px;
+				height      : 34px;
+				font-size   : $m;
+				color       : $font_maincolor;
+				border      : 0px;
+				cursor      : pointer;
+				@include ali-set();
+				@include jus-set();
+			}
+
+			.add_btn {
+				background-color: $button_color;
+
+				&:hover {
+					background-color: $button_hover;
+				}
+			}
+
+			.delete_btn {
+				background-color: $delete_button;
+
+				&:hover {
+					background-color: $delete_button_hover;
+				}
+
 			}
 		}
+
+		.searchbar {
+			@include ali-set();
+			@include border-set();
+			@extend %row;
+	
+			input {
+				padding-left: 5px;
+				height      : 100%;
+				color: black;
+			}
+	
+			.submit {
+				position        : relative;
+				left            : -10px;
+				height          : 100%;
+				width           : 27px;
+				background-color: $main_backgroundcolor;
+				@include ali-set();
+	
+				input {
+					@include image-set(100%, 100%, contain);
+				}
+			}
+		}
+
 	}
 }
 

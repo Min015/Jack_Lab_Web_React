@@ -14,7 +14,7 @@
 			height      : 34px;
 			font-size   : $m;
 			color       : $font_maincolor;
-			border: 0px;
+			border      : 0px;
 			cursor      : pointer;
 			@include ali-set();
 			@include jus-set();
@@ -117,7 +117,7 @@
 	}
 
 	.onchange {
-		* {
+		td{
 			background-color: $admin_check !important;
 		}
 	}
@@ -179,6 +179,30 @@
 				height          : 18px;
 				background-color: aqua;
 			}
+		}
+
+		.list_tag {
+			height: 100%;
+			@include ali-set();
+			@extend %row;
+			flex-wrap    : wrap;
+			// overflow     : hidden;
+			// text-overflow: ellipsis;
+			// white-space  : nowrap;
+			// width        : 240px;
+
+			.tag {
+				color           : $font_maincolor;
+				background-color: $tag_backgroud;
+				text-align      : center;
+				padding         : 5px 8px;
+				border-radius   : 30px;
+				margin          : 2.5px 5px 2.5px 0px;
+				// margin-right: 5px;
+				// margin-bottom: 5px;
+				white-space     : nowrap;
+			}
+
 		}
 	}
 

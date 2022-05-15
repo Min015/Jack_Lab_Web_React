@@ -28,10 +28,12 @@ import AdMeetingAdd from './admin/meeting/MeetingAdd';
 import GameManage from './admin/game/gamelist/GameManage';
 import AdGameInfo from './admin/game/gamelist/GameInfo';
 import GTypeManage from './admin/game/class/GTypeManage';
-import AdProjectInfo from './admin/project/case/ProjectInfo';
+
 
 import CaseManage from './admin/project/case/CaseManage';
 import TypeManage from './admin/project/type/TypeManage';
+import AdProjectInfo from './admin/project/case/ProjectInfo';
+import AdCaseAdd from './admin/project/case/CaseAdd';
 
 import Index from './guest/index/Index';
 
@@ -109,7 +111,8 @@ export default (
 
 
 				<Route path='/casemanage' exact component={CaseManage} />
-				<Route path='/casemanage/caseinfo' exact component={AdProjectInfo} />
+				<Route path='/casemanage/caseadd' exact component={AdCaseAdd} />
+				<Route path='/casemanage/caseinfo/:id' exact component={AdProjectInfo} />
 				<Route path='/typemange' exact component={TypeManage} />
 
 

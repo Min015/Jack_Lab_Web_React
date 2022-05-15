@@ -54,7 +54,6 @@ const fetch = store => next => action => {
                     return next({
                         type: 'SAVE_MeetingInfo',
                         payload: json,
-                        
                     });
                 });
             break;
