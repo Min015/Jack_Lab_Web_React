@@ -292,7 +292,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 
 		render() {
-			const { array, title, content, time, member, tag, place, participate, drop, long, disabled, mimes_type } = this.state;
+			const { array, title, content, time, member, tag, place, participate, drop, long, disabled } = this.state;
 			const { PublicMemberList } = this.props;
 			// console.log(323, this.props);
 			return (
