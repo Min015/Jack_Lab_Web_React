@@ -133,6 +133,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				this.setState({
 					edit: false,
 					add: false,
+					delO:false,
+					delAll:false,
 					role_permission: [],
 				})
 			}
