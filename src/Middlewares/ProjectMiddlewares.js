@@ -47,6 +47,11 @@ const fetch = store => next => action => {
           console.log(err);
           throw new Error(err);
         })
+        .then(json => {
+          if (action.callback) {
+            action.callback(json)
+          }
+        });
       break;
     case "PUT_UpdateProjectType":
       _axios
@@ -75,6 +80,11 @@ const fetch = store => next => action => {
           console.log(err);
           throw new Error(err);
         })
+        .then(json => {
+          if (action.callback) {
+            action.callback(json)
+          }
+        });
       break;
     case "GET_Project":
       _axios

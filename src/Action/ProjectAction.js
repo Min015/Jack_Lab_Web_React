@@ -5,11 +5,12 @@ export const GET_ProjectType = () => {
     });
   };
 }
-export const POST_AddProjectType = (payload) => {
+export const POST_AddProjectType = (payload,callback) => {
   return (dispatch) => {
     dispatch({
       type: "POST_AddProjectType",
       payload: payload,
+      callback: callback,
     });
   };
 }
@@ -21,11 +22,12 @@ export const PUT_UpdateProjectType = (payload) => {
     });
   };
 }
-export const DELETE_ProjectType = (payload) => {
+export const DELETE_ProjectType = (payload,callback) => {
   return (dispatch) => {
     dispatch({
       type: "DELETE_ProjectType",
       payload: payload,
+      callback: callback,
     });
   };
 }
@@ -45,11 +47,12 @@ export const GET_ProjectInfo = (payload, callback) => {
     });
   };
 }
-export const POST_AddProject = (payload) => {
+export const POST_AddProject = (payload,callback) => {
   return (dispatch) => {
     dispatch({
       type: "POST_AddProject",
       payload: payload,
+      callback: callback,
     });
   };
 }

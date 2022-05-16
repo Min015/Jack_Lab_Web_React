@@ -15,9 +15,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     GET_ProjectType: () => dispatch(GET_ProjectType()),
-    POST_AddProjectType: (payload) => dispatch(POST_AddProjectType(payload)),
+    POST_AddProjectType: (payload, callback) => dispatch(POST_AddProjectType(payload, callback)),
     PUT_UpdateProjectType: (payload) => dispatch(PUT_UpdateProjectType(payload)),
-    DELETE_ProjectType: (payload) => dispatch(DELETE_ProjectType(payload)),
+    DELETE_ProjectType: (payload, callback) => dispatch(DELETE_ProjectType(payload, callback)),
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(
@@ -48,8 +48,17 @@ export default connect(mapStateToProps, mapDispatchToProps)(
     AddType = () => {
       const payload = {
         Name: this.state.newType.value
+      };
+      const callback = () => {
+        console.log("callback");
+        this.props.GET_ProjectType();
+        this.setState({
+          add: !this.state.add,
+          newType: {},
+        })
+        this.handleInputChange("");
       }
-      this.props.POST_AddProjectType(payload);
+      this.props.POST_AddProjectType(payload, callback);
     }
     UpdateType = () => {
       const payload = {
@@ -59,7 +68,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(
       this.props.PUT_UpdateProjectType(payload);
     }
     Delete = (id) => {
-      this.props.DELETE_ProjectType(id);
+      const callback = () => {
+        this.props.GET_ProjectType();
+        this.setState({
+          delO: !this.state.delO
+        })
+      }
+      this.props.DELETE_ProjectType(id, callback);
     }
     handelDeleteAll = () => {
       const { array } = this.state;
@@ -123,24 +138,35 @@ export default connect(mapStateToProps, mapDispatchToProps)(
     }
     //確定是否填寫
     handleInputChange(event) {
-      const target = event.target;
-      let { value, id } = target;
-      value = value.trim();
-      if (value !== "") {
+      console.log(event);
+      if (event === "") {
         this.setState({
-          [id]: {
-            value,
-            errormsg: "",
+          newType: {
+            value:"",
+            errormsg: "*",
           }
         });
       }
       else {
-        this.setState({
-          [id]: {
-            value,
-            errormsg: "*",
-          }
-        });
+        const target = event.target;
+        let { value, id } = target;
+        value = value.trim();
+        if (value !== "") {
+          this.setState({
+            [id]: {
+              value,
+              errormsg: "",
+            }
+          });
+        }
+        else {
+          this.setState({
+            [id]: {
+              value,
+              errormsg: "*",
+            }
+          });
+        }
       }
     }
     //取得要修改資料
@@ -343,7 +369,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                   <button
                     className="submitBtn"
                     onClick={this.AddType}
-                    disabled={newType.value.length === 0}
+                    disabled={newType.value === ""}
                   >
                     確定
                   </button>

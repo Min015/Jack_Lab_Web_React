@@ -50,12 +50,16 @@ import MeetingMiddlewares from '../Middlewares/MeetingMiddlewares';
 import MemberMiddlewares from '../Middlewares/MemberMiddlewares';
 import SendfromDataMiddlewares from '../Middlewares/SendfromDataMiddlewares';
 import ProjectMiddlewares from '../Middlewares/ProjectMiddlewares';
+import GuestindexMiddlewares from '../Middlewares/GuestindexMiddlewares';
+
 
 
 const Meetingmiddlewares = [MeetingMiddlewares, thunk];
 const Membermiddlewares = [MemberMiddlewares, thunk];
 const SendfromDatamiddlewares=[SendfromDataMiddlewares,thunk];
 const Projectmiddlewares=[ProjectMiddlewares,thunk];
+const Guestindexmiddlewares=[GuestindexMiddlewares,thunk];
+
 
 const store = createStore(
 	reducer,
@@ -65,6 +69,7 @@ const store = createStore(
 			...Membermiddlewares,
 			...SendfromDatamiddlewares,
 			...Projectmiddlewares,
+			...Guestindexmiddlewares,
 		),
 	)
 );
