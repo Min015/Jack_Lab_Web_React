@@ -111,6 +111,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					Record: res.Record,
 				})
 			}
+			this.props.GET_ProjectType();
 			this.props.GET_PublicMembers();
 			this.props.GET_ProjectInfo(params.id, callback);
 		}
