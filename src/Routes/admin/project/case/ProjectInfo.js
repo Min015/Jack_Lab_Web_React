@@ -8,7 +8,15 @@ import '../../style/info.scss';
 import search from '../../style/img/searchButton.png';
 
 import { GET_PublicMembers } from '../../../../Action/MemberAction';
-import { GET_ProjectInfo, GET_ProjectType, PUT_UpdateProject, POST_AddProjectRecord, GET_RecordFile,DELETE_ProjectRecord } from '../../../../Action/ProjectAction';
+import {
+	GET_ProjectInfo,
+	GET_ProjectType,
+	PUT_UpdateProject,
+	POST_AddProjectRecord,
+	GET_RecordFile,
+	DELETE_ProjectRecord,
+	POST_UpdateProjectRecord,
+} from '../../../../Action/ProjectAction';
 
 const mapStateToProps = state => {
 	console.log(state);
@@ -28,6 +36,7 @@ const mapDispatchToProps = dispatch => {
 		POST_AddProjectRecord: (payload) => dispatch(POST_AddProjectRecord(payload)),
 		GET_RecordFile: (payload) => dispatch(GET_RecordFile(payload)),
 		DELETE_ProjectRecord: (payload) => dispatch(DELETE_ProjectRecord(payload)),
+		POST_UpdateProjectRecord: (payload) => dispatch(POST_UpdateProjectRecord(payload)),
 
 	}
 }
@@ -102,7 +111,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					Record: res.Record,
 				})
 			}
-			// console.log("Id=>", params.id);
 			this.props.GET_PublicMembers();
 			this.props.GET_ProjectInfo(params.id, callback);
 		}
@@ -134,7 +142,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				alert("請輸入備註及選擇檔案");
 			}
 			else {
-				console.log(upload[0]);
 				let data = new FormData();
 				data.append('Project_Id', Id);
 				data.append('Remark', remark.value);
@@ -145,7 +152,25 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		//下載專案記錄
 		DownloadFile = () => {
 			const { nowRecord } = this.state;
-			this.props.GET_RecordFile(nowRecord.Id);
+			this.props.GET_RecordFile(nowRecord.File.Id);
+		}
+		//更新專案記錄
+		UpdateProjectRecord = () => {
+			const { upload, remark, nowRecord } = this.state;
+			if ((remark.value === nowRecord.Remark && upload.length === 0)) {
+				alert("尚未更新");
+			}
+			else {
+				let data = new FormData();
+				data.append('_method', 'PUT');
+				data.append('Id', nowRecord.Id);
+				data.append('Remark', remark.value);
+				if (upload.length !== 0) {
+					data.append('File', upload[0]);
+				}
+				this.props.POST_UpdateProjectRecord(data);
+			}
+
 		}
 		//刪除
 		Delete = (id) => {
@@ -202,10 +227,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 						Name: info[3]
 					},
 					Uploader_name: info[4],
+				},
+				remark: {
+					value: info[1],
+					errormsg: "",
 				}
 			});
-			// console.log(info[5]);
-			// this.drop_down(`${info[5]}`);
 		}
 		//下拉式選人關閉&關閉視窗
 		handelMouseDown = (e) => {
@@ -390,7 +417,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 		//單選
 		handelOnClickList = e => {
-			console.log(e.target);
 			const { ProjectInfo } = this.props;
 			let array = this.state.array;
 			const num = ProjectInfo.Record.length;
@@ -422,8 +448,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		render() {
 			const { table_header, array, title, content, type, Creater_name, member, tag, participate, drop, long, disabled, Record, add, edit, delO, delAll, download, upload, remark, nowRecord } = this.state;
 			const { PublicMemberList, ProjectType } = this.props;
-			// console.log(nowRecord);
-			// console.log(array);
 			return (
 				<BackLayout>
 					<div
@@ -745,7 +769,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									<textarea
 										value={nowRecord === undefined ? "" : nowRecord.Remark}
 										disabled
-										name="remark"
 										className='long_text' />
 									<label className="label">備註</label>
 								</div>
@@ -764,64 +787,114 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 						</div>
 					</div>
 					<div
-							className={delO ? "popup_background active" : "popup_background"}
-							onClick={this.handelMouseDown}
-						>
-							<div className="window">
-								<div className="form">
-									<h1 className="title">
-										<div className="close">
-											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-												<path d="M24 2.4L21.6 0L12 9.6L2.4 0L0 2.4L9.6 12L0 21.6L2.4 24L12 14.4L21.6 24L24 21.6L14.4 12L24 2.4Z" fill="#51718C" />
-											</svg>
-											<div className="close_btn" onClick={() => this.drop_down('delO')} />
-										</div>
-									</h1>
-
-									<h2 className='message'>
-										是否要刪除專案記錄<br />
-										「{nowRecord === undefined ? "" : nowRecord.File.Name}」
-									</h2>
-									<div className='btn_block'>
-										<button
-											className="submitBtn"
-											onClick={(e) => this.Delete(nowRecord === undefined ? "" : nowRecord.Id, e)}
-										>
-											確定
-										</button>
+						className={edit ? "popup_background active" : "popup_background"}
+						onClick={this.handelMouseDown}
+					>
+						<div className="window">
+							<div className="form">
+								<h1 className="title">
+									修改記錄檔案
+									<div className="close">
+										<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M24 2.4L21.6 0L12 9.6L2.4 0L0 2.4L9.6 12L0 21.6L2.4 24L12 14.4L21.6 24L24 21.6L14.4 12L24 2.4Z" fill="#51718C" />
+										</svg>
+										<div className="close_btn" onClick={() => this.drop_down('edit')} />
 									</div>
+								</h1>
+								<div className='margin_t15'>
+									<label className="label">原檔案</label>
+									<div>{nowRecord === undefined ? "" : nowRecord.File.Name} </div>
+								</div>
+								<div className='col-12 enter'>
+									<textarea
+										value={remark.value}
+										onChange={this.handleInputChange.bind(this)}
+										name="remark"
+										className='long_text' />
+									<label className="label">備註<div className='error_msg'>{remark.errormsg}</div></label>
+								</div>
+								<div className={upload.length === 0 ? "" : "margin_t15"}>
+									<label className="label">{upload.length === 0 ? "" : "新檔案"}</label>
+									<div id="filename">
+										{upload.map(item => (<div>{item.name}</div>))}
+									</div>
+								</div>
+								<div className='enter'>
+									<input type='file' id='f' onChange={e => this.handleSelectFile(e.target.files)} />
+									<label for='f' className='nowfile'>
+										上傳新檔案
+									</label>
+								</div>
+								<div className='btn_block'>
+									<button
+										className="submitBtn"
+										onClick={this.UpdateProjectRecord}
+									>
+										更新
+									</button>
 								</div>
 							</div>
 						</div>
-						<div
-							className={delAll ? "popup_background active" : "popup_background"}
-							onClick={this.handelMouseDown}
-						>
-							<div className="window">
-								<div className="form">
-									<h1 className="title">
-										<div className="close">
-											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-												<path d="M24 2.4L21.6 0L12 9.6L2.4 0L0 2.4L9.6 12L0 21.6L2.4 24L12 14.4L21.6 24L24 21.6L14.4 12L24 2.4Z" fill="#51718C" />
-											</svg>
-											<div className="close_btn" onClick={() => this.drop_down('delAll')} />
-										</div>
-									</h1>
-
-									<h2 className='message'>
-										是否要刪除「{array.length}」筆紀錄
-									</h2>
-									<div className='btn_block'>
-										<button
-											className="submitBtn"
-											onClick={() => this.handelDeleteAll()}
-										>
-											確定
-										</button>
+					</div>
+					<div
+						className={delO ? "popup_background active" : "popup_background"}
+						onClick={this.handelMouseDown}
+					>
+						<div className="window">
+							<div className="form">
+								<h1 className="title">
+									<div className="close">
+										<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M24 2.4L21.6 0L12 9.6L2.4 0L0 2.4L9.6 12L0 21.6L2.4 24L12 14.4L21.6 24L24 21.6L14.4 12L24 2.4Z" fill="#51718C" />
+										</svg>
+										<div className="close_btn" onClick={() => this.drop_down('delO')} />
 									</div>
+								</h1>
+
+								<h2 className='message'>
+									是否要刪除專案記錄<br />
+									「{nowRecord === undefined ? "" : nowRecord.File.Name}」
+								</h2>
+								<div className='btn_block'>
+									<button
+										className="submitBtn"
+										onClick={(e) => this.Delete(nowRecord === undefined ? "" : nowRecord.Id, e)}
+									>
+										確定
+									</button>
 								</div>
 							</div>
 						</div>
+					</div>
+					<div
+						className={delAll ? "popup_background active" : "popup_background"}
+						onClick={this.handelMouseDown}
+					>
+						<div className="window">
+							<div className="form">
+								<h1 className="title">
+									<div className="close">
+										<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M24 2.4L21.6 0L12 9.6L2.4 0L0 2.4L9.6 12L0 21.6L2.4 24L12 14.4L21.6 24L24 21.6L14.4 12L24 2.4Z" fill="#51718C" />
+										</svg>
+										<div className="close_btn" onClick={() => this.drop_down('delAll')} />
+									</div>
+								</h1>
+
+								<h2 className='message'>
+									是否要刪除「{array.length}」筆紀錄
+								</h2>
+								<div className='btn_block'>
+									<button
+										className="submitBtn"
+										onClick={() => this.handelDeleteAll()}
+									>
+										確定
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
 				</BackLayout>
 			)
 		}

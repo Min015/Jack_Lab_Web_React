@@ -56,6 +56,20 @@ const fetch = store => next => action => {
                throw new Error(err);
             })
          break;
+      case "POST_UpdateProjectRecord":
+         _axios
+            .post('/project/record', action.payload)
+            .then(response => {
+               console.log(response);
+               if (response.status === 200) {
+                  console.log("更新專案記錄成功");
+               }
+            })
+            .catch(err => {
+               console.log(err.response.data);
+               throw new Error(err);
+            })
+         break;
       default:
          break;
    }

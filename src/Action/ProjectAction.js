@@ -86,3 +86,11 @@ export const DELETE_ProjectRecord = (payload) => {
     });
   };
 }
+export const POST_UpdateProjectRecord = (payload) => {
+  return (dispatch) => {
+    dispatch({
+      type: "POST_UpdateProjectRecord",
+      payload: payload,
+    });
+  };
+}
