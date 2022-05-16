@@ -108,9 +108,10 @@
 		}
 
 		.label {
-			position   : absolute;
-			top        : -22px;
-			left       : -5px;
+			display : flex;
+			position: absolute;
+			top     : -22px;
+			left    : -5px;
 		}
 
 		.upload {
@@ -220,6 +221,7 @@
 			}
 		}
 	}
+
 	#work_col {
 		padding   : 0px 15px;
 		margin-top: 25px;
@@ -256,15 +258,18 @@
 		padding: 10px 45px 0px 45px;
 	}
 }
-.margin_t15{
+
+.margin_t15 {
 	margin-top: 15px;
+
 	.label {
 		display    : flex;
 		font-size  : $l;
 		font-weight: 600;
 		color      : $from_title;
 	}
-	#filename{
+
+	#filename {
 		margin-top: 0px;
 	}
 }
@@ -374,7 +379,8 @@
 				@include ali-set();
 				@extend %row;
 				justify-content: space-evenly;
-				width: 72.75px;
+				width          : 72.75px;
+
 				// height         : 42.67px;
 				.delete {
 					@extend %row;
