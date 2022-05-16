@@ -175,6 +175,20 @@ const fetch = store => next => action => {
           throw new Error(err);
         })
       break;
+    case "DELETE_Project":
+      _axios
+        .delete(`/project?id=${action.payload}`,)
+        .then(response => {
+          console.log(response);
+          if (response.status === 200) {
+            console.log("刪除專案成功")
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          throw new Error(err);
+        })
+      break;
     default:
       break;
   }

@@ -79,7 +79,6 @@ export const GET_RecordFile = (payload) => {
 }
 export const DELETE_ProjectRecord = (payload) => {
   return (dispatch) => {
-    console.log(82,payload);
     dispatch({
       type: "DELETE_ProjectRecord",
       payload: payload,
@@ -90,6 +89,14 @@ export const POST_UpdateProjectRecord = (payload) => {
   return (dispatch) => {
     dispatch({
       type: "POST_UpdateProjectRecord",
+      payload: payload,
+    });
+  };
+}
+export const DELETE_Project = (payload) => {
+  return (dispatch) => {
+    dispatch({
+      type: "DELETE_Project",
       payload: payload,
     });
   };
