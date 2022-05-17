@@ -135,10 +135,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			else if (e === 'edit') {
 				this.setState({
 					edit: !this.state.edit,
-					newTitle: {
-						value: "",
-						errormsg: "*",
-					},
 					upload: {},
 				})
 			}
@@ -179,6 +175,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					Id: info[0],
 					Title: info[1],
 					Image: info[2],
+				},
+				newTitle: {
+					value: info[1],
+					errormsg:"",
 				},
 			})
 		}
@@ -273,9 +273,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		render() {
 			const { table_header, array, add, edit, upload, now, previview, newTitle,delO,delAll } = this.state;
 			const { AlbumList } = this.props
-			console.log("now=>", now)
-			console.log(array);
-			console.log("upload=>", upload);
+			console.log("newTitle=>", newTitle)
 
 			return (
 				<BackLayout>
@@ -423,7 +421,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 						<div className="window">
 							<div className="form">
 								<h1 className="title">
-									修改輪播圖「{now === undefined ? "" : now.Title}」
+									修改輪播圖
 									<div className="close">
 										<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 											<path d="M24 2.4L21.6 0L12 9.6L2.4 0L0 2.4L9.6 12L0 21.6L2.4 24L12 14.4L21.6 24L24 21.6L14.4 12L24 2.4Z" fill="#51718C" />
