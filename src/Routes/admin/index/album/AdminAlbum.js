@@ -28,7 +28,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		state = {
 			add: false,
 			edit: false,
-			del: false,
+			delO:false,
+			delAll:false,
 			previview: false,
 			array: [],
 			mimes_type: ['svg', 'png', 'jpg', 'jpeg', 'csv',],//媒體類型
@@ -162,6 +163,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				this.setState({
 					add: false,
 					edit: false,
+					delO:false,
+					delAll:false,
 					previview: false,
 					newTitle: {},
 					upload: {},
