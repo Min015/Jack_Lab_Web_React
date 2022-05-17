@@ -70,6 +70,44 @@ const fetch = store => next => action => {
                throw new Error(err);
             })
          break;
+      case "POST_AddAlbum":
+         _axios
+            .post('/album', action.payload)
+            .then(response => {
+               console.log(response);
+               if (response.status === 200) {
+                  console.log("新增相片成功");
+               }
+            })
+            .catch(err => {
+               console.log(err.response.data);
+               throw new Error(err);
+            })
+            .then(json => {
+               if (action.callback) {
+                  action.callback(json)
+               }
+            });
+         break;
+      case "POST_UpdataAlbum":
+         _axios
+            .post('/album', action.payload)
+            .then(response => {
+               console.log(response);
+               if (response.status === 200) {
+                  console.log("修改相片成功");
+               }
+            })
+            .catch(err => {
+               console.log(err.response.data);
+               throw new Error(err);
+            })
+            .then(json => {
+               if (action.callback) {
+                  action.callback(json)
+               }
+            });
+         break;
       default:
          break;
    }

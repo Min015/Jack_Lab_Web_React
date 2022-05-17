@@ -31,6 +31,25 @@ const fetch = store => next => action => {
           });
         });
       break;
+    case "DELETE_AdAlbum":
+      _axios
+        .delete(`/album?id=${action.payload}`,)
+        .then(response => {
+          console.log(response);
+          if (response.status === 200) {
+            console.log("刪除專案性質成功")
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          throw new Error(err);
+        })
+        .then(json => {
+          if (action.callback) {
+            action.callback(json)
+          }
+        });
+      break;
     default:
       break;
   }
