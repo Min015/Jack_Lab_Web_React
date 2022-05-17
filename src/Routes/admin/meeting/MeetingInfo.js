@@ -98,7 +98,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				data.append('Time', time.value);
 				data.append('Place', place.value);
 				array.map((item, index) =>
-					data.append(`File[${index}]`, item)
+					data.append(`Files[${index}]`, item)
 				)
 				addmember.map((item, index) =>
 					data.append(`Member[${index}]`, item)
