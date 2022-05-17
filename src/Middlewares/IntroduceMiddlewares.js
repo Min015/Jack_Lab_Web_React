@@ -1,0 +1,94 @@
+import axios from "axios";
+
+const token = localStorage.getItem("user_token");
+const BaseURL = 'http://localhost/api';
+const _axios = axios.create({
+  baseURL: BaseURL,
+  timeout: 30000,
+  headers: {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+    'Authorization': `bearer ${token}`
+  }
+})
+const fetch = store => next => action => {
+  switch (action.type) {
+    case "GET_LabIntroduce":
+      _axios
+        .get('/labinfo',)
+        .then(response => {
+          if (response.status === 200) {
+            console.log("取得LAB介紹");
+            return response.data.data;
+          }
+        })
+        .catch(err => {
+          throw new Error(err);
+        })
+        .then(json => {
+          return next({
+            type: 'SAVE_LabIntroduce',
+            payload: json
+          });
+        });
+      break;
+    case "POST_AddLabIntroduce":
+      _axios
+        .post('/labinfo', action.payload)
+        .then(response => {
+          if (response.status === 200) {
+            console.log("新增LAB介紹成功");
+          }
+        })
+        .catch(err => {
+          throw new Error(err);
+        })
+        .then(json => {
+          if (action.callback) {
+            action.callback(json)
+          }
+        });
+      break;
+    case "PUT_UpdateLabIntroduce":
+      _axios
+        .put('/labinfo', action.payload)
+        .then(response => {
+          if (response.status === 200) {
+            console.log("修改LAB介紹成功");
+          }
+        })
+        .catch(err => {
+          throw new Error(err);
+        })
+        .then(json => {
+          if (action.callback) {
+            action.callback(json)
+          }
+        });
+      break;
+    case "DELETE_LabIntroduce":
+      _axios
+        .delete(`labinfo?id=${action.payload}`,)
+        .then(response => {
+          console.log(response);
+          if (response.status === 200) {
+            console.log("刪除LAB介紹成功")
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          throw new Error(err);
+        })
+        .then(json => {
+          if (action.callback) {
+            action.callback(json)
+          }
+        });
+      break;
+    default:
+      break;
+  }
+  return next(action);
+};
+
+export default fetch;
