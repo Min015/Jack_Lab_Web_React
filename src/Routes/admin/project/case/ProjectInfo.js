@@ -176,7 +176,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		//刪除
 		Delete = (id) => {
 			this.props.DELETE_ProjectRecord(id);
-			// this.props.history.push("/meetingmanage")
 		}
 		//刪除多筆
 		handelDeleteAll = () => {
