@@ -50,11 +50,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				errormsg: "必填",
 			},
 			newClass: {
-				value: "",
+				value: "1",
 				errormsg: "必填",
 			},
 			newRole: {
-				value: "",
+				value: "2",
 				errormsg: "必填",
 			},
 			password: {
@@ -135,12 +135,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 		handelDeleteAll = () => {
 			const { array } = this.state;
-			console.log(array);
 			let deletearray = "";
 			for (let i = 0; i < array.length; i++) {
 				deletearray += array[i] + ",";
 			}
-			console.log(deletearray);
 			this.Delete(deletearray);
 		}
 		drop_down = (e) => {
@@ -263,11 +261,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 
 		render() {
-			const { table_header, academic_sys, array, add, edit, del, delO, delAll, newAccount, newName, newClass, newRole, password, password2, now } = this.state;
+			const { table_header, academic_sys, array, add, edit, delO, delAll, newAccount, newName, newClass, newRole, password, password2, now } = this.state;
 			const { ClassList, RoleList, PrivateMember } = this.props;
-			// console.log(PrivateMember);
-			// console.log(password.value);
-			// console.log(password2.value);
 			return (
 				<BackLayout>
 					<div className="work">
@@ -427,7 +422,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									</label>
 								</div>
 								<div className="inputContainer">
-									<select id='newClass' onChange={this.handleInputChange.bind(this)}>
+									<select id='newClass'  value={newClass.value} onChange={this.handleInputChange.bind(this)}>
 										{ClassList === undefined ? [] : ClassList.map((item, index) => {
 											return (
 												<option key={`class${index}`} value={item.Id}>{item.Name}</option>
@@ -436,7 +431,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									</select>
 								</div>
 								<div className="inputContainer">
-									<select id='newRole' onChange={this.handleInputChange.bind(this)}>
+									<select id='newRole'  value={newRole.value} onChange={this.handleInputChange.bind(this)}>
 										{RoleList === undefined ? [] : RoleList.map((item, index) => {
 											return (
 												<option key={`role${index}`} value={item.Id}>{item.Name}</option>
