@@ -18,8 +18,6 @@ const mapDispatchToProps = dispatch => {
 		POST_AddLabIntroduce: (payload, callback) => dispatch(POST_AddLabIntroduce(payload, callback)),
 		PUT_UpdateLabIntroduce: (payload, callback) => dispatch(PUT_UpdateLabIntroduce(payload, callback)),
 		DELETE_LabIntroduce: (payload, callback) => dispatch(DELETE_LabIntroduce(payload, callback)),
-
-
 	}
 }
 export default connect(mapStateToProps, mapDispatchToProps)(
