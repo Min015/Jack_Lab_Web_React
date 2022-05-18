@@ -161,7 +161,9 @@
 				@include jus-set();
 				width : 30%;
 				cursor: pointer;
-
+				svg{
+					cursor: pointer;
+				}
 				.hover {
 					display         : none;
 					white-space     : nowrap;
