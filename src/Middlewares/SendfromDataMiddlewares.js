@@ -108,6 +108,25 @@ const fetch = store => next => action => {
                }
             });
          break;
+      case "POST_UpdatePhoto":
+         _axios
+            .post('/manager/teacher/photo', action.payload)
+            .then(response => {
+               console.log(response);
+               if (response.status === 200) {
+                  console.log("修改教師大頭貼成功");
+               }
+            })
+            .catch(err => {
+               console.log(err.response.data);
+               throw new Error(err);
+            })
+            .then(json => {
+               if (action.callback) {
+                  action.callback(json)
+               }
+            });
+         break;
       default:
          break;
    }

@@ -85,6 +85,42 @@ const fetch = store => next => action => {
           }
         });
       break;
+    case "GET_TeacherIntroduce":
+      _axios
+        .get('/manager/teacher',)
+        .then(response => {
+          if (response.status === 200) {
+            console.log("取得教師介紹");
+            return response.data.data;
+          }
+        })
+        .catch(err => {
+          throw new Error(err);
+        })
+        .then(json => {
+          return next({
+            type: 'SAVE_TeacherIntroduce',
+            payload: json
+          });
+        });
+      break;
+      case "POST_AddTeacher":
+        _axios
+          .post('/manager/teacher', action.payload)
+          .then(response => {
+            if (response.status === 200) {
+              console.log("新增Teacher成功");
+            }
+          })
+          .catch(err => {
+            throw new Error(err);
+          })
+          .then(json => {
+            if (action.callback) {
+              action.callback(json)
+            }
+          });
+        break;
     default:
       break;
   }
