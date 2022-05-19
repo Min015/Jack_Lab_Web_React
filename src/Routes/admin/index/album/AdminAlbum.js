@@ -4,8 +4,13 @@ import BackLayout from '../../../../Components/Layout/back/BackLayout';
 import '../../style/mainstyle.scss';
 import '../../../../Mixin/popup_window.scss'
 import search from '../../style/img/searchButton.png';
-import photo from '../../../guest/index/img/img1.jpg';
-import { GET_AdminAlbum, POST_AddAlbum,POST_UpdataAlbum,DELETE_AdAlbum, } from '../../../../Action/GuestindexAction';
+import 
+{ 
+	GET_AdminAlbum, 
+	POST_AddAlbum,
+	POST_UpdataAlbum,
+	DELETE_AdAlbum, 
+}from '../../../../Action/IndexAction';
 
 const mapStateToProps = state => {
 	console.log("state=>", state);
