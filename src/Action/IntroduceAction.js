@@ -57,3 +57,21 @@ export const POST_UpdatePhoto = (payload, callback) => {
     });
   };
 }
+export const PUT_UpdateTeacherIntroduce = (payload, callback) => {
+  return (dispatch) => {
+    dispatch({
+      type: "PUT_UpdateTeacherIntroduce",
+      payload: payload,
+      callback: callback,
+    });
+  };
+}
+export const DELETE_TeacherIntroduce = (payload, callback) => {
+  return (dispatch) => {
+    dispatch({
+      type: "DELETE_TeacherIntroduce",
+      payload: payload,
+      callback: callback,
+    });
+  };
+}

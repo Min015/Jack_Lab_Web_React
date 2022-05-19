@@ -6,7 +6,13 @@ import search from '../../style/img/searchButton.png';
 import teacher from '../../style/img/teacher.jpg';
 import camera from './img/camera.png';
 
-import { GET_TeacherIntroduce, POST_AddTeacher,POST_UpdatePhoto } from '../../../../Action/IntroduceAction';
+import { 
+	GET_TeacherIntroduce, 
+	POST_AddTeacher, 
+	POST_UpdatePhoto, 
+	PUT_UpdateTeacherIntroduce,
+	DELETE_TeacherIntroduce, 
+} from '../../../../Action/IntroduceAction';
 
 const mapStateToProps = state => {
 	const { introduceReducer } = state;
@@ -20,6 +26,8 @@ const mapDispatchToProps = dispatch => {
 		GET_TeacherIntroduce: () => dispatch(GET_TeacherIntroduce()),
 		POST_AddTeacher: (payload, callback) => dispatch(POST_AddTeacher(payload, callback)),
 		POST_UpdatePhoto: (payload, callback) => dispatch(POST_UpdatePhoto(payload, callback)),
+		PUT_UpdateTeacherIntroduce: (payload, callback) => dispatch(PUT_UpdateTeacherIntroduce(payload, callback)),
+		DELETE_TeacherIntroduce: (payload, callback) => dispatch(DELETE_TeacherIntroduce(payload, callback)),
 	}
 }
 export default connect(mapStateToProps, mapDispatchToProps)(
@@ -52,7 +60,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			newTitle: {
 				value: "",
 			},
-			upload:{},
+			newIntroduce: {
+				value: "",
+			},
+			upload: {},
 		}
 
 
@@ -97,36 +108,57 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				alert("有必填欄位尚未填寫，請確認");
 			}
 		}
-		UpdatePhoto=()=>{
-			const {upload,nowItem}=this.state;
-			if(upload.name!==undefined){
+		UpdatePhoto = () => {
+			const { upload, nowItem } = this.state;
+			if (upload.name !== undefined) {
 				let data = new FormData();
 				data.append('_method', 'PUT');
-				data.append('Id',nowItem.Id);
-				data.append('File',upload);
+				data.append('Id', nowItem.Id);
+				data.append('File', upload);
 				const callback = () => {
 					this.props.GET_TeacherIntroduce();
 					this.setState({
 						photo: false,
-						upload:{},
+						upload: {},
 					});
 				}
 				this.props.POST_UpdatePhoto(data, callback);
 			}
-			else{
+			else {
 				alert("請選擇相片");
+			}
+		}
+		UpdateTeacher = () => {
+			const { newName, newTitle, newIntroduce, nowItem } = this.state;
+			if (newName.value === nowItem.Name && newTitle === nowItem.Title && newIntroduce === nowItem.Introduction) {
+				alert("尚未修改任何內容");
+			}
+			else {
+				const payload = {
+					Id: nowItem.Id,
+					Name: newName.value,
+					Title: newTitle.value,
+					Introduction: newIntroduce.value,
+				}
+				const callback = () => {
+					this.props.GET_TeacherIntroduce();
+					this.setState({
+						edit: false,
+					});
+				}
+				this.props.PUT_UpdateTeacherIntroduce(payload, callback);
 			}
 		}
 		//刪除
 		Delete = (id) => {
 			const callback = () => {
-				this.props.GET_LabIntroduce();
+				this.props.GET_TeacherIntroduce();
 				this.setState({
 					delO: false,
 					delAll: false,
 				})
 			}
-			this.props.DELETE_LabIntroduce(id, callback);
+			this.props.DELETE_TeacherIntroduce(id, callback);
 		}
 		//刪除多筆
 		handelDeleteAll = () => {
@@ -135,6 +167,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			for (let i = 0; i < array.length; i++) {
 				deletearray += array[i] + ",";
 			}
+			this.setState({
+				array:[],
+			})
 			this.Delete(deletearray);
 		}
 		drop_down = (e) => {
@@ -196,6 +231,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					newTitle: {
 						value: "",
 					},
+					newIntroduce: {
+						value: "",
+					},
 				})
 			}
 		}
@@ -209,6 +247,15 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					Title: info[2],
 					Introduction: info[3],
 				},
+				newName: {
+					value: info[1],
+				},
+				newTitle: {
+					value: info[2]
+				},
+				newIntroduce: {
+					value: info[3],
+				},
 			})
 		}
 		//確定是否填寫
@@ -216,6 +263,16 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			const target = event.target;
 			let { value, id } = target;
 			value = value.trim();
+			this.setState({
+				[id]: {
+					value,
+				}
+			});
+		}
+		//可以空格
+		handelCanEnter(event) {
+			const target = event.target;
+			let { value, id } = target;
 			this.setState({
 				[id]: {
 					value,
@@ -292,13 +349,15 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			const rule = /^[a-zA-Z0-9\.\@]{1,}$/;
 			return rule.test(Account);
 		}
+		
 		render() {
-			const { table_content, table_header, array, photo, upload, newAccount, newPassword, newName, newTitle,nowItem } = this.state;
+			const { table_content, table_header, array, photo, upload, newAccount, newPassword, newName, newTitle, newIntroduce, nowItem } = this.state;
 			const { add, edit, delO, delAll } = this.state;
 			const { TeacherIntroduceList } = this.props;
-			console.log("TeacherIntroduceList", TeacherIntroduceList);
-			console.log("nowItem", nowItem);
-			console.log("upload", upload);
+			// console.log("TeacherIntroduceList", TeacherIntroduceList);
+			// console.log("nowItem", nowItem);
+			// console.log("upload", upload);
+			// console.log(edit);
 			return (
 				<BackLayout>
 					<div className="work">
@@ -306,7 +365,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							<div onClick={() => this.drop_down('add')} className="work_btn add_btn">
 								新增教師
 							</div>
-							<div className="work_btn delete_btn">
+							<div onClick={() => this.drop_down('delAll')} className="work_btn delete_btn">
 								批量刪除
 							</div>
 						</div>
@@ -353,10 +412,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 													<img src={item === undefined ? "" : `http://localhost/${item.Image}`} alt="教師頭像" className='Image' />
 													{/* {item.teacher_photo} */}
 													<div className='camera' onClick={() => this.drop_down('photo')}  >
-														<img 
-														src={camera} alt="教師頭像"
-														id={`${item.Id},${item.Name},${item.Title},${item.Introduction}`} 
-														onClick={this.handelSetNow.bind()}
+														<img
+															src={camera} alt="教師頭像"
+															id={`${item.Id},${item.Name},${item.Title},${item.Introduction}`}
+															onClick={this.handelSetNow.bind()}
 														/>
 													</div>
 												</div>
@@ -370,7 +429,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 											</td>
 											<td>
 												<div className="action">
-													<div className="svg">
+													<div onClick={() => this.drop_down('edit')} className="svg">
 														<svg id={`${item.Id},${item.Name},${item.Title},${item.Introduction}`} onClick={this.handelSetNow.bind()}
 															width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 															<path id={`${item.Id},${item.Name},${item.Title},${item.Introduction}`} onClick={this.handelSetNow.bind()}
@@ -380,7 +439,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 															編輯
 														</div>
 													</div>
-													<div className="svg">
+													<div onClick={() => this.drop_down('delO')} className="svg">
 														<svg id={`${item.Id},${item.Name},${item.Title},${item.Introduction}`} onClick={this.handelSetNow.bind()}
 															width="15" height="18" viewBox="0 0 15 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 															<path id={`${item.Id},${item.Name},${item.Title},${item.Introduction}`} onClick={this.handelSetNow.bind()}
@@ -511,6 +570,128 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										onClick={this.UpdatePhoto}
 									>
 										修改
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div
+						className={edit ? "popup_background active" : "popup_background"}
+						onClick={this.handelMouseDown}
+					>
+						<div className="window">
+							<div className="form">
+								<h1 className="title">
+									修改教師介紹
+									<div className="close">
+										<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M24 2.4L21.6 0L12 9.6L2.4 0L0 2.4L9.6 12L0 21.6L2.4 24L12 14.4L21.6 24L24 21.6L14.4 12L24 2.4Z" fill="#51718C" />
+										</svg>
+										<div className="close_btn" onClick={() => this.drop_down('edit')} />
+									</div>
+								</h1>
+								<div className="inputContainer">
+									<input
+										type="text"
+										className="input"
+										placeholder=" "
+										required="required"
+										id='newName'
+										value={newName.value}
+										onChange={this.handleInputChange.bind(this)}
+									/>
+									<label className="label">
+										名稱*
+									</label>
+								</div>
+								<div className="inputContainer">
+									<input
+										type="text"
+										className="input"
+										placeholder=" "
+										required="required"
+										id='newTitle'
+										value={newTitle.value}
+										onChange={this.handleInputChange.bind(this)}
+									/>
+									<label className="label">
+										職位*
+									</label>
+								</div>
+								<div className='col-12 enter'>
+									<textarea
+										value={newIntroduce.value}
+										id="newIntroduce"
+										className='long_text'
+										onChange={this.handelCanEnter.bind(this)}
+									/>
+									<label className="label">自介</label>
+								</div>
+								<div className='btn_block'>
+									<button
+										className="submitBtn"
+										onClick={this.UpdateTeacher}
+									>
+										確定
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div
+						className={delO ? "popup_background active" : "popup_background"}
+						onClick={this.handelMouseDown}
+					>
+						<div className="window">
+							<div className="form">
+								<h1 className="title">
+									<div className="close">
+										<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M24 2.4L21.6 0L12 9.6L2.4 0L0 2.4L9.6 12L0 21.6L2.4 24L12 14.4L21.6 24L24 21.6L14.4 12L24 2.4Z" fill="#51718C" />
+										</svg>
+										<div className="close_btn" onClick={() => this.drop_down('delO')} />
+									</div>
+								</h1>
+
+								<h2 className='message'>
+									是否要刪除教師<br />
+									「{nowItem===undefined?"":nowItem.Name}」
+								</h2>
+								<div className='btn_block'>
+									<button
+										className="submitBtn"
+										onClick={(e) => this.Delete(nowItem.Id, e)}
+									>
+										確定
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div
+						className={delAll ? "popup_background active" : "popup_background"}
+						onClick={this.handelMouseDown}
+					>
+						<div className="window">
+							<div className="form">
+								<h1 className="title">
+									<div className="close">
+										<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M24 2.4L21.6 0L12 9.6L2.4 0L0 2.4L9.6 12L0 21.6L2.4 24L12 14.4L21.6 24L24 21.6L14.4 12L24 2.4Z" fill="#51718C" />
+										</svg>
+										<div className="close_btn" onClick={() => this.drop_down('delAll')} />
+									</div>
+								</h1>
+
+								<h2 className='message'>
+									是否要刪除「{array.length}」筆紀錄
+								</h2>
+								<div className='btn_block'>
+									<button
+										className="submitBtn"
+										onClick={() => this.handelDeleteAll()}
+									>
+										確定
 									</button>
 								</div>
 							</div>

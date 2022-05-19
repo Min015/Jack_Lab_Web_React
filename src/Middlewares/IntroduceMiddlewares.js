@@ -104,15 +104,51 @@ const fetch = store => next => action => {
           });
         });
       break;
-      case "POST_AddTeacher":
+    case "POST_AddTeacher":
+      _axios
+        .post('/manager/teacher', action.payload)
+        .then(response => {
+          if (response.status === 200) {
+            console.log("新增Teacher成功");
+          }
+        })
+        .catch(err => {
+          throw new Error(err);
+        })
+        .then(json => {
+          if (action.callback) {
+            action.callback(json)
+          }
+        });
+      break;
+    case "PUT_UpdateTeacherIntroduce":
+      _axios
+        .put('/manager/teacher/info', action.payload)
+        .then(response => {
+          if (response.status === 200) {
+            console.log("修改Teacher介紹成功");
+          }
+        })
+        .catch(err => {
+          throw new Error(err);
+        })
+        .then(json => {
+          if (action.callback) {
+            action.callback(json)
+          }
+        });
+      break;
+      case "DELETE_TeacherIntroduce":
         _axios
-          .post('/manager/teacher', action.payload)
+          .delete(`/manager/teacher?id=${action.payload}`,)
           .then(response => {
+            console.log(response);
             if (response.status === 200) {
-              console.log("新增Teacher成功");
+              console.log("刪除Teacher介紹成功")
             }
           })
           .catch(err => {
+            console.log(err);
             throw new Error(err);
           })
           .then(json => {

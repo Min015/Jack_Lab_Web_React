@@ -19,8 +19,14 @@ const fetch = store => next => action => {
         .post('/login', action.payload)
         .then(response => {
           console.log(response);
-          localStorage.setItem('user_token', response.data.data);
-          window.location.replace('http://localhost:3000/setinfo');
+          localStorage.setItem('user_token', response.data.data.token);
+          if(response.data.data.admin===1){
+            window.location.replace('http://localhost:3000/adminalbum');
+          
+          }
+          else if(response.data.data.admin===0){
+            window.location.replace('http://localhost:3000/setinfo');
+          }
         })
         .catch(err => {
           throw new Error(err);
