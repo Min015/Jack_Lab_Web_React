@@ -155,7 +155,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
           drop: true,
         })
       }
-
     }
     //判斷標籤長度
     headleGetLong = (e) => {

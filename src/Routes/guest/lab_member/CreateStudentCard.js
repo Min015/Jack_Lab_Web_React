@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import '../style/studentcard.scss';
-import teacher from '../../admin/style/img/teacher.jpg';
 export default class CreateStudentCard extends Component {
 
     render() {
@@ -12,7 +11,6 @@ export default class CreateStudentCard extends Component {
                         <div className='card'>
                             <div className='card_in'>
                                 <div className='stu_i'>
-                                    {/* <img src={teacher} /> */}
                                 </div>
                                 <div className='stu_n'>{item.stu_name}</div>
                                 <div className='stu_c'>{item.stu_classes}</div>

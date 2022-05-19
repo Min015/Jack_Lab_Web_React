@@ -484,11 +484,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										<div className="close_btn" onClick={() => this.drop_down('previview')} />
 									</div>
 								</h1>
-
 								<div className='photo'>
 									<img src={now === undefined ? "" : `http://localhost/${now.Image}`} alt="輪播圖" />
 								</div>
-
 							</div>
 						</div>
 					</div>
