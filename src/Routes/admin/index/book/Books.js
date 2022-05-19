@@ -1,355 +1,917 @@
 import { Component } from 'react';
+import { connect } from "react-redux";
 import BackLayout from '../../../../Components/Layout/back/BackLayout';
 import '../../style/mainstyle.scss';
+import '../../../../Mixin/popup_window.scss';
+import './book.scss';
+import camera from '../../style/img/camera.png';
 import search from '../../style/img/searchButton.png';
-export default class Books extends Component {
-	state = {
-		array: [],
-		table_header: [
-			"書名",
-			"作者",
-			"出版社",
-			"出版時間",
-		],
-		table_content: [
-			{
-				b_id: "a",
-				b_title: "秒懂行動網頁設計Visual Studio Code+GitHub+Bootstrap5+CSS3+HTML5+Web App專案實作",
-				b_author: "姜琇森 朱珮儀 章家源 董子瑜 蕭國倫 陳璟誼",
-				b_publisher: "碁峰",
-				b_time: "2021-12-15",
-			},
-			{
-				b_id: "b",
-				b_title: "一次就懂 ASP.NET MVC 5.x 網站開發：Web應用的經典實務範例解析(Visual C# )",
-				b_author: "吳玟憲 姜琇森 楊鎧睿 蕭國倫 黃子銘 黃煒凱",
-				b_publisher: "深智數位",
-				b_time: "2019-11-19",
-			},
-			{
-				b_id: "c",
-				b_title: "原來跨平台開發可以這麼簡單：React Native全攻略(附範例光碟)",
-				b_author: "姜琇森, 蕭國倫, 許瑋芩, 黃子銘, 楊鎧睿, 黃煒凱, 周冠瑜",
-				b_publisher: "全華圖書",
-				b_time: "2020-07-01",
-			},
-		],
-		add: false,
-		edit: false,
-		delO: false,
-		delAll: false,
-	}
-	//生命週期
 
-	//刪除
-	Delete = (id) => {
-		const callback = () => {
-			this.props.GET_LabIntroduce();
-			this.setState({
-				delO: false,
-				delAll: false,
-			})
-		}
-		this.props.DELETE_LabIntroduce(id, callback);
+import { GET_PublicMembers } from '../../../../Action/MemberAction';
+import {
+	GET_Book,
+	POST_AddBook,
+	DELETE_Book,
+	GET_BookInfo,
+	PUT_UpdateBookInfo,
+	POST_UpdateBookPhoto,
+} from '../../../../Action/IndexAction';
+
+const mapStateToProps = state => {
+	return {
+		PublicMemberList: state.memberReducer.PublicMemberList,
+		BookList: state.guestindexReducer.BookList,
+		BookInfo: state.guestindexReducer.BookInfo,
 	}
-	//刪除多筆
-	handelDeleteAll = () => {
-		const { array } = this.state;
-		let deletearray = "";
-		for (let i = 0; i < array.length; i++) {
-			deletearray += array[i] + ",";
-		}
-		this.Delete(deletearray);
+}
+
+const mapDispatchToProps = dispatch => {
+	return {
+		GET_PublicMembers: () => dispatch(GET_PublicMembers()),
+		GET_Book: () => dispatch(GET_Book()),
+		POST_AddBook: (payload, callback) => dispatch(POST_AddBook(payload, callback)),
+		DELETE_Book: (payload, callback) => dispatch(DELETE_Book(payload, callback)),
+		GET_BookInfo: (payload, callback) => dispatch(GET_BookInfo(payload, callback)),
+		PUT_UpdateBookInfo: (payload, callback) => dispatch(PUT_UpdateBookInfo(payload, callback)),
+		POST_UpdateBookPhoto: (payload, callback) => dispatch(POST_UpdateBookPhoto(payload, callback)),
+
 	}
-	drop_down = (e) => {
-		if (e === 'add') {
-			this.setState({
-				add: !this.state.add,
-				newTitle: {
-					value: "",
-					errormsg: "*",
+}
+export default connect(mapStateToProps, mapDispatchToProps)(
+	class Books extends Component {
+		state = {
+			array: [],
+			table_header: [
+				"書名",
+				"作者",
+				"出版時間",
+			],
+			table_content: [
+				{
+					b_id: "a",
+					b_title: "秒懂行動網頁設計Visual Studio Code+GitHub+Bootstrap5+CSS3+HTML5+Web App專案實作",
+					b_author: "姜琇森 朱珮儀 章家源 董子瑜 蕭國倫 陳璟誼",
+					b_publisher: "碁峰",
+					b_time: "2021-12-15",
 				},
-				newContent: {
-					value: "",
-					errormsg: "*",
+				{
+					b_id: "b",
+					b_title: "一次就懂 ASP.NET MVC 5.x 網站開發：Web應用的經典實務範例解析(Visual C# )",
+					b_author: "吳玟憲 姜琇森 楊鎧睿 蕭國倫 黃子銘 黃煒凱",
+					b_publisher: "深智數位",
+					b_time: "2019-11-19",
 				},
-			})
-		}
-		else if (e === 'edit') {
-			this.setState({
-				edit: !this.state.edit,
-			})
-		}
-		else if (e === 'delO') {
-			this.setState({
-				delO: !this.state.delO,
-			})
-		}
-		else if (e === 'delAll') {
-			this.setState({
-				delAll: !this.state.delAll,
-			})
-		}
-	}
-	handelMouseDown = (e) => {
-		if (e.target.className === "window") {
-			this.setState({
-				add: false,
-				edit: false,
-				delO: false,
-				delAll: false,
-				newTitle: {
-					value: "",
-					errormsg: "*",
+				{
+					b_id: "c",
+					b_title: "原來跨平台開發可以這麼簡單：React Native全攻略(附範例光碟)",
+					b_author: "姜琇森, 蕭國倫, 許瑋芩, 黃子銘, 楊鎧睿, 黃煒凱, 周冠瑜",
+					b_publisher: "全華圖書",
+					b_time: "2020-07-01",
 				},
-				newContent: {
-					value: "",
-					errormsg: "*",
-				},
-			})
+			],
+			add: false,
+			edit: false,
+			delO: false,
+			delAll: false,
+			drop: false,
+			photo: false,
+			mimes_type: ['svg', 'png', 'jpg', 'jpeg', 'csv',],//媒體類型
+			all_file_max_size: 1024 * 1024 * 50,//50M
+			one_file_max_size: 1024 * 1024 * 30,//30M
+			Id: "",
+			Title: "",
+			Publisher: "",
+			Time: "",
+			ISBN: "",
+			upload: {},
+			participate: [],
 		}
-	}
-	handelSetNow = (e) => {
-		const { id } = e.target;
-		const info = id.split(",")
-		this.setState({
-			nowItem: {
-				Id: info[0],
-				Title: info[1],
-				Content: info[2],
-			},
-			newTitle: {
-				value: info[1],
-				errormsg: "",
-			},
-			newContent: {
-				value: info[2],
-				errormsg: "",
-			},
-		})
-	}
-	//確定是否填寫
-	handleInputChange(event) {
-		const target = event.target;
-		let { value, id } = target;
-		value = value.trim();
-		this.setState({
-			[id]: {
-				value,
-			}
-		});
-	}
-	handelAllChange = e => {
-		const checkboxes = document.getElementsByName('Box');
-		for (let i = 0; i < checkboxes.length; i++) {
-			checkboxes[i].checked = e.target.checked;
-			this.handelOnClick(checkboxes[i]);
+		//生命週期
+		componentDidMount = () => {
+			this.props.GET_PublicMembers();
+			this.props.GET_Book();
 		}
-	}
-	handelOnClick = e => {
-		const { LabIntroduceList } = this.props;
-		let array = this.state.array;
-		const num = LabIntroduceList.length;
-		const AllChange = document.getElementsByName('AllChange');
-		if (e.checked === true) {
-			if (!array.includes(e.value)) {
-				array.push(e.value);
-			}
-			if (array.length === num) {
-				AllChange[0].checked = true;
-			}
-		}
-		else {
-			array.forEach((item, index) => {
-				if (item === e.value) {
-					array.splice(index, 1)
+		AddBook = () => {
+			const { Title, Publisher, Time, ISBN, participate, upload, } = this.state;
+			console.log(85, participate);
+			if (Title !== "" && Publisher !== "" && Time !== "" && ISBN !== "" && participate.length !== 0 && upload.name !== undefined) {
+				const addmember = participate.map((item) => { return (item.account) });
+				let data = new FormData();
+				data.append('Title', Title);
+				data.append('Publisher', Publisher);
+				data.append('Time', Time);
+				data.append('ISBN', ISBN);
+				data.append('Image', upload);
+				addmember.map((item, index) =>
+					data.append(`Authors[${index}]`, item)
+				);
+				const callback = () => {
+					this.props.GET_Book();
+					this.setState({
+						add: false,
+						Title: "",
+						Publisher: "",
+						Time: "",
+						ISBN: "",
+						upload: {},
+						participate: [],
+					})
 				}
-			})
-			if (array.length !== num) {
-				AllChange[0].checked = false;
+				this.props.POST_AddBook(data, callback);
+				console.log("108");
+			}
+			else {
+				alert("有必填欄位未填寫，請確認");
 			}
 		}
-		this.setState({
-			array
-		})
-		console.log(array);
-	}
-	render() {
-		const { table_header, table_content, array } = this.state;
-		const { add, edit, delO, delAll } = this.state;
-		return (
-			<BackLayout>
-				<div className="work">
-					<div className="edit_button">
-						<div onClick={() => this.drop_down('add')} className="work_btn add_btn">
-							新增書籍
-						</div>
-						<div className="work_btn delete_btn">
-							批量刪除
-						</div>
-					</div>
-					<div action="" className="searchbar">
-						<input type="text" required placeholder="搜尋" />
-						<div className="submit">
-							<input type="image" src={search} alt="送出" />
-						</div>
-					</div>
-				</div>
-				<table className="col-12 admin_table">
-					<thead>
-						<tr>
-							<th className="col-05 check">
-								<input
-									type="checkbox"
-									name='AllChange'
-									onChange={this.handelAllChange}
-								/>
-							</th>
-							<th className="col-05">#</th>
-							<th>{table_header[0]}</th>
-							<th className="col-3">{table_header[1]}</th>
-							<th className="col-1">{table_header[2]}</th>
-							<th className="col-1_5">{table_header[3]}</th>
-							<th className="col-1"></th>
-						</tr>
-					</thead>
-					<tbody>
-						{table_content.map(
-							(item, index) => {
-								return (
-									<tr key={index} className={array.includes(item.b_id) ? "onchange" : ""}>
-										<td className="check">
-											<input type="checkbox"
-												id=""
-												name="Box"
-												value={item.b_id}
-												onChange={(e) => { this.handelOnClick(e.target) }}
-											/>
+		GET_BookInfo = id => {
+			const callback = (res) => {
+				this.setState({
+					bookinfo: res,
+					Id: res.Id,
+					Title: res.Title,
+					Publisher: res.Publisher,
+					Time: res.Time,
+					ISBN: res.ISBN,
+					participate: res.Authors,
+				})
+			}
+			this.props.GET_BookInfo(id, callback);
+		}
+		UpdateBookInfo = () => {
+			const { Id, Title, Publisher, Time, ISBN, participate } = this.state;
+			console.log("Id=>", Id);
+			if (Id !== "" && Title !== "" && Publisher !== "" && Time !== "" && ISBN !== "" && participate.length !== 0) {
+				const addmember = participate.map((item) => { return (item.account) });
+				const payload = {
+					Id: Id,
+					Title: Title,
+					Publisher: Publisher,
+					Time: Time,
+					ISBN: ISBN,
+					Authors: addmember,
+				};
+				const callback = () => {
+					this.props.GET_Book();
+					this.setState({
+						edit: false,
+						Title: "",
+						Publisher: "",
+						Time: "",
+						ISBN: "",
+						upload: {},
+						participate: [],
+					})
+				};
+				this.props.PUT_UpdateBookInfo(payload, callback);
+			}
+			else {
+				alert("有必填欄位未填寫，請確認");
+			}
+		}
+		UpdateBookPhoto=()=>{
+			const { upload, Id } = this.state;
+			if (upload.name !== undefined) {
+				let data = new FormData();
+				data.append('_method', 'PUT');
+				data.append('Id',Id);
+				data.append('Image', upload);
+				const callback = () => {
+					this.props.GET_Book();
+					this.setState({
+						photo: false,
+						edit:false,
+						upload: {},
+					});
+				}
+				this.props.POST_UpdateBookPhoto(data, callback);
+			}
+			else {
+				alert("請選擇相片");
+			}
+		}
+		//刪除
+		Delete = (id) => {
+			const callback = () => {
+				this.props.GET_Book();
+				this.setState({
+					delO: false,
+					delAll: false,
+				})
+			}
+			this.props.DELETE_Book(id, callback);
+		}
+		//刪除多筆
+		handelDeleteAll = () => {
+			const { array } = this.state;
+			let deletearray = "";
+			for (let i = 0; i < array.length; i++) {
+				deletearray += array[i] + ",";
+			}
+			this.Delete(deletearray);
+		}
+		drop_down = (e) => {
+			if (e === 'add') {
+				this.setState({
+					add: !this.state.add,
+					Title: "",
+					Publisher: "",
+					Time: "",
+					ISBN: "",
+					participate: [],
+					upload: {},
+				})
+			}
+			else if (e === 'edit') {
+				this.setState({
+					edit: !this.state.edit,
+				})
+			}
+			else if (e === 'delO') {
+				this.setState({
+					delO: !this.state.delO,
+				})
+			}
+			else if (e === 'delAll') {
+				this.setState({
+					delAll: !this.state.delAll,
+				})
+			}
+			else if (e === 'drop') {
+				this.setState({
+					drop: !this.state.drop,
+				})
+			}
+			else if (e === 'photo') {
+				this.setState({
+					photo: !this.state.photo,
+				})
+			}
+		}
+		handelMouseDown = (e) => {
+			const cn = (e.target.className);
+			const name = cn.substr(0, 6);
+			if (e.target.className === "window") {
+				this.setState({
+					add: false,
+					edit: false,
+					delO: false,
+					delAll: false,
+					drop: false,
+					photo: false,
+					Id:"",
+					Title: "",
+					Publisher: "",
+					Time: "",
+					ISBN: "",
+					participate: [],
+					upload: {},
+				})
+			}
+			else if (name !== "choose") {
+				this.setState({
+					drop: false,
+				})
+			}
+			else {
+				this.setState({
+					drop: true,
+				})
+			}
+		}
+		handelSelectMember = e => {
+			let participate = this.state.participate;
+			const account = e.id;
+			const name = e.value;
+			const obj = {
+				account,
+				name
+			}
+			if (e.checked === true) {
+				if (!participate.find((item) => JSON.stringify(item) === JSON.stringify(obj))) {
+					participate.push(obj);
+				}
+				this.setState({
+					participate,
+				})
+			}
+			else {
+				let newarray = participate.filter((item) => item.account !== obj.account)
+				this.setState({
+					participate: newarray,
+				})
+			}
+		}
+		handelSetNow = (e) => {
+			const { id } = e.target;
+			console.log(id);
+			const info = id.split(",");
 
-										</td>
-										<td>{index + 1}</td>
-										<td>{item.b_title}</td>
-										<td>{item.b_author}</td>
-										<td>{item.b_publisher}</td>
-										<td>{item.b_time}</td>
-										<td>
-											<div className="action">
-												<div className="svg">
-													<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<path d="M11.0769 7.26923V7.96154C11.0769 8.05529 11.0427 8.13642 10.9742 8.20493C10.9056 8.27344 10.8245 8.30769 10.7308 8.30769H8.30769V10.7308C8.30769 10.8245 8.27344 10.9056 8.20493 10.9742C8.13642 11.0427 8.05529 11.0769 7.96154 11.0769H7.26923C7.17548 11.0769 7.09435 11.0427 7.02584 10.9742C6.95733 10.9056 6.92308 10.8245 6.92308 10.7308V8.30769H4.5C4.40625 8.30769 4.32512 8.27344 4.25661 8.20493C4.1881 8.13642 4.15385 8.05529 4.15385 7.96154V7.26923C4.15385 7.17548 4.1881 7.09435 4.25661 7.02584C4.32512 6.95733 4.40625 6.92308 4.5 6.92308H6.92308V4.5C6.92308 4.40625 6.95733 4.32512 7.02584 4.25661C7.09435 4.1881 7.17548 4.15385 7.26923 4.15385H7.96154C8.05529 4.15385 8.13642 4.1881 8.20493 4.25661C8.27344 4.32512 8.30769 4.40625 8.30769 4.5V6.92308H10.7308C10.8245 6.92308 10.9056 6.95733 10.9742 7.02584C11.0427 7.09435 11.0769 7.17548 11.0769 7.26923ZM12.4615 7.61539C12.4615 6.28125 11.9874 5.14002 11.0391 4.19171C10.0907 3.24339 8.94952 2.76923 7.61539 2.76923C6.28125 2.76923 5.14002 3.24339 4.19171 4.19171C3.24339 5.14002 2.76923 6.28125 2.76923 7.61539C2.76923 8.94952 3.24339 10.0907 4.19171 11.0391C5.14002 11.9874 6.28125 12.4615 7.61539 12.4615C8.94952 12.4615 10.0907 11.9874 11.0391 11.0391C11.9874 10.0907 12.4615 8.94952 12.4615 7.61539ZM18 16.6154C18 16.9976 17.8648 17.3239 17.5944 17.5944C17.3239 17.8648 16.9976 18 16.6154 18C16.226 18 15.9014 17.863 15.6418 17.5889L11.9315 13.8894C10.6406 14.7837 9.20192 15.2308 7.61539 15.2308C6.58413 15.2308 5.59796 15.0306 4.65685 14.6304C3.71575 14.2302 2.90445 13.6893 2.22296 13.0078C1.54147 12.3263 1.0006 11.515 0.600361 10.5739C0.20012 9.63281 0 8.64664 0 7.61539C0 6.58413 0.20012 5.59796 0.600361 4.65685C1.0006 3.71575 1.54147 2.90445 2.22296 2.22296C2.90445 1.54147 3.71575 1.0006 4.65685 0.600361C5.59796 0.20012 6.58413 0 7.61539 0C8.64664 0 9.63281 0.20012 10.5739 0.600361C11.515 1.0006 12.3263 1.54147 13.0078 2.22296C13.6893 2.90445 14.2302 3.71575 14.6304 4.65685C15.0306 5.59796 15.2308 6.58413 15.2308 7.61539C15.2308 9.20192 14.7837 10.6406 13.8894 11.9315L17.5998 15.6418C17.8666 15.9087 18 16.2332 18 16.6154Z" fill="#51718C" />
-													</svg>
-													<div className="hover">
-														預覽
+			this.setState({
+				nowItem: {
+					Id: info[0],
+					Title: info[1],
+				},
+			});
+			// console.log(239,this.state.nowItem);
+		}
+		//確定是否填寫
+		handleInputChange(event) {
+			const target = event.target;
+			let { value, id } = target;
+			value = value.trim();
+			console.log(target);
+			this.setState({
+				[id]: value,
+			});
+		}
+		handelAllChange = e => {
+			const checkboxes = document.getElementsByName('Box');
+			for (let i = 0; i < checkboxes.length; i++) {
+				checkboxes[i].checked = e.target.checked;
+				this.handelOnClick(checkboxes[i]);
+			}
+		}
+		handelOnClick = e => {
+			const { BookList } = this.props;
+			let array = this.state.array;
+			const num = BookList.length;
+			const AllChange = document.getElementsByName('AllChange');
+			if (e.checked === true) {
+				if (!array.includes(e.value)) {
+					array.push(e.value);
+				}
+				if (array.length === num) {
+					AllChange[0].checked = true;
+				}
+			}
+			else {
+				array.forEach((item, index) => {
+					if (item === e.value) {
+						array.splice(index, 1)
+					}
+				})
+				if (array.length !== num) {
+					AllChange[0].checked = false;
+				}
+			}
+			this.setState({
+				array
+			})
+			console.log(array);
+		}
+		//選檔案
+		handleSelectFile = (files) => {
+			let nowsize = 0;
+			const { all_file_max_size, one_file_max_size, mimes_type } = this.state;
+			if (files.length > 5) {
+				alert("一次請勿上傳超過五個檔案")
+			}
+			else {
+				let array = [];
+				for (let index = 0; index < files.length; index++) {
+					const file_type = files[index].name.split(".").pop();
+					if (!mimes_type.includes(file_type)) {
+						const media_type = mimes_type.map((item) => ` ${item}`);
+						alert(`上傳檔案類型錯誤,請選擇${media_type}類型的檔案`);
+					}
+					else {
+						const thissize = files[index].size;
+						nowsize += thissize;
+						if (thissize > one_file_max_size || nowsize > all_file_max_size) {
+							alert("檔案過大，請重新選擇(單個檔案勿超過30M，總大小物超過50M");
+						}
+						else {
+							array.push(files[index]);
+						}
+					}
+				}
+				this.setState({
+					upload: array[0]
+				})
+			}
+		}
+		//取得現在時間
+		handleGetnow = () => {
+			const today = new Date().toISOString().split("T");
+			const ISO = today[0];
+			return (ISO);
+		}
+		render() {
+			const { table_header, array, drop, photo, Title, Publisher, Time, ISBN, participate, upload, nowItem, bookinfo } = this.state;
+			const { add, edit, delO, delAll } = this.state;
+			const { BookList, PublicMemberList, BookInfo } = this.props;
+			 console.log(403,upload);
+			// console.log(333, BookInfo);
+			// console.log(334, bookinfo)
+			return (
+				<div id='book'>
+					<BackLayout>
+						<div className="work">
+							<div className="edit_button">
+								<div onClick={() => this.drop_down('add')} className="work_btn add_btn">
+									新增書籍
+								</div>
+								<div onClick={() => this.drop_down('delAll')} className="work_btn delete_btn">
+									批量刪除
+								</div>
+							</div>
+							<div action="" className="searchbar">
+								<input type="text" required placeholder="搜尋" />
+								<div className="submit">
+									<input type="image" src={search} alt="送出" />
+								</div>
+							</div>
+						</div>
+						<table className="col-12 admin_table">
+							<thead>
+								<tr>
+									<th className="col-05 check">
+										<input
+											type="checkbox"
+											name='AllChange'
+											onChange={this.handelAllChange}
+										/>
+									</th>
+									<th className="col-05">#</th>
+									<th>{table_header[0]}</th>
+									<th className="col-3">{table_header[1]}</th>
+									<th className="col-1_5">{table_header[2]}</th>
+									<th className="col-1"></th>
+								</tr>
+							</thead>
+							<tbody>
+								{BookList === undefined ? "" : BookList.map(
+									(item, index) => {
+										return (
+											<tr key={index} className={array.includes(`${item.Id}`) ? "onchange" : ""}>
+												<td className="check">
+													<input type="checkbox"
+														name="Box"
+														value={item.Id}
+														onChange={(e) => { this.handelOnClick(e.target) }}
+													/>
+												</td>
+												<td>{index + 1}</td>
+												<td>{item.Title}</td>
+												<td className='author'>
+													{item.Authors === undefined ? "" : item.Authors.map((item, index) => {
+														return (
+															<span>{item.name} </span>
+														)
+													})}
+												</td>
+												<td>{item.Time}</td>
+												<td>
+													<div className="action">
+														<div onClick={() => this.drop_down('edit')} className="svg">
+															<svg onClick={(e) => this.GET_BookInfo(item.Id, e)}
+																width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+																<path
+																	d="M11.0769 7.26923V7.96154C11.0769 8.05529 11.0427 8.13642 10.9742 8.20493C10.9056 8.27344 10.8245 8.30769 10.7308 8.30769H8.30769V10.7308C8.30769 10.8245 8.27344 10.9056 8.20493 10.9742C8.13642 11.0427 8.05529 11.0769 7.96154 11.0769H7.26923C7.17548 11.0769 7.09435 11.0427 7.02584 10.9742C6.95733 10.9056 6.92308 10.8245 6.92308 10.7308V8.30769H4.5C4.40625 8.30769 4.32512 8.27344 4.25661 8.20493C4.1881 8.13642 4.15385 8.05529 4.15385 7.96154V7.26923C4.15385 7.17548 4.1881 7.09435 4.25661 7.02584C4.32512 6.95733 4.40625 6.92308 4.5 6.92308H6.92308V4.5C6.92308 4.40625 6.95733 4.32512 7.02584 4.25661C7.09435 4.1881 7.17548 4.15385 7.26923 4.15385H7.96154C8.05529 4.15385 8.13642 4.1881 8.20493 4.25661C8.27344 4.32512 8.30769 4.40625 8.30769 4.5V6.92308H10.7308C10.8245 6.92308 10.9056 6.95733 10.9742 7.02584C11.0427 7.09435 11.0769 7.17548 11.0769 7.26923ZM12.4615 7.61539C12.4615 6.28125 11.9874 5.14002 11.0391 4.19171C10.0907 3.24339 8.94952 2.76923 7.61539 2.76923C6.28125 2.76923 5.14002 3.24339 4.19171 4.19171C3.24339 5.14002 2.76923 6.28125 2.76923 7.61539C2.76923 8.94952 3.24339 10.0907 4.19171 11.0391C5.14002 11.9874 6.28125 12.4615 7.61539 12.4615C8.94952 12.4615 10.0907 11.9874 11.0391 11.0391C11.9874 10.0907 12.4615 8.94952 12.4615 7.61539ZM18 16.6154C18 16.9976 17.8648 17.3239 17.5944 17.5944C17.3239 17.8648 16.9976 18 16.6154 18C16.226 18 15.9014 17.863 15.6418 17.5889L11.9315 13.8894C10.6406 14.7837 9.20192 15.2308 7.61539 15.2308C6.58413 15.2308 5.59796 15.0306 4.65685 14.6304C3.71575 14.2302 2.90445 13.6893 2.22296 13.0078C1.54147 12.3263 1.0006 11.515 0.600361 10.5739C0.20012 9.63281 0 8.64664 0 7.61539C0 6.58413 0.20012 5.59796 0.600361 4.65685C1.0006 3.71575 1.54147 2.90445 2.22296 2.22296C2.90445 1.54147 3.71575 1.0006 4.65685 0.600361C5.59796 0.20012 6.58413 0 7.61539 0C8.64664 0 9.63281 0.20012 10.5739 0.600361C11.515 1.0006 12.3263 1.54147 13.0078 2.22296C13.6893 2.90445 14.2302 3.71575 14.6304 4.65685C15.0306 5.59796 15.2308 6.58413 15.2308 7.61539C15.2308 9.20192 14.7837 10.6406 13.8894 11.9315L17.5998 15.6418C17.8666 15.9087 18 16.2332 18 16.6154Z" fill="#51718C" />
+															</svg>
+															<div className="hover">
+																查看詳情
+															</div>
+														</div>
+														{/* <div className="svg">
+															<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+																<path d="M17.5375 2.83605L15.1747 0.463507C14.5232 -0.190681 13.4207 -0.147876 12.7142 0.563335C12.0076 1.27278 11.9615 2.3815 12.6148 3.03568L14.9776 5.40822C15.6291 6.06241 16.7315 6.01963 17.4398 5.3084C18.1464 4.59719 18.1908 3.49203 17.5375 2.83605ZM2.47467 10.8432L7.20033 15.5882L14.88 7.87883L10.1543 3.13374L2.47467 10.8432ZM0 18L6.23283 16.7469L1.24799 11.7415L0 18Z" fill="#51718C" />
+															</svg>
+															<div className="hover">
+																編輯
+															</div>
+														</div> */}
+														<div onClick={() => this.drop_down('delO')} className="svg">
+															<svg id={`${item.Id},${item.Title}`} onClick={this.handelSetNow.bind()}
+																width="15" height="18" viewBox="0 0 15 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+																<path id={`${item.Id},${item.Title}`} onClick={this.handelSetNow.bind()}
+																	d="M1.01504 16.3125C1.01504 16.7601 1.17545 17.1893 1.46098 17.5058C1.74652 17.8222 2.13379 18 2.53759 18H11.6729C12.0767 18 12.464 17.8222 12.7495 17.5058C13.0351 17.1893 13.1955 16.7601 13.1955 16.3125V4.50001H1.01504V16.3125ZM9.64286 7.31251C9.64286 7.16332 9.69633 7.02025 9.79151 6.91476C9.88668 6.80927 10.0158 6.75001 10.1504 6.75001C10.285 6.75001 10.4141 6.80927 10.5092 6.91476C10.6044 7.02025 10.6579 7.16332 10.6579 7.31251V15.1875C10.6579 15.3367 10.6044 15.4798 10.5092 15.5853C10.4141 15.6908 10.285 15.75 10.1504 15.75C10.0158 15.75 9.88668 15.6908 9.79151 15.5853C9.69633 15.4798 9.64286 15.3367 9.64286 15.1875V7.31251ZM6.59774 7.31251C6.59774 7.16332 6.65122 7.02025 6.74639 6.91476C6.84157 6.80927 6.97066 6.75001 7.10526 6.75001C7.23987 6.75001 7.36896 6.80927 7.46413 6.91476C7.55931 7.02025 7.61278 7.16332 7.61278 7.31251V15.1875C7.61278 15.3367 7.55931 15.4798 7.46413 15.5853C7.36896 15.6908 7.23987 15.75 7.10526 15.75C6.97066 15.75 6.84157 15.6908 6.74639 15.5853C6.65122 15.4798 6.59774 15.3367 6.59774 15.1875V7.31251ZM3.55263 7.31251C3.55263 7.16332 3.6061 7.02025 3.70128 6.91476C3.79646 6.80927 3.92555 6.75001 4.06015 6.75001C4.19475 6.75001 4.32384 6.80927 4.41902 6.91476C4.5142 7.02025 4.56767 7.16332 4.56767 7.31251V15.1875C4.56767 15.3367 4.5142 15.4798 4.41902 15.5853C4.32384 15.6908 4.19475 15.75 4.06015 15.75C3.92555 15.75 3.79646 15.6908 3.70128 15.5853C3.6061 15.4798 3.55263 15.3367 3.55263 15.1875V7.31251ZM13.703 1.12501H9.89662L9.59845 0.467584C9.53529 0.327035 9.43799 0.208807 9.31751 0.126203C9.19703 0.0435979 9.05814 -0.000106452 8.91647 6.16385e-06H5.29088C5.14953 -0.000596082 5.01089 0.0429453 4.89083 0.125642C4.77078 0.208338 4.67417 0.326845 4.61208 0.467584L4.31391 1.12501H0.507519C0.372916 1.12501 0.243827 1.18427 0.148649 1.28976C0.0534706 1.39525 0 1.53832 0 1.68751L0 2.81251C0 2.96169 0.0534706 3.10477 0.148649 3.21025C0.243827 3.31574 0.372916 3.37501 0.507519 3.37501H13.703C13.8376 3.37501 13.9667 3.31574 14.0619 3.21025C14.1571 3.10477 14.2105 2.96169 14.2105 2.81251V1.68751C14.2105 1.53832 14.1571 1.39525 14.0619 1.28976C13.9667 1.18427 13.8376 1.12501 13.703 1.12501Z" fill="#51718C" />
+															</svg>
+															<div className="hover">
+																刪除
+															</div>
+														</div>
+													</div>
+												</td>
+											</tr>
+										)
+									})
+								}
+							</tbody>
+						</table >
+						{/* 新增 */}
+						<div
+							className={add ? "popup_background active" : "popup_background"}
+							onClick={this.handelMouseDown}
+						>
+							<div className="window">
+								<div className="form">
+									<h1 className="title">
+										新增書籍
+										<div className="close">
+											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M24 2.4L21.6 0L12 9.6L2.4 0L0 2.4L9.6 12L0 21.6L2.4 24L12 14.4L21.6 24L24 21.6L14.4 12L24 2.4Z" fill="#51718C" />
+											</svg>
+											<div className="close_btn" onClick={() => this.drop_down('add')} />
+										</div>
+									</h1>
+									<div className="inputContainer">
+										<input
+											type="text"
+											className="input"
+											placeholder=" "
+											required="required"
+											id='Title'
+											value={Title}
+											onChange={this.handleInputChange.bind(this)}
+										/>
+										<label className="label">
+											書名*
+										</label>
+									</div>
+									<div className="inputContainer">
+										<input
+											type="text"
+											className="input"
+											placeholder=" "
+											required="required"
+											id='Publisher'
+											value={Publisher}
+											onChange={this.handleInputChange.bind(this)}
+										/>
+										<label className="label">
+											出版社*
+										</label>
+									</div>
+									<div className="inputContainer">
+										<input
+											type="date"
+											className="input"
+											placeholder=" "
+											max={this.handleGetnow()}
+											required="required"
+											id='Time'
+											value={Time}
+											onChange={this.handleInputChange.bind(this)}
+										/>
+										<label className="label">
+											出版時間*
+										</label>
+									</div>
+									{/* 選擇參與人員 */}
+									<div className="inputContainer">
+										<input
+											type="text"
+											className="input"
+											placeholder=" "
+											required="required"
+											id='ISBN'
+											value={ISBN}
+											onChange={this.handleInputChange.bind(this)}
+										/>
+										<label className="label">
+											ISBN*
+										</label>
+									</div>
+									{/* 參與人員 */}
+									<div className="inputContainer">
+										<div className="inputbox">
+											<div className={drop === true ? "set col-12 focus" : "set col-12"}>
+												<div
+													className='choose input'
+													onClick={() => this.drop_down('drop')}
+												>
+													{participate.length === 0 ? "參與人員" : ""}
+													{participate.length === 0 ? [] : participate.map((item, index) =>
+														<div
+															className='oncheck'
+															key={index}
+														>
+															<p>{item.name}
+																<label className='deselect'>
+																	<input
+																		type='checkbox'
+																		id={item.account}
+																		value={item.name}
+																		checked
+																		onChange={(e) => { this.handelSelectMember(e.target) }}
+																	/>
+																	<span>
+																		<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+																			<path d="M0.33546 0.33546C0.550319 0.120665 0.841693 0 1.1455 0C1.44932 0 1.74069 0.120665 1.95555 0.33546L6.00692 4.38683L10.0583 0.33546C10.2744 0.126752 10.5638 0.0112672 10.8642 0.0138777C11.1646 0.0164882 11.452 0.136985 11.6644 0.349417C11.8768 0.561848 11.9973 0.849216 12 1.14963C12.0026 1.45004 11.8871 1.73946 11.6784 1.95555L7.62701 6.00692L11.6784 10.0583C11.8871 10.2744 12.0026 10.5638 12 10.8642C11.9973 11.1646 11.8768 11.452 11.6644 11.6644C11.452 11.8768 11.1646 11.9973 10.8642 12C10.5638 12.0026 10.2744 11.8871 10.0583 11.6784L6.00692 7.62701L1.95555 11.6784C1.73946 11.8871 1.45004 12.0026 1.14963 12C0.849216 11.9973 0.561848 11.8768 0.349417 11.6644C0.136985 11.452 0.0164882 11.1646 0.0138777 10.8642C0.0112672 10.5638 0.126752 10.2744 0.33546 10.0583L4.38683 6.00692L0.33546 1.95555C0.120665 1.74069 0 1.44932 0 1.1455C0 0.841693 0.120665 0.550319 0.33546 0.33546Z" fill="#022840" />
+																		</svg>
+																	</span>
+																</label>
+															</p>
+														</div>
+													)}
+												</div>
+												<div className='locator'>
+													<div className={drop === false ? "selectlist" : "selectlist active"}>
+														{PublicMemberList === undefined ? "" : PublicMemberList.map((item, index) => {
+															const participate2 = participate.map(item => { return item.account })
+															return (
+																<div
+																	className={participate2.includes(item.Account) ? "option selected" : "option noS"}
+																	key={index}
+																>
+																	<input
+																		type='checkbox'
+																		id={item.Account}
+																		value={item.Name}
+																		className='choose'
+																		onChange={(e) => { this.handelSelectMember(e.target) }}
+																	/>
+																	<label for={item.Account} className='choose'>{item.Name}</label>
+																</div>
+															)
+														}
+														)}
 													</div>
 												</div>
-												<div className="svg">
-													<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<path d="M17.5375 2.83605L15.1747 0.463507C14.5232 -0.190681 13.4207 -0.147876 12.7142 0.563335C12.0076 1.27278 11.9615 2.3815 12.6148 3.03568L14.9776 5.40822C15.6291 6.06241 16.7315 6.01963 17.4398 5.3084C18.1464 4.59719 18.1908 3.49203 17.5375 2.83605ZM2.47467 10.8432L7.20033 15.5882L14.88 7.87883L10.1543 3.13374L2.47467 10.8432ZM0 18L6.23283 16.7469L1.24799 11.7415L0 18Z" fill="#51718C" />
-													</svg>
-													<div className="hover">
-														編輯
-													</div>
-												</div>
-												<div className="svg">
-													<svg width="15" height="18" viewBox="0 0 15 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-														<path d="M1.01504 16.3125C1.01504 16.7601 1.17545 17.1893 1.46098 17.5058C1.74652 17.8222 2.13379 18 2.53759 18H11.6729C12.0767 18 12.464 17.8222 12.7495 17.5058C13.0351 17.1893 13.1955 16.7601 13.1955 16.3125V4.50001H1.01504V16.3125ZM9.64286 7.31251C9.64286 7.16332 9.69633 7.02025 9.79151 6.91476C9.88668 6.80927 10.0158 6.75001 10.1504 6.75001C10.285 6.75001 10.4141 6.80927 10.5092 6.91476C10.6044 7.02025 10.6579 7.16332 10.6579 7.31251V15.1875C10.6579 15.3367 10.6044 15.4798 10.5092 15.5853C10.4141 15.6908 10.285 15.75 10.1504 15.75C10.0158 15.75 9.88668 15.6908 9.79151 15.5853C9.69633 15.4798 9.64286 15.3367 9.64286 15.1875V7.31251ZM6.59774 7.31251C6.59774 7.16332 6.65122 7.02025 6.74639 6.91476C6.84157 6.80927 6.97066 6.75001 7.10526 6.75001C7.23987 6.75001 7.36896 6.80927 7.46413 6.91476C7.55931 7.02025 7.61278 7.16332 7.61278 7.31251V15.1875C7.61278 15.3367 7.55931 15.4798 7.46413 15.5853C7.36896 15.6908 7.23987 15.75 7.10526 15.75C6.97066 15.75 6.84157 15.6908 6.74639 15.5853C6.65122 15.4798 6.59774 15.3367 6.59774 15.1875V7.31251ZM3.55263 7.31251C3.55263 7.16332 3.6061 7.02025 3.70128 6.91476C3.79646 6.80927 3.92555 6.75001 4.06015 6.75001C4.19475 6.75001 4.32384 6.80927 4.41902 6.91476C4.5142 7.02025 4.56767 7.16332 4.56767 7.31251V15.1875C4.56767 15.3367 4.5142 15.4798 4.41902 15.5853C4.32384 15.6908 4.19475 15.75 4.06015 15.75C3.92555 15.75 3.79646 15.6908 3.70128 15.5853C3.6061 15.4798 3.55263 15.3367 3.55263 15.1875V7.31251ZM13.703 1.12501H9.89662L9.59845 0.467584C9.53529 0.327035 9.43799 0.208807 9.31751 0.126203C9.19703 0.0435979 9.05814 -0.000106452 8.91647 6.16385e-06H5.29088C5.14953 -0.000596082 5.01089 0.0429453 4.89083 0.125642C4.77078 0.208338 4.67417 0.326845 4.61208 0.467584L4.31391 1.12501H0.507519C0.372916 1.12501 0.243827 1.18427 0.148649 1.28976C0.0534706 1.39525 0 1.53832 0 1.68751L0 2.81251C0 2.96169 0.0534706 3.10477 0.148649 3.21025C0.243827 3.31574 0.372916 3.37501 0.507519 3.37501H13.703C13.8376 3.37501 13.9667 3.31574 14.0619 3.21025C14.1571 3.10477 14.2105 2.96169 14.2105 2.81251V1.68751C14.2105 1.53832 14.1571 1.39525 14.0619 1.28976C13.9667 1.18427 13.8376 1.12501 13.703 1.12501Z" fill="#51718C" />
-													</svg>
-													<div className="hover">
-														刪除
+												<label className="label">作者*</label>
+											</div>
+										</div>
+									</div>
+									{/* 選擇書籍圖片 */}
+									<div id='file'>
+										<div id="filename">
+											{upload === undefined ? "" : upload.name}
+										</div>
+										<div className='enter'>
+											<input type='file' id='f' onChange={e => this.handleSelectFile(e.target.files)} />
+											<label for='f' className='nowfile'>
+												選擇相片
+											</label>
+										</div>
+
+										<div className='btn_block'>
+											<button
+												className="submitBtn"
+												onClick={this.AddBook}
+											>
+												確定
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						{/* 修改 */}
+						<div
+							className={edit ? "popup_background active" : "popup_background"}
+							onClick={this.handelMouseDown}
+						>
+							<div className="window">
+								<div className="form bookform">
+									<h1 className="title">
+
+										<div className="close">
+											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M24 2.4L21.6 0L12 9.6L2.4 0L0 2.4L9.6 12L0 21.6L2.4 24L12 14.4L21.6 24L24 21.6L14.4 12L24 2.4Z" fill="#51718C" />
+											</svg>
+											<div className="close_btn" onClick={() => this.drop_down('edit')} />
+										</div>
+									</h1>
+									<div className='bookinfo'>
+										<div className='bookimg'>
+											<div className='imgbox'>
+												<img src={BookInfo === undefined ? "" : `http://localhost/${BookInfo.Image}`} alt="書籍" />
+											</div>
+											<img src={camera} alt="更換頭像" onClick={() => this.drop_down('photo')} className='camera' />
+										</div>
+										<div className='info'>
+											{/* <h2>{BookInfo===undefined?"":BookInfo.Title}</h2> */}
+											<div className="inputContainer">
+												<input
+													type="text"
+													className="input"
+													placeholder=" "
+													required="required"
+													id='Title'
+													value={Title}
+													onChange={this.handleInputChange.bind(this)}
+												/>
+												<label className="label">
+													書名*
+												</label>
+											</div>
+											<div className="inputContainer">
+												<input
+													type="text"
+													className="input"
+													placeholder=" "
+													required="required"
+													id='Publisher'
+													value={Publisher}
+													onChange={this.handleInputChange.bind(this)}
+												/>
+												<label className="label">
+													出版社*
+												</label>
+											</div>
+											<div className="inputContainer">
+												<input
+													type="date"
+													className="input"
+													placeholder=" "
+													max={this.handleGetnow()}
+													required="required"
+													id='Time'
+													value={Time}
+													onChange={this.handleInputChange.bind(this)}
+												/>
+												<label className="label">
+													出版時間*
+												</label>
+											</div>
+											{/* 選擇參與人員 */}
+											<div className="inputContainer">
+												<input
+													type="text"
+													className="input"
+													placeholder=" "
+													required="required"
+													id='ISBN'
+													value={ISBN}
+													onChange={this.handleInputChange.bind(this)}
+												/>
+												<label className="label">
+													ISBN*
+												</label>
+											</div>
+											{/* 參與人員 */}
+											<div className="inputContainer">
+												<div className="inputbox">
+													<div className={drop === true ? "set col-12 focus" : "set col-12"}>
+														<div
+															className='choose input'
+															onClick={() => this.drop_down('drop')}
+														>
+															{participate.length === 0 ? "參與人員" : ""}
+															{participate.length === 0 ? [] : participate.map((item, index) =>
+																<div
+																	className='oncheck'
+																	key={index}
+																>
+																	<p>{item.name}
+																		<label className='deselect'>
+																			<input
+																				type='checkbox'
+																				id={item.account}
+																				value={item.name}
+																				checked
+																				onChange={(e) => { this.handelSelectMember(e.target) }}
+																			/>
+																			<span>
+																				<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+																					<path d="M0.33546 0.33546C0.550319 0.120665 0.841693 0 1.1455 0C1.44932 0 1.74069 0.120665 1.95555 0.33546L6.00692 4.38683L10.0583 0.33546C10.2744 0.126752 10.5638 0.0112672 10.8642 0.0138777C11.1646 0.0164882 11.452 0.136985 11.6644 0.349417C11.8768 0.561848 11.9973 0.849216 12 1.14963C12.0026 1.45004 11.8871 1.73946 11.6784 1.95555L7.62701 6.00692L11.6784 10.0583C11.8871 10.2744 12.0026 10.5638 12 10.8642C11.9973 11.1646 11.8768 11.452 11.6644 11.6644C11.452 11.8768 11.1646 11.9973 10.8642 12C10.5638 12.0026 10.2744 11.8871 10.0583 11.6784L6.00692 7.62701L1.95555 11.6784C1.73946 11.8871 1.45004 12.0026 1.14963 12C0.849216 11.9973 0.561848 11.8768 0.349417 11.6644C0.136985 11.452 0.0164882 11.1646 0.0138777 10.8642C0.0112672 10.5638 0.126752 10.2744 0.33546 10.0583L4.38683 6.00692L0.33546 1.95555C0.120665 1.74069 0 1.44932 0 1.1455C0 0.841693 0.120665 0.550319 0.33546 0.33546Z" fill="#022840" />
+																				</svg>
+																			</span>
+																		</label>
+																	</p>
+																</div>
+															)}
+														</div>
+														<div className='locator'>
+															<div className={drop === false ? "selectlist" : "selectlist active"}>
+																{PublicMemberList === undefined ? "" : PublicMemberList.map((item, index) => {
+																	const participate2 = participate.map(item => { return item.account })
+																	return (
+																		<div
+																			className={participate2.includes(item.Account) ? "option selected" : "option noS"}
+																			key={index}
+																		>
+																			<input
+																				type='checkbox'
+																				id={item.Account}
+																				value={item.Name}
+																				className='choose'
+																				onChange={(e) => { this.handelSelectMember(e.target) }}
+																			/>
+																			<label for={item.Account} className='choose'>{item.Name}</label>
+																		</div>
+																	)
+																}
+																)}
+															</div>
+														</div>
+														<label className="label">作者*</label>
 													</div>
 												</div>
 											</div>
-										</td>
-									</tr>
-								)
-							})
-						}
-					</tbody>
-				</table >
-				{/* 新增 */}
-				<div
-					className={add ? "popup_background active" : "popup_background"}
-					onClick={this.handelMouseDown}
-				>
-					<div className="window">
-						<div className="form">
-							<h1 className="title">
-								新增書籍
-								<div className="close">
-									<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-										<path d="M24 2.4L21.6 0L12 9.6L2.4 0L0 2.4L9.6 12L0 21.6L2.4 24L12 14.4L21.6 24L24 21.6L14.4 12L24 2.4Z" fill="#51718C" />
-									</svg>
-									<div className="close_btn" onClick={() => this.drop_down('add')} />
+										</div>
+									</div>
+									<div className='btn_block'>
+										<button
+											className="submitBtn"
+											onClick={this.UpdateBookInfo}
+										>
+											修改
+										</button>
+									</div>
 								</div>
-							</h1>
-							<div className="inputContainer">
-								<input
-									type="text"
-									className="input"
-									placeholder=" "
-									required="required"
-									id='newAccount'
-									onChange={this.handleInputChange.bind(this)}
-								/>
-								<label className="label">
-									書名*
-								</label>
-							</div>
-							<div className="inputContainer">
-								<input
-									type="text"
-									className="input"
-									placeholder=" "
-									required="required"
-									id='newPassword'
-									onChange={this.handleInputChange.bind(this)}
-								/>
-								<label className="label">
-									出版社*
-								</label>
-							</div>
-							<div className="inputContainer">
-								<input
-									type="date"
-									className="input"
-									placeholder=" "
-									required="required"
-									id='newName'
-									onChange={this.handleInputChange.bind(this)}
-								/>
-								<label className="label">
-									出版時間*
-								</label>
-							</div>
-							{/* 選擇參與人員 */}
-							<div className="inputContainer">
-								<input
-									type="text"
-									className="input"
-									placeholder=" "
-									required="required"
-									id='newTitle'
-									onChange={this.handleInputChange.bind(this)}
-								/>
-								<label className="label">
-									作者*
-								</label>
-							</div>
-							<div className='btn_block'>
-								<button
-									className="submitBtn"
-									onClick={this.AddMember}
-								>
-									確定
-								</button>
 							</div>
 						</div>
-					</div>
+						{/* 修改書籍圖片 */}
+						<div
+							className={photo ? "popup_background active" : "popup_background"}
+							onClick={this.handelMouseDown}
+						>
+							<div className="window">
+								<div className="form">
+									<h1 className="title">
+										修改書籍圖片
+										<div className="close">
+											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M24 2.4L21.6 0L12 9.6L2.4 0L0 2.4L9.6 12L0 21.6L2.4 24L12 14.4L21.6 24L24 21.6L14.4 12L24 2.4Z" fill="#51718C" />
+											</svg>
+											<div className="close_btn" onClick={() => this.drop_down('photo')} />
+										</div>
+									</h1>
+									<div id="filename">
+										{upload === undefined ? "" : upload.name}
+									</div>
+									<div className='enter'>
+										<input type='file' id='f' onChange={e => this.handleSelectFile(e.target.files)} />
+										<label for='f' className='nowfile'>
+											選擇相片
+										</label>
+									</div>
+									<div className='btn_block'>
+										<button
+											className="submitBtn"
+											onClick={this.UpdateBookPhoto}
+										>
+											修改
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						{/* 刪除單筆 */}
+						<div
+							className={delO ? "popup_background active" : "popup_background"}
+							onClick={this.handelMouseDown}
+						>
+							<div className="window">
+								<div className="form">
+									<h1 className="title">
+										<div className="close">
+											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M24 2.4L21.6 0L12 9.6L2.4 0L0 2.4L9.6 12L0 21.6L2.4 24L12 14.4L21.6 24L24 21.6L14.4 12L24 2.4Z" fill="#51718C" />
+											</svg>
+											<div className="close_btn" onClick={() => this.drop_down('delO')} />
+										</div>
+									</h1>
+									<h2 className='message'>
+										是否出版品<br />
+										「{nowItem === undefined ? "" : nowItem.Title}」
+									</h2>
+									<div className='btn_block'>
+										<button
+											className="submitBtn"
+											onClick={(e) => this.Delete(nowItem === undefined ? "" : nowItem.Id, e)}
+										>
+											確定
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						{/* 刪除多筆 */}
+						<div
+							className={delAll ? "popup_background active" : "popup_background"}
+							onClick={this.handelMouseDown}
+						>
+							<div className="window">
+								<div className="form">
+									<h1 className="title">
+										<div className="close">
+											<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M24 2.4L21.6 0L12 9.6L2.4 0L0 2.4L9.6 12L0 21.6L2.4 24L12 14.4L21.6 24L24 21.6L14.4 12L24 2.4Z" fill="#51718C" />
+											</svg>
+											<div className="close_btn" onClick={() => this.drop_down('delAll')} />
+										</div>
+									</h1>
+									<h2 className='message'>
+										是否要刪除「{array.length}」筆紀錄
+									</h2>
+									<div className='btn_block'>
+										<button
+											className="submitBtn"
+											onClick={() => this.handelDeleteAll()}
+										>
+											確定
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</BackLayout>
 				</div>
-				{/* 修改 */}
-				{/* 刪除單筆 */}
-				{/* 刪除多筆 */}
-			</BackLayout>
-		)
+			)
+		}
 	}
-}
+)

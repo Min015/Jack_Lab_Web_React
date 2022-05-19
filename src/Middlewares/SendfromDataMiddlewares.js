@@ -127,6 +127,25 @@ const fetch = store => next => action => {
                }
             });
          break;
+      case "POST_UpdateBookPhoto":
+         _axios
+            .post('/book/image', action.payload)
+            .then(response => {
+               console.log(response);
+               if (response.status === 200) {
+                  console.log("修改出版品圖片成功");
+               }
+            })
+            .catch(err => {
+               console.log(err.response.data);
+               throw new Error(err);
+            })
+            .then(json => {
+               if (action.callback) {
+                  action.callback(json)
+               }
+            });
+         break;
       default:
          break;
    }
