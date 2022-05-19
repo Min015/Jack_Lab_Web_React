@@ -6,7 +6,7 @@
    top             : 0px;
    left            : 0px;
    width           : 100%;
-   background-color: rgba(0, 0, 0, 0.496);//rgba(0, 0, 0, 0.496);
+   background-color: rgba(0, 0, 0, 0.496);
    height          : 100vh;
 
    .window {
@@ -17,25 +17,30 @@
       height         : 100vh;
    }
 }
-.permission_form{
+
+.permission_form {
    width: 450px;
 }
-.ablumform{
+
+.ablumform {
    background-color: aliceblue;
-   width: 75%;
-   max-height: 75vh;
-   padding: 40px 40px;
-   .photo{
-      width: 100%;
+   width           : 75%;
+   max-height      : 75vh;
+   padding         : 40px 40px;
+
+   .photo {
+      width  : 100%;
       display: flex;
-      img{
-         display: flex;
-         width: 100%;
+
+      img {
+         display   : flex;
+         width     : 100%;
          max-height: 645px;
          object-fit: cover;
       }
    }
 }
+
 .form {
    @extend %col;
    background-color: $main_backgroundcolor;
@@ -63,25 +68,25 @@
             top     : 0;
             height  : 24px;
             width   : 24px;
-            // background-color: aqua;
          }
       }
    }
 
    .inputContainer {
-      position     : relative;
-      height       : 45px;
-      width        : 100%;
-      margin-top   : 20px;
-      // margin-bottom: 20px;
-      select{
-         width: 100%;
-         height: 100%;
-         font-size: $m;
-         padding: 0px 20px;
+      position  : relative;
+      height    : 45px;
+      width     : 100%;
+      margin-top: 20px;
+
+      select {
+         width        : 100%;
+         height       : 100%;
+         font-size    : $m;
+         padding      : 0px 20px;
          border       : 1px solid $boder_color;
          border-radius: 7px;
       }
+
       .input {
          position     : absolute;
          top          : 0px;
@@ -140,11 +145,11 @@
       margin-top: 15px;
 
       .long_text {
-         margin-top: 30px;
-         min-height: 125px;
-         width     : calc(100% - 10px);
-         resize    : none;
-         padding   : 5px;
+         margin-top   : 30px;
+         min-height   : 125px;
+         width        : calc(100% - 10px);
+         resize       : none;
+         padding      : 5px;
          border-radius: 7px;
          @include border-set($boder_color);
       }
@@ -188,6 +193,7 @@
    @extend %row;
    @extend %between;
    margin-top: 10px;
+
    .submitBtn {
       display         : block;
       padding         : 7px 14px;
@@ -245,11 +251,57 @@
       }
    }
 }
+
+.bookform {
+   width: 70%;
+
+   .bookinfo {
+      padding-top: 20px;
+      @extend %row;
+
+      .bookimg {
+         position: relative;
+         width   : 300px;
+         height  : 300px;
+
+         .imgbox {
+            width : 100%;
+            height: 100%;
+
+            img {
+               @include image-set();
+            }
+         }
+
+         .camera {
+            width   : 25px;
+            height  : 25px;
+            position: absolute;
+            right   : 0px;
+            bottom  : 0px;
+            cursor  : pointer;
+         }
+      }
+
+      .info {
+         width  : calc(100% - 320px);
+         height : 300px;
+         padding: 0px 10px;
+         @extend %col;
+
+         .inputContainer {
+            margin-top   : 0px;
+            margin-bottom: 20px;
+         }
+      }
+   }
+}
+
 //小於1300的時候圖片預覽高度
 @media screen and (max-width:1320px) {
-   .ablumform{
-      .photo{
-         img{
+   .ablumform {
+      .photo {
+         img {
             max-height: 450px;
          }
       }
