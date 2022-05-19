@@ -3,8 +3,7 @@ import { connect } from "react-redux";
 import BackLayout from '../../../../Components/Layout/back/BackLayout';
 import './teacher.scss';
 import search from '../../style/img/searchButton.png';
-import teacher from '../../style/img/teacher.jpg';
-import camera from './img/camera.png';
+import camera from '../../style/img/camera.png';
 
 import { 
 	GET_TeacherIntroduce, 
@@ -413,7 +412,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 													{/* {item.teacher_photo} */}
 													<div className='camera' onClick={() => this.drop_down('photo')}  >
 														<img
-															src={camera} alt="教師頭像"
+															src={camera} alt="更換頭像"
 															id={`${item.Id},${item.Name},${item.Title},${item.Introduction}`}
 															onClick={this.handelSetNow.bind()}
 														/>
