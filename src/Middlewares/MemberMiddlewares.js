@@ -179,6 +179,11 @@ const fetch = store => next => action => {
           console.log(err.response.data);
           throw new Error(err);
         })
+        .then(json => {
+          if (action.callback) {
+            action.callback(json)
+          }
+        });
       break;
     case "POST_RoleAdd":
       _axios
@@ -192,6 +197,11 @@ const fetch = store => next => action => {
           console.log(err.response.data);
           throw new Error(err);
         })
+        .then(json => {
+          if (action.callback) {
+            action.callback(json)
+          }
+        });
       break;
     case "DELETE_Role":
       _axios
@@ -206,6 +216,11 @@ const fetch = store => next => action => {
           console.log(err.response.data);
           throw new Error(err);
         })
+        .then(json => {
+          if (action.callback) {
+            action.callback(json)
+          }
+        });
       break;
     case "PUT_ChangePassword":
       _axios

@@ -5,12 +5,12 @@ import './teacher.scss';
 import search from '../../style/img/searchButton.png';
 import camera from '../../style/img/camera.png';
 
-import { 
-	GET_TeacherIntroduce, 
-	POST_AddTeacher, 
-	POST_UpdatePhoto, 
+import {
+	GET_TeacherIntroduce,
+	POST_AddTeacher,
+	POST_UpdatePhoto,
 	PUT_UpdateTeacherIntroduce,
-	DELETE_TeacherIntroduce, 
+	DELETE_TeacherIntroduce,
 } from '../../../../Action/IntroduceAction';
 
 const mapStateToProps = state => {
@@ -167,7 +167,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				deletearray += array[i] + ",";
 			}
 			this.setState({
-				array:[],
+				array: [],
 			})
 			this.Delete(deletearray);
 		}
@@ -348,9 +348,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			const rule = /^[a-zA-Z0-9\.\@]{1,}$/;
 			return rule.test(Account);
 		}
-		
+
 		render() {
-			const {table_header, array, photo, upload, newAccount, newPassword, newName, newTitle, newIntroduce, nowItem } = this.state;
+			const { table_header, array, photo, upload, newAccount, newPassword, newName, newTitle, newIntroduce, nowItem } = this.state;
 			const { add, edit, delO, delAll } = this.state;
 			const { TeacherIntroduceList } = this.props;
 			// console.log("TeacherIntroduceList", TeacherIntroduceList);
@@ -364,9 +364,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							<div onClick={() => this.drop_down('add')} className="work_btn add_btn">
 								新增教師
 							</div>
-							<div onClick={() => this.drop_down('delAll')} className="work_btn delete_btn">
+							<button
+								disabled={array.length === 0 ? true : false}
+								className="work_btn delete_btn"
+								onClick={() => this.drop_down('delAll')}>
 								批量刪除
-							</div>
+							</button>
 						</div>
 						<form action="" className="searchbar">
 							<input type="text" required placeholder="搜尋" />
@@ -394,7 +397,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							</tr>
 						</thead>
 						<tbody>
-							{(TeacherIntroduceList === undefined || TeacherIntroduceList.length === 0)  ? "" : TeacherIntroduceList.map(
+							{(TeacherIntroduceList === undefined || TeacherIntroduceList.length === 0) ? "" : TeacherIntroduceList.map(
 								(item, index) => {
 									return (
 										<tr key={index} className={array.includes(`${item.Id}`) ? "onchange" : ""}>
@@ -654,7 +657,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 
 								<h2 className='message'>
 									是否要刪除教師<br />
-									「{nowItem===undefined?"":nowItem.Name}」
+									「{nowItem === undefined ? "" : nowItem.Name}」
 								</h2>
 								<div className='btn_block'>
 									<button

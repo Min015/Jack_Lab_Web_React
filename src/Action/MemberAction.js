@@ -74,27 +74,30 @@ export const GET_RolePermission = (payload,callback) => {
     });
   };
 }
-export const PUT_ChangeRolePermission = (payload) => {
+export const PUT_ChangeRolePermission = (payload,callback) => {
   return (dispatch) => {
     dispatch({
       type: "PUT_ChangeRolePermission",
       payload:payload,
+      callback:callback,
     });
   };
 }
-export const POST_RoleAdd = (payload) => {
+export const POST_RoleAdd = (payload,callback) => {
   return (dispatch) => {
     dispatch({
       type: "POST_RoleAdd",
       payload:payload,
+      callback:callback,
     });
   };
 }
-export const DELETE_Role = (payload) => {
+export const DELETE_Role = (payload,callback) => {
   return (dispatch) => {
     dispatch({
       type: "DELETE_Role",
       payload:payload,
+      callback:callback,
     });
   };
 }

@@ -267,9 +267,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							<div onClick={() => this.drop_down('add')} className="work_btn add_btn">
 								新增介紹
 							</div>
-							<div onClick={() => this.drop_down('delAll')} className="work_btn delete_btn">
+							<button
+								disabled={array.length === 0 ? true : false}
+								className="work_btn delete_btn"
+								onClick={() => this.drop_down('delAll')}>
 								批量刪除
-							</div>
+							</button>
 						</div>
 					</div>
 					<table className="col-12 admin_table">
@@ -289,7 +292,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							</tr>
 						</thead>
 						<tbody>
-							{(LabIntroduceList === undefined || LabIntroduceList.length === 0)? "" : LabIntroduceList.map(
+							{(LabIntroduceList === undefined || LabIntroduceList.length === 0) ? "" : LabIntroduceList.map(
 								(item, index) => {
 									return (
 										<tr key={index} className={array.includes(`${item.Id}`) ? "onchange" : ""}>

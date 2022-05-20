@@ -124,9 +124,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							<Link to='/meetingmanage/meetingadd' className="work_btn add_btn">
 								新增會議
 							</Link>
-							<div onClick={() => this.drop_down('delAll')} className="work_btn delete_btn" >
+							<button
+								disabled={array.length === 0 ? true : false}
+								className="work_btn delete_btn"
+								onClick={() => this.drop_down('delAll')}>
 								批量刪除
-							</div>
+							</button>
 						</div>
 						{/* <div className="searchform">
 							<div className='date'>
@@ -161,7 +164,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							</tr>
 						</thead>
 						<tbody>
-							{(MeetingList === undefined || MeetingList.length === 0)? [] : MeetingList.map(
+							{(MeetingList === undefined || MeetingList.length === 0) ? [] : MeetingList.map(
 								(item, index) => {
 									return (
 										<tr key={index} className={array.includes(`${item.Id}`) ? "onchange" : ""}>

@@ -276,6 +276,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		render() {
 			const { table_header, array, add, edit, upload, now, previview, newTitle, delO, delAll } = this.state;
 			const { AlbumList } = this.props
+			console.log(array);
 			return (
 				<BackLayout>
 					<div className="work">
@@ -283,9 +284,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							<div className="work_btn add_btn" onClick={() => this.drop_down('add')}>
 								新增相片
 							</div>
-							<div onClick={() => this.drop_down('delAll')} className="work_btn delete_btn">
+							<button
+								disabled={array.length === 0 ? true : false}
+								className="work_btn delete_btn"
+								onClick={() => this.drop_down('delAll')}>
 								批量刪除
-							</div>
+							</button>
 						</div>
 						<form action="" className="searchbar">
 							<input type="text" required placeholder="搜尋" />

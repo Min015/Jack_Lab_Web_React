@@ -136,9 +136,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							<Link to='/casemanage/caseadd' className="work_btn add_btn">
 								新增專案
 							</Link>
-							<div onClick={() => this.drop_down('delAll')} className="work_btn delete_btn">
+							<button
+								disabled={array.length === 0 ? true : false}
+								className="work_btn delete_btn"
+								onClick={() => this.drop_down('delAll')}>
 								批量刪除
-							</div>
+							</button>
 						</div>
 						<div className="searchform">
 							<select name="">
@@ -169,7 +172,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							</tr>
 						</thead>
 						<tbody>
-							{(Project === undefined || Project.length === 0)? "" : Project.map(
+							{(Project === undefined || Project.length === 0) ? "" : Project.map(
 								(item, index) => {
 									return (
 										<tr key={`checkbox${index}`} className={array.includes(`${item.Id}`) ? "onchange" : ""}>
@@ -241,7 +244,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								</h1>
 
 								<h2 className='message'>
-								「{now === undefined ? "" : now.Name}」已有 {now === undefined ? "" : now.Record_count} 筆記錄<br />
+									「{now === undefined ? "" : now.Name}」已有 {now === undefined ? "" : now.Record_count} 筆記錄<br />
 									是否刪除
 								</h2>
 								<div className='btn_block'>

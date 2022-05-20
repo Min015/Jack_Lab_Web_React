@@ -386,9 +386,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								<div onClick={() => this.drop_down('add')} className="work_btn add_btn">
 									新增書籍
 								</div>
-								<div onClick={() => this.drop_down('delAll')} className="work_btn delete_btn">
+								<button
+									disabled={array.length === 0 ? true : false}
+									className="work_btn delete_btn"
+									onClick={() => this.drop_down('delAll')}>
 									批量刪除
-								</div>
+								</button>
 							</div>
 							<div action="" className="searchbar">
 								<input type="text" required placeholder="搜尋" />
@@ -431,11 +434,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 												<td className='author'>
 													{item.Authors === undefined ? "" : item.Authors.map((item, index) => {
 														return (
-															<span>{BookList === undefined ? "" :item.name} </span>
+															<span>{BookList === undefined ? "" : item.name} </span>
 														)
 													})}
 												</td>
-												<td>{BookList === undefined ? "" :item.Time}</td>
+												<td>{BookList === undefined ? "" : item.Time}</td>
 												<td>
 													<div className="action">
 														<div onClick={() => this.drop_down('edit')} className="svg">
