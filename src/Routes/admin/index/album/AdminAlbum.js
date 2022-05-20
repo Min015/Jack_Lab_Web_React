@@ -42,10 +42,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				"標題",
 				"上傳時間",
 			],
-			newTitle: {
-				value: "",
-				errormsg: "*"
-			}
+			newTitle: "",
 		}
 		//生命週期
 		componentDidMount = () => {
@@ -54,22 +51,18 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		//新增
 		AddAlbum = () => {
 			const { newTitle, upload } = this.state;
-			const errormsg = "*";
-			if (newTitle.errormsg === errormsg || upload === undefined) {
+			if (newTitle === "" || upload.name === undefined) {
 				alert("您有必填欄位尚未填寫，請確認");
 			}
 			else {
 				let data = new FormData();
-				data.append('Title', newTitle.value);
+				data.append('Title', newTitle);
 				data.append('Image', upload);
 				const callback = () => {
 					this.props.GET_AdminAlbum();
 					this.setState({
 						add: !this.state.add,
-						newTitle: {
-							value: "",
-							errormsg: "*",
-						},
+						newTitle: "",
 					})
 				}
 				this.props.POST_AddAlbum(data, callback);
@@ -78,15 +71,15 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		//修改
 		UpdateAlbum = () => {
 			const { newTitle, upload, now } = this.state;
-			const errormsg = "*";
-			if (newTitle.errormsg === errormsg) {
+			console.log(74,newTitle);
+			if (newTitle === "") {
 				alert("您有必填欄位尚未填寫，請確認");
 			}
 			else {
 				let data = new FormData();
 				data.append('_method', 'PUT');
 				data.append('Id', now.Id)
-				data.append('Title', newTitle.value);
+				data.append('Title', newTitle);
 				if (upload.name !== undefined) {
 					data.append('Image', upload);
 				}
@@ -94,10 +87,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					this.props.GET_AdminAlbum();
 					this.setState({
 						edit: !this.state.edit,
-						newTitle: {
-							value: "",
-							errormsg: "*",
-						},
+						newTitle: "",
 						upload: {},
 					})
 				}
@@ -108,6 +98,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		Delete = (id) => {
 			const callback = () => {
 				this.props.GET_AdminAlbum();
+				const AllChange = document.getElementsByName('AllChange');
+				AllChange[0].checked = false;
 				this.setState({
 					delO: false,
 					delAll: false,
@@ -128,10 +120,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			if (e === 'add') {
 				this.setState({
 					add: !this.state.add,
-					newTitle: {
-						value: "",
-						errormsg: "*",
-					},
+					newTitle: "",
 					upload: {},
 				})
 			}
@@ -165,7 +154,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					delO: false,
 					delAll: false,
 					previview: false,
-					newTitle: {},
+					newTitle: "",
 					upload: {},
 				})
 			}
@@ -179,10 +168,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					Title: info[1],
 					Image: info[2],
 				},
-				newTitle: {
-					value: info[1],
-					errormsg: "",
-				},
+				newTitle: info[1],
 			})
 		}
 		//確定是否填寫
@@ -190,22 +176,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			const target = event.target;
 			let { value, id } = target;
 			value = value.trim();
-			if (value !== "") {
-				this.setState({
-					[id]: {
-						value,
-						errormsg: "",
-					}
-				});
-			}
-			else {
-				this.setState({
-					[id]: {
-						value,
-						errormsg: "*",
-					}
-				});
-			}
+			this.setState({
+				[id]: value,
+			});
 		}
 		handelAllChange = e => {
 			const checkboxes = document.getElementsByName('Box');
@@ -276,7 +249,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		render() {
 			const { table_header, array, add, edit, upload, now, previview, newTitle, delO, delAll } = this.state;
 			const { AlbumList } = this.props
-			console.log(array);
+			// console.log(newTitle);
 			return (
 				<BackLayout>
 					<div className="work">
@@ -391,12 +364,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										placeholder=" "
 										required="required"
 										maxLength='20'
-										value={newTitle.value}
+										value={newTitle}
 										id='newTitle'
 										onChange={this.handleInputChange.bind(this)}
 									/>
 									<label className="label">
-										{`標題${newTitle.errormsg}`}
+										{`標題*`}
 									</label>
 								</div>
 								<div id="filename">
@@ -441,12 +414,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										placeholder=" "
 										required="required"
 										maxLength='20'
-										value={newTitle.value}
+										value={newTitle}
 										id='newTitle'
 										onChange={this.handleInputChange.bind(this)}
 									/>
 									<label className="label">
-										{`新標題${newTitle.errormsg}`}
+										{`標題*`}
 									</label>
 								</div>
 								<div className='margin_t15'>

@@ -34,11 +34,12 @@ export const GET_PrivateMember = () => {
     });
   };
 }
-export const POST_UserAdd = (payload) => {
+export const POST_UserAdd = (payload,callback) => {
   return (dispatch) => {
     dispatch({
       type: "POST_UserAdd",
       payload:payload,
+      callback:callback,
     });
   };
 }
@@ -101,19 +102,21 @@ export const DELETE_Role = (payload,callback) => {
     });
   };
 }
-export const PUT_ChangePassword = (payload) => {
+export const PUT_ChangePassword = (payload,callback) => {
   return (dispatch) => {
     dispatch({
       type: "PUT_ChangePassword",
       payload:payload,
+      callback:callback,
     });
   };
 }
-export const DELETE_Member = (payload) => {
+export const DELETE_Member = (payload,callback) => {
   return (dispatch) => {
     dispatch({
       type: "DELETE_Member",
       payload:payload,
+      callback:callback,
     });
   };
 }

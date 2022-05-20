@@ -14,11 +14,12 @@ export const POST_AddProjectType = (payload,callback) => {
     });
   };
 }
-export const PUT_UpdateProjectType = (payload) => {
+export const PUT_UpdateProjectType = (payload,callback) => {
   return (dispatch) => {
     dispatch({
       type: "PUT_UpdateProjectType",
       payload: payload,
+      callback: callback,
     });
   };
 }

@@ -20,10 +20,10 @@ const fetch = store => next => action => {
         .then(response => {
           console.log(response);
           localStorage.setItem('user_token', response.data.data.token);
-          if(response.data.data.admin===1){
+          if (response.data.data.admin === 1) {
             window.location.replace('http://localhost:3000/adminalbum');
           }
-          else if(response.data.data.admin===0){
+          else if (response.data.data.admin === 0) {
             window.location.replace('http://localhost:3000/setinfo');
           }
         })
@@ -103,6 +103,11 @@ const fetch = store => next => action => {
           console.log(err.response.data);
           throw new Error(err);
         })
+        .then(json => {
+          if (action.callback) {
+            action.callback(json)
+          }
+        });
       break;
     case "PUT_ChangeRole":
       _axios
@@ -235,6 +240,11 @@ const fetch = store => next => action => {
           console.log(err.response.data);
           throw new Error(err);
         })
+        .then(json => {
+          if (action.callback) {
+            action.callback(json)
+          }
+        });
       break;
     case "DELETE_Member":
       _axios
@@ -249,6 +259,11 @@ const fetch = store => next => action => {
           console.log(err.response.data);
           throw new Error(err);
         })
+        .then(json => {
+          if (action.callback) {
+            action.callback(json)
+          }
+        });
       break;
     default:
       break;

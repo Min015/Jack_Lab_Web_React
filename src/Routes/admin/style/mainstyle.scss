@@ -122,7 +122,7 @@
 			select{
 				background-color: $admin_check !important;
 				option{
-					background-color: white !important;
+					background-color: $main_backgroundcolor !important;
 				}
 			}
 		}
@@ -213,6 +213,7 @@
 			}
 
 		}
+
 	}
 
 	.bookname {
@@ -229,4 +230,7 @@
 
 .active {
 	display: block;
+}
+.canenter{
+	white-space: pre-line;
 }

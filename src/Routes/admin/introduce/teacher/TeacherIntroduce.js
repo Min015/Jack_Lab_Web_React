@@ -47,21 +47,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			mimes_type: ['svg', 'png', 'jpg', 'jpeg', 'csv',],//媒體類型
 			all_file_max_size: 1024 * 1024 * 50,//50M
 			one_file_max_size: 1024 * 1024 * 30,//30M
-			newAccount: {
-				value: "",
-			},
-			newPassword: {
-				value: "",
-			},
-			newName: {
-				value: "",
-			},
-			newTitle: {
-				value: "",
-			},
-			newIntroduce: {
-				value: "",
-			},
+			newAccount: "",
+			newPassword: "",
+			newName: "",
+			newTitle: "",
+			newIntroduce: "",
 			upload: {},
 		}
 
@@ -71,30 +61,23 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 		AddTeacher = () => {
 			const { newAccount, newPassword, newName, newTitle } = this.state;
-			if (newAccount.value !== "" && newPassword.value !== "" && newName.value !== "" && newTitle.value !== "") {
-				if (this.AccountCheck(newAccount.value)) {
+			if (newAccount !== "" && newPassword !== "" && newName !== "" && newTitle !== "") {
+				if (this.AccountCheck(newAccount)) {
 					const payload = {
-						Account: newAccount.value,
-						Password: newPassword.value,
-						Name: newName.value,
-						Title: newTitle.value,
+						Account: newAccount,
+						Password: newPassword,
+						Name: newName,
+						Title: newTitle,
 					};
 					const callback = () => {
 						this.props.GET_TeacherIntroduce();
 						this.setState({
 							add: false,
-							newAccount: {
-								value: "",
-							},
-							newPassword: {
-								value: "",
-							},
-							newName: {
-								value: "",
-							},
-							newTitle: {
-								value: "",
-							},
+							newAccount: "",
+							newPassword: "",
+							newName: "",
+							newTitle: "",
+							newIntroduce: "",
 						})
 					}
 					this.props.POST_AddTeacher(payload, callback);
@@ -129,15 +112,15 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 		UpdateTeacher = () => {
 			const { newName, newTitle, newIntroduce, nowItem } = this.state;
-			if (newName.value === nowItem.Name && newTitle === nowItem.Title && newIntroduce === nowItem.Introduction) {
+			if (newName === nowItem.Name && newTitle === nowItem.Title && newIntroduce === nowItem.Introduction) {
 				alert("尚未修改任何內容");
 			}
 			else {
 				const payload = {
 					Id: nowItem.Id,
-					Name: newName.value,
-					Title: newTitle.value,
-					Introduction: newIntroduce.value,
+					Name: newName,
+					Title: newTitle,
+					Introduction: newIntroduce,
 				}
 				const callback = () => {
 					this.props.GET_TeacherIntroduce();
@@ -152,6 +135,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		Delete = (id) => {
 			const callback = () => {
 				this.props.GET_TeacherIntroduce();
+				const AllChange = document.getElementsByName('AllChange');
+				AllChange[0].checked = false;
 				this.setState({
 					delO: false,
 					delAll: false,
@@ -175,18 +160,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			if (e === 'add') {
 				this.setState({
 					add: !this.state.add,
-					newAccount: {
-						value: "",
-					},
-					newPassword: {
-						value: "",
-					},
-					newName: {
-						value: "",
-					},
-					newTitle: {
-						value: "",
-					},
+					newAccount: "",
+					newPassword: "",
+					newName: "",
+					newTitle: "",
+					newIntroduce: "",
 				})
 			}
 			else if (e === 'edit') {
@@ -218,21 +196,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					delO: false,
 					delAll: false,
 					photo: false,
-					newAccount: {
-						value: "",
-					},
-					newPassword: {
-						value: "",
-					},
-					newName: {
-						value: "",
-					},
-					newTitle: {
-						value: "",
-					},
-					newIntroduce: {
-						value: "",
-					},
+					newAccount: "",
+					newPassword: "",
+					newName: "",
+					newTitle: "",
+					newIntroduce: "",
 				})
 			}
 		}
@@ -246,26 +214,18 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					Title: info[2],
 					Introduction: info[3],
 				},
-				newName: {
-					value: info[1],
-				},
-				newTitle: {
-					value: info[2]
-				},
-				newIntroduce: {
-					value: info[3],
-				},
+				newName: info[1],
+				newTitle:info[2],
+				newIntroduce: info[3],
 			})
 		}
-		//確定是否填寫
+		//不可以有空格
 		handleInputChange(event) {
 			const target = event.target;
 			let { value, id } = target;
 			value = value.trim();
 			this.setState({
-				[id]: {
-					value,
-				}
+				[id]: value,
 			});
 		}
 		//可以空格
@@ -273,9 +233,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			const target = event.target;
 			let { value, id } = target;
 			this.setState({
-				[id]: {
-					value,
-				}
+				[id]:value,
 			});
 		}
 		handelAllChange = e => {
@@ -481,7 +439,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										placeholder=" "
 										required="required"
 										id='newAccount'
-										value={newAccount.value}
+										value={newAccount}
 
 										onChange={this.handleInputChange.bind(this)}
 									/>
@@ -496,7 +454,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										placeholder=" "
 										required="required"
 										id='newPassword'
-										value={newPassword.value}
+										value={newPassword}
 										onChange={this.handleInputChange.bind(this)}
 									/>
 									<label className="label">
@@ -510,7 +468,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										placeholder=" "
 										required="required"
 										id='newName'
-										value={newName.value}
+										value={newName}
 										onChange={this.handleInputChange.bind(this)}
 									/>
 									<label className="label">
@@ -524,7 +482,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										placeholder=" "
 										required="required"
 										id='newTitle'
-										value={newTitle.value}
+										value={newTitle}
 										onChange={this.handleInputChange.bind(this)}
 									/>
 									<label className="label">
@@ -584,7 +542,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 						<div className="window">
 							<div className="form">
 								<h1 className="title">
-									修改教師介紹
+									修改教師資訊
 									<div className="close">
 										<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 											<path d="M24 2.4L21.6 0L12 9.6L2.4 0L0 2.4L9.6 12L0 21.6L2.4 24L12 14.4L21.6 24L24 21.6L14.4 12L24 2.4Z" fill="#51718C" />
@@ -599,7 +557,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										placeholder=" "
 										required="required"
 										id='newName'
-										value={newName.value}
+										value={newName}
 										onChange={this.handleInputChange.bind(this)}
 									/>
 									<label className="label">
@@ -613,7 +571,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										placeholder=" "
 										required="required"
 										id='newTitle'
-										value={newTitle.value}
+										value={newTitle}
 										onChange={this.handleInputChange.bind(this)}
 									/>
 									<label className="label">
@@ -622,7 +580,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								</div>
 								<div className='col-12 enter'>
 									<textarea
-										value={newIntroduce.value}
+										value={newIntroduce}
 										id="newIntroduce"
 										className='long_text'
 										onChange={this.handelCanEnter.bind(this)}

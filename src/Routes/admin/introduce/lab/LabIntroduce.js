@@ -32,15 +32,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			edit: false,
 			delO: false,
 			delAll: false,
-			newTitle: {
-				value: "",
-				errormsg: "*",
-			},
-			newContent: {
-				value: "",
-				errormsg: "*",
-			},
-			nowItem: {}
+			newTitle: "",
+			newContent: "",
+			nowItem: {},
 		}
 		//生命週期
 		componentDidMount = () => {
@@ -48,24 +42,17 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 		AddLabIntroduce = () => {
 			const { newTitle, newContent } = this.state;
-			const err = "*";
-			if (newTitle.errormsg !== err && newContent.errormsg !== err) {
+			if (newTitle !== "" && newContent !== "") {
 				const payload = {
-					Title: this.state.newTitle.value,
-					Content: this.state.newContent.value
+					Title: newTitle,
+					Content: newContent,
 				};
 				const callback = () => {
 					this.props.GET_LabIntroduce();
 					this.setState({
 						add: false,
-						newTitle: {
-							value: "",
-							errormsg: "*",
-						},
-						newContent: {
-							value: "",
-							errormsg: "*",
-						},
+						newTitle: "",
+						newContent: "",
 					})
 				}
 				this.props.POST_AddLabIntroduce(payload, callback);
@@ -76,29 +63,22 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 		UpdateLabIntroduce = () => {
 			const { newTitle, newContent, nowItem } = this.state;
-			const err = "*";
-			if (newTitle.errormsg !== err && newContent.errormsg !== err) {
-				if (newTitle.value === nowItem.Title && newContent.value === nowItem.Content) {
+			if (newTitle !== "" && newContent !== "") {
+				if (newTitle === nowItem.Title && newContent === nowItem.Content) {
 					alert("未修改任何內容");
 				}
 				else {
 					const payload = {
 						Id: nowItem.Id,
-						Title: this.state.newTitle.value,
-						Content: this.state.newContent.value
+						Title: newTitle,
+						Content: newContent,
 					};
 					const callback = () => {
 						this.props.GET_LabIntroduce();
 						this.setState({
 							edit: false,
-							newTitle: {
-								value: "",
-								errormsg: "*",
-							},
-							newContent: {
-								value: "",
-								errormsg: "*",
-							},
+							newTitle: "",
+							newContent: "",
 						})
 					}
 					this.props.PUT_UpdateLabIntroduce(payload, callback);
@@ -112,6 +92,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		Delete = (id) => {
 			const callback = () => {
 				this.props.GET_LabIntroduce();
+				const AllChange = document.getElementsByName('AllChange');
+				AllChange[0].checked = false;
 				this.setState({
 					delO: false,
 					delAll: false,
@@ -135,14 +117,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			if (e === 'add') {
 				this.setState({
 					add: !this.state.add,
-					newTitle: {
-						value: "",
-						errormsg: "*",
-					},
-					newContent: {
-						value: "",
-						errormsg: "*",
-					},
+					newTitle: "",
+					newContent: "",
 				})
 			}
 			else if (e === 'edit') {
@@ -168,14 +144,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					edit: false,
 					delO: false,
 					delAll: false,
-					newTitle: {
-						value: "",
-						errormsg: "*",
-					},
-					newContent: {
-						value: "",
-						errormsg: "*",
-					},
+					newTitle: "",
+					newContent: "",
 				})
 			}
 		}
@@ -188,37 +158,26 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					Title: info[1],
 					Content: info[2],
 				},
-				newTitle: {
-					value: info[1],
-					errormsg: "",
-				},
-				newContent: {
-					value: info[2],
-					errormsg: "",
-				},
+				newTitle: info[1],
+				newContent: info[2],
 			})
 		}
-		//確定是否填寫
-		handleInputChange(event) {
+		//不可以有空格
+		handleInputChange = event => {
 			const target = event.target;
 			let { value, id } = target;
 			value = value.trim();
-			if (value !== "") {
-				this.setState({
-					[id]: {
-						value,
-						errormsg: "",
-					}
-				});
-			}
-			else {
-				this.setState({
-					[id]: {
-						value,
-						errormsg: "*",
-					}
-				});
-			}
+			this.setState({
+				[id]: value,
+			});
+		}
+		//可以空格
+		handelCanEnter = event => {
+			const target = event.target;
+			let { value, id } = target;
+			this.setState({
+				[id]: value,
+			});
 		}
 
 		handelAllChange = e => {
@@ -260,6 +219,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		render() {
 			const { table_header, array, add, edit, delO, delAll, nowItem, newTitle, newContent } = this.state;
 			const { LabIntroduceList } = this.props;
+			console.log(LabIntroduceList);
 			return (
 				<BackLayout>
 					<div className="work">
@@ -306,7 +266,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 											</td>
 											<td>{index + 1}</td>
 											<td>{item.Title}</td>
-											<td>{item.Content}</td>
+											<td className='canenter'>{item.Content}</td>
 											<td>
 												<div className="action">
 													<div className="svg" onClick={() => this.drop_down('edit')}>
@@ -359,22 +319,22 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										placeholder=" "
 										required="required"
 										maxLength='20'
-										value={newTitle.value}
+										value={newTitle}
 										id='newTitle'
 										onChange={this.handleInputChange.bind(this)}
 									/>
 									<label className="label">
-										{`標題${newTitle.errormsg}`}
+										標題*
 									</label>
 								</div>
 								<div className='col-12 enter'>
 									<textarea
 										className='long_text'
-										value={newContent.value}
+										value={newContent}
 										id='newContent'
-										onChange={this.handleInputChange.bind(this)}
+										onChange={this.handelCanEnter.bind(this)}
 									/>
-									<label className="label">內容<div className='error_msg'>{newContent.errormsg}</div></label>
+									<label className="label">內容*</label>
 								</div>
 								<div className='btn_block'>
 									<button
@@ -408,23 +368,22 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										placeholder=" "
 										required="required"
 										maxLength='20'
-										value={newTitle.value}
+										value={newTitle}
 										id='newTitle'
 										onChange={this.handleInputChange.bind(this)}
 									/>
 									<label className="label">
-										{`標題${newTitle.errormsg}`}
+										標題*
 									</label>
 								</div>
 								<div className='col-12 enter'>
 									<textarea
 										className='long_text'
-										defaultValue={nowItem.Content}
-										value={newContent.value}
+										value={newContent}
 										id='newContent'
-										onChange={this.handleInputChange.bind(this)}
+										onChange={this.handelCanEnter.bind(this)}
 									/>
-									<label className="label">內容<div className='error_msg'>{newContent.errormsg}</div></label>
+									<label className="label">內容*</label>
 								</div>
 								<div className='btn_block'>
 									<button

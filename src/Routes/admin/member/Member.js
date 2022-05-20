@@ -16,11 +16,11 @@ const mapDispatchToProps = dispatch => {
 		GET_Role: () => dispatch(GET_Role()),
 		GET_Class: () => dispatch(GET_Class()),
 		GET_PrivateMember: () => dispatch(GET_PrivateMember()),
-		POST_UserAdd: (payload) => dispatch(POST_UserAdd(payload)),
+		POST_UserAdd: (payload, callback) => dispatch(POST_UserAdd(payload, callback)),
 		PUT_ChangeRole: (payload) => dispatch(PUT_ChangeRole(payload)),
 		PUT_ChangeClass: (payload) => dispatch(PUT_ChangeClass(payload)),
-		PUT_ChangePassword: (payload) => dispatch(PUT_ChangePassword(payload)),
-		DELETE_Member: (payload) => dispatch(DELETE_Member(payload)),
+		PUT_ChangePassword: (payload, callback) => dispatch(PUT_ChangePassword(payload, callback)),
+		DELETE_Member: (payload, callback) => dispatch(DELETE_Member(payload, callback)),
 	}
 }
 export default connect(mapStateToProps, mapDispatchToProps)(
@@ -40,29 +40,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				"帳號創建日期",
 			],
 			academic_sys: ["研究所", "四技", "二技", "五專",],
-
-			newAccount: {
-				value: "",
-				errormsg: "必填",
-			},
-			newName: {
-				value: "",
-				errormsg: "必填",
-			},
-			newClass: {
-				value: "1",
-				errormsg: "必填",
-			},
-			newRole: {
-				value: "2",
-				errormsg: "必填",
-			},
-			password: {
-				value: "",
-			},
-			password2: {
-				value: "",
-			},
+			newAccount: "",
+			newName: "",
+			newClass: "1",
+			newRole: "2",
+			password: "",
+			password2: "",
 			now: {}
 		}
 
@@ -76,12 +59,22 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		AddMember = () => {
 			const { newAccount, newName, newClass, newRole } = this.state;
 			const payload = {
-				Account: newAccount.value,
-				Name: newName.value,
-				Class_Id: newClass.value,
-				Role_Id: newRole.value,
+				Account: newAccount,
+				Name: newName,
+				Class_Id: newClass,
+				Role_Id: newRole,
 			}
-			this.props.POST_UserAdd(payload);
+			const callback = () => {
+				this.props.GET_PrivateMember();
+				this.setState({
+					add: false,
+					newAccount: "",
+					newName: "",
+					newClass: "1",
+					newRole: "2",
+				})
+			}
+			this.props.POST_UserAdd(payload, callback);
 		}
 		ChangeRole = (e) => {
 			const target = e.target;
@@ -103,35 +96,48 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 		ChangePasswordAd = (e) => {
 			const { password, password2, now } = this.state;
-			if (password.value !== "" && password2.value !== "") {
-				if (password.value === password2.value) {
+			if (password !== "" && password2 !== "") {
+				if (password === password2) {
 					const payload = {
 						account: now.Account,
-						password: password.value,
-						password_confirm: password2.value,
+						password: password,
+						password_confirm: password2,
 					}
-					this.props.PUT_ChangePassword(payload);
+					const callback = () => {
+						this.props.GET_PrivateMember();
+						this.setState({
+							edit: false,
+							password: "",
+							password2: "",
+							now: {},
+						})
+					}
+					this.props.PUT_ChangePassword(payload, callback);
 				}
 				else {
 					alert("兩次密碼輸入不一致");
-					password.value = "";
-					password2.value = "";
 					this.setState({
-						password: {
-							value: ""
-						},
-						password2: {
-							value: ""
-						}
+						password: "",
+						password2: "",
 					})
 				}
 			}
 			else {
-				alert("有欄位尚未填寫");
+				alert("您有必填欄位尚未填寫，請確認");
 			}
 		}
 		Delete = (id) => {
-			this.props.DELETE_Member(id);
+			const callback = () => {
+				this.props.GET_PrivateMember();
+				const AllChange = document.getElementsByName('AllChange');
+				AllChange[0].checked = false;
+				this.setState({
+					delO: false,
+					delAll: false,
+					array: [],
+				})
+			}
+			this.props.DELETE_Member(id, callback);
 		}
 		handelDeleteAll = () => {
 			const { array } = this.state;
@@ -199,30 +205,21 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					del: false,
 					delO: false,
 					delAll: false,
+					newAccount: "",
+					newName: "",
+					newClass: "1",
+					newRole: "2",
 				})
 			}
 		}
 		//確定是否填寫
-		handleInputChange(event) {
+		handleInputChange = event => {
 			const target = event.target;
 			let { value, id } = target;
 			value = value.trim();
-			if (value !== "") {
-				this.setState({
-					[id]: {
-						value,
-						errormsg: "",
-					}
-				});
-			}
-			else {
-				this.setState({
-					[id]: {
-						value,
-						errormsg: "*",
-					}
-				});
-			}
+			this.setState({
+				[id]: value,
+			});
 		}
 		handelAllChange = e => {
 			const checkboxes = document.getElementsByName('Box');
@@ -240,7 +237,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				if (!array.includes(e.value)) {
 					array.push(e.value);
 				}
-				if (array.length === num) {
+				if (array.length === num && array.length!==0) {
 					AllChange[0].checked = true;
 				}
 			}
@@ -277,7 +274,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								批量刪除
 							</button>
 						</div>
-						<form className="searchform">
+						<div className="searchform">
 							<select name="" defaultValue={academic_sys[0]}>
 								{academic_sys === undefined ? [] : academic_sys.map(item =>
 									<option value={item}>{item}</option>
@@ -285,7 +282,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							</select>
 							<input type="text" placeholder="搜尋" />
 							<input type="submit" value="送出" className="searchBtn" />
-						</form>
+						</div>
 					</div>
 					<table className="col-12 admin_table">
 						<thead>
@@ -309,7 +306,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							</tr>
 						</thead>
 						<tbody>
-							{(PrivateMember === undefined || PrivateMember.length === 0)? "" : PrivateMember.map(
+							{(PrivateMember === undefined || PrivateMember.length === 0) ? "" : PrivateMember.map(
 								(item, index) => {
 									return (
 										<tr key={index} className={array.includes(`${item.Id}`) ? "onchange" : ""} >
@@ -402,6 +399,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										placeholder=" "
 										required="required"
 										id='newAccount'
+										value={newAccount}
 										onChange={this.handleInputChange.bind(this)}
 									/>
 									<label for="Email" className="label">
@@ -415,6 +413,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										placeholder=" "
 										required="required"
 										id='newName'
+										value={newName}
 										onChange={this.handleInputChange.bind(this)}
 									/>
 									<label for="Password" className="label">
@@ -422,7 +421,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									</label>
 								</div>
 								<div className="inputContainer">
-									<select id='newClass'  value={newClass.value} onChange={this.handleInputChange.bind(this)}>
+									<select id='newClass' value={newClass} onChange={this.handleInputChange.bind(this)}>
 										{ClassList === undefined ? [] : ClassList.map((item, index) => {
 											return (
 												<option key={`class${index}`} value={item.Id}>{item.Name}</option>
@@ -431,7 +430,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									</select>
 								</div>
 								<div className="inputContainer">
-									<select id='newRole'  value={newRole.value} onChange={this.handleInputChange.bind(this)}>
+									<select id='newRole' value={newRole} onChange={this.handleInputChange.bind(this)}>
 										{RoleList === undefined ? [] : RoleList.map((item, index) => {
 											return (
 												<option key={`role${index}`} value={item.Id}>{item.Name}</option>
@@ -473,7 +472,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										className="input"
 										placeholder=" "
 										required="required"
-										defaultValue={password.value}
+										value={password}
 										onChange={this.handleInputChange.bind(this)}
 									/>
 									<label for="Password" className="label">
@@ -487,7 +486,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										className="input"
 										placeholder=" "
 										required="required"
-										defaultValue={password2.value}
+										value={password2}
 										onChange={this.handleInputChange.bind(this)}
 									/>
 									<label for="Password" className="label">

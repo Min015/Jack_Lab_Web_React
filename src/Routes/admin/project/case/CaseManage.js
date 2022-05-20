@@ -129,6 +129,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		render() {
 			const { table_header, array, delO, delAll, now } = this.state;
 			const { Project, ProjectType } = this.props;
+			console.log(Project);
 			return (
 				<BackLayout>
 					<div className="work">
@@ -145,9 +146,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 						</div>
 						<div className="searchform">
 							<select name="">
-								{ProjectType === undefined ? "" : ProjectType.map((item, index) =>
+								{/* {(ProjectType === undefined || ProjectType.length === 0)? "" : ProjectType.map((item, index) =>
 									<option key={`ptype${index}`} value={item.Id}>{item.Name}</option>
-								)}
+								)} */}
 							</select>
 							<input type="text" placeholder="搜尋" />
 							<input type="submit" value="送出" className="searchBtn" />
@@ -172,7 +173,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							</tr>
 						</thead>
 						<tbody>
-							{(Project === undefined || Project.length === 0) ? "" : Project.map(
+							{(Project === undefined || Project.list.length === 0) ? "" : Project.list.map(
 								(item, index) => {
 									return (
 										<tr key={`checkbox${index}`} className={array.includes(`${item.Id}`) ? "onchange" : ""}>

@@ -254,8 +254,20 @@
 		}
 	}
 
-	#filename {
+	#filename{
 		padding: 10px 45px 0px 45px;
+	}
+	.file {
+		tr {
+			@extend %row;
+			@include ali-set();
+			td {
+				position: relative;
+				height: 25px;
+				padding: 0px 5px;
+				@include ali-set();
+			}
+		}
 	}
 }
 
@@ -422,4 +434,7 @@
 
 .active {
 	display: block !important;
+}
+.none{
+	display: none !important;
 }

@@ -16,9 +16,9 @@ const mapDispatchToProps = dispatch => {
 		GET_Role: () => dispatch(GET_Role()),
 		GET_Permission: () => dispatch(GET_PermissionList()),
 		GET_RolePermission: (payload, callback) => dispatch(GET_RolePermission(payload, callback)),
-		PUT_ChangeRolePermission: (payload) => dispatch(PUT_ChangeRolePermission(payload)),
-		POST_RoleAdd: (payload) => dispatch(POST_RoleAdd(payload)),
-		DELETE_Role: (payload) => dispatch(DELETE_Role(payload)),
+		PUT_ChangeRolePermission: (payload, callback) => dispatch(PUT_ChangeRolePermission(payload, callback)),
+		POST_RoleAdd: (payload, callback) => dispatch(POST_RoleAdd(payload, callback)),
+		DELETE_Role: (payload, callback) => dispatch(DELETE_Role(payload, callback)),
 	}
 }
 export default connect(mapStateToProps, mapDispatchToProps)(
@@ -69,7 +69,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				Id: nowRole.Id,
 				Permission: role_permission,
 			}
-			this.props.PUT_ChangeRolePermission(payload);
+			const callback = () => {
+				this.props.GET_Role();
+				this.setState({
+					edit: false,
+				})
+			}
+			this.props.PUT_ChangeRolePermission(payload, callback);
 		}
 		RoleAdd = () => {
 			const { newRoleName, role_permission } = this.state;
@@ -77,12 +83,22 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				Name: newRoleName,
 				Permission: role_permission,
 			}
-			this.props.POST_RoleAdd(payload);
+			const callback = () => {
+				this.props.GET_Role();
+				this.setState({
+					add: false,
+				})
+			}
+			this.props.POST_RoleAdd(payload, callback);
 		}
-		handelInput = e => {
+		//不可以有空格
+		handleInputChange = event => {
+			const target = event.target;
+			let { value, id } = target;
+			value = value.trim();
 			this.setState({
-				newRoleName: e.target.value
-			})
+				[id]: value,
+			});
 		}
 		handelSetDelete = (e) => {
 			const { id } = e.target;
@@ -91,7 +107,16 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			})
 		}
 		Delete = (id) => {
-			this.props.DELETE_Role(id);
+			const callback = () => {
+				this.props.GET_Role();
+				const AllChange = document.getElementsByName('AllChange');
+				AllChange[0].checked = false;
+				this.setState({
+					delO: false,
+					delAll: false,
+				})
+			}
+			this.props.DELETE_Role(id, callback);
 		}
 		handelDeleteAll = () => {
 			const { array } = this.state;
@@ -133,8 +158,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				this.setState({
 					edit: false,
 					add: false,
-					delO:false,
-					delAll:false,
+					delO: false,
+					delAll: false,
 					role_permission: [],
 				})
 			}
@@ -195,9 +220,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 
 		}
 		render() {
-			const { edit, add, delO, delAll, deleteOne, table_header, nowRole, role_permission, array } = this.state;
+			const { edit, add, delO, delAll, deleteOne, table_header, nowRole, role_permission, array, newRoleName } = this.state;
 			const { RoleList, PermissionList } = this.props;
 			const Title = deleteOne.split(",");
+			console.log(role_permission);
 			return (
 				<div id='permission'>
 					<BackLayout>
@@ -231,7 +257,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								</tr>
 							</thead>
 							<tbody>
-								{(RoleList === undefined || RoleList.length === 0)? [] : RoleList.map(
+								{(RoleList === undefined || RoleList.length === 0) ? [] : RoleList.map(
 									(item, index) => {
 										return (
 											<tr key={`role${index}`} className={array.includes(`${item.Id}`) ? "onchange" : ""}>
@@ -333,8 +359,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										className="input"
 										placeholder=" "
 										required="required"
-										name="account"
-										onChange={this.handelInput}
+										id="newRoleName"
+										value={newRoleName}
+										onChange={this.handleInputChange.bind(this)}
 									/>
 									<label className="label">
 										角色名
@@ -344,8 +371,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									<div className='small_title'>選擇權限</div>
 									{PermissionList === undefined ? [] : PermissionList.map((item, index) =>
 										<div key={`per${index}`} className='t'>
-											<input id={item.Id} type='checkbox'
-												onChange={(e) => { this.handelSelectPermission(e) }} />
+											<input
+												id={item.Id}
+												type='checkbox'
+												onChange={(e) => { this.handelSelectPermission(e) }}
+											/>
 											<span>{item.Name}</span>
 										</div>
 									)}

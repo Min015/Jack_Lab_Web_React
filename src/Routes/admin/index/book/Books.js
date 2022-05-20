@@ -171,6 +171,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		Delete = (id) => {
 			const callback = () => {
 				this.props.GET_Book();
+				const AllChange = document.getElementsByName('AllChange');
+				AllChange[0].checked = false;
 				this.setState({
 					delO: false,
 					delAll: false,
@@ -283,21 +285,18 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			const { id } = e.target;
 			console.log(id);
 			const info = id.split(",");
-
 			this.setState({
 				nowItem: {
 					Id: info[0],
 					Title: info[1],
 				},
 			});
-			// console.log(239,this.state.nowItem);
 		}
 		//確定是否填寫
 		handleInputChange(event) {
 			const target = event.target;
 			let { value, id } = target;
 			value = value.trim();
-			console.log(target);
 			this.setState({
 				[id]: value,
 			});
