@@ -80,7 +80,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 		handelSetNow = (e) => {
 			const { id } = e.target;
-			console.log(id);
 			const info = id.split(",")
 			this.setState({
 				now: {
@@ -130,8 +129,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		render() {
 			const { table_header, array, delO, delAll, now } = this.state;
 			const { Project, ProjectType } = this.props;
-			console.log("Project=>", Project);
-			console.log("now=>", now);
 			return (
 				<BackLayout>
 					<div className="work">
@@ -172,7 +169,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							</tr>
 						</thead>
 						<tbody>
-							{Project === undefined ? "" : Project.map(
+							{(Project === undefined || Project.length === 0)? "" : Project.map(
 								(item, index) => {
 									return (
 										<tr key={`checkbox${index}`} className={array.includes(`${item.Id}`) ? "onchange" : ""}>

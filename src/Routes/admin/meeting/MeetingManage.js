@@ -112,13 +112,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			this.setState({
 				array
 			})
-			// console.log(array);
 		}
 		render() {
 			const { table_header, array, delO, delAll, deleteOne } = this.state;
 			const { MeetingList } = this.props;
 			const Title = deleteOne.split(",");
-			console.log(MeetingList);
 			return (
 				<BackLayout>
 					<div className="work">
@@ -163,7 +161,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							</tr>
 						</thead>
 						<tbody>
-							{MeetingList === undefined ? [] : MeetingList.map(
+							{(MeetingList === undefined || MeetingList.length === 0)? [] : MeetingList.map(
 								(item, index) => {
 									return (
 										<tr key={index} className={array.includes(`${item.Id}`) ? "onchange" : ""}>

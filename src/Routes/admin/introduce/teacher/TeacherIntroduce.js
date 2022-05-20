@@ -350,7 +350,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 		
 		render() {
-			const { table_content, table_header, array, photo, upload, newAccount, newPassword, newName, newTitle, newIntroduce, nowItem } = this.state;
+			const {table_header, array, photo, upload, newAccount, newPassword, newName, newTitle, newIntroduce, nowItem } = this.state;
 			const { add, edit, delO, delAll } = this.state;
 			const { TeacherIntroduceList } = this.props;
 			// console.log("TeacherIntroduceList", TeacherIntroduceList);
@@ -394,7 +394,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							</tr>
 						</thead>
 						<tbody>
-							{TeacherIntroduceList === undefined ? "" : TeacherIntroduceList.map(
+							{(TeacherIntroduceList === undefined || TeacherIntroduceList.length === 0)  ? "" : TeacherIntroduceList.map(
 								(item, index) => {
 									return (
 										<tr key={index} className={array.includes(`${item.Id}`) ? "onchange" : ""}>

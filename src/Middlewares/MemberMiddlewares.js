@@ -22,13 +22,13 @@ const fetch = store => next => action => {
           localStorage.setItem('user_token', response.data.data.token);
           if(response.data.data.admin===1){
             window.location.replace('http://localhost:3000/adminalbum');
-          
           }
           else if(response.data.data.admin===0){
             window.location.replace('http://localhost:3000/setinfo');
           }
         })
         .catch(err => {
+          console.log(err.response.data);
           throw new Error(err);
         })
       break;
@@ -37,6 +37,7 @@ const fetch = store => next => action => {
         .get('/member',)
         .then(response => response.data.data)
         .catch(err => {
+          console.log(err.response.data);
           throw new Error(err);
         })
         .then(json => {
@@ -51,6 +52,7 @@ const fetch = store => next => action => {
         .get('/manager/role',)
         .then(response => response.data.data)
         .catch(err => {
+          console.log(err.response.data);
           throw new Error(err);
         })
         .then(json => {
@@ -65,6 +67,7 @@ const fetch = store => next => action => {
         .get('/class',)
         .then(response => response.data.data)
         .catch(err => {
+          console.log(err.response.data);
           throw new Error(err);
         })
         .then(json => {
@@ -82,6 +85,7 @@ const fetch = store => next => action => {
           return response.data.data;
         })
         .catch(err => {
+          console.log(err.response.data);
           throw new Error(err);
         })
         .then(json => {
@@ -96,6 +100,7 @@ const fetch = store => next => action => {
         .post('/manager/useradd', action.payload)
         .then(response => { console.log("新增成功") })
         .catch(err => {
+          console.log(err.response.data);
           throw new Error(err);
         })
       break;
@@ -108,6 +113,7 @@ const fetch = store => next => action => {
           }
         })
         .catch(err => {
+          console.log(err.response.data);
           throw new Error(err);
         })
       break;
@@ -120,6 +126,7 @@ const fetch = store => next => action => {
           }
         })
         .catch(err => {
+          console.log(err.response.data);
           throw new Error(err);
         })
       break;
@@ -130,6 +137,7 @@ const fetch = store => next => action => {
           return response.data.data
         })
         .catch(err => {
+          console.log(err.response.data);
           throw new Error(err);
         })
         .then(json => {
@@ -146,6 +154,7 @@ const fetch = store => next => action => {
           return response.data.data
         })
         .catch(err => {
+          console.log(err.response.data);
           throw new Error(err);
         })
         .then(json => {
@@ -167,6 +176,7 @@ const fetch = store => next => action => {
           }
         })
         .catch(err => {
+          console.log(err.response.data);
           throw new Error(err);
         })
       break;
@@ -179,6 +189,7 @@ const fetch = store => next => action => {
           }
         })
         .catch(err => {
+          console.log(err.response.data);
           throw new Error(err);
         })
       break;
@@ -192,6 +203,7 @@ const fetch = store => next => action => {
           }
         })
         .catch(err => {
+          console.log(err.response.data);
           throw new Error(err);
         })
       break;
@@ -205,6 +217,7 @@ const fetch = store => next => action => {
           }
         })
         .catch(err => {
+          console.log(err.response.data);
           throw new Error(err);
         })
       break;
@@ -218,6 +231,7 @@ const fetch = store => next => action => {
           }
         })
         .catch(err => {
+          console.log(err.response.data);
           throw new Error(err);
         })
       break;

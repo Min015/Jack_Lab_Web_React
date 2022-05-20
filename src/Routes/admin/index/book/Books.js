@@ -46,29 +46,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				"作者",
 				"出版時間",
 			],
-			table_content: [
-				{
-					b_id: "a",
-					b_title: "秒懂行動網頁設計Visual Studio Code+GitHub+Bootstrap5+CSS3+HTML5+Web App專案實作",
-					b_author: "姜琇森 朱珮儀 章家源 董子瑜 蕭國倫 陳璟誼",
-					b_publisher: "碁峰",
-					b_time: "2021-12-15",
-				},
-				{
-					b_id: "b",
-					b_title: "一次就懂 ASP.NET MVC 5.x 網站開發：Web應用的經典實務範例解析(Visual C# )",
-					b_author: "吳玟憲 姜琇森 楊鎧睿 蕭國倫 黃子銘 黃煒凱",
-					b_publisher: "深智數位",
-					b_time: "2019-11-19",
-				},
-				{
-					b_id: "c",
-					b_title: "原來跨平台開發可以這麼簡單：React Native全攻略(附範例光碟)",
-					b_author: "姜琇森, 蕭國倫, 許瑋芩, 黃子銘, 楊鎧睿, 黃煒凱, 周冠瑜",
-					b_publisher: "全華圖書",
-					b_time: "2020-07-01",
-				},
-			],
 			add: false,
 			edit: false,
 			delO: false,
@@ -169,18 +146,18 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				alert("有必填欄位未填寫，請確認");
 			}
 		}
-		UpdateBookPhoto=()=>{
+		UpdateBookPhoto = () => {
 			const { upload, Id } = this.state;
 			if (upload.name !== undefined) {
 				let data = new FormData();
 				data.append('_method', 'PUT');
-				data.append('Id',Id);
+				data.append('Id', Id);
 				data.append('Image', upload);
 				const callback = () => {
 					this.props.GET_Book();
 					this.setState({
 						photo: false,
-						edit:false,
+						edit: false,
 						upload: {},
 					});
 				}
@@ -259,7 +236,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					delAll: false,
 					drop: false,
 					photo: false,
-					Id:"",
+					Id: "",
 					Title: "",
 					Publisher: "",
 					Time: "",
@@ -401,9 +378,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			const { table_header, array, drop, photo, Title, Publisher, Time, ISBN, participate, upload, nowItem, bookinfo } = this.state;
 			const { add, edit, delO, delAll } = this.state;
 			const { BookList, PublicMemberList, BookInfo } = this.props;
-			 console.log(403,upload);
-			// console.log(333, BookInfo);
-			// console.log(334, bookinfo)
 			return (
 				<div id='book'>
 					<BackLayout>
@@ -441,7 +415,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								</tr>
 							</thead>
 							<tbody>
-								{BookList === undefined ? "" : BookList.map(
+								{(BookList === undefined || BookList.length === 0) ? "" : BookList.map(
 									(item, index) => {
 										return (
 											<tr key={index} className={array.includes(`${item.Id}`) ? "onchange" : ""}>
@@ -453,15 +427,15 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 													/>
 												</td>
 												<td>{index + 1}</td>
-												<td>{item.Title}</td>
+												<td>{BookList === undefined ? "" : item.Title}</td>
 												<td className='author'>
 													{item.Authors === undefined ? "" : item.Authors.map((item, index) => {
 														return (
-															<span>{item.name} </span>
+															<span>{BookList === undefined ? "" :item.name} </span>
 														)
 													})}
 												</td>
-												<td>{item.Time}</td>
+												<td>{BookList === undefined ? "" :item.Time}</td>
 												<td>
 													<div className="action">
 														<div onClick={() => this.drop_down('edit')} className="svg">
@@ -582,7 +556,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 													className='choose input'
 													onClick={() => this.drop_down('drop')}
 												>
-													{participate.length === 0 ? "參與人員" : ""}
 													{participate.length === 0 ? [] : participate.map((item, index) =>
 														<div
 															className='oncheck'

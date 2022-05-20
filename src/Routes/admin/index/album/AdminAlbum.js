@@ -4,16 +4,14 @@ import BackLayout from '../../../../Components/Layout/back/BackLayout';
 import '../../style/mainstyle.scss';
 import '../../../../Mixin/popup_window.scss'
 import search from '../../style/img/searchButton.png';
-import 
-{ 
-	GET_AdminAlbum, 
+import {
+	GET_AdminAlbum,
 	POST_AddAlbum,
 	POST_UpdataAlbum,
-	DELETE_AdAlbum, 
-}from '../../../../Action/IndexAction';
+	DELETE_AdAlbum,
+} from '../../../../Action/IndexAction';
 
 const mapStateToProps = state => {
-	console.log("state=>", state);
 	const { guestindexReducer } = state;
 	return (
 		guestindexReducer
@@ -33,8 +31,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		state = {
 			add: false,
 			edit: false,
-			delO:false,
-			delAll:false,
+			delO: false,
+			delAll: false,
 			previview: false,
 			array: [],
 			mimes_type: ['svg', 'png', 'jpg', 'jpeg', 'csv',],//媒體類型
@@ -79,7 +77,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 		//修改
 		UpdateAlbum = () => {
-			const { newTitle, upload,now } = this.state;
+			const { newTitle, upload, now } = this.state;
 			const errormsg = "*";
 			if (newTitle.errormsg === errormsg) {
 				alert("您有必填欄位尚未填寫，請確認");
@@ -87,9 +85,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			else {
 				let data = new FormData();
 				data.append('_method', 'PUT');
-				data.append('Id',now.Id)
+				data.append('Id', now.Id)
 				data.append('Title', newTitle.value);
-				if(upload.name!==undefined){
+				if (upload.name !== undefined) {
 					data.append('Image', upload);
 				}
 				const callback = () => {
@@ -100,7 +98,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							value: "",
 							errormsg: "*",
 						},
-						upload:{},
+						upload: {},
 					})
 				}
 				this.props.POST_UpdataAlbum(data, callback);
@@ -115,7 +113,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					delAll: false,
 				})
 			}
-			this.props.DELETE_AdAlbum(id,callback);
+			this.props.DELETE_AdAlbum(id, callback);
 		}
 		//刪除多筆
 		handelDeleteAll = () => {
@@ -164,8 +162,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				this.setState({
 					add: false,
 					edit: false,
-					delO:false,
-					delAll:false,
+					delO: false,
+					delAll: false,
 					previview: false,
 					newTitle: {},
 					upload: {},
@@ -183,7 +181,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				},
 				newTitle: {
 					value: info[1],
-					errormsg:"",
+					errormsg: "",
 				},
 			})
 		}
@@ -276,10 +274,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			}
 		}
 		render() {
-			const { table_header, array, add, edit, upload, now, previview, newTitle,delO,delAll } = this.state;
+			const { table_header, array, add, edit, upload, now, previview, newTitle, delO, delAll } = this.state;
 			const { AlbumList } = this.props
-			console.log("newTitle=>", newTitle)
-
 			return (
 				<BackLayout>
 					<div className="work">
@@ -315,7 +311,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							</tr>
 						</thead>
 						<tbody>
-							{AlbumList === undefined ? "" : AlbumList.map(
+							{(AlbumList === undefined || AlbumList.length === 0) ? "" : AlbumList.map(
 								(item, index) => {
 									return (
 										<tr key={index} className={array.includes(`${item.Id}`) ? "onchange" : ""} >
@@ -462,7 +458,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								<div className='btn_block'>
 									<button
 										className="submitBtn"
-									onClick={this.UpdateAlbum}
+										onClick={this.UpdateAlbum}
 									>
 										修改
 									</button>

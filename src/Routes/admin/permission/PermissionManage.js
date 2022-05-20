@@ -198,8 +198,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			const { edit, add, delO, delAll, deleteOne, table_header, nowRole, role_permission, array } = this.state;
 			const { RoleList, PermissionList } = this.props;
 			const Title = deleteOne.split(",");
-			console.log("array", array);
-			console.log("role_permission", role_permission);
 			return (
 				<div id='permission'>
 					<BackLayout>
@@ -233,7 +231,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								</tr>
 							</thead>
 							<tbody>
-								{RoleList === undefined ? [] : RoleList.map(
+								{(RoleList === undefined || RoleList.length === 0)? [] : RoleList.map(
 									(item, index) => {
 										return (
 											<tr key={`role${index}`} className={array.includes(`${item.Id}`) ? "onchange" : ""}>

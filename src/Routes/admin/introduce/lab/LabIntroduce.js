@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import BackLayout from '../../../../Components/Layout/back/BackLayout';
 import '../../style/mainstyle.scss';
 
-import { GET_LabIntroduce, POST_AddLabIntroduce, PUT_UpdateLabIntroduce,DELETE_LabIntroduce, } from '../../../../Action/IntroduceAction';
+import { GET_LabIntroduce, POST_AddLabIntroduce, PUT_UpdateLabIntroduce, DELETE_LabIntroduce, } from '../../../../Action/IntroduceAction';
 
 const mapStateToProps = state => {
 	const { introduceReducer } = state;
@@ -126,6 +126,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			for (let i = 0; i < array.length; i++) {
 				deletearray += array[i] + ",";
 			}
+			this.setState({
+				array: [],
+			})
 			this.Delete(deletearray);
 		}
 		drop_down = (e) => {
@@ -286,7 +289,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							</tr>
 						</thead>
 						<tbody>
-							{LabIntroduceList === undefined ? "" : LabIntroduceList.map(
+							{(LabIntroduceList === undefined || LabIntroduceList.length === 0)? "" : LabIntroduceList.map(
 								(item, index) => {
 									return (
 										<tr key={index} className={array.includes(`${item.Id}`) ? "onchange" : ""}>

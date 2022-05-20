@@ -77,12 +77,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(
     }
     handelDeleteAll = () => {
       const { array } = this.state;
-      console.log(array);
       let deletearray = "";
       for (let i = 0; i < array.length; i++) {
         deletearray += array[i] + ",";
       }
-      console.log(deletearray);
       this.Delete(deletearray);
     }
     //下拉
@@ -246,7 +244,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
     render() {
       const { ProjectType } = this.props;
       const { table_header, array, add, edit, delO, delAll, newType, now, newName } = this.state;
-      console.log(newType);
       return (
         <BackLayout>
           <div className="work">
@@ -284,7 +281,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
               </tr>
             </thead>
             <tbody>
-              {ProjectType === undefined ? "" : ProjectType.map(
+              {(ProjectType === undefined || ProjectType.length === 0) ? "" : ProjectType.map(
                 (item, index) => {
                   return (
                     <tr key={index} className={array.includes(`${item.Id}`) ? "onchange" : ""}>
@@ -294,7 +291,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                           value={item.Id}
                           onChange={(e) => { this.handelOnClick(e.target) }}
                         />
-
                       </td>
                       <td>{index + 1}</td>
                       <td>{item.Name}</td>

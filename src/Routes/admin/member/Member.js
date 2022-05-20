@@ -309,7 +309,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							</tr>
 						</thead>
 						<tbody>
-							{PrivateMember === undefined ? "" : PrivateMember.map(
+							{(PrivateMember === undefined || PrivateMember.length === 0)? "" : PrivateMember.map(
 								(item, index) => {
 									return (
 										<tr key={index} className={array.includes(`${item.Id}`) ? "onchange" : ""} >

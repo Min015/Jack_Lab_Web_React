@@ -24,7 +24,7 @@ const fetch = store => next => action => {
           }
         })
         .catch(err => {
-          console.log(err);
+          console.log(err.response.data);
           throw new Error(err);
         })
         .then(json => {
@@ -44,7 +44,7 @@ const fetch = store => next => action => {
           }
         })
         .catch(err => {
-          console.log(err);
+          console.log(err.response.data);
           throw new Error(err);
         })
         .then(json => {
@@ -63,7 +63,7 @@ const fetch = store => next => action => {
           }
         })
         .catch(err => {
-          console.log(err);
+          console.log(err.response.data);
           throw new Error(err);
         })
       break;
@@ -77,7 +77,7 @@ const fetch = store => next => action => {
           }
         })
         .catch(err => {
-          console.log(err);
+          console.log(err.response.data);
           throw new Error(err);
         })
         .then(json => {
@@ -96,7 +96,7 @@ const fetch = store => next => action => {
           }
         })
         .catch(err => {
-          console.log(err);
+          console.log(err.response.data);
           throw new Error(err);
         })
         .then(json => {
@@ -116,7 +116,7 @@ const fetch = store => next => action => {
           }
         })
         .catch(err => {
-          console.log(err);
+          console.log(err.response.data);
           throw new Error(err);
         })
         .then(json => {
@@ -139,7 +139,7 @@ const fetch = store => next => action => {
           }
         })
         .catch(err => {
-          console.log(err);
+          console.log(err.response.data);
           throw new Error(err);
         })
       break;
@@ -153,7 +153,7 @@ const fetch = store => next => action => {
           }
         })
         .catch(err => {
-          console.log(err);
+          console.log(err.response.data);
           throw new Error(err);
         })
       break;
@@ -167,7 +167,7 @@ const fetch = store => next => action => {
           }
         })
         .catch(err => {
-          console.log(err);
+          console.log(err.response.data);
           throw new Error(err);
         })
       break;
@@ -181,7 +181,7 @@ const fetch = store => next => action => {
           }
         })
         .catch(err => {
-          console.log(err);
+          console.log(err.response.data);
           throw new Error(err);
         })
       break;
@@ -195,7 +195,7 @@ const fetch = store => next => action => {
           }
         })
         .catch(err => {
-          console.log(err);
+          console.log(err.response.data);
           throw new Error(err);
         })
       break;
