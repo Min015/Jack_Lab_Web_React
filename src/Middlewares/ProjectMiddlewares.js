@@ -16,7 +16,30 @@ const fetch = store => next => action => {
   switch (action.type) {
     case "GET_ProjectType":
       _axios
-        .get(`/project/type`,)
+        .get(`/project/type?page=${action.page}&search=${action.search}`,)
+        .then(response => {
+          console.log(response);
+          if (response.status === 200) {
+            return response.data.data;
+          }
+        })
+        .catch(err => {
+          console.log(err.response.data);
+          throw new Error(err);
+        })
+        .then(json => {
+          if (action.callback) {
+            action.callback(json)
+          }
+          return next({
+            type: 'SAVE_ProjectType',
+            payload: json
+          });
+        });
+      break;
+    case "GET_ProjectTypeAll":
+      _axios
+        .get(`/project/type/select`,)
         .then(response => {
           console.log(response);
           if (response.status === 200) {
@@ -29,7 +52,7 @@ const fetch = store => next => action => {
         })
         .then(json => {
           return next({
-            type: 'SAVE_ProjectType',
+            type: 'SAVE_ProjectTypeAll',
             payload: json
           });
         });
@@ -93,7 +116,7 @@ const fetch = store => next => action => {
       break;
     case "GET_Project":
       _axios
-        .get(`/project/list`,)
+        .get(`/project/list?page=${action.page}&search=${action.search}`,)
         .then(response => {
           console.log(response);
           if (response.status === 200) {
@@ -105,6 +128,9 @@ const fetch = store => next => action => {
           throw new Error(err);
         })
         .then(json => {
+          if (action.callback) {
+            action.callback(json)
+          }
           return next({
             type: 'SAVE_Project',
             payload: json
@@ -147,6 +173,11 @@ const fetch = store => next => action => {
           console.log(err.response.data);
           throw new Error(err);
         })
+        .then(json => {
+          if (action.callback) {
+            action.callback(json)
+          }
+        });
       break;
     case "PUT_UpdateProject":
       _axios
@@ -161,6 +192,11 @@ const fetch = store => next => action => {
           console.log(err.response.data);
           throw new Error(err);
         })
+        .then(json => {
+          if (action.callback) {
+            action.callback(json)
+          }
+        });
       break;
     case "GET_RecordFile":
       _axios
@@ -189,6 +225,11 @@ const fetch = store => next => action => {
           console.log(err.response.data);
           throw new Error(err);
         })
+        .then(json => {
+          if (action.callback) {
+            action.callback(json)
+          }
+        });
       break;
     case "DELETE_Project":
       _axios
@@ -203,6 +244,11 @@ const fetch = store => next => action => {
           console.log(err.response.data);
           throw new Error(err);
         })
+        .then(json => {
+          if (action.callback) {
+            action.callback(json)
+          }
+        });
       break;
     default:
       break;

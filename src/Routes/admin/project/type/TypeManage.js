@@ -50,17 +50,24 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         this.setState({
           maxpage: res.page,
         })
-        let pagearray = [];
-        for (let i = (Number(nowpage) - 2); i <= (Number(nowpage) + 2); i++) {
-          if (i > 0 && i <= Number(res.page)) {
-            pagearray.push(i)
-          }
-        }
-        this.setState({
-          pagearray
-        })
+        this.handelGetPage(nowpage, res.page);
       }
-      this.props.GET_ProjectType(params.page, params.search, callback);
+
+
+      
+      this.props.GET_ProjectType(nowpage, nowsearch, callback);
+    }
+    //取得頁面
+    handelGetPage = (nowpage, maxpage) => {
+      let pagearray = [];
+      for (let i = (Number(nowpage) - 2); i <= (Number(nowpage) + 2); i++) {
+        if (i > 0 && i <= Number(maxpage)) {
+          pagearray.push(i)
+        }
+      }
+      this.setState({
+        pagearray
+      })
     }
     //換頁
     handelGoNextPage = (page, search = " ") => {
@@ -75,49 +82,57 @@ export default connect(mapStateToProps, mapDispatchToProps)(
           maxpage: res.page,
           pagearray: [],
         })
-        let pagearray = [];
-        for (let i = (Number(nowpage) - 2); i <= (Number(nowpage) + 2); i++) {
-          if (i > 0 && i <= Number(res.page)) {
-            pagearray.push(i);
-          }
-        }
-        this.setState({
-          pagearray
-        })
+        this.handelGetPage(nowpage, res.page);
       }
       this.props.history.push(`/typemange/page=${page}/search=${search}`);
       this.props.GET_ProjectType(page, search, callback);
     }
+    //新增
     AddType = () => {
       const { page, search } = this.state;
-      const payload = {
-        Name: this.state.newType
-      };
-      const callback = () => {
-        this.props.GET_ProjectType(page, search);
-        this.setState({
-          add: false,
-          newType: "",
-        })
+      const { newType } = this.state;
+      if (newType !== "") {
+        const payload = {
+          Name: newType
+        };
+        const callback = () => {
+          this.props.GET_ProjectType(page, search);
+          this.setState({
+            add: false,
+            newType: "",
+          })
+        }
+        this.props.POST_AddProjectType(payload, callback);
       }
-      this.props.POST_AddProjectType(payload, callback);
+      else {
+        alert("您有必填欄位尚未填寫，請確認");
+      }
     }
+    //修改
     UpdateType = () => {
-      const { newType, page, search } = this.state
-      const payload = {
-        Id: this.state.nowItem.Id,
-        Name: newType,
+      const { page, search } = this.state;
+      const { newType, } = this.state
+      if (newType !== "") {
+        const payload = {
+          Id: this.state.nowItem.Id,
+          Name: newType,
+        }
+        const callback = () => {
+          this.props.GET_ProjectType(page, search);
+          this.setState({
+            edit: false,
+            newType: "",
+          })
+        }
+        this.props.PUT_UpdateProjectType(payload, callback);
       }
-      const callback = () => {
-        this.props.GET_ProjectType(page, search);
-        this.setState({
-          edit: false,
-          newType: "",
-        })
+      else {
+        alert("您有必填欄位尚未填寫，請確認");
       }
-      this.props.PUT_UpdateProjectType(payload, callback);
     }
+    //刪除
     Delete = (id) => {
+      const { search } = this.state;
       const callback = () => {
         const AllChange = document.getElementsByName('AllChange');
         AllChange[0].checked = false;
@@ -125,16 +140,18 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         for (let i = 0; i < checkboxes.length; i++) {
           checkboxes[i].checked = false;
         }
+
         this.setState({
           delO: false,
           delAll: false,
           array: [],
         })
         this.handelGoNextPage(1,);
-        this.props.history.push(`/typemange/page=1/search= `);
+        this.props.history.push(`/typemange/page=1/search=${search}`);
       }
       this.props.DELETE_ProjectType(id, callback);
     }
+    //刪除多筆
     handelDeleteAll = () => {
       const { array } = this.state;
       let deletearray = "";
@@ -155,7 +172,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         this.setState({
           edit: !this.state.edit,
         })
-
       }
       else if (e === 'delO') {
         this.setState({
@@ -242,7 +258,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
     }
     render() {
       const { ProjectType } = this.props;
-      const { table_header, array, add, edit, delO, delAll, newType,nowItem, pagearray, page, search, maxpage } = this.state;
+      const { pagearray, page, search, maxpage } = this.state;
+      const { table_header, array, add, edit, delO, delAll, newType, nowItem, } = this.state;
       return (
         <BackLayout>
           <div className='bg'>
@@ -258,7 +275,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                   批量刪除
                 </button>
               </div>
-              <div action="" className="searchbar">
+              <div className="searchbar">
                 <input type="text" placeholder="搜尋" id="search" value={search} onChange={this.handleInputChange.bind(this)} />
                 <div className="submit">
                   <input type="image" src={searchbtn} alt="送出" onClick={() => this.handelGoNextPage(1, search)} />
@@ -325,14 +342,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(
               </tbody>
             </table >
           </div>
-          <div className={(pagearray === undefined || pagearray.length <= 1) ? "none" : "active"}>
+          {/* 分頁 */}
+          <div className={(pagearray === undefined) ? "none" : "active"}>
             <div className='page'>
               <button onClick={() => this.handelGoNextPage(1, search)} className='features'>
                 <svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12.6006 17.9991L14.0005 16.499L6.59997 8.99955L13.9994 1.49902L12.5993 -0.000877613L3.59997 8.99976L12.6006 17.9991Z" fill="white" />
                   <rect x="2.00061" y="18" width="2" height="18" transform="rotate(179.996 2.00061 18)" fill="white" />
                 </svg>
-
               </button>
               <div className='page_group'>
                 {pagearray?.map((item) =>
@@ -344,10 +361,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                   <path d="M1.4 0L0 1.5L7.4 9L0 16.5L1.4 18L10.4 9L1.4 0Z" fill="white" />
                   <rect x="12" width="2" height="18" fill="white" />
                 </svg>
-
               </button>
             </div>
           </div>
+          {/* 彈跳視窗 */}
+          {/* 新增 */}
           <div
             className={add ? "popup_background active" : "popup_background"}
             onClick={this.handelMouseDown}
@@ -389,6 +407,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
               </div>
             </div>
           </div>
+          {/* 修改 */}
           <div
             className={edit ? "popup_background active" : "popup_background"}
             onClick={this.handelMouseDown}
@@ -430,6 +449,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
               </div>
             </div>
           </div>
+          {/* 刪除單筆 */}
           <div
             className={delO ? "popup_background active" : "popup_background"}
             onClick={this.handelMouseDown}
@@ -460,6 +480,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
               </div>
             </div>
           </div>
+          
           <div
             className={delAll ? "popup_background active" : "popup_background"}
             onClick={this.handelMouseDown}
