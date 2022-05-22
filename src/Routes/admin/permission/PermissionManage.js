@@ -324,7 +324,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									</tr>
 								</thead>
 								<tbody>
-									{(RoleList === undefined) ? [] : RoleList.list?.map(
+									{(RoleList === undefined|| RoleList.list.length === 0) ? [] : RoleList.list?.map(
 										(item, index) => {
 											return (
 												<tr key={`role${index}`} className={array.includes(`${item.Id}`) ? "onchange" : ""}>
