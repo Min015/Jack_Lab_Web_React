@@ -49,13 +49,16 @@ const fetch = store => next => action => {
       break;
     case "GET_Role":
       _axios
-        .get('/manager/role',)
+        .get(`/manager/role/list?page=${action.page}&search=${action.search}`,)
         .then(response => response.data.data)
         .catch(err => {
           console.log(err.response.data);
           throw new Error(err);
         })
         .then(json => {
+          if (action.callback) {
+            action.callback(json)
+          }
           return next({
             type: 'SAVE_Role',
             payload: json
