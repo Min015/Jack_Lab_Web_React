@@ -307,7 +307,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		handelOnClick = e => {
 			const { TeacherIntroduceList } = this.props;
 			let array = this.state.array;
-			const num = TeacherIntroduceList.length;
+			const num = TeacherIntroduceList.list.length;
 			const AllChange = document.getElementsByName('AllChange');
 			if (e.checked === true) {
 				if (!array.includes(e.value)) {

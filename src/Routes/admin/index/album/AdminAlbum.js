@@ -242,7 +242,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		handelOnClick = e => {
 			const { AlbumList } = this.props
 			let array = this.state.array;
-			const num = AlbumList.length;
+			const num = AlbumList.list.length;
 			const AllChange = document.getElementsByName('AllChange');
 			if (e.checked === true) {
 				if (!array.includes(e.value)) {

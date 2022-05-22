@@ -243,7 +243,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		handelOnClick = e => {
 			const { LabIntroduceList } = this.props;
 			let array = this.state.array;
-			const num = LabIntroduceList.length;
+			const num = LabIntroduceList.list.length;
 			const AllChange = document.getElementsByName('AllChange');
 			if (e.checked === true) {
 				if (!array.includes(e.value)) {
