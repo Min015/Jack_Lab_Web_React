@@ -1,5 +1,10 @@
 @import "../../../Mixin/global.scss";
 
+.bg {
+	background-color: $main_backgroundcolor;
+	padding-bottom  : 5px;
+}
+
 .work {
 	padding: 15px 20px;
 	@extend %between;
@@ -117,11 +122,13 @@
 	}
 
 	.onchange {
-		td{
+		td {
 			background-color: $admin_check !important;
-			select{
+
+			select {
 				background-color: $admin_check !important;
-				option{
+
+				option {
 					background-color: $main_backgroundcolor !important;
 				}
 			}
@@ -133,13 +140,10 @@
 		padding : 5px 5px 5px 0px;
 
 		select {
-			font-size : 16px;
-			// @include border-set();
-			// padding: 4px 0px;
-
-			position: absolute;
-			top     : 9px;
-			left    : -5px;
+			font-size: 16px;
+			position : absolute;
+			top      : 9px;
+			left     : -5px;
 		}
 
 		.pen {
@@ -161,9 +165,11 @@
 				@include jus-set();
 				width : 30%;
 				cursor: pointer;
-				svg{
+
+				svg {
 					cursor: pointer;
 				}
+
 				.hover {
 					display         : none;
 					white-space     : nowrap;
@@ -183,9 +189,8 @@
 			}
 
 			.close {
-				width           : 18px;
-				height          : 18px;
-				background-color: aqua;
+				width : 18px;
+				height: 18px;
 			}
 		}
 
@@ -193,7 +198,7 @@
 			height: 100%;
 			@include ali-set();
 			@extend %row;
-			flex-wrap    : wrap;
+			flex-wrap       : wrap;
 			// overflow     : hidden;
 			// text-overflow: ellipsis;
 			// white-space  : nowrap;
@@ -203,12 +208,10 @@
 				color           : $font_maincolor;
 				background-color: $tag_backgroud;
 				text-align      : center;
-				min-width:30px ;
+				min-width       : 30px;
 				padding         : 5px 8px;
 				border-radius   : 30px;
 				margin          : 2.5px 5px 2.5px 0px;
-				// margin-right: 5px;
-				// margin-bottom: 5px;
 				white-space     : nowrap;
 			}
 
@@ -228,9 +231,44 @@
 	display: block;
 }
 
-.active {
-	display: block;
+.page {
+	background-color: $admin_main_background;
+	margin-top      : 20px;
+	@extend %row;
+	@extend %between;
+
+	.page_group {
+		@extend %row;
+
+		.one_page,
+		.features {
+			margin: 0px 5px;
+		}
+	}
+
+	.one_page {
+		width           : 30px;
+		height          : 36px;
+		color           : $button_color;
+		background-color: $font_maincolor;
+		border          : 0px;
+		@include ali-set();
+		@include jus-set();
+		cursor: pointer;
+	}
+
+	.features {
+		color           : $font_maincolor;
+		background-color: $button_color;
+		width           : 30px;
+		height          : 36px;
+		border          : 0px;
+		@include ali-set();
+		@include jus-set();
+		cursor: pointer;
+	}
 }
-.canenter{
+
+.canenter {
 	white-space: pre-line;
 }

@@ -4,9 +4,10 @@
     background-color: $admin_sidebar_background;
     width           : $admin_sidebar_width;
     height          : calc(100vh - 76px);
-    padding-bottom: 20px;
+    padding-bottom  : 20px;
     overflow-y      : auto;
     position        : fixed;
+
     .set {
         .sidebar_title {
             padding  : 10px 25px;
@@ -42,29 +43,34 @@
                 width       : 24px;
                 height      : 24px;
                 @include ali-set();
-                svg{
+
+                svg {
                     margin: 0px auto;
                 }
             }
         }
     }
+
     &::-webkit-scrollbar {
         /*-------滾動條整體樣式----*/
-        width : 0px;
+        width: 0px;
     }
+
     &::-webkit-scrollbar-thumb {
         /*滾動條裡面小方塊樣式*/
         border-radius: 10px;
-        background: red;
+        background   : red;
     }
+
     &::-webkit-scrollbar-track {
         /*滾動條裡面軌道樣式*/
         border-radius: 0px;
-        background: rgb(240, 185, 185);
+        background   : rgb(240, 185, 185);
     }
 }
 
 .nowPage {
+
     li,
     .sidebar_title {
         background-color: $sidebar_nowPage_background;

@@ -8,10 +8,8 @@
 	background-color: $admin_main_background;
 
 	.in {
-		width           : 95%;
-		background-color: $main_backgroundcolor;
-		margin          : 30px auto;
-		padding-bottom  : 15px;
+		width : 95%;
+		margin: 30px auto;
 	}
 }
 
@@ -47,8 +45,8 @@
 		padding: 5px 5px 5px 0px;
 
 		.introduce {
-			max-height: $admin_teacherTable_h;
-			overflow-y: auto;
+			max-height : $admin_teacherTable_h;
+			overflow-y : auto;
 			white-space: pre-line;
 		}
 

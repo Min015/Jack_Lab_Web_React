@@ -39,7 +39,7 @@
 
 		.input {
 			// background-color: $form_maincolor;
-			color     : black;
+			color     : $admin_header_background;
 			resize    : none;
 			width     : 100%;
 			font-size : $m;
@@ -254,17 +254,19 @@
 		}
 	}
 
-	#filename{
+	#filename {
 		padding: 10px 45px 0px 45px;
 	}
+
 	.file {
 		tr {
 			@extend %row;
 			@include ali-set();
+
 			td {
 				position: relative;
-				height: 25px;
-				padding: 0px 5px;
+				height  : 25px;
+				padding : 0px 5px;
 				@include ali-set();
 			}
 		}
@@ -335,7 +337,7 @@
 			input {
 				padding-left: 5px;
 				height      : 100%;
-				color       : black;
+				color       : $admin_header_background;
 			}
 
 			.submit {
@@ -423,18 +425,10 @@
 				}
 
 				.close {
-					width           : 18px;
-					height          : 18px;
-					background-color: aqua;
+					width : 18px;
+					height: 18px;
 				}
 			}
 		}
 	}
-}
-
-.active {
-	display: block !important;
-}
-.none{
-	display: none !important;
 }

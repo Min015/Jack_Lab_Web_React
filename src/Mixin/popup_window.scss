@@ -23,7 +23,7 @@
 }
 
 .ablumform {
-   background-color: aliceblue;
+   background-color: $main_backgroundcolor;
    width           : 75%;
    max-height      : 75vh;
    padding         : 40px 40px;
@@ -112,7 +112,7 @@
          z-index    : 10;
          font-size  : 14px;
          font-weight: 600;
-         color      : #8696a7;
+         color      : $from_title;
       }
 
       .input:not(:placeholder-shown)+.label {

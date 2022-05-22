@@ -1,12 +1,12 @@
-$front_desk_content_background:rgb(255, 255, 255);
+$front_desk_content_background  :rgb(255, 255, 255);
 $front_desk_contentin_background:rgb(255, 255, 255);
 
 $header_background:#022840;
 $header_height    :56px;
 
-$button_color:#51718C;
-$button_hover:#66859e;
-$delete_button:#b53b2e;
+$button_color       :#51718C;
+$button_hover       :#66859e;
+$delete_button      :#b53b2e;
 $delete_button_hover:#d02513;
 
 $scrollbar_thumb:#51718C;
@@ -21,14 +21,14 @@ $prompt_color:#757575;
 
 $front_desk_width:1200px;
 
-$th_background    :#51718C;
-$tr_odd :#ADC5D9;
-$tr_even:#D8E6F2;
+$th_background :#51718C;
+$tr_odd        :#ADC5D9;
+$tr_even       :#D8E6F2;
 
-$selectlist:#dadee2;
+$selectlist     :#dadee2;
 $admin_selectlst:rgb(235, 235, 235);
-$select_check:#859BAE;
-$select_hover:#e9e9e9;
+$select_check   :#859BAE;
+$select_hover   :#e9e9e9;
 
 $form_maincolor:#ADC5D9;
 $form_border   :#D8E6F2;
@@ -41,33 +41,35 @@ $m                   :16px;
 $s                   :14px;
 
 $col-05:4.166667%;
-$col-1:8.333333%;
-$col-2:16.666667%;
-$col-3:25%;
-$col-4:33.333333%;
-$col-5:41.666667%;
-$col-6:50%;
-$col-7:58.333333%;
-$col-8:66.666667%;
-$col-9:75%;
+$col-1 :8.333333%;
+$col-2 :16.666667%;
+$col-3 :25%;
+$col-4 :33.333333%;
+$col-5 :41.666667%;
+$col-6 :50%;
+$col-7 :58.333333%;
+$col-8 :66.666667%;
+$col-9 :75%;
 $col-10:83.333333%;
 $col-11:91.666667%;
 $col-12:100%;
 
 
-$admin_header_background:black;
-$admin_main_background:#D8E6F2;
-$admin_sidebar_background:#112639;
-$admin_sidebar_width:250px;
-$sdmin_contentin_width:calc(100% - $admin_sidebar_width);
-$sidebar_nochange_color:#51718C;
-$sidebar_hover_background:#ffffff46;
+$admin_header_background   :black;
+$admin_header_font         :rgb(175, 175, 175);
+$admin_main_background     :#D8E6F2;
+$admin_sidebar_background  :#112639;
+$admin_sidebar_width       :250px;
+$sdmin_contentin_width     :calc(100% - $admin_sidebar_width);
+$sidebar_nochange_color    :#51718C;
+$sidebar_hover_background  :#ffffff46;
 $sidebar_nowPage_background:#51718c45;
-$admin_check:antiquewhite;
-$admin_teacherTable_h:250px;
+$admin_check               :antiquewhite;
+$admin_teacherTable_h      :250px;
 
 
 $studentcard_background:#ADC5D9;
+
 @mixin border-set($color:$boder_color, $width:1px, $style: solid) {
     border: {
         color: $color;
@@ -91,9 +93,11 @@ $studentcard_background:#ADC5D9;
     display        : flex;
     justify-content: $justify-content;
 }
+
 @mixin text-a($atext-align:center) {
     text-align: $atext-align
 }
+
 %row {
     display       : flex;
     flex-direction: row;
@@ -114,21 +118,27 @@ $studentcard_background:#ADC5D9;
     word-wrap : break-word;
     overflow-y: auto;
 }
-.col-05{
+
+.col-05 {
     width: $col-05;
 }
+
 .col-1 {
     width: $col-1;
 }
+
 .col-1_5 {
     width: $col-1+$col-05;
 }
+
 .col-2 {
     width: $col-2;
 }
+
 .col-2_5 {
     width: $col-2+$col-05;
 }
+
 .col-3 {
     width: $col-3;
 }
@@ -166,7 +176,7 @@ $studentcard_background:#ADC5D9;
 }
 
 .col-12 {
-    width    :$col-12;
+    width: $col-12;
 }
 
 * {
@@ -203,9 +213,10 @@ input {
     border          : 0px;
     display         : flex;
 }
+
 textarea,
 select,
-input{
+input {
     font-family: "Microsoft JhengHei";
 }
 
@@ -225,4 +236,12 @@ select {
 
 table {
     border-collapse: collapse;
+}
+
+.active {
+    display: block !important;
+}
+
+.none {
+    display: none !important;
 }

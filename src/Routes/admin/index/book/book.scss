@@ -3,9 +3,6 @@
 #book {
   .inputContainer {
     .inputbox {
-      // margin-top: 25px;
-
-
       .set {
         position: relative;
         @extend %col;
@@ -42,15 +39,11 @@
         background   : none;
         z-index      : 1;
 
-        color           : black;
-        // width        : 100%;
-        font-size       : $m;
-        // min-height   : 35px;
-        flex-wrap       : wrap;
-        resize          : none;
-        // width        : 100%;
+        color    : $admin_header_background;
+        font-size: $m;
+        flex-wrap: wrap;
+        resize   : none;
         @include ali-set();
-        // @include border-set($form_border);
 
         &:focus {
           @include border-set($form_maincolor, 2px);
@@ -136,10 +129,11 @@
           border-bottom: 1px $boder_color solid !important;
           @extend %row;
           @include ali-set();
-          width      : 100%;
-          
-          .choose,label {
-            display: block;
+          width: 100%;
+
+          .choose,
+          label {
+            display    : block;
             width      : 100%;
             height     : 100%;
             margin-left: 5px;
@@ -189,14 +183,18 @@
       }
     }
   }
-#file{
-  position: relative;
-  top     : 15px;
-}
-.enter,.btn_block{
-  margin-top: 20px;
-}
-.submitBtn{
-  margin-top: 0px;
-}
+
+  #file {
+    position: relative;
+    top     : 15px;
+  }
+
+  .enter,
+  .btn_block {
+    margin-top: 20px;
+  }
+
+  .submitBtn {
+    margin-top: 0px;
+  }
 }

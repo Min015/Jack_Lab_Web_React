@@ -1,4 +1,5 @@
 @import '../../../Mixin/global.scss';
+
 .header {
     position        : fixed;
     top             : 0px;
@@ -9,12 +10,12 @@
     @include ali-set();
     @extend %row;
     @extend %between;
-    
+
     .logo {
         width      : 125px;
         height     : 40px;
         margin-left: 30px;
-        
+
         img {
             @include image-set(100%, 100%, contain);
         }
@@ -23,29 +24,33 @@
 
 .nav {
     margin-right: 30px;
-    
+
     .header_ul {
         @extend %row;
         @include ali-set();
         margin-bottom: 0px;
-        position: relative;
+        position     : relative;
+
         li {
             padding: 8px 16px;
-            color: $font_maincolor;
+            color  : $font_maincolor;
         }
+
         .preson_info {
             height: 37px;
             @include ali-set();
-            
+
             svg {
                 margin: 0px 1px;
             }
-            .cover{
+
+            .cover {
                 position: absolute;
-                height: 100%;
-                width: 45px;
+                height  : 100%;
+                width   : 45px;
             }
         }
+
         .person_info_dropdown {
             display: none;
             @extend %col;
@@ -55,11 +60,14 @@
             width   : 115px;
             @include border-set();
             background-color: $main_backgroundcolor;
-            
+
             li {
-                a,p{
-                    color: black;
+
+                a,
+                p {
+                    color: $admin_header_background;
                 }
+
                 &:hover {
                     background-color: #c9c9c99e;
                 }
@@ -67,12 +75,9 @@
         }
     }
 }
-.nowP{
+
+.nowP {
     border-bottom: 4px $main_backgroundcolor solid;
-    position: relative;
-    top:2px;
+    position     : relative;
+    top          : 2px;
 }
-
-
-
-

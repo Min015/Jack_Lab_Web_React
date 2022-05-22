@@ -1,5 +1,6 @@
 @import '../../../Mixin/global.scss';
-#admin_header{
+
+#admin_header {
     position        : fixed;
     top             : 0px;
     width           : 100%;
@@ -9,34 +10,42 @@
     @include ali-set();
     @extend %row;
     @extend %between;
-    
+
     .logo {
         width      : 125px;
         height     : 40px;
         margin-left: 30px;
-        
+
         img {
             @include image-set(100%, 100%, contain);
         }
     }
-    nav{
+
+    nav {
         @extend %row;
         margin-right: 30px;
     }
-    .logout{
+
+    .logout {
         @include ali-set();
         margin: 0px 5px;
-        a,p,path{
-            color:  rgb(175, 175, 175);
-            fill: rgb(175, 175, 175);
+
+        a,
+        p,
+        path {
+            color: $admin_header_font;
+            fill : $admin_header_font;
             @include ali-set();
-            &:hover{
-                color:$font_maincolor;
-                path{
+
+            &:hover {
+                color: $font_maincolor;
+
+                path {
                     fill: $font_maincolor;
                 }
             }
-            svg{
+
+            svg {
                 margin-right: 5px;
             }
         }
