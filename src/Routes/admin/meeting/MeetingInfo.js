@@ -281,9 +281,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		render() {
 			const { array, title, content, time, tag, place, participate, drop, long, disabled } = this.state;
 			const { PublicMemberList, MeetingInfo } = this.props;
-			console.log(282, PublicMemberList);
-			console.log(283, MeetingInfo);
-			console.log(284, array);
 			return (
 				<BackLayout>
 					<div

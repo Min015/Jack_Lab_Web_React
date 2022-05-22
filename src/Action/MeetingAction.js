@@ -22,11 +22,12 @@ export const GET_MeetingDownload = payload => {
     });
   };
 }
-export const DELETE_Meeting = payload => {
+export const DELETE_Meeting = (payload, callback) => {
   return (dispatch) => {
     dispatch({
       type: "DELETE_Meeting",
-      payload: payload
+      payload: payload,
+      callback: callback,
     });
   };
 }

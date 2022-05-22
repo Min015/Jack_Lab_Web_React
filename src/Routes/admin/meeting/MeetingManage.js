@@ -17,13 +17,12 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 	return {
 		GET_Meeting: () => dispatch(GET_Meeting()),
-		DELETE_Meeting: (payload) => dispatch(DELETE_Meeting(payload)),
+		DELETE_Meeting: (payload, callback) => dispatch(DELETE_Meeting(payload, callback)),
 	}
 }
 export default connect(mapStateToProps, mapDispatchToProps)(
 	class MeetingManage extends Component {
 		state = {
-			array: [],
 			table_header: [
 				"會議主題",
 				"相關標籤",
@@ -32,6 +31,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			deleteOne: "",
 			delO: false,
 			delAll: false,
+			array: [],
 		}
 		//生命週期
 		componentDidMount = () => {
@@ -40,9 +40,16 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				MeetingList: this.props.MeetingList,
 			})
 		}
-		Delete = async (id) => {
-			this.props.DELETE_Meeting(id);
-			this.props.history.push("/meetingmanage")
+		Delete = (id) => {
+			const callback = () => {
+				this.props.GET_Meeting();
+				this.setState({
+					delO: false,
+					delAll: false,
+					array: [],
+				})
+			}
+			this.props.DELETE_Meeting(id, callback);
 		}
 		handelDeleteAll = () => {
 			const { array } = this.state;
@@ -167,7 +174,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							{(MeetingList === undefined || MeetingList.length === 0) ? [] : MeetingList.map(
 								(item, index) => {
 									return (
-										<tr key={index} className={array.includes(`${item.Id}`) ? "onchange" : ""}>
+										<tr key={`member${index}`} className={array.includes(`${item.Id}`) ? "onchange" : ""}>
 											<td className="check">
 												<input type="checkbox"
 													id=""
@@ -175,7 +182,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 													value={item.Id}
 													onChange={(e) => { this.handelOnClick(e.target) }}
 												/>
-
 											</td>
 											<td>{index + 1}</td>
 											<td>{item.Title}</td>
@@ -183,7 +189,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 												<div className='list_tag'>
 													{item.Tag.map((item, index) => {
 														return (
-															<div className='tag'>
+															<div ket={`tag${index}`} className='tag'>
 																{item.Name}
 															</div>
 														)
