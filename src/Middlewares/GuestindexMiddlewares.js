@@ -15,7 +15,7 @@ const fetch = store => next => action => {
   switch (action.type) {
     case "GET_AdminAlbum":
       _axios
-        .get('/album',)
+        .get(`/album/list?page=${action.page}&search=${action.search}`,)
         .then(response => {
           if (response.status === 200) {
             return response.data.data;
@@ -26,6 +26,9 @@ const fetch = store => next => action => {
           throw new Error(err);
         })
         .then(json => {
+          if (action.callback) {
+            action.callback(json)
+          }
           return next({
             type: 'SAVE_AdminAlbum',
             payload: json
@@ -53,7 +56,7 @@ const fetch = store => next => action => {
       break;
     case "GET_Book":
       _axios
-        .get('/book',)
+        .get(`/book/list?page=${action.page}&search=${action.search}`,)
         .then(response => {
           if (response.status === 200) {
             return response.data.data;
@@ -64,6 +67,9 @@ const fetch = store => next => action => {
           throw new Error(err);
         })
         .then(json => {
+          if (action.callback) {
+            action.callback(json)
+          }
           return next({
             type: 'SAVE_Book',
             payload: json
