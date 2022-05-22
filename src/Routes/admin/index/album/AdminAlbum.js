@@ -89,8 +89,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				})
 				this.handelGetPage(nowpage, res.page);
 			}
-			this.props.history.push(`/typemange/page=${page}/search=${search}`);
-			this.props.GET_ProjectType(page, search, callback);
+			this.props.history.push(`/adminalbum/page=${page}/search=${search}`);
+			this.props.GET_AdminAlbum(page, search, callback);
 		}
 		//新增
 		AddAlbum = () => {
