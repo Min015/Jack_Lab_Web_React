@@ -15,7 +15,7 @@ const fetch = store => next => action => {
   switch (action.type) {
     case "GET_LabIntroduce":
       _axios
-        .get('/labinfo',)
+        .get(`/labinfo/list?page=${action.page}&search=${action.search}`,)
         .then(response => {
           if (response.status === 200) {
             console.log("取得LAB介紹");
@@ -27,6 +27,9 @@ const fetch = store => next => action => {
           throw new Error(err);
         })
         .then(json => {
+          if (action.callback) {
+            action.callback(json)
+          }
           return next({
             type: 'SAVE_LabIntroduce',
             payload: json
@@ -90,7 +93,7 @@ const fetch = store => next => action => {
       break;
     case "GET_TeacherIntroduce":
       _axios
-        .get('/manager/teacher',)
+        .get(`/manager/teacher/list?page=${action.page}&search=${action.search}`,)
         .then(response => {
           if (response.status === 200) {
             console.log("取得教師介紹");
@@ -102,6 +105,9 @@ const fetch = store => next => action => {
           throw new Error(err);
         })
         .then(json => {
+          if (action.callback) {
+            action.callback(json)
+          }
           return next({
             type: 'SAVE_TeacherIntroduce',
             payload: json
@@ -144,25 +150,25 @@ const fetch = store => next => action => {
           }
         });
       break;
-      case "DELETE_TeacherIntroduce":
-        _axios
-          .delete(`/manager/teacher?id=${action.payload}`,)
-          .then(response => {
-            console.log(response);
-            if (response.status === 200) {
-              console.log("刪除Teacher介紹成功")
-            }
-          })
-          .catch(err => {
-            console.log(err.response.data);
-            throw new Error(err);
-          })
-          .then(json => {
-            if (action.callback) {
-              action.callback(json)
-            }
-          });
-        break;
+    case "DELETE_TeacherIntroduce":
+      _axios
+        .delete(`/manager/teacher?id=${action.payload}`,)
+        .then(response => {
+          console.log(response);
+          if (response.status === 200) {
+            console.log("刪除Teacher介紹成功")
+          }
+        })
+        .catch(err => {
+          console.log(err.response.data);
+          throw new Error(err);
+        })
+        .then(json => {
+          if (action.callback) {
+            action.callback(json)
+          }
+        });
+      break;
     default:
       break;
   }

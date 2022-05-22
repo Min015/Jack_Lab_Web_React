@@ -1,7 +1,10 @@
-export const GET_LabIntroduce = () => {
+export const GET_LabIntroduce = (page, search, callback) => {
   return (dispatch) => {
     dispatch({
       type: "GET_LabIntroduce",
+      page: page,
+      search: search,
+      callback: callback,
     });
   };
 }
@@ -32,10 +35,13 @@ export const DELETE_LabIntroduce = (payload, callback) => {
     });
   };
 }
-export const GET_TeacherIntroduce = () => {
+export const GET_TeacherIntroduce = (page, search, callback) => {
   return (dispatch) => {
     dispatch({
       type: "GET_TeacherIntroduce",
+      page: page,
+      search: search,
+      callback: callback,
     });
   };
 }
