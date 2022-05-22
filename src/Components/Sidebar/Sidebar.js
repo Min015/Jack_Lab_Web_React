@@ -1,15 +1,7 @@
 import { Component } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './sidebar.scss';
 export default class Sidebar extends Component {
-    state = {
-
-    }
-    //生命週期
-
-    //func
-
-
     render() {
         return (
             <div className="sidebar">
