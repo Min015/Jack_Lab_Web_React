@@ -375,8 +375,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									</svg>
 								</button>
 								<div className='page_group'>
-									{pagearray?.map((item) =>
-										(<div onClick={() => this.handelGoNextPage(item, search)} className={page === `${item}` ? 'features' : 'one_page'}>{item}</div>)
+									{pagearray?.map((item,index) =>
+										(<div key={`pagearray${index}`} onClick={() => this.handelGoNextPage(item, search)} className={page === `${item}` ? 'features' : 'one_page'}>{item}</div>)
 									)}
 								</div>
 								<button onClick={() => this.handelGoNextPage(maxpage, search)} className='features'>
