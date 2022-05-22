@@ -23,6 +23,20 @@ export const GET_Role = (page, search, callback) => {
     });
   };
 }
+export const GET_RoleAll = () => {
+  return (dispatch) => {
+    dispatch({
+      type: "GET_RoleAll",
+    });
+  };
+}
+export const GET_Academic = () => {
+  return (dispatch) => {
+    dispatch({
+      type: "GET_Academic",
+    });
+  };
+}
 export const GET_Class = () => {
   return (dispatch) => {
     dispatch({
@@ -30,10 +44,14 @@ export const GET_Class = () => {
     });
   };
 }
-export const GET_PrivateMember = () => {
+export const GET_PrivateMember = (page, search,academic, callback) => {
   return (dispatch) => {
     dispatch({
       type: "GET_PrivateMember",
+      page: page,
+      search: search,
+      academic:academic,
+      callback: callback,
     });
   };
 }

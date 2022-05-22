@@ -65,6 +65,36 @@ const fetch = store => next => action => {
           });
         });
       break;
+    case "GET_RoleAll":
+      _axios
+        .get(`/manager/role/select`,)
+        .then(response => response.data.data)
+        .catch(err => {
+          console.log(err.response.data);
+          throw new Error(err);
+        })
+        .then(json => {
+          return next({
+            type: 'SAVE_RoleAll',
+            payload: json
+          });
+        });
+      break;
+    case "GET_Academic":
+      _axios
+        .get('/academic',)
+        .then(response => response.data.data)
+        .catch(err => {
+          console.log(err.response.data);
+          throw new Error(err);
+        })
+        .then(json => {
+          return next({
+            type: 'SAVE_Academic',
+            payload: json
+          });
+        });
+      break;
     case "GET_Class":
       _axios
         .get('/class',)
@@ -82,7 +112,7 @@ const fetch = store => next => action => {
       break;
     case "GET_PrivateMember":
       _axios
-        .get('/manager/user',)
+        .get(`/manager/user?page=${action.page}&search=${action.search}&academic=${action.academic}`,)
         .then(response => {
           console.log(response);
           return response.data.data;
@@ -92,6 +122,9 @@ const fetch = store => next => action => {
           throw new Error(err);
         })
         .then(json => {
+          if (action.callback) {
+            action.callback(json)
+          }
           return next({
             type: 'SAVE_PrivateMember',
             payload: json
