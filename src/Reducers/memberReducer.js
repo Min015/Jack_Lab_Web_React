@@ -7,14 +7,18 @@ export default (state = initialState, action) => {
       return { ...state, PublicMemberList: action.payload };
     case "SAVE_Role":
       return { ...state, RoleList: action.payload };
+    case "SAVE_RoleAll":
+      return { ...state, RoleListAll: action.payload };
+    case "SAVE_Academic":
+      return { ...state, AcademicList: action.payload };
     case "SAVE_Class":
       return { ...state, ClassList: action.payload };
     case "SAVE_PrivateMember":
       return { ...state, PrivateMember: action.payload };
     case "SAVE_Permission":
-      return{...state,PermissionList:action.payload};
+      return { ...state, PermissionList: action.payload };
     case "SAVE_RolePermission":
-      return{...state,RolePermission:action.payload};
+      return { ...state, RolePermission: action.payload };
     default:
       return state;
   }
