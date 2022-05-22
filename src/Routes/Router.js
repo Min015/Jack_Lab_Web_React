@@ -56,10 +56,10 @@ import IntroduceMiddlewares from '../Middlewares/IntroduceMiddlewares'
 
 const Meetingmiddlewares = [MeetingMiddlewares, thunk];
 const Membermiddlewares = [MemberMiddlewares, thunk];
-const SendfromDatamiddlewares=[SendfromDataMiddlewares,thunk];
-const Projectmiddlewares=[ProjectMiddlewares,thunk];
-const Guestindexmiddlewares=[GuestindexMiddlewares,thunk];
-const Introducemiddlewares=[IntroduceMiddlewares,thunk]
+const SendfromDatamiddlewares = [SendfromDataMiddlewares, thunk];
+const Projectmiddlewares = [ProjectMiddlewares, thunk];
+const Guestindexmiddlewares = [GuestindexMiddlewares, thunk];
+const Introducemiddlewares = [IntroduceMiddlewares, thunk]
 
 
 const store = createStore(
@@ -97,15 +97,34 @@ export default (
 
 				<Route path='/setinfo' exact component={SetInfo} />
 
-				<Route path='/adminalbum' exact component={AdminAlbum} />
-				<Route path='/books' exact component={Books} />
+				<Route path='/adminalbum/page=:page/search=:search' exact component={AdminAlbum} />
+				<Route path='/adminalbum/page=:page/search=' exact component={() => <Redirect to='/adminalbum/page=1/search= ' />} />
+				<Route path='/adminalbum' exact component={() => <Redirect to='/adminalbum/page=1/search= ' />} />
 
-				<Route path='/teacherintroduce' exact component={TeacherIntroduce} />
-				<Route path='/labintroduce' exact component={LabIntroduce} />
 
-				<Route path='/pemissionManage' exact component={PermissionManage} />
+				<Route path='/books/page=:page/search=:search' exact component={Books} />
+				<Route path='/books/page=:page/search=' exact component={() => <Redirect to='/books/page=1/search= ' />} />
+				<Route path='/books' exact component={() => <Redirect to='/books/page=1/search= ' />} />
 
-				<Route path='/member' exact component={Member} />
+
+				<Route path='/teacherintroduce/page=:page/search=:search' exact component={TeacherIntroduce} />
+				<Route path='/teacherintroduce/page=:page/search=' exact component={() => <Redirect to='/teacherintroduce/page=1/search= ' />} />
+				<Route path='/teacherintroduce' exact component={() => <Redirect to='/teacherintroduce/page=1/search= ' />} />
+
+				<Route path='/labintroduce/page=:page/search=:search' exact component={LabIntroduce} />
+				<Route path='/labintroduce/page=:page/search=' exact component={() => <Redirect to='/labintroduce/page=1/search= ' />} />
+				<Route path='/labintroduce' exact component={() => <Redirect to='/labintroduce/page=1/search= ' />} />
+
+
+				<Route path='/pemissionmanage/page=:page/search=:search' exact component={PermissionManage} />
+				<Route path='/pemissionmanage/page=:page/search=' exact component={() => <Redirect to='/pemissionmanage/page=1/search= ' />} />
+				<Route path='/pemissionmanage' exact component={() => <Redirect to='/pemissionmanage/page=1/search= ' />} />
+
+
+				<Route path='/member/page=:page/search=:search/academic=:academic' exact component={Member} />
+				<Route path='/member/page=:page/search=:search/academic=' exact component={() => <Redirect to='/member/page=1/search= /academic= ' />} />
+				<Route path='/member' exact component={() => <Redirect to='/member/page=1/search= /academic= ' />} />
+
 
 				<Route path='/meetingmanage' exact component={MeetingManage} />
 				<Route path='/meetingmanage/meetingadd' exact component={AdMeetingAdd} />
@@ -117,10 +136,14 @@ export default (
 				<Route path='/gtypemanage' exact component={GTypeManage} />
 
 
-				<Route path='/casemanage' exact component={CaseManage} />
+				<Route path='/casemanage/page=:page/search=:search' exact component={CaseManage} />
+				<Route path='/casemanage/page=:page/search=' exact component={() => <Redirect to='/casemanage/page=1/search= ' />} />
+				<Route path='/casemanage' exact component={() => <Redirect to='/casemanage/page=1/search= ' />} />
 				<Route path='/casemanage/caseadd' exact component={AdCaseAdd} />
 				<Route path='/casemanage/caseinfo/:id' exact component={AdProjectInfo} />
-				<Route path='/typemange' exact component={TypeManage} />
+				<Route path='/typemange/page=:page/search=:search' exact component={TypeManage} />
+				<Route path='/typemange/page=:page/search=' exact component={() => <Redirect to='/typemange/page=1/search= ' />} />
+				<Route path='/typemange' exact component={() => <Redirect to='/typemange/page=1/search= ' />} />
 
 
 
