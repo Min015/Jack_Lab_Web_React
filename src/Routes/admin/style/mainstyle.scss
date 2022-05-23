@@ -94,6 +94,7 @@
 		color           : $font_maincolor;
 		border          : $button_color;
 		padding         : 0px 10px;
+		cursor          : pointer;
 	}
 }
 
@@ -214,7 +215,6 @@
 				margin          : 2.5px 5px 2.5px 0px;
 				white-space     : nowrap;
 			}
-
 		}
 
 	}
@@ -231,18 +231,24 @@
 	display: block;
 }
 
+.center {
+	display        : flex;
+	justify-content: center;
+}
+
 .page {
-	background-color: $admin_main_background;
-	margin-top      : 20px;
+	display: flex;
+	margin : 20px auto 0px auto;
 	@extend %row;
-	@extend %between;
 
 	.page_group {
+		margin: 0px 30px;
 		@extend %row;
 
 		.one_page,
 		.features {
 			margin: 0px 5px;
+			width : 30px;
 		}
 	}
 
@@ -255,6 +261,7 @@
 		@include ali-set();
 		@include jus-set();
 		cursor: pointer;
+
 	}
 
 	.features {
