@@ -1,7 +1,10 @@
-export const GET_Meeting = () => {
+export const GET_Meeting = (page, search, callback) => {
   return (dispatch) => {
     dispatch({
       type: "GET_Meeting",
+      page: page,
+      search: search,
+      callback: callback,
     });
   };
 }

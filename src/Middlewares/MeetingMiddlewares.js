@@ -19,7 +19,7 @@ const fetch = store => next => action => {
 	switch (action.type) {
 		case "GET_Meeting":
 			_axios
-				.get('/meeting/list',)
+				.get(`/meeting/list?page=${action.page}&search=${action.search}`,)
 				.then(response => {
 					if (response.status === 200) {
 						return response.data.data;
@@ -30,6 +30,9 @@ const fetch = store => next => action => {
 					throw new Error(err);
 				})
 				.then(json => {
+					if (action.callback) {
+						action.callback(json)
+					}
 					return next({
 						type: 'SAVE_Meeting',
 						payload: json

@@ -4,34 +4,30 @@ import { Link } from 'react-router-dom';
 import BackLayout from '../../../Components/Layout/back/BackLayout';
 import '../style/info.scss';
 import { GET_PublicMembers } from '../../../Action/MemberAction';
-import { GET_MeetingInfo, POST_UpdateMeeting, GET_Meeting } from '../../../Action/MeetingAction';
+import { POST_AddMeeting, GET_Meeting } from '../../../Action/MeetingAction';
 const mapStateToProps = state => {
-	return {
-		PublicMemberList: state.memberReducer.PublicMemberList,
-		MeetingInfo: state.meetingReducer.MeetingInfo,
-	}
+	const { memberReducer } = state;
+	return (
+		memberReducer
+	)
 }
 
 const mapDispatchToProps = dispatch => {
 	return {
 		GET_PublicMembers: () => dispatch(GET_PublicMembers()),
 		GET_Meeting: () => dispatch(GET_Meeting()),
-		GET_MeetingInfo: (payload, callback) => dispatch(GET_MeetingInfo(payload, callback)),
-		POST_UpdateMeeting: (payload, callback) => dispatch(POST_UpdateMeeting(payload, callback)),
+		POST_AddMeeting: (payload, callback) => dispatch(POST_AddMeeting(payload, callback)),
 	}
 }
 export default connect(mapStateToProps, mapDispatchToProps)(
-	class MeetingInfo extends Component {
+	class AdMeetingAdd extends Component {
 		state = {
-			Id: "",
-			array: [],//新上傳file
-			delfile: [],//新上傳file
+			array: [],//file
 			participate: [],//已選擇
 			long: 0,//一個tag的長度
 			tag: [],//已輸入的tag
 			drop: false,
 			disabled: false,
-			nowclass: "selectlist",
 			all_file_max_size: 1024 * 1024 * 50,//50M
 			one_file_max_size: 1024 * 1024 * 30,//30M
 			mimes_type: ['zip', '7z', 'rar', 'svg', 'png', 'jpg', 'jpeg', 'csv', 'txt', 'xlx', 'xls', 'xlsx', 'pdf', 'doc', 'docx', 'ppt', 'pptx'],//媒體類型
@@ -41,62 +37,35 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			place: "",
 		}
 
+
 		//載入所有人員名單
-		componentDidMount = async () => {
-			const { match } = this.props;
-			const { params } = match;
-			this.setState({
-				Id: params.id,
-			})
-			const callback = (res) => {
-				const meeting_time = res.Time.split(":");
-				const Mtime = meeting_time[0].split(" ");
-				this.setState({
-					title: res.Title,
-					content: res.Content,
-					time: `${Mtime[0]}T${Mtime[1]}:${meeting_time[1]}`,
-					place: res.Place,
-					participate: res.Member.map((item) => {
-						return {
-							account: item.Account,
-							name: item.Name
-						};
-					}),
-					tag: res.Tag.map(item => item.Name),
-				})
-			}
+		componentDidMount = () => {
 			this.props.GET_PublicMembers();
-			this.props.GET_MeetingInfo(params.id, callback);
 		}
-		//修改
-		Update = async () => {
-			const { Id, title, content, time, place, array, participate, tag, delfile } = this.state;
+		//送出
+		Submit = () => {
+			const { title, content, time, place, array, participate, tag } = this.state;
 			if (title !== "" && content !== "" && time !== "" && place !== "" && participate.length !== 0) {
 				const addmember = participate.map((item) => { return (item.account) });
-				const data = new FormData();
-				data.append('_method', 'PUT');
-				data.append('Id', Id);
+				let data = new FormData();
 				data.append('Title', title);
 				data.append('Content', content);
 				data.append('Time', time);
 				data.append('Place', place);
 				array.map((item, index) =>
 					data.append(`Files[${index}]`, item)
-				)
-				delfile.map((item, index) =>
-					data.append(`IsClearOld[${index}]`, item)
-				)
+				);
 				addmember.map((item, index) =>
 					data.append(`Member[${index}]`, item)
 				)
 				tag.map((item, index) =>
 					data.append(`Tag[${index}]`, item)
-				)
+				);
 				const callback = () => {
 					this.props.GET_Meeting();
 					this.props.history.push("/meetingmanage");
 				}
-				this.props.POST_UpdateMeeting(data, callback);
+				this.props.POST_AddMeeting(data, callback);
 			}
 			else {
 				alert("您有必填欄位尚未填寫，請確認");
@@ -144,25 +113,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				})
 			}
 		}
-		//選擇要刪除的檔案
-		handelOnClick = e => {
-			let delfile = this.state.delfile;
-			if (e.checked === true) {
-				if (!delfile.includes(e.value)) {
-					delfile.push(e.value);
-				}
-			}
-			else {
-				delfile.forEach((item, index) => {
-					if (item === e.value) {
-						delfile.splice(index, 1)
-					}
-				})
-			}
-			this.setState({
-				delfile
-			})
-		}
 		//選檔案
 		handleSelectFile = (files) => {
 			let nowsize = 0;
@@ -182,7 +132,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 						const thissize = files[index].size;
 						nowsize += thissize;
 						if (thissize > one_file_max_size || nowsize > all_file_max_size) {
-							alert("檔案過大，請重新選擇(單個檔案物超過30M，總大小物超過50M");
+							alert("檔案過大，請重新選擇(單個檔案勿超過30M，總大小物超過50M");
 						}
 						else {
 							array.push(files[index]);
@@ -279,8 +229,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 
 		render() {
-			const { array, title, content, time, tag, place, participate, drop, long, disabled } = this.state;
-			const { PublicMemberList, MeetingInfo } = this.props;
+			const { array, title, content, time, tag, place, participate, long, disabled, drop } = this.state;
+			const { PublicMemberList } = this.props;
+			// console.log(323, this.props);
 			return (
 				<BackLayout>
 					<div className='bg'>
@@ -440,37 +391,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								</div>
 							</div>
 							{/* 檔案 */}
-							<div className={(MeetingInfo === undefined || MeetingInfo.File.length === 0) ? "none" : "active"}>
-								<div className="inputbox">
-									<div className="set col-4">
-										<label className="label">刪除舊檔</label>
-										<div className='file'>
-											<table>
-												<tbody>
-													{(MeetingInfo === undefined || MeetingInfo.File.length === 0) ? "" : MeetingInfo.File.map((item, index) => {
-														return (
-															<tr>
-																<td>
-																	<input
-																		type='checkbox'
-																		// id={item.Account}
-																		value={item.Name}
-																		// className='choose'
-																		onChange={(e) => { this.handelOnClick(e.target) }}
-																	/>
-																</td>
-																<td>
-																	{item.Name}
-																</td>
-															</tr>
-														)
-													})}
-												</tbody>
-											</table>
-										</div>
-									</div>
-								</div>
-							</div>
 							<div className="inputbox">
 								<div className="upload">
 									<input
@@ -503,9 +423,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								</button>
 								<button
 									className="col-1 form_submit"
-									onClick={this.Update}
+									onClick={this.Submit}
 								>
-									修改
+									新增
 								</button>
 							</div>
 						</div>
