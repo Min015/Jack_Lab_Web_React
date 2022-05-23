@@ -151,9 +151,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(
     }
     //新增標籤
     heandleAddTag = (e) => {
+      const target = e.target;
+      let { value } = target;
+      value = value.trim();
       const tag = this.state.tag;
       if (tag.length === 5) {
-        e.target.value = "";
         this.setState({
           disabled: true,
         })
@@ -164,8 +166,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
           disabled: false,
         })
         if (e.keyCode === 32) {
-          if (!tag.includes(e.target.value) && (e.target.value) !== "" && (e.target.value) !== " ") {
-            tag.push(e.target.value);
+          if (!tag.includes(value) && (value !== "")) {
+            tag.push(value);
           }
           e.target.value = "";
         }
@@ -209,9 +211,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                     value={type}
                     onChange={this.handleInputChange.bind(this)}
                   >
-                    {ProjectTypeAll === undefined ? "" : ProjectTypeAll.map((item) => {
+                    {ProjectTypeAll === undefined ? "" : ProjectTypeAll.map((item, index) => {
                       return (
-                        <option value={item.Id}>{item.Name}</option>
+                        <option key={`ProjectTypeAll${index}`} value={item.Id}>{item.Name}</option>
                       )
                     })}
                   </select>
@@ -261,9 +263,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                     {participate.length === 0 ? [] : participate.map((item, index) =>
                       <div
                         className='oncheck'
-                        key={index}
+                        key={`participate${index}`}
                       >
-                        <p >{item.name}
+                        <p>{item.name}
                           <label className='deselect'>
                             <input
                               type='checkbox'
@@ -289,7 +291,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                         return (
                           <div
                             className={participate2.includes(item.Account) ? "option selected" : "option noS"}
-                            key={index}
+                            key={`participate2${index}`}
                           >
                             <input
                               type='checkbox'
@@ -298,7 +300,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                               className='choose'
                               onChange={(e) => { this.handelOnClick(e.target) }}
                             />
-                            <label for={item.Account} className='choose'>{item.Name}</label>
+                            <label htmlFor={item.Account} className='choose'>{item.Name}</label>
                           </div>
                         )
                       }
@@ -312,17 +314,17 @@ export default connect(mapStateToProps, mapDispatchToProps)(
               <div className="inputbox">
                 <div className="set col-12">
                   <div className="input">
-                    {tag.map((item) => (
-                      <p key={item}>
+                    {tag.map((item, index) => (
+                      <p key={`tag${index}`}>
                         {item}
                         <span>
                           <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M0.33546 0.33546C0.550319 0.120665 0.841693 0 1.1455 0C1.44932 0 1.74069 0.120665 1.95555 0.33546L6.00692 4.38683L10.0583 0.33546C10.2744 0.126752 10.5638 0.0112672 10.8642 0.0138777C11.1646 0.0164882 11.452 0.136985 11.6644 0.349417C11.8768 0.561848 11.9973 0.849216 12 1.14963C12.0026 1.45004 11.8871 1.73946 11.6784 1.95555L7.62701 6.00692L11.6784 10.0583C11.8871 10.2744 12.0026 10.5638 12 10.8642C11.9973 11.1646 11.8768 11.452 11.6644 11.6644C11.452 11.8768 11.1646 11.9973 10.8642 12C10.5638 12.0026 10.2744 11.8871 10.0583 11.6784L6.00692 7.62701L1.95555 11.6784C1.73946 11.8871 1.45004 12.0026 1.14963 12C0.849216 11.9973 0.561848 11.8768 0.349417 11.6644C0.136985 11.452 0.0164882 11.1646 0.0138777 10.8642C0.0112672 10.5638 0.126752 10.2744 0.33546 10.0583L4.38683 6.00692L0.33546 1.95555C0.120665 1.74069 0 1.44932 0 1.1455C0 0.841693 0.120665 0.550319 0.33546 0.33546Z" fill="#022840" />
                           </svg>
-                          <div
+                          <span
                             className='close'
                             id={item}
-                            onClick={this.heandleDelTag}></div>
+                            onClick={this.heandleDelTag}></span>
                         </span>
                       </p>
                     ))}

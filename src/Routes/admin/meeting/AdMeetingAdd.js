@@ -189,9 +189,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 		//新增標籤
 		heandleAddTag = (e) => {
+			const target = e.target;
+			let { value } = target;
+			value = value.trim();
 			const tag = this.state.tag;
 			if (tag.length === 5) {
-				e.target.value = "";
 				this.setState({
 					disabled: true,
 				})
@@ -202,8 +204,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					disabled: false,
 				})
 				if (e.keyCode === 32) {
-					if (!tag.includes(e.target.value) && (e.target.value) !== "" && (e.target.value) !== " ") {
-						tag.push(e.target.value);
+					if (!tag.includes(value)&&(value!=="")) {
+						tag.push(value);
 					}
 					e.target.value = "";
 				}
@@ -231,7 +233,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		render() {
 			const { array, title, content, time, tag, place, participate, long, disabled, drop } = this.state;
 			const { PublicMemberList } = this.props;
-			// console.log(323, this.props);
 			return (
 				<BackLayout>
 					<div className='bg'>
@@ -348,7 +349,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 															className='choose'
 															onChange={(e) => { this.handelSelectMember(e.target) }}
 														/>
-														<label for={item.Account} className='choose'>{item.Name}</label>
+														<label htmlFor={item.Account} className='choose'>{item.Name}</label>
 													</div>
 												)
 											}
@@ -369,10 +370,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 													<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
 														<path d="M0.33546 0.33546C0.550319 0.120665 0.841693 0 1.1455 0C1.44932 0 1.74069 0.120665 1.95555 0.33546L6.00692 4.38683L10.0583 0.33546C10.2744 0.126752 10.5638 0.0112672 10.8642 0.0138777C11.1646 0.0164882 11.452 0.136985 11.6644 0.349417C11.8768 0.561848 11.9973 0.849216 12 1.14963C12.0026 1.45004 11.8871 1.73946 11.6784 1.95555L7.62701 6.00692L11.6784 10.0583C11.8871 10.2744 12.0026 10.5638 12 10.8642C11.9973 11.1646 11.8768 11.452 11.6644 11.6644C11.452 11.8768 11.1646 11.9973 10.8642 12C10.5638 12.0026 10.2744 11.8871 10.0583 11.6784L6.00692 7.62701L1.95555 11.6784C1.73946 11.8871 1.45004 12.0026 1.14963 12C0.849216 11.9973 0.561848 11.8768 0.349417 11.6644C0.136985 11.452 0.0164882 11.1646 0.0138777 10.8642C0.0112672 10.5638 0.126752 10.2744 0.33546 10.0583L4.38683 6.00692L0.33546 1.95555C0.120665 1.74069 0 1.44932 0 1.1455C0 0.841693 0.120665 0.550319 0.33546 0.33546Z" fill="#022840" />
 													</svg>
-													<div
+													<span
 														className='close'
 														id={item}
-														onClick={this.heandleDelTag}></div>
+														onClick={this.heandleDelTag}></span>
 												</span>
 											</p>
 										))}
@@ -399,11 +400,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										multiple="multiple"
 										onChange={e => this.handleSelectFile(e.target.files)}
 									/>
-									<label for='f' className="newbtn">
+									<label htmlFor='f' className="newbtn">
 										<svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 											<path d="M20 2H10L8 0H0V16H20V2ZM11 9V13H9V9H6L10.01 5L14 9H11Z" fill="white" />
 										</svg>
-										<label for='f'>請選擇檔案(不超過5)</label>
+										<label htmlFor='f'>請選擇檔案(不超過5)</label>
 									</label>
 								</div>
 							</div>

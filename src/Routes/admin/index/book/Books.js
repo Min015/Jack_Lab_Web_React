@@ -161,7 +161,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		UpdateBookInfo = () => {
 			const { page, search } = this.state;
 			const { Id, Title, Publisher, Time, ISBN, participate } = this.state;
-			console.log("Id=>", Id);
 			if (Id !== "" && Title !== "" && Publisher !== "" && Time !== "" && ISBN !== "" && participate.length !== 0) {
 				const addmember = participate.map((item) => { return (item.account) });
 				const payload = {
@@ -334,7 +333,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 		handelSetNow = (e) => {
 			const { id } = e.target;
-			console.log(id);
 			const info = id.split(",");
 			this.setState({
 				nowItem: {
@@ -385,7 +383,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			this.setState({
 				array
 			})
-			console.log(array);
 		}
 		//選檔案
 		handleSelectFile = (files) => {
@@ -468,7 +465,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									{(BookList === undefined || BookList.list.length === 0) ? "" : BookList.list.map(
 										(item, index) => {
 											return (
-												<tr key={index} className={array.includes(`${item.Id}`) ? "onchange" : ""}>
+												<tr key={`BookList${index}`} className={array.includes(`${item.Id}`) ? "onchange" : ""}>
 													<td className="check">
 														<input type="checkbox"
 															name="Box"
@@ -481,7 +478,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 													<td className='author'>
 														{item.Authors === undefined ? "" : item.Authors.map((item, index) => {
 															return (
-																<span>{BookList === undefined ? "" : item.name} </span>
+																<span key={`author${index}`}>{BookList === undefined ? "" : item.name} </span>
 															)
 														})}
 													</td>
@@ -527,24 +524,26 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 						</div>
 						{/* 分頁 */}
 						<div className={(pagearray === undefined) ? "none" : "active"}>
-							<div className='page'>
-								<button onClick={() => this.handelGoNextPage(1, search)} className='features'>
-									<svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-										<path d="M12.6006 17.9991L14.0005 16.499L6.59997 8.99955L13.9994 1.49902L12.5993 -0.000877613L3.59997 8.99976L12.6006 17.9991Z" fill="white" />
-										<rect x="2.00061" y="18" width="2" height="18" transform="rotate(179.996 2.00061 18)" fill="white" />
-									</svg>
-								</button>
-								<div className='page_group'>
-									{pagearray?.map((item) =>
-										(<div onClick={() => this.handelGoNextPage(item, search)} className={page === `${item}` ? 'features' : 'one_page'}>{item}</div>)
-									)}
+							<div className='center'>
+								<div className='page'>
+									<button onClick={() => this.handelGoNextPage(1, search)} className='one_page'>
+										<svg width="14" height="18" viewBox="0 0 14 18" fill="#51718C" xmlns="http://www.w3.org/2000/svg">
+											<path d="M12.6006 17.9991L14.0005 16.499L6.59997 8.99955L13.9994 1.49902L12.5993 -0.000877613L3.59997 8.99976L12.6006 17.9991Z" fill="#51718C" />
+											<rect x="2.00061" y="18" width="2" height="18" transform="rotate(179.996 2.00061 18)" fill="#51718C" />
+										</svg>
+									</button>
+									<div className='page_group'>
+										{pagearray?.map((item, index) =>
+											(<div key={`page${index}`} onClick={() => this.handelGoNextPage(item, search)} className={page === `${item}` ? 'features' : 'one_page'}>{item}</div>)
+										)}
+									</div>
+									<button onClick={() => this.handelGoNextPage(maxpage, search)} className='one_page'>
+										<svg width="14" height="18" viewBox="0 0 14 18" fill="#51718C" xmlns="http://www.w3.org/2000/svg">
+											<path d="M1.4 0L0 1.5L7.4 9L0 16.5L1.4 18L10.4 9L1.4 0Z" fill="#51718C" />
+											<rect x="12" width="2" height="18" fill="#51718C" />
+										</svg>
+									</button>
 								</div>
-								<button onClick={() => this.handelGoNextPage(maxpage, search)} className='features'>
-									<svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-										<path d="M1.4 0L0 1.5L7.4 9L0 16.5L1.4 18L10.4 9L1.4 0Z" fill="white" />
-										<rect x="12" width="2" height="18" fill="white" />
-									</svg>
-								</button>
 							</div>
 						</div>
 						{/* 新增 */}
@@ -569,6 +568,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 											className="input"
 											placeholder=" "
 											required="required"
+											maxLength='100'
 											id='Title'
 											value={Title}
 											onChange={this.handleInputChange.bind(this)}
@@ -583,6 +583,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 											className="input"
 											placeholder=" "
 											required="required"
+											maxLength='50'
 											id='Publisher'
 											value={Publisher}
 											onChange={this.handleInputChange.bind(this)}
@@ -613,6 +614,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 											className="input"
 											placeholder=" "
 											required="required"
+											maxLength='50'
 											id='ISBN'
 											value={ISBN}
 											onChange={this.handleInputChange.bind(this)}
@@ -632,7 +634,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 													{participate.length === 0 ? [] : participate.map((item, index) =>
 														<div
 															className='oncheck'
-															key={index}
+															key={`participate${index}`}
 														>
 															<p>{item.name}
 																<label className='deselect'>
@@ -660,7 +662,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 															return (
 																<div
 																	className={participate2.includes(item.Account) ? "option selected" : "option noS"}
-																	key={index}
+																	key={`participate2${index}`}
 																>
 																	<input
 																		type='checkbox'
@@ -669,7 +671,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 																		className='choose'
 																		onChange={(e) => { this.handelSelectMember(e.target) }}
 																	/>
-																	<label for={item.Account} className='choose'>{item.Name}</label>
+																	<label htmlFor={item.Account} className='choose'>{item.Name}</label>
 																</div>
 															)
 														}
@@ -687,7 +689,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										</div>
 										<div className='enter'>
 											<input type='file' id='f' onChange={e => this.handleSelectFile(e.target.files)} />
-											<label for='f' className='nowfile'>
+											<label htmlFor='f' className='nowfile'>
 												選擇相片
 											</label>
 										</div>
@@ -735,6 +737,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 													className="input"
 													placeholder=" "
 													required="required"
+													maxLength='100'
 													id='Title'
 													value={Title}
 													onChange={this.handleInputChange.bind(this)}
@@ -749,6 +752,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 													className="input"
 													placeholder=" "
 													required="required"
+													maxLength='50'
 													id='Publisher'
 													value={Publisher}
 													onChange={this.handleInputChange.bind(this)}
@@ -779,6 +783,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 													className="input"
 													placeholder=" "
 													required="required"
+													maxLength='50'
 													id='ISBN'
 													value={ISBN}
 													onChange={this.handleInputChange.bind(this)}
@@ -799,7 +804,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 															{participate.length === 0 ? [] : participate.map((item, index) =>
 																<div
 																	className='oncheck'
-																	key={index}
+																	key={`participate3${index}`}
 																>
 																	<p>{item.name}
 																		<label className='deselect'>
@@ -827,7 +832,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 																	return (
 																		<div
 																			className={participate2.includes(item.Account) ? "option selected" : "option noS"}
-																			key={index}
+																			key={`participate4${index}`}
 																		>
 																			<input
 																				type='checkbox'
@@ -836,7 +841,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 																				className='choose'
 																				onChange={(e) => { this.handelSelectMember(e.target) }}
 																			/>
-																			<label for={item.Account} className='choose'>{item.Name}</label>
+																			<label htmlFor={item.Account} className='choose'>{item.Name}</label>
 																		</div>
 																	)
 																}
@@ -881,7 +886,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									</div>
 									<div className='enter'>
 										<input type='file' id='f' onChange={e => this.handleSelectFile(e.target.files)} />
-										<label for='f' className='nowfile'>
+										<label htmlFor='f' className='nowfile'>
 											選擇相片
 										</label>
 									</div>

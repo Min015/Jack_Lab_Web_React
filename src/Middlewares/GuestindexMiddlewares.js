@@ -41,7 +41,7 @@ const fetch = store => next => action => {
         .then(response => {
           console.log(response);
           if (response.status === 200) {
-            console.log("刪除專案性質成功")
+            console.log("刪除相簿成功")
           }
         })
         .catch(err => {

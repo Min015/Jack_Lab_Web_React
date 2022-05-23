@@ -330,7 +330,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			this.setState({
 				array
 			})
-			console.log(array);
 		}
 		//選檔案
 		handleSelectFile = (files) => {
@@ -474,24 +473,26 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					</div>
 					{/* 分頁 */}
 					<div className={(pagearray === undefined) ? "none" : "active"}>
-						<div className='page'>
-							<button onClick={() => this.handelGoNextPage(1, search)} className='features'>
-								<svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M12.6006 17.9991L14.0005 16.499L6.59997 8.99955L13.9994 1.49902L12.5993 -0.000877613L3.59997 8.99976L12.6006 17.9991Z" fill="white" />
-									<rect x="2.00061" y="18" width="2" height="18" transform="rotate(179.996 2.00061 18)" fill="white" />
-								</svg>
-							</button>
-							<div className='page_group'>
-								{pagearray?.map((item) =>
-									(<div onClick={() => this.handelGoNextPage(item, search)} className={page === `${item}` ? 'features' : 'one_page'}>{item}</div>)
-								)}
+						<div className='center'>
+							<div className='page'>
+								<button onClick={() => this.handelGoNextPage(1, search)} className='one_page'>
+									<svg width="14" height="18" viewBox="0 0 14 18" fill="#51718C" xmlns="http://www.w3.org/2000/svg">
+										<path d="M12.6006 17.9991L14.0005 16.499L6.59997 8.99955L13.9994 1.49902L12.5993 -0.000877613L3.59997 8.99976L12.6006 17.9991Z" fill="#51718C" />
+										<rect x="2.00061" y="18" width="2" height="18" transform="rotate(179.996 2.00061 18)" fill="#51718C" />
+									</svg>
+								</button>
+								<div className='page_group'>
+									{pagearray?.map((item, index) =>
+										(<div key={`page${index}`} onClick={() => this.handelGoNextPage(item, search)} className={page === `${item}` ? 'features' : 'one_page'}>{item}</div>)
+									)}
+								</div>
+								<button onClick={() => this.handelGoNextPage(maxpage, search)} className='one_page'>
+									<svg width="14" height="18" viewBox="0 0 14 18" fill="#51718C" xmlns="http://www.w3.org/2000/svg">
+										<path d="M1.4 0L0 1.5L7.4 9L0 16.5L1.4 18L10.4 9L1.4 0Z" fill="#51718C" />
+										<rect x="12" width="2" height="18" fill="#51718C" />
+									</svg>
+								</button>
 							</div>
-							<button onClick={() => this.handelGoNextPage(maxpage, search)} className='features'>
-								<svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M1.4 0L0 1.5L7.4 9L0 16.5L1.4 18L10.4 9L1.4 0Z" fill="white" />
-									<rect x="12" width="2" height="18" fill="white" />
-								</svg>
-							</button>
 						</div>
 					</div>
 					{/* 彈跳視窗 */}
@@ -517,9 +518,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										className="input"
 										placeholder=" "
 										required="required"
+										maxLength={100}
 										id='newAccount'
 										value={newAccount}
-
 										onChange={this.handleInputChange.bind(this)}
 									/>
 									<label className="label">
@@ -532,6 +533,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										className="input"
 										placeholder=" "
 										required="required"
+										maxLength={2000}
 										id='newPassword'
 										value={newPassword}
 										onChange={this.handleInputChange.bind(this)}
@@ -546,6 +548,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										className="input"
 										placeholder=" "
 										required="required"
+										maxLength={20}
 										id='newName'
 										value={newName}
 										onChange={this.handleInputChange.bind(this)}
@@ -560,6 +563,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										className="input"
 										placeholder=" "
 										required="required"
+										maxLength={100}
 										id='newTitle'
 										value={newTitle}
 										onChange={this.handleInputChange.bind(this)}
@@ -600,7 +604,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								</div>
 								<div className='enter'>
 									<input type='file' id='f' onChange={e => this.handleSelectFile(e.target.files)} />
-									<label for='f' className='nowfile'>
+									<label htmlFor='f' className='nowfile'>
 										選擇相片
 									</label>
 								</div>
@@ -637,6 +641,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										className="input"
 										placeholder=" "
 										required="required"
+										maxLength={20}
 										id='newName'
 										value={newName}
 										onChange={this.handleInputChange.bind(this)}
@@ -651,6 +656,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										className="input"
 										placeholder=" "
 										required="required"
+										maxLength={100}
 										id='newTitle'
 										value={newTitle}
 										onChange={this.handleInputChange.bind(this)}
@@ -661,6 +667,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								</div>
 								<div className='col-12 enter'>
 									<textarea
+										maxLength={5000}
 										value={newIntroduce}
 										id="newIntroduce"
 										className='long_text'

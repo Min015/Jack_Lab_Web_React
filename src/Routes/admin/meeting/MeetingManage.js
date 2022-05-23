@@ -78,7 +78,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				})
 				this.handelGetPage(nowpage, res.page);
 			}
-			this.props.history.push(`/meetingmanage/${page}&${search}`);
+			this.props.history.push(`/meetingmanage/${page}/${search}`);
 			this.props.GET_Meeting(page, search, callback);
 		}
 		//刪除
@@ -98,7 +98,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					array: [],
 				})
 				this.handelGoNextPage(1,);
-				this.props.history.push(`/meetingmanage/1&${search}`);
+				this.props.history.push(`/meetingmanage/1/${search}`);
 			}
 			this.props.DELETE_Meeting(id, callback);
 		}
@@ -293,26 +293,29 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					</div>
 					{/* 分頁 */}
 					<div className={(pagearray === undefined) ? "none" : "active"}>
-						<div className='page'>
-							<button onClick={() => this.handelGoNextPage(1, search)} className='features'>
-								<svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M12.6006 17.9991L14.0005 16.499L6.59997 8.99955L13.9994 1.49902L12.5993 -0.000877613L3.59997 8.99976L12.6006 17.9991Z" fill="white" />
-									<rect x="2.00061" y="18" width="2" height="18" transform="rotate(179.996 2.00061 18)" fill="white" />
-								</svg>
-							</button>
-							<div className='page_group'>
-								{pagearray?.map((item, index) =>
-									(<div key={`page${index}`} onClick={() => this.handelGoNextPage(item, search)} className={page === `${item}` ? 'features' : 'one_page'}>{item}</div>)
-								)}
+						<div className='center'>
+							<div className='page'>
+								<button onClick={() => this.handelGoNextPage(1, search)} className='one_page'>
+									<svg width="14" height="18" viewBox="0 0 14 18" fill="#51718C" xmlns="http://www.w3.org/2000/svg">
+										<path d="M12.6006 17.9991L14.0005 16.499L6.59997 8.99955L13.9994 1.49902L12.5993 -0.000877613L3.59997 8.99976L12.6006 17.9991Z" fill="#51718C" />
+										<rect x="2.00061" y="18" width="2" height="18" transform="rotate(179.996 2.00061 18)" fill="#51718C" />
+									</svg>
+								</button>
+								<div className='page_group'>
+									{pagearray?.map((item, index) =>
+										(<div key={`page${index}`} onClick={() => this.handelGoNextPage(item, search)} className={page === `${item}` ? 'features' : 'one_page'}>{item}</div>)
+									)}
+								</div>
+								<button onClick={() => this.handelGoNextPage(maxpage, search)} className='one_page'>
+									<svg width="14" height="18" viewBox="0 0 14 18" fill="#51718C" xmlns="http://www.w3.org/2000/svg">
+										<path d="M1.4 0L0 1.5L7.4 9L0 16.5L1.4 18L10.4 9L1.4 0Z" fill="#51718C" />
+										<rect x="12" width="2" height="18" fill="#51718C" />
+									</svg>
+								</button>
 							</div>
-							<button onClick={() => this.handelGoNextPage(maxpage, search)} className='features'>
-								<svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M1.4 0L0 1.5L7.4 9L0 16.5L1.4 18L10.4 9L1.4 0Z" fill="white" />
-									<rect x="12" width="2" height="18" fill="white" />
-								</svg>
-							</button>
 						</div>
 					</div>
+					{/* 彈跳視窗 */}
 					{/* 刪除單筆 */}
 					<div
 						className={delO ? "popup_background active" : "popup_background"}

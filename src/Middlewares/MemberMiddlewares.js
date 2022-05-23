@@ -136,7 +136,7 @@ const fetch = store => next => action => {
         .post('/manager/useradd', action.payload)
         .then(response => { console.log("新增成功") })
         .catch(err => {
-          console.log(err.response.data);
+          alert(err.response.data.data);
           throw new Error(err);
         })
         .then(json => {
@@ -255,6 +255,7 @@ const fetch = store => next => action => {
         })
         .catch(err => {
           console.log(err.response.data);
+          alert(err.response.data.data);
           throw new Error(err);
         })
         .then(json => {

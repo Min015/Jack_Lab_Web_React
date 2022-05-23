@@ -42,11 +42,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			],
 			newAccount: "",
 			newName: "",
-			newClass: "1",
-			newRole: "2",
+			newClass: "",
+			newRole: "",
 			password: "",
 			password2: "",
-			academic:" ",
+			academic: " ",
 			now: {}
 		}
 
@@ -106,24 +106,34 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		AddMember = () => {
 			const { page, search, academic } = this.state;
 			const { newAccount, newName, newClass, newRole } = this.state;
-			const payload = {
-				Account: newAccount,
-				Name: newName,
-				Class_Id: newClass,
-				Role_Id: newRole,
+			if (newAccount !== "" && newName !== "" && newClass !== "" && newRole !== "") {
+				if (this.EmailCheck(newAccount)) {
+					const payload = {
+						Account: newAccount,
+						Name: newName,
+						Class_Id: newClass,
+						Role_Id: newRole,
+					}
+					const callback = () => {
+						this.props.GET_PrivateMember(page, search, academic);
+						this.setState({
+							add: false,
+							newAccount: "",
+							newName: "",
+							newClass: "",
+							newRole: "",
+							academic: " ",
+						})
+					}
+					this.props.POST_UserAdd(payload, callback);
+				}
+				else {
+					alert("帳號格式錯誤，請輸入電子郵件");
+				}
 			}
-			const callback = () => {
-				this.props.GET_PrivateMember(page, search, academic);
-				this.setState({
-					add: false,
-					newAccount: "",
-					newName: "",
-					newClass: "1",
-					newRole: "2",
-					academic: " ",
-				})
+			else {
+				alert("您有必填欄位尚未填寫，請確認");
 			}
-			this.props.POST_UserAdd(payload, callback);
 		}
 		//修改角色
 		ChangeRole = (e) => {
@@ -212,11 +222,17 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			if (e === 'add') {
 				this.setState({
 					add: !this.state.add,
+					newAccount: "",
+					newName: "",
+					newClass: "",
+					newRole: "",
 				})
 			}
 			else if (e === 'edit') {
 				this.setState({
 					edit: !this.state.edit,
+					password: "",
+					password2: "",
 				})
 			}
 			else if (e === 'del') {
@@ -269,19 +285,27 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					delAll: false,
 					newAccount: "",
 					newName: "",
-					newClass: "1",
-					newRole: "2",
+					newClass: "",
+					newRole: "",
+					password: "",
+					password2: "",
 				})
 			}
 		}
-		//不可以有空格
+		//可以有空格
 		handleInputChange = event => {
 			const target = event.target;
 			let { value, id } = target;
-			value = value.trim();
-			this.setState({
-				[id]: value,
-			});
+			if (value === "") {
+				this.setState({
+					[id]: " ",
+				});
+			}
+			else {
+				this.setState({
+					[id]: value,
+				});
+			}
 		}
 		//全選
 		handelAllChange = e => {
@@ -318,9 +342,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			this.setState({
 				array
 			})
-			console.log(array);
 		}
-
+		// 帳號正則
+		EmailCheck = Email => {
+			const rule = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+			return rule.test(Email);
+		}
 		render() {
 			const { table_header, array, add, edit, delO, delAll, newAccount, newName, newClass, newRole, password, password2, now, academic } = this.state;
 			const { ClassList, RoleListAll, PrivateMember, AcademicList } = this.props;
@@ -379,7 +406,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								{(PrivateMember === undefined || PrivateMember.list.length === 0) ? "" : PrivateMember.list.map(
 									(item, index) => {
 										return (
-											<tr key={index} className={array.includes(`${item.Id}`) ? "onchange" : ""} >
+											<tr key={`PrivateMember${index}`} className={array.includes(`${item.Id}`) ? "onchange" : ""} >
 												<td className="check">
 													<input type="checkbox"
 														id=""
@@ -400,8 +427,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 														defaultValue={item.Role_Id}
 														onChange={this.ChangeRole.bind(this)}
 													>
-														{RoleListAll === undefined ? [] : RoleListAll.map(item =>
-															<option value={item.Id}>{item.Name}</option>
+														{RoleListAll === undefined ? [] : RoleListAll.map((item, index) =>
+															<option key={`RoleListAll${index}`} value={item.Id}>{item.Name}</option>
 														)}
 													</select>
 												</td>
@@ -411,8 +438,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 														defaultValue={item.Class_Id}
 														onChange={this.ChangeClass.bind(this)}
 													>
-														{ClassList === undefined ? [] : ClassList.map(item =>
-															<option value={item.Id}>{item.Name}</option>
+														{ClassList === undefined ? [] : ClassList.map((item, index) =>
+															<option key={`ClassList${index}`} value={item.Id}>{item.Name}</option>
 														)}
 													</select>
 												</td>
@@ -449,24 +476,26 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					</div>
 					{/* 分頁 */}
 					<div className={(pagearray === undefined) ? "none" : "active"}>
-						<div className='page'>
-							<button onClick={() => this.handelGoNextPage(1, search)} className='features'>
-								<svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M12.6006 17.9991L14.0005 16.499L6.59997 8.99955L13.9994 1.49902L12.5993 -0.000877613L3.59997 8.99976L12.6006 17.9991Z" fill="white" />
-									<rect x="2.00061" y="18" width="2" height="18" transform="rotate(179.996 2.00061 18)" fill="white" />
-								</svg>
-							</button>
-							<div className='page_group'>
-								{pagearray?.map((item) =>
-									(<div onClick={() => this.handelGoNextPage(item, search)} className={page === `${item}` ? 'features' : 'one_page'}>{item}</div>)
-								)}
+						<div className='center'>
+							<div className='page'>
+								<button onClick={() => this.handelGoNextPage(1, search)} className='one_page'>
+									<svg width="14" height="18" viewBox="0 0 14 18" fill="#51718C" xmlns="http://www.w3.org/2000/svg">
+										<path d="M12.6006 17.9991L14.0005 16.499L6.59997 8.99955L13.9994 1.49902L12.5993 -0.000877613L3.59997 8.99976L12.6006 17.9991Z" fill="#51718C" />
+										<rect x="2.00061" y="18" width="2" height="18" transform="rotate(179.996 2.00061 18)" fill="#51718C" />
+									</svg>
+								</button>
+								<div className='page_group'>
+									{pagearray?.map((item, index) =>
+										(<div key={`page${index}`} onClick={() => this.handelGoNextPage(item, search)} className={page === `${item}` ? 'features' : 'one_page'}>{item}</div>)
+									)}
+								</div>
+								<button onClick={() => this.handelGoNextPage(maxpage, search)} className='one_page'>
+									<svg width="14" height="18" viewBox="0 0 14 18" fill="#51718C" xmlns="http://www.w3.org/2000/svg">
+										<path d="M1.4 0L0 1.5L7.4 9L0 16.5L1.4 18L10.4 9L1.4 0Z" fill="#51718C" />
+										<rect x="12" width="2" height="18" fill="#51718C" />
+									</svg>
+								</button>
 							</div>
-							<button onClick={() => this.handelGoNextPage(maxpage, search)} className='features'>
-								<svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M1.4 0L0 1.5L7.4 9L0 16.5L1.4 18L10.4 9L1.4 0Z" fill="white" />
-									<rect x="12" width="2" height="18" fill="white" />
-								</svg>
-							</button>
 						</div>
 					</div>
 					{/* 彈跳視窗 */}
@@ -492,11 +521,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										className="input"
 										placeholder=" "
 										required="required"
+										maxLength={100}
 										id='newAccount'
 										value={newAccount}
 										onChange={this.handleInputChange.bind(this)}
 									/>
-									<label for="Email" className="label">
+									<label className="label">
 										成員帳號(電子郵件)
 									</label>
 								</div>
@@ -506,16 +536,18 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										className="input"
 										placeholder=" "
 										required="required"
+										maxLength={20}
 										id='newName'
 										value={newName}
 										onChange={this.handleInputChange.bind(this)}
 									/>
-									<label for="Password" className="label">
+									<label className="label">
 										成員名稱
 									</label>
 								</div>
 								<div className="inputContainer">
 									<select id='newClass' value={newClass} onChange={this.handleInputChange.bind(this)}>
+										<option value="" disabled hidden>請選擇班級</option>
 										{ClassList === undefined ? [] : ClassList.map((item, index) => {
 											return (
 												<option key={`class${index}`} value={item.Id}>{item.Name}</option>
@@ -525,6 +557,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								</div>
 								<div className="inputContainer">
 									<select id='newRole' value={newRole} onChange={this.handleInputChange.bind(this)}>
+										<option value="" disabled hidden>請選擇角色</option>
 										{RoleListAll === undefined ? [] : RoleListAll.map((item, index) => {
 											return (
 												<option key={`role${index}`} value={item.Id}>{item.Name}</option>
@@ -567,10 +600,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										className="input"
 										placeholder=" "
 										required="required"
+										maxLength={2000}
 										value={password}
 										onChange={this.handleInputChange.bind(this)}
 									/>
-									<label for="Password" className="label">
+									<label className="label">
 										新密碼
 									</label>
 								</div>
@@ -581,10 +615,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										className="input"
 										placeholder=" "
 										required="required"
+										maxLength={2000}
 										value={password2}
 										onChange={this.handleInputChange.bind(this)}
 									/>
-									<label for="Password" className="label">
+									<label className="label">
 										確認密碼
 									</label>
 								</div>

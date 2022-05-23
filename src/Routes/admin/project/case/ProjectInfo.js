@@ -21,7 +21,6 @@ import {
 } from '../../../../Action/ProjectAction';
 
 const mapStateToProps = state => {
-	// console.log(state);
 	return {
 		PublicMemberList: state.memberReducer.PublicMemberList,
 		ProjectTypeAll: state.projectReducer.ProjectTypeAll,
@@ -176,10 +175,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		AddProjectRecord = () => {
 			const { Id, page, search } = this.state;
 			const { upload, remark } = this.state;
-			if (upload.length === 0 || remark === "") {
-				alert("請輸入備註及選擇檔案");
-			}
-			else {
+			if (remark !== "" && upload.name !== undefined) {
 				let data = new FormData();
 				data.append('Project_Id', Id);
 				data.append('Remark', remark);
@@ -194,6 +190,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				}
 				this.props.POST_AddProjectRecord(data, callback);
 			}
+			else {
+				alert("請輸入備註及選擇檔案");
+			}
 		}
 		//下載專案記錄
 		DownloadFile = () => {
@@ -204,22 +203,29 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		UpdateProjectRecord = () => {
 			const { Id, page, search } = this.state;
 			const { upload, remark, nowRecord } = this.state;
-			let data = new FormData();
-			data.append('_method', 'PUT');
-			data.append('Id', nowRecord.Id);
-			data.append('Remark', remark);
-			if (upload.length !== 0) {
-				data.append('File', upload[0]);
+			console.log(nowRecord);
+			if (remark !== "") {
+				let data = new FormData();
+				data.append('_method', 'PUT');
+				data.append('Id', nowRecord.Id);
+				data.append('Remark', remark);
+				if (upload.name !== undefined) {
+					console.log(213);
+					data.append('File', upload);
+				}
+				const callback = () => {
+					this.setState({
+						edit: false,
+						remark: "",
+						upload: {},
+					})
+					this.props.GET_ProjectRecord(Id, page, search);
+				}
+				this.props.POST_UpdateProjectRecord(data, callback);
 			}
-			const callback = () => {
-				this.setState({
-					edit: false,
-					remark: "",
-					upload: {},
-				})
-				this.props.GET_ProjectRecord(Id, page, search);
+			else {
+				alert("請輸入備註");
 			}
-			this.props.POST_UpdateProjectRecord(data, callback);
 		}
 		//刪除
 		Delete = (id) => {
@@ -255,7 +261,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			if (e === 'add') {
 				this.setState({
 					add: !this.state.add,
-					role_permission: [],
+					remark: "",
+					upload: {},
 				})
 			}
 			else if (e === 'edit') {
@@ -306,6 +313,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					delO: false,
 					delAll: false,
 					download: false,
+					remark: "",
+					upload: {},
 				})
 			}
 			else if (name === "choose") {
@@ -419,10 +428,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			})
 		}
 		//新增標籤
+		//新增標籤
 		heandleAddTag = (e) => {
+			const target = e.target;
+			let { value } = target;
+			value = value.trim();
 			const tag = this.state.tag;
 			if (tag.length === 5) {
-				e.target.value = "";
 				this.setState({
 					disabled: true,
 				})
@@ -433,8 +445,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					disabled: false,
 				})
 				if (e.keyCode === 32) {
-					if (!tag.includes(e.target.value) && (e.target.value) !== "" && (e.target.value) !== " ") {
-						tag.push(e.target.value);
+					if (!tag.includes(value) && (value !== "")) {
+						tag.push(value);
 					}
 					e.target.value = "";
 				}
@@ -493,16 +505,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			this.setState({
 				array
 			})
-			console.log(array);
 		}
 
 		render() {
 			const { table_header, array, title, content, type, Creater_name, tag, participate, drop, long, disabled, Record, add, edit, delO, delAll, download, upload, remark, nowRecord } = this.state;
 			const { pagearray, page, search, maxpage } = this.state;
 			const { PublicMemberList, ProjectTypeAll, ProjectRecord } = this.props;
-			console.log(ProjectRecord);
-			console.log(Record);
-
 			return (
 				<BackLayout>
 					<div className='bg'>
@@ -613,7 +621,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 															className='choose'
 															onChange={(e) => { this.handelOnClick(e.target) }}
 														/>
-														<label for={item.Account} className='choose'>{item.Name}</label>
+														<label htmlFor={item.Account} className='choose'>{item.Name}</label>
 													</div>
 												)
 											}
@@ -634,10 +642,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 													<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
 														<path d="M0.33546 0.33546C0.550319 0.120665 0.841693 0 1.1455 0C1.44932 0 1.74069 0.120665 1.95555 0.33546L6.00692 4.38683L10.0583 0.33546C10.2744 0.126752 10.5638 0.0112672 10.8642 0.0138777C11.1646 0.0164882 11.452 0.136985 11.6644 0.349417C11.8768 0.561848 11.9973 0.849216 12 1.14963C12.0026 1.45004 11.8871 1.73946 11.6784 1.95555L7.62701 6.00692L11.6784 10.0583C11.8871 10.2744 12.0026 10.5638 12 10.8642C11.9973 11.1646 11.8768 11.452 11.6644 11.6644C11.452 11.8768 11.1646 11.9973 10.8642 12C10.5638 12.0026 10.2744 11.8871 10.0583 11.6784L6.00692 7.62701L1.95555 11.6784C1.73946 11.8871 1.45004 12.0026 1.14963 12C0.849216 11.9973 0.561848 11.8768 0.349417 11.6644C0.136985 11.452 0.0164882 11.1646 0.0138777 10.8642C0.0112672 10.5638 0.126752 10.2744 0.33546 10.0583L4.38683 6.00692L0.33546 1.95555C0.120665 1.74069 0 1.44932 0 1.1455C0 0.841693 0.120665 0.550319 0.33546 0.33546Z" fill="#022840" />
 													</svg>
-													<div
+													<span
 														className='close'
 														id={item}
-														onClick={this.heandleDelTag}></div>
+														onClick={this.heandleDelTag}></span>
 												</span>
 											</p>
 										))}
@@ -711,7 +719,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 												</tr>
 											</thead>
 											<tbody>
-												{(ProjectRecord === undefined || ProjectRecord.list.length === 0) ? "" : ProjectRecord.list.map(
+												{(ProjectRecord === undefined ) ? "" : ProjectRecord.list.map(
 													(item, index) => {
 														return (
 															<tr key={`Record${index}`} className={array.includes(`${item.Id}`) ? "onchange" : ""}>
@@ -722,7 +730,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 																		value={item.Id}
 																		onChange={(e) => { this.handelOnClickList(e.target) }}
 																	/>
-
 																</td>
 																<td>{((page - 1) * 10) + index + 1}</td>
 																<td>{item.Remark}</td>
@@ -816,6 +823,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								<div className='col-12 enter'>
 									<textarea
 										className='long_text'
+										maxLength={500}
 										id="remark"
 										value={remark}
 										onChange={this.handelCanEnter.bind(this)}
@@ -827,7 +835,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								</div>
 								<div className='enter'>
 									<input type='file' id='f' onChange={e => this.handleSelectFile(e.target.files)} />
-									<label for='f' className='nowfile'>
+									<label htmlFor='f' className='nowfile'>
 										上傳檔案
 									</label>
 								</div>
@@ -888,7 +896,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 						<div className="window">
 							<div className="form">
 								<h1 className="title">
-									修改記錄檔案
+									修改專案記錄
 									<div className="close">
 										<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 											<path d="M24 2.4L21.6 0L12 9.6L2.4 0L0 2.4L9.6 12L0 21.6L2.4 24L12 14.4L21.6 24L24 21.6L14.4 12L24 2.4Z" fill="#51718C" />
@@ -902,6 +910,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								</div>
 								<div className='col-12 enter'>
 									<textarea
+										maxLength={50}
 										id='remark'
 										value={remark}
 										onChange={this.handleInputChange.bind(this)}
@@ -916,7 +925,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								</div>
 								<div className='enter'>
 									<input type='file' id='f' onChange={e => this.handleSelectFile(e.target.files)} />
-									<label for='f' className='nowfile'>
+									<label htmlFor='f' className='nowfile'>
 										上傳新檔案
 									</label>
 								</div>

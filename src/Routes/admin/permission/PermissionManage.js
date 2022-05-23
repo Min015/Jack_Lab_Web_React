@@ -91,17 +91,30 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		RoleAdd = () => {
 			const { page, search } = this.state;
 			const { newRoleName, role_permission } = this.state;
-			const payload = {
-				Name: newRoleName,
-				Permission: role_permission,
+			if (newRoleName === "") {
+				alert("您有必填欄位尚未填寫，請確認");
 			}
-			const callback = () => {
-				this.props.GET_Role(page, search);
-				this.setState({
-					add: false,
-				})
+			else {
+				if (role_permission.length !== 0) {
+					const payload = {
+						Name: newRoleName,
+						Permission: role_permission,
+					}
+					const callback = () => {
+						this.props.GET_Role(page, search);
+						this.setState({
+							add: false,
+							newRoleName: "",
+							role_permission: [],
+						})
+						this.handelClearPermissionCheckbox();
+					}
+					this.props.POST_RoleAdd(payload, callback);
+				}
+				else {
+					alert("角色權限不可為空，請選擇權限");
+				}
 			}
-			this.props.POST_RoleAdd(payload, callback);
 		}
 		//修改(取得原權限&設定新權限)
 		handelEditPermission = e => {
@@ -127,17 +140,25 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		ChangeRolePermission = () => {
 			const { page, search } = this.state;
 			const { nowRole, role_permission } = this.state;
-			const payload = {
-				Id: nowRole.Id,
-				Permission: role_permission,
+			if (role_permission.length === 0) {
+				alert("角色權限不可為空，請選擇權限");
 			}
-			const callback = () => {
-				this.props.GET_Role(page, search);
-				this.setState({
-					edit: false,
-				})
+			else {
+				const payload = {
+					Id: nowRole.Id,
+					Permission: role_permission,
+				}
+				const callback = () => {
+					this.props.GET_Role(page, search);
+					this.setState({
+						edit: false,
+						newRoleName: "",
+						role_permission: [],
+					})
+					this.handelClearPermissionCheckbox();
+				}
+				this.props.PUT_ChangeRolePermission(payload, callback);
 			}
-			this.props.PUT_ChangeRolePermission(payload, callback);
 		}
 		//不可以有空格
 		handleInputChange = event => {
@@ -154,6 +175,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			this.setState({
 				deleteOne: id,
 			})
+		}
+		//清除權限check
+		handelClearPermissionCheckbox = () => {
+			const permission = document.getElementsByName('permission');
+			for (let i = 0; i < permission.length; i++) {
+				permission[i].checked = false;
+			}
 		}
 		//刪除
 		Delete = (id) => {
@@ -177,7 +205,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		//刪除多筆
 		handelDeleteAll = () => {
 			const { array } = this.state;
-			console.log(array);
 			let deletearray = "";
 			for (let i = 0; i < array.length; i++) {
 				deletearray += array[i] + ",";
@@ -256,7 +283,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			this.setState({
 				array
 			})
-			console.log(array);
 		}
 		//選擇權限
 		handelSelectPermission = e => {
@@ -314,7 +340,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 											<input
 												type="checkbox"
 												name='AllChange'
-
 												onChange={this.handelAllChange}
 											/>
 										</th>
@@ -324,7 +349,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									</tr>
 								</thead>
 								<tbody>
-									{(RoleList === undefined|| RoleList.list.length === 0) ? [] : RoleList.list?.map(
+									{(RoleList === undefined || RoleList.list.length === 0) ? [] : RoleList.list?.map(
 										(item, index) => {
 											return (
 												<tr key={`role${index}`} className={array.includes(`${item.Id}`) ? "onchange" : ""}>
@@ -367,24 +392,26 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 						</div>
 						{/* 分頁 */}
 						<div className={(pagearray === undefined) ? "none" : "active"}>
-							<div className='page'>
-								<button onClick={() => this.handelGoNextPage(1, search)} className='features'>
-									<svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-										<path d="M12.6006 17.9991L14.0005 16.499L6.59997 8.99955L13.9994 1.49902L12.5993 -0.000877613L3.59997 8.99976L12.6006 17.9991Z" fill="white" />
-										<rect x="2.00061" y="18" width="2" height="18" transform="rotate(179.996 2.00061 18)" fill="white" />
-									</svg>
-								</button>
-								<div className='page_group'>
-									{pagearray?.map((item,index) =>
-										(<div key={`pagearray${index}`} onClick={() => this.handelGoNextPage(item, search)} className={page === `${item}` ? 'features' : 'one_page'}>{item}</div>)
-									)}
+							<div className='center'>
+								<div className='page'>
+									<button onClick={() => this.handelGoNextPage(1, search)} className='one_page'>
+										<svg width="14" height="18" viewBox="0 0 14 18" fill="#51718C" xmlns="http://www.w3.org/2000/svg">
+											<path d="M12.6006 17.9991L14.0005 16.499L6.59997 8.99955L13.9994 1.49902L12.5993 -0.000877613L3.59997 8.99976L12.6006 17.9991Z" fill="#51718C" />
+											<rect x="2.00061" y="18" width="2" height="18" transform="rotate(179.996 2.00061 18)" fill="#51718C" />
+										</svg>
+									</button>
+									<div className='page_group'>
+										{pagearray?.map((item, index) =>
+											(<div key={`page${index}`} onClick={() => this.handelGoNextPage(item, search)} className={page === `${item}` ? 'features' : 'one_page'}>{item}</div>)
+										)}
+									</div>
+									<button onClick={() => this.handelGoNextPage(maxpage, search)} className='one_page'>
+										<svg width="14" height="18" viewBox="0 0 14 18" fill="#51718C" xmlns="http://www.w3.org/2000/svg">
+											<path d="M1.4 0L0 1.5L7.4 9L0 16.5L1.4 18L10.4 9L1.4 0Z" fill="#51718C" />
+											<rect x="12" width="2" height="18" fill="#51718C" />
+										</svg>
+									</button>
 								</div>
-								<button onClick={() => this.handelGoNextPage(maxpage, search)} className='features'>
-									<svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-										<path d="M1.4 0L0 1.5L7.4 9L0 16.5L1.4 18L10.4 9L1.4 0Z" fill="white" />
-										<rect x="12" width="2" height="18" fill="white" />
-									</svg>
-								</button>
 							</div>
 						</div>
 					</BackLayout>
@@ -412,6 +439,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										className="input"
 										placeholder=" "
 										required="required"
+										maxLength={20}
 										id="newRoleName"
 										value={newRoleName}
 										onChange={this.handleInputChange.bind(this)}
@@ -426,6 +454,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										<div key={`per${index}`} className='t'>
 											<input
 												id={item.Id}
+												name='permission'
 												type='checkbox'
 												onChange={(e) => { this.handelSelectPermission(e) }}
 											/>
@@ -464,6 +493,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									{PermissionList === undefined ? [] : PermissionList.map((item, index) =>
 										<div key={`permission${index}`} className='t'>
 											<input
+												name='permission'
 												id={item.Id}
 												type='checkbox'
 												checked={role_permission.includes(`${item.Id}`)}

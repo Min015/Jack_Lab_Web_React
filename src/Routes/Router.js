@@ -23,7 +23,7 @@ import Member from './admin/member/Member';
 
 import MeetingManage from './admin/meeting/MeetingManage';
 import AdMeetingInfo from './admin/meeting/MeetingInfo';
-import AdMeetingAdd from './admin/meeting/MeetingAdd';
+import AdMeetingAdd from './admin/meeting/AdMeetingAdd';
 
 import GameManage from './admin/game/gamelist/GameManage';
 import AdGameInfo from './admin/game/gamelist/GameInfo';
@@ -97,9 +97,9 @@ export default (
 
 				<Route path='/setinfo' exact component={SetInfo} />
 
-				<Route path='/adminalbum/page=:page/search=:search' exact component={AdminAlbum} />
-				<Route path='/adminalbum/page=:page/search=' exact component={() => <Redirect to='/adminalbum/page=1/search= ' />} />
-				<Route path='/adminalbum' exact component={() => <Redirect to='/adminalbum/page=1/search= ' />} />
+				<Route path='/adminalbum/:page/:search' exact component={AdminAlbum} />
+				<Route path='/adminalbum/:page' exact component={() => <Redirect to='/adminalbum/1/ ' />} />
+				<Route path='/adminalbum' exact component={() => <Redirect to='/adminalbum/1/ ' />} />
 
 
 				<Route path='/books/page=:page/search=:search' exact component={Books} />
@@ -125,10 +125,13 @@ export default (
 				<Route path='/member/page=:page/search=:search/academic=' exact component={() => <Redirect to='/member/page=1/search= /academic= ' />} />
 				<Route path='/member' exact component={() => <Redirect to='/member/page=1/search= /academic= ' />} />
 
-
-				<Route path='/meetingmanage' exact component={MeetingManage} />
 				<Route path='/meetingmanage/meetingadd' exact component={AdMeetingAdd} />
 				<Route path="/meetingmanage/meetinginfo/:id" exact component={AdMeetingInfo} />
+
+				<Route path='/meetingmanage/:page/:search' exact component={MeetingManage} />
+				<Route path='/meetingmanage/:page' exact component={() => <Redirect to='/meetingmanage/1/ ' />} />
+				<Route path='/meetingmanage' exact component={() => <Redirect to='/meetingmanage/1/ ' />} />
+
 
 
 				<Route path='/gamemanage' exact component={GameManage} />
@@ -136,11 +139,17 @@ export default (
 				<Route path='/gtypemanage' exact component={GTypeManage} />
 
 
-				<Route path='/casemanage/page=:page/search=:search' exact component={CaseManage} />
-				<Route path='/casemanage/page=:page/search=' exact component={() => <Redirect to='/casemanage/page=1/search= ' />} />
-				<Route path='/casemanage' exact component={() => <Redirect to='/casemanage/page=1/search= ' />} />
 				<Route path='/casemanage/caseadd' exact component={AdCaseAdd} />
-				<Route path='/casemanage/caseinfo/:id' exact component={AdProjectInfo} />
+
+				<Route path='/casemanage/:page/:search/:ptype' exact component={CaseManage} />
+				<Route path='/casemanage/:page/:search' exact component={() => <Redirect to='/casemanage/1/ / ' />} />
+				<Route path='/casemanage/:page' exact component={() => <Redirect to='/casemanage/1/ / ' />} />
+				<Route path='/casemanage/:page//' exact component={() => <Redirect to='/casemanage/1/ / ' />} />
+
+				<Route path='/casemanage' exact component={() => <Redirect to='/casemanage/1/ /   ' />} />
+				<Route path='/casemanage/caseinfo/:id/:page/:search' exact component={AdProjectInfo} />
+
+
 				<Route path='/typemange/page=:page/search=:search' exact component={TypeManage} />
 				<Route path='/typemange/page=:page/search=' exact component={() => <Redirect to='/typemange/page=1/search= ' />} />
 				<Route path='/typemange' exact component={() => <Redirect to='/typemange/page=1/search= ' />} />

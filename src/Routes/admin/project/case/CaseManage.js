@@ -55,7 +55,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				this.setState({
 					maxpage: res.page,
 				})
-				console.log(nowpage);
 				this.handelGetPage(nowpage, res.page);
 			}
 			this.props.GET_Project(nowpage, nowsearch, nowtype, callback);
@@ -108,7 +107,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					delAll: false,
 					array: [],
 				})
-				this.props.GET_Project(1,);
+				this.props.GET_Project(1,search,ptype);
 				this.props.history.push(`/casemanage/1/${search}/${ptype}`);
 			}
 			this.props.DELETE_Project(id, callback);
