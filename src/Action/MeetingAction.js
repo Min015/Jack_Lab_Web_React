@@ -44,7 +44,6 @@ export const POST_AddMeeting = (payload, callback) => {
   };
 }
 export const POST_UpdateMeeting = (payload, callback) => {
-  console.log("MeetingAction42", payload);
   return (dispatch) => {
     dispatch({
       type: "POST_UpdateMeeting",

@@ -68,7 +68,6 @@ export default class GameManage extends Component {
         this.setState({
             array
         })
-        console.log(array);
     }
     render() {
         const { table_header, gM_type, gM_Y, table_content, array } = this.state;

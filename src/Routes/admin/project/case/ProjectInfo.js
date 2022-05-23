@@ -203,14 +203,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		UpdateProjectRecord = () => {
 			const { Id, page, search } = this.state;
 			const { upload, remark, nowRecord } = this.state;
-			console.log(nowRecord);
 			if (remark !== "") {
 				let data = new FormData();
 				data.append('_method', 'PUT');
 				data.append('Id', nowRecord.Id);
 				data.append('Remark', remark);
 				if (upload.name !== undefined) {
-					console.log(213);
 					data.append('File', upload);
 				}
 				const callback = () => {

@@ -54,10 +54,9 @@ export default class GTypeManage extends Component {
         this.setState({
             array
         })
-        console.log(array);
     }
     render() {
-        const { object, table_header, table_content, array } = this.state;
+        const {table_header, table_content, array } = this.state;
         return (
             <BackLayout>
                 <div className="work">

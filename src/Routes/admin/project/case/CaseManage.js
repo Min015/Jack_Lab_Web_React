@@ -212,7 +212,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			this.setState({
 				array
 			})
-			console.log(array);
 		}
 		render() {
 			const { table_header, array, delO, delAll, now, pagearray, page, search, maxpage, ptype } = this.state;

@@ -436,7 +436,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			const { add, edit, delO, delAll } = this.state;
 			const { pagearray, page, search, maxpage } = this.state;
 			const { BookList, PublicMemberList, BookInfo } = this.props;
-			console.log(nowItem);
 			return (
 				<div id='book'>
 					<BackLayout>

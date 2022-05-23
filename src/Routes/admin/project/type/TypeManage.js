@@ -257,7 +257,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
       this.setState({
         array
       })
-      console.log(array);
     }
     //取得現在Item
     handelSetNow = (e) => {
