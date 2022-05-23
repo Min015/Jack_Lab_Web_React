@@ -54,7 +54,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
       }
 
 
-      
+
       this.props.GET_ProjectType(nowpage, nowsearch, callback);
     }
     //取得頁面
@@ -352,8 +352,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                 </svg>
               </button>
               <div className='page_group'>
-                {pagearray?.map((item) =>
-                  (<div onClick={() => this.handelGoNextPage(item, search)} className={page === `${item}` ? 'features' : 'one_page'}>{item}</div>)
+                {pagearray?.map((item, index) =>
+                  (<div key={`page${index}`} onClick={() => this.handelGoNextPage(item, search)} className={page === `${item}` ? 'features' : 'one_page'}>{item}</div>)
                 )}
               </div>
               <button onClick={() => this.handelGoNextPage(maxpage, search)} className='features'>
@@ -480,7 +480,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
               </div>
             </div>
           </div>
-          
+          {/* 刪除多筆 */}
           <div
             className={delAll ? "popup_background active" : "popup_background"}
             onClick={this.handelMouseDown}
