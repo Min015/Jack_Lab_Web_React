@@ -107,7 +107,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					delAll: false,
 					array: [],
 				})
-				this.props.GET_Project(1,search,ptype);
+				this.props.GET_Project(1, search, ptype);
 				this.props.history.push(`/casemanage/1/${search}/${ptype}`);
 			}
 			this.props.DELETE_Project(id, callback);
@@ -153,16 +153,25 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				},
 			})
 		}
-		//可以有空格
+		//不可以有空格
 		handleInputChange = event => {
 			const target = event.target;
 			let { value, id } = target;
-			if (value === "") {
-				this.setState({
-					[id]: " ",
-				});
+			if (id === 'search') {
+				value = value.trim();
+				if (value !== "") {
+					this.setState({
+						[id]: value,
+					});
+				}
+				else {
+					this.setState({
+						[id]: " ",
+					});
+				}
 			}
 			else {
+				value = value.trim();
 				this.setState({
 					[id]: value,
 				});

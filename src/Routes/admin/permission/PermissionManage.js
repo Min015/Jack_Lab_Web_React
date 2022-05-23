@@ -84,7 +84,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				})
 				this.handelGetPage(nowpage, res.page);
 			}
-			this.props.history.push(`/pemissionmanage/page=${page}/search=${search}`);
+			this.props.history.push(`/pemissionmanage/${page}/${search}`);
 			this.props.GET_Role(page, search, callback);
 		}
 		//新增
@@ -164,10 +164,25 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		handleInputChange = event => {
 			const target = event.target;
 			let { value, id } = target;
-			value = value.trim();
-			this.setState({
-				[id]: value,
-			});
+			if (id === 'search') {
+				value = value.trim();
+				if (value !== "") {
+					this.setState({
+						[id]: value,
+					});
+				}
+				else {
+					this.setState({
+						[id]: " ",
+					});
+				}
+			}
+			else {
+				value = value.trim();
+				this.setState({
+					[id]: value,
+				});
+			}
 		}
 		//取得現在Item
 		handelSetDelete = (e) => {
@@ -185,7 +200,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 		//刪除
 		Delete = (id) => {
-			const { search } = this.state;
+			const { search, } = this.state;
 			const callback = () => {
 				const AllChange = document.getElementsByName('AllChange');
 				AllChange[0].checked = false;
@@ -198,7 +213,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					delAll: false,
 				})
 				this.handelGoNextPage(1,);
-				this.props.history.push(`/pemissionmanage/page=1/search=${search}`);
+				this.props.history.push(`/pemissionmanage/1/${search}`);
 			}
 			this.props.DELETE_Role(id, callback);
 		}

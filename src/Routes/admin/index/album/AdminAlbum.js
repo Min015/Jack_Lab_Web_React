@@ -222,14 +222,29 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				newTitle: info[1],
 			})
 		}
-		//確定是否填寫
-		handleInputChange(event) {
+		//不可以有空格
+		handleInputChange = event => {
 			const target = event.target;
 			let { value, id } = target;
-			value = value.trim();
-			this.setState({
-				[id]: value,
-			});
+			if (id === 'search') {
+				value = value.trim();
+				if (value !== "") {
+					this.setState({
+						[id]: value,
+					});
+				}
+				else {
+					this.setState({
+						[id]: " ",
+					});
+				}
+			}
+			else {
+				value = value.trim();
+				this.setState({
+					[id]: value,
+				});
+			}
 		}
 		handelAllChange = e => {
 			const checkboxes = document.getElementsByName('Box');

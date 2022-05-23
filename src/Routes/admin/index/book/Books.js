@@ -109,7 +109,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				})
 				this.handelGetPage(nowpage, res.page);
 			}
-			this.props.history.push(`/books/page=${page}/search=${search}`);
+			this.props.history.push(`/books/${page}/${search}`);
 			this.props.GET_Book(page, search, callback);
 		}
 		AddBook = () => {
@@ -226,7 +226,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					delAll: false,
 				})
 				this.handelGoNextPage(1,);
-				this.props.history.push(`/books/page=1/search=${search}`);
+				this.props.history.push(`/books/1/${search}`);
 			}
 			this.props.DELETE_Book(id, callback);
 		}
@@ -341,14 +341,29 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				},
 			});
 		}
-		//確定是否填寫
-		handleInputChange(event) {
+		//不可以有空格
+		handleInputChange = event => {
 			const target = event.target;
 			let { value, id } = target;
-			value = value.trim();
-			this.setState({
-				[id]: value,
-			});
+			if (id === 'search') {
+				value = value.trim();
+				if (value !== "") {
+					this.setState({
+						[id]: value,
+					});
+				}
+				else {
+					this.setState({
+						[id]: " ",
+					});
+				}
+			}
+			else {
+				value = value.trim();
+				this.setState({
+					[id]: value,
+				});
+			}
 		}
 		handelAllChange = e => {
 			const checkboxes = document.getElementsByName('Box');
@@ -421,6 +436,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			const { add, edit, delO, delAll } = this.state;
 			const { pagearray, page, search, maxpage } = this.state;
 			const { BookList, PublicMemberList, BookInfo } = this.props;
+			console.log(nowItem);
 			return (
 				<div id='book'>
 					<BackLayout>

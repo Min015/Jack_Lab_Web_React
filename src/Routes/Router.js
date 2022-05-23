@@ -97,33 +97,38 @@ export default (
 
 				<Route path='/setinfo' exact component={SetInfo} />
 
+				{/* 後台 */}
 				<Route path='/adminalbum/:page/:search' exact component={AdminAlbum} />
 				<Route path='/adminalbum/:page' exact component={() => <Redirect to='/adminalbum/1/ ' />} />
 				<Route path='/adminalbum' exact component={() => <Redirect to='/adminalbum/1/ ' />} />
 
 
-				<Route path='/books/page=:page/search=:search' exact component={Books} />
-				<Route path='/books/page=:page/search=' exact component={() => <Redirect to='/books/page=1/search= ' />} />
-				<Route path='/books' exact component={() => <Redirect to='/books/page=1/search= ' />} />
+				<Route path='/books/:page/:search' exact component={Books} />
+				<Route path='/books/:page' exact component={() => <Redirect to='/books/1/ ' />} />
+				<Route path='/books' exact component={() => <Redirect to='/books/1/ ' />} />
 
 
-				<Route path='/teacherintroduce/page=:page/search=:search' exact component={TeacherIntroduce} />
-				<Route path='/teacherintroduce/page=:page/search=' exact component={() => <Redirect to='/teacherintroduce/page=1/search= ' />} />
-				<Route path='/teacherintroduce' exact component={() => <Redirect to='/teacherintroduce/page=1/search= ' />} />
+				<Route path='/teacherintroduce/:page/:search' exact component={TeacherIntroduce} />
+				<Route path='/teacherintroduce/:page' exact component={() => <Redirect to='/teacherintroduce/1/ ' />} />
+				<Route path='/teacherintroduce' exact component={() => <Redirect to='/teacherintroduce/1/ ' />} />
 
-				<Route path='/labintroduce/page=:page/search=:search' exact component={LabIntroduce} />
-				<Route path='/labintroduce/page=:page/search=' exact component={() => <Redirect to='/labintroduce/page=1/search= ' />} />
-				<Route path='/labintroduce' exact component={() => <Redirect to='/labintroduce/page=1/search= ' />} />
-
-
-				<Route path='/pemissionmanage/page=:page/search=:search' exact component={PermissionManage} />
-				<Route path='/pemissionmanage/page=:page/search=' exact component={() => <Redirect to='/pemissionmanage/page=1/search= ' />} />
-				<Route path='/pemissionmanage' exact component={() => <Redirect to='/pemissionmanage/page=1/search= ' />} />
+				<Route path='/labintroduce/:page/:search' exact component={LabIntroduce} />
+				<Route path='/labintroduce/:page' exact component={() => <Redirect to='/labintroduce/1/ ' />} />
+				<Route path='/labintroduce' exact component={() => <Redirect to='/labintroduce/1/ ' />} />
 
 
-				<Route path='/member/page=:page/search=:search/academic=:academic' exact component={Member} />
-				<Route path='/member/page=:page/search=:search/academic=' exact component={() => <Redirect to='/member/page=1/search= /academic= ' />} />
-				<Route path='/member' exact component={() => <Redirect to='/member/page=1/search= /academic= ' />} />
+				<Route path='/pemissionmanage/:page/:search' exact component={PermissionManage} />
+				<Route path='/pemissionmanage/:page' exact component={() => <Redirect to='/pemissionmanage/1/ ' />} />
+				<Route path='/pemissionmanage' exact component={() => <Redirect to='/pemissionmanage/1/ ' />} />
+
+
+				<Route path='/member/:page/:search/:academic' exact component={Member} />
+				{/* <Route path='/member/:page/:search' exact component={Member} />
+				<Route path='/member/:page' exact component={Member} />
+				<Route path='/member' exact component={Member} /> */}
+				<Route path='/member/:page/:search' exact component={() => <Redirect to='/member/1/ / ' />} />
+				<Route path='/member/:page//' exact component={() => <Redirect to='/member/1/ / ' />} />
+				<Route path='/member' exact component={() => <Redirect to='/member/1/ / ' />} />
 
 				<Route path='/meetingmanage/meetingadd' exact component={AdMeetingAdd} />
 				<Route path="/meetingmanage/meetinginfo/:id" exact component={AdMeetingInfo} />
@@ -150,9 +155,9 @@ export default (
 				<Route path='/casemanage/caseinfo/:id/:page/:search' exact component={AdProjectInfo} />
 
 
-				<Route path='/typemange/page=:page/search=:search' exact component={TypeManage} />
-				<Route path='/typemange/page=:page/search=' exact component={() => <Redirect to='/typemange/page=1/search= ' />} />
-				<Route path='/typemange' exact component={() => <Redirect to='/typemange/page=1/search= ' />} />
+				<Route path='/typemange/:page/:search' exact component={TypeManage} />
+				<Route path='/typemange/:page' exact component={() => <Redirect to='/typemange/1/ ' />} />
+				<Route path='/typemange' exact component={() => <Redirect to='/typemange/1/ ' />} />
 
 
 

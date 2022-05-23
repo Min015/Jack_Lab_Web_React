@@ -46,7 +46,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			newRole: "",
 			password: "",
 			password2: "",
-			academic: " ",
+			page: "",
+			search: "",
+			academic: "",
 			now: {}
 		}
 
@@ -54,12 +56,25 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		componentDidMount = () => {
 			const { match } = this.props;
 			const { params } = match;
+			// let nowpage = "";
+			// let nowsearch = "";
+			// let academic = "";
+			// if (params.page !== undefined) {
+			// 	nowpage = params.page;
+			// }
+			// if (params.search !== undefined) {
+			// 	nowsearch = params.search;
+			// }
+			// if (params.academic !== undefined) {
+			// 	academic = params.academic;
+			// }
 			const nowpage = params.page;
 			const nowsearch = params.search;
 			const academic = params.academic;
 			this.setState({
 				page: nowpage,
 				search: nowsearch,
+				academic: academic,
 			})
 			const callback = (res) => {
 				this.setState({
@@ -91,15 +106,17 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				const { params } = match;
 				const nowpage = params.page;
 				const nowsearch = params.search;
+				const academic = params.academic;
 				this.setState({
 					page: nowpage,
 					search: nowsearch,
+					academic: academic,
 					maxpage: res.page,
 					pagearray: [],
 				})
 				this.handelGetPage(nowpage, res.page);
 			}
-			this.props.history.push(`/member/page=${page}/search=${search}/academic=${academic}`);
+			this.props.history.push(`/member/${page}/${search}/${academic}`);
 			this.props.GET_PrivateMember(page, search, academic, callback);
 		}
 		//新增
@@ -204,7 +221,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					array: [],
 				})
 				this.handelGoNextPage(1,);
-				this.props.history.push(`/member/page=1/search=${search}/academic=${academic}`);
+				this.props.history.push(`/member/1/${search}/${academic}`);
 			}
 			this.props.DELETE_Member(id, callback);
 		}
@@ -292,16 +309,25 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				})
 			}
 		}
-		//可以有空格
+		//不可以有空格
 		handleInputChange = event => {
 			const target = event.target;
 			let { value, id } = target;
-			if (value === "") {
-				this.setState({
-					[id]: " ",
-				});
+			if (id === 'search') {
+				value = value.trim();
+				if (value !== "") {
+					this.setState({
+						[id]: value,
+					});
+				}
+				else {
+					this.setState({
+						[id]: " ",
+					});
+				}
 			}
 			else {
+				value = value.trim();
 				this.setState({
 					[id]: value,
 				});
@@ -563,7 +589,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 												<option key={`role${index}`} value={item.Id}>{item.Name}</option>
 											)
 										})}
-
 									</select>
 								</div>
 								<div className='btn_block'>
@@ -649,7 +674,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										<div className="close_btn" onClick={() => this.drop_down('delO')} />
 									</div>
 								</h1>
-
 								<h2 className='message'>
 									是否要刪除成員<br />
 									「{now.Name}」
@@ -680,7 +704,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										<div className="close_btn" onClick={() => this.drop_down('delAll')} />
 									</div>
 								</h1>
-
 								<h2 className='message'>
 									是否要刪除「{array.length}」筆紀錄
 								</h2>
@@ -696,7 +719,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 						</div>
 					</div>
 				</BackLayout>
-
 			)
 		}
 	}
