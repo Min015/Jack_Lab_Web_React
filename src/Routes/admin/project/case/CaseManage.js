@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import BackLayout from '../../../../Components/Layout/back/BackLayout';
 import '../../style/mainstyle.scss';
 
-import { GET_Project, DELETE_Project,GET_ProjectTypeAll } from '../../../../Action/ProjectAction';
+import { GET_Project, DELETE_Project, GET_ProjectTypeAll } from '../../../../Action/ProjectAction';
 
 const mapStateToProps = state => {
 	const { projectReducer } = state;
@@ -15,7 +15,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		GET_Project: (page, search, callback) => dispatch(GET_Project(page, search, callback)),
+		GET_Project: (page, search, id, callback) => dispatch(GET_Project(page, search, id, callback)),
 		GET_ProjectTypeAll: () => dispatch(GET_ProjectTypeAll()),
 		DELETE_Project: (payload, callback) => dispatch(DELETE_Project(payload, callback)),
 	}
@@ -42,46 +42,74 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		//生命週期
 		componentDidMount = () => {
 			const { match } = this.props;
-      const { params } = match;
-      const nowpage = params.page;
-      const nowsearch = params.search;
-      this.setState({
-        page: nowpage,
-        search: nowsearch,
-      })
-      const callback = (res) => {
-        this.setState({
-          maxpage: res.page,
-        })
-        let pagearray = [];
-        for (let i = (Number(nowpage) - 2); i <= (Number(nowpage) + 2); i++) {
-          if (i > 0 && i <= Number(res.page)) {
-            pagearray.push(i)
-          }
-        }
-        this.setState({
-          pagearray
-        })
-      }
-			this.props.GET_Project(params.page, params.search, callback);
+			const { params } = match;
+			const nowpage = params.page;
+			const nowsearch = params.search;
+			const nowtype = params.ptype;
+			this.setState({
+				page: nowpage,
+				search: nowsearch,
+				ptype: nowtype,
+			})
+			const callback = (res) => {
+				this.setState({
+					maxpage: res.page,
+				})
+				console.log(nowpage);
+				this.handelGetPage(nowpage, res.page);
+			}
+			this.props.GET_Project(nowpage, nowsearch, nowtype, callback);
 			this.props.GET_ProjectTypeAll();
+		}
+		//取得頁面
+		handelGetPage = (nowpage, maxpage) => {
+			let pagearray = [];
+			for (let i = (Number(nowpage) - 2); i <= (Number(nowpage) + 2); i++) {
+				if (i > 0 && i <= Number(maxpage)) {
+					pagearray.push(i)
+				}
+			}
+			this.setState({
+				pagearray
+			})
+		}
+		//換頁
+		handelGoNextPage = (page, search = " ", ptype = " ") => {
+			const callback = (res) => {
+				const { match } = this.props;
+				const { params } = match;
+				const nowpage = params.page;
+				const nowsearch = params.search;
+				const nowtype = params.ptype;
+				this.setState({
+					page: nowpage,
+					search: nowsearch,
+					ptype: nowtype,
+					maxpage: res.page,
+					pagearray: [],
+				})
+				this.handelGetPage(nowpage, res.page);
+			}
+			this.props.history.push(`/casemanage/${page}/${search}/${ptype}`);
+			this.props.GET_Project(page, search, ptype, callback);
 		}
 		//刪除
 		Delete = (id) => {
+			const { search, ptype } = this.state;
 			const callback = () => {
 				const AllChange = document.getElementsByName('AllChange');
-        AllChange[0].checked = false;
-        const checkboxes = document.getElementsByName('Box');
-        for (let i = 0; i < checkboxes.length; i++) {
-          checkboxes[i].checked = false;
-        }
+				AllChange[0].checked = false;
+				const checkboxes = document.getElementsByName('Box');
+				for (let i = 0; i < checkboxes.length; i++) {
+					checkboxes[i].checked = false;
+				}
 				this.setState({
 					delO: false,
 					delAll: false,
 					array: [],
 				})
-				// this.props.GET_Project(1,);
-				// this.props.history.push(`/typemange/page=1/search= `);
+				this.props.GET_Project(1,);
+				this.props.history.push(`/casemanage/1/${search}/${ptype}`);
 			}
 			this.props.DELETE_Project(id, callback);
 		}
@@ -126,6 +154,21 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				},
 			})
 		}
+		//可以有空格
+		handleInputChange = event => {
+			const target = event.target;
+			let { value, id } = target;
+			if (value === "") {
+				this.setState({
+					[id]: " ",
+				});
+			}
+			else {
+				this.setState({
+					[id]: value,
+				});
+			}
+		}
 		//全選
 		handelAllChange = e => {
 			const checkboxes = document.getElementsByName('Box');
@@ -136,9 +179,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 		//單選
 		handelOnClick = e => {
-			const { ProjectTypeAll } = this.props;
+			const { Project } = this.props;
 			let array = this.state.array;
-			const num = ProjectTypeAll.length;
+			const num = Project.list.length;
 			const AllChange = document.getElementsByName('AllChange');
 			if (e.checked === true) {
 				if (!array.includes(e.value)) {
@@ -164,8 +207,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			console.log(array);
 		}
 		render() {
-			const { table_header, array, delO, delAll, now, pagearray, page, search, maxpage } = this.state;
-			const { Project,ProjectTypeAll } = this.props;
+			const { table_header, array, delO, delAll, now, pagearray, page, search, maxpage, ptype } = this.state;
+			const { Project, ProjectTypeAll } = this.props;
 			return (
 				<BackLayout>
 					<div className='bg'>
@@ -182,13 +225,18 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								</button>
 							</div>
 							<div className="searchform">
-								<select name="">
+								<select
+									id='ptype'
+									value={ptype}
+									onChange={this.handleInputChange.bind(this)}
+								>
+									<option value=" ">全部</option>
 									{(ProjectTypeAll === undefined || ProjectTypeAll.length === 0) ? "" : ProjectTypeAll.map((item, index) =>
 										<option key={`ptype${index}`} value={item.Id}>{item.Name}</option>
 									)}
 								</select>
-								<input type="text" placeholder="搜尋" />
-								<input type="submit" value="送出" className="searchBtn" />
+								<input type="text" placeholder="搜尋" id="search" value={search} onChange={this.handleInputChange.bind(this)} />
+								<input type="submit" value="送出" className="searchBtn" onClick={() => this.handelGoNextPage(1, search, ptype)} />
 							</div>
 						</div>
 						<table className="col-12 admin_table">
@@ -238,7 +286,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 												<td>{item.CreateTime.substr(0, 10)}</td>
 												<td>
 													<div className="action">
-														<Link to={`/casemanage/caseinfo/${item.Id}`} className="svg">
+														<Link to={`/casemanage/caseinfo/${item.Id}/1/ `} className="svg">
 															<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 																<path d="M11.0769 7.26923V7.96154C11.0769 8.05529 11.0427 8.13642 10.9742 8.20493C10.9056 8.27344 10.8245 8.30769 10.7308 8.30769H8.30769V10.7308C8.30769 10.8245 8.27344 10.9056 8.20493 10.9742C8.13642 11.0427 8.05529 11.0769 7.96154 11.0769H7.26923C7.17548 11.0769 7.09435 11.0427 7.02584 10.9742C6.95733 10.9056 6.92308 10.8245 6.92308 10.7308V8.30769H4.5C4.40625 8.30769 4.32512 8.27344 4.25661 8.20493C4.1881 8.13642 4.15385 8.05529 4.15385 7.96154V7.26923C4.15385 7.17548 4.1881 7.09435 4.25661 7.02584C4.32512 6.95733 4.40625 6.92308 4.5 6.92308H6.92308V4.5C6.92308 4.40625 6.95733 4.32512 7.02584 4.25661C7.09435 4.1881 7.17548 4.15385 7.26923 4.15385H7.96154C8.05529 4.15385 8.13642 4.1881 8.20493 4.25661C8.27344 4.32512 8.30769 4.40625 8.30769 4.5V6.92308H10.7308C10.8245 6.92308 10.9056 6.95733 10.9742 7.02584C11.0427 7.09435 11.0769 7.17548 11.0769 7.26923ZM12.4615 7.61539C12.4615 6.28125 11.9874 5.14002 11.0391 4.19171C10.0907 3.24339 8.94952 2.76923 7.61539 2.76923C6.28125 2.76923 5.14002 3.24339 4.19171 4.19171C3.24339 5.14002 2.76923 6.28125 2.76923 7.61539C2.76923 8.94952 3.24339 10.0907 4.19171 11.0391C5.14002 11.9874 6.28125 12.4615 7.61539 12.4615C8.94952 12.4615 10.0907 11.9874 11.0391 11.0391C11.9874 10.0907 12.4615 8.94952 12.4615 7.61539ZM18 16.6154C18 16.9976 17.8648 17.3239 17.5944 17.5944C17.3239 17.8648 16.9976 18 16.6154 18C16.226 18 15.9014 17.863 15.6418 17.5889L11.9315 13.8894C10.6406 14.7837 9.20192 15.2308 7.61539 15.2308C6.58413 15.2308 5.59796 15.0306 4.65685 14.6304C3.71575 14.2302 2.90445 13.6893 2.22296 13.0078C1.54147 12.3263 1.0006 11.515 0.600361 10.5739C0.20012 9.63281 0 8.64664 0 7.61539C0 6.58413 0.20012 5.59796 0.600361 4.65685C1.0006 3.71575 1.54147 2.90445 2.22296 2.22296C2.90445 1.54147 3.71575 1.0006 4.65685 0.600361C5.59796 0.20012 6.58413 0 7.61539 0C8.64664 0 9.63281 0.20012 10.5739 0.600361C11.515 1.0006 12.3263 1.54147 13.0078 2.22296C13.6893 2.90445 14.2302 3.71575 14.6304 4.65685C15.0306 5.59796 15.2308 6.58413 15.2308 7.61539C15.2308 9.20192 14.7837 10.6406 13.8894 11.9315L17.5998 15.6418C17.8666 15.9087 18 16.2332 18 16.6154Z" fill="#51718C" />
 															</svg>
@@ -268,24 +316,26 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 
 					{/* 分頁 */}
 					<div className={(pagearray === undefined) ? "none" : "active"}>
-						<div className='page'>
-							<button onClick={() => this.handelGoNextPage(1, search)} className='features'>
-								<svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M12.6006 17.9991L14.0005 16.499L6.59997 8.99955L13.9994 1.49902L12.5993 -0.000877613L3.59997 8.99976L12.6006 17.9991Z" fill="white" />
-									<rect x="2.00061" y="18" width="2" height="18" transform="rotate(179.996 2.00061 18)" fill="white" />
-								</svg>
-							</button>
-							<div className='page_group'>
-								{pagearray?.map((item) =>
-									(<div onClick={() => this.handelGoNextPage(item, search)} className={page === `${item}` ? 'features' : 'one_page'}>{item}</div>)
-								)}
+						<div className='center'>
+							<div className='page'>
+								<button onClick={() => this.handelGoNextPage(1, search)} className='one_page'>
+									<svg width="14" height="18" viewBox="0 0 14 18" fill="#51718C" xmlns="http://www.w3.org/2000/svg">
+										<path d="M12.6006 17.9991L14.0005 16.499L6.59997 8.99955L13.9994 1.49902L12.5993 -0.000877613L3.59997 8.99976L12.6006 17.9991Z" fill="#51718C" />
+										<rect x="2.00061" y="18" width="2" height="18" transform="rotate(179.996 2.00061 18)" fill="#51718C" />
+									</svg>
+								</button>
+								<div className='page_group'>
+									{pagearray?.map((item, index) =>
+										(<div key={`page${index}`} onClick={() => this.handelGoNextPage(item, search)} className={page === `${item}` ? 'features' : 'one_page'}>{item}</div>)
+									)}
+								</div>
+								<button onClick={() => this.handelGoNextPage(maxpage, search)} className='one_page'>
+									<svg width="14" height="18" viewBox="0 0 14 18" fill="#51718C" xmlns="http://www.w3.org/2000/svg">
+										<path d="M1.4 0L0 1.5L7.4 9L0 16.5L1.4 18L10.4 9L1.4 0Z" fill="#51718C" />
+										<rect x="12" width="2" height="18" fill="#51718C" />
+									</svg>
+								</button>
 							</div>
-							<button onClick={() => this.handelGoNextPage(maxpage, search)} className='features'>
-								<svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M1.4 0L0 1.5L7.4 9L0 16.5L1.4 18L10.4 9L1.4 0Z" fill="white" />
-									<rect x="12" width="2" height="18" fill="white" />
-								</svg>
-							</button>
 						</div>
 					</div>
 

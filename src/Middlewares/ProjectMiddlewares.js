@@ -116,7 +116,7 @@ const fetch = store => next => action => {
       break;
     case "GET_Project":
       _axios
-        .get(`/project/list?page=${action.page}&search=${action.search}`,)
+        .get(`/project/list?page=${action.page}&search=${action.search}&id=${action.id}`,)
         .then(response => {
           console.log(response);
           if (response.status === 200) {
@@ -156,6 +156,29 @@ const fetch = store => next => action => {
           }
           return next({
             type: 'SAVE_ProjectInfo',
+            payload: json,
+          });
+        });
+      break;
+    case "GET_ProjectRecord":
+      _axios
+        .get(`/project/record?id=${action.payload}&page=${action.page}&search=${action.search}`,)
+        .then(response => {
+          console.log(response);
+          if (response.status === 200) {
+            return response.data.data;
+          }
+        })
+        .catch(err => {
+          console.log(err.response.data);
+          throw new Error(err);
+        })
+        .then(json => {
+          if (action.callback) {
+            action.callback(json)
+          }
+          return next({
+            type: 'SAVE_ProjectRecord',
             payload: json,
           });
         });

@@ -11,6 +11,8 @@ export default (state = initialState, action) => {
       return { ...state, Project: action.payload };
     case "SAVE_ProjectInfo":
       return { ...state, ProjectInfo: action.payload };
+    case "SAVE_ProjectRecord":
+      return { ...state, ProjectRecord: action.payload };
     default:
       return state;
   }

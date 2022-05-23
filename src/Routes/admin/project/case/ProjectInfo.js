@@ -5,12 +5,13 @@ import BackLayout from '../../../../Components/Layout/back/BackLayout';
 import '../../../../Mixin/popup_window.scss';
 import '../../style/info.scss';
 
-import search from '../../style/img/searchButton.png';
+import searchbtn from '../../style/img/searchButton.png';
 
 import { GET_PublicMembers } from '../../../../Action/MemberAction';
 import {
 	GET_Project,
 	GET_ProjectInfo,
+	GET_ProjectRecord,
 	GET_ProjectTypeAll,
 	PUT_UpdateProject,
 	POST_AddProjectRecord,
@@ -20,11 +21,12 @@ import {
 } from '../../../../Action/ProjectAction';
 
 const mapStateToProps = state => {
-	console.log(state);
+	// console.log(state);
 	return {
 		PublicMemberList: state.memberReducer.PublicMemberList,
 		ProjectTypeAll: state.projectReducer.ProjectTypeAll,
 		ProjectInfo: state.projectReducer.ProjectInfo,
+		ProjectRecord: state.projectReducer.ProjectRecord,
 	}
 }
 
@@ -34,7 +36,8 @@ const mapDispatchToProps = dispatch => {
 		GET_ProjectTypeAll: () => dispatch(GET_ProjectTypeAll()),
 		GET_PublicMembers: () => dispatch(GET_PublicMembers()),
 		GET_ProjectInfo: (payload, callback) => dispatch(GET_ProjectInfo(payload, callback)),
-		PUT_UpdateProject: (payload) => dispatch(PUT_UpdateProject(payload)),
+		GET_ProjectRecord: (payload, page, search, callback) => dispatch(GET_ProjectRecord(payload, page, search, callback)),
+		PUT_UpdateProject: (payload, callback) => dispatch(PUT_UpdateProject(payload, callback)),
 		POST_AddProjectRecord: (payload, callback) => dispatch(POST_AddProjectRecord(payload, callback)),
 		GET_RecordFile: (payload) => dispatch(GET_RecordFile(payload)),
 		DELETE_ProjectRecord: (payload, callback) => dispatch(DELETE_ProjectRecord(payload, callback)),
@@ -73,8 +76,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		componentDidMount = async () => {
 			const { match } = this.props;
 			const { params } = match;
+			const nowid = params.id;
+			const nowpage = params.page;
+			const nowsearch = params.search;
 			this.setState({
-				Id: params.id,
+				Id: nowid,
+				page: nowpage,
+				search: nowsearch,
 			})
 			const callback = (res) => {
 				this.setState({
@@ -93,9 +101,47 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					Record: res.Record,
 				})
 			}
+			const callbackRecord = (res) => {
+				this.setState({
+					maxpage: res.page,
+				})
+				this.handelGetPage(nowpage, res.page);
+			}
+			this.props.GET_ProjectInfo(nowid, callback);
+			this.props.GET_ProjectRecord(nowid, nowpage, nowsearch, callbackRecord);
 			this.props.GET_ProjectTypeAll();
 			this.props.GET_PublicMembers();
-			this.props.GET_ProjectInfo(params.id, callback);
+		}
+		//取得頁面
+		handelGetPage = (nowpage, maxpage) => {
+			let pagearray = [];
+			for (let i = (Number(nowpage) - 2); i <= (Number(nowpage) + 2); i++) {
+				if (i > 0 && i <= Number(maxpage)) {
+					pagearray.push(i)
+				}
+			}
+			this.setState({
+				pagearray
+			})
+		}
+		//換頁
+		handelGoNextPage = (page, search = " ") => {
+			const { Id } = this.state;
+			const callback = (res) => {
+				const { match } = this.props;
+				const { params } = match;
+				const nowpage = params.page;
+				const nowsearch = params.search;
+				this.setState({
+					page: nowpage,
+					search: nowsearch,
+					maxpage: res.page,
+					pagearray: [],
+				})
+				this.handelGetPage(nowpage, res.page);
+			}
+			this.props.history.push(`/casemanage/caseinfo/${Id}/${page}/${search} `);
+			this.props.GET_ProjectRecord(Id, page, search, callback);
 		}
 		//修改專案
 		EditProject = () => {
@@ -111,7 +157,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					Member: addmember,
 				}
 				const callback = () => {
-					this.props.GET_Project();
 					this.setState({
 						title: "",
 						content: "",
@@ -129,7 +174,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 		//新增專案記錄
 		AddProjectRecord = () => {
-			const { upload, remark, Id } = this.state;
+			const { Id, page, search } = this.state;
+			const { upload, remark } = this.state;
 			if (upload.length === 0 || remark === "") {
 				alert("請輸入備註及選擇檔案");
 			}
@@ -139,6 +185,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				data.append('Remark', remark);
 				data.append('File', upload);
 				const callback = () => {
+					this.props.GET_ProjectRecord(Id, page, search);
 					this.setState({
 						add: false,
 						remark: "",
@@ -155,6 +202,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 		//更新專案記錄
 		UpdateProjectRecord = () => {
+			const { Id, page, search } = this.state;
 			const { upload, remark, nowRecord } = this.state;
 			let data = new FormData();
 			data.append('_method', 'PUT');
@@ -164,22 +212,34 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				data.append('File', upload[0]);
 			}
 			const callback = () => {
-				this.props.GET_Project();
 				this.setState({
-					add: false,
-					Title: "",
-					Publisher: "",
-					Time: "",
-					ISBN: "",
+					edit: false,
+					remark: "",
 					upload: {},
-					participate: [],
 				})
+				this.props.GET_ProjectRecord(Id, page, search);
 			}
-			this.props.POST_UpdateProjectRecord(data);
+			this.props.POST_UpdateProjectRecord(data, callback);
 		}
 		//刪除
 		Delete = (id) => {
-			this.props.DELETE_ProjectRecord(id);
+			const { Id, search } = this.state;
+			const callback = () => {
+				const AllChange = document.getElementsByName('AllChange');
+				AllChange[0].checked = false;
+				const checkboxes = document.getElementsByName('Box');
+				for (let i = 0; i < checkboxes.length; i++) {
+					checkboxes[i].checked = false;
+				}
+				this.setState({
+					delO: false,
+					delAll: false,
+					array: [],
+				})
+				this.handelGoNextPage(1,);
+				this.props.history.push(`/casemanage/caseinfo/${Id}/1/${search} `);
+			}
+			this.props.DELETE_ProjectRecord(id, callback);
 		}
 		//刪除多筆
 		handelDeleteAll = () => {
@@ -438,7 +498,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 
 		render() {
 			const { table_header, array, title, content, type, Creater_name, tag, participate, drop, long, disabled, Record, add, edit, delO, delAll, download, upload, remark, nowRecord } = this.state;
-			const { PublicMemberList, ProjectTypeAll } = this.props;
+			const { pagearray, page, search, maxpage } = this.state;
+			const { PublicMemberList, ProjectTypeAll, ProjectRecord } = this.props;
+			console.log(ProjectRecord);
+			console.log(Record);
+
 			return (
 				<BackLayout>
 					<div className='bg'>
@@ -446,6 +510,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							className="info_form"
 							onClick={this.handelMouseDown.bind(this)}
 						>
+							{/* 選擇專案類型 */}
 							<div className="inputbox">
 								<div className="set col-4">
 									<select
@@ -590,6 +655,25 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									<label className="label">輸入標籤</label>
 								</div>
 							</div>
+							{/* 按鈕 */}
+							<div id="work_col">
+								<button
+									className="col-1 form_submit"
+								>
+									<Link to={`/casemanage`}>
+										返回
+									</Link>
+								</button>
+								<button
+									className="col-1 form_submit"
+									onClick={this.EditProject}>
+									修改
+								</button>
+							</div>
+						</div>
+					</div>
+					<div className='margin_t30'>
+						<div className='bg'>
 							{/* 記錄表格 */}
 							<div className="inputbox">
 								<div className="set col-12">
@@ -603,10 +687,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 													批量刪除
 												</div>
 											</div>
-											<div action="" className="searchbar">
-												<input type="text" required placeholder="搜尋" />
+											<div className="searchbar">
+												<input type="text" placeholder="搜尋" id="search" value={search} onChange={this.handleInputChange.bind(this)} />
 												<div className="submit">
-													<input type="image" src={search} alt="送出" />
+													<input type="image" src={searchbtn} alt="送出" onClick={() => this.handelGoNextPage(1, search)} />
 												</div>
 											</div>
 										</div>
@@ -627,7 +711,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 												</tr>
 											</thead>
 											<tbody>
-												{Record === undefined ? "" : Record.map(
+												{(ProjectRecord === undefined || ProjectRecord.list.length === 0) ? "" : ProjectRecord.list.map(
 													(item, index) => {
 														return (
 															<tr key={`Record${index}`} className={array.includes(`${item.Id}`) ? "onchange" : ""}>
@@ -640,7 +724,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 																	/>
 
 																</td>
-																<td>{index + 1}</td>
+																<td>{((page - 1) * 10) + index + 1}</td>
 																<td>{item.Remark}</td>
 																<td>{item.CreateTime}</td>
 																<td>
@@ -688,20 +772,29 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									</div>
 								</div>
 							</div>
-							{/* 按鈕 */}
-							<div id="work_col">
-								<button
-									className="col-1 form_submit"
-								>
-									<Link to={`/casemanage`}>
-										返回
-									</Link>
-								</button>
-								<button
-									className="col-1 form_submit"
-									onClick={this.EditProject}>
-									修改
-								</button>
+						</div>
+						{/* 分頁 */}
+						<div className={(pagearray === undefined) ? "none" : "active"}>
+							<div className='center'>
+								<div className='page'>
+									<button onClick={() => this.handelGoNextPage(1, search)} className='one_page'>
+										<svg width="14" height="18" viewBox="0 0 14 18" fill="#51718C" xmlns="http://www.w3.org/2000/svg">
+											<path d="M12.6006 17.9991L14.0005 16.499L6.59997 8.99955L13.9994 1.49902L12.5993 -0.000877613L3.59997 8.99976L12.6006 17.9991Z" fill="#51718C" />
+											<rect x="2.00061" y="18" width="2" height="18" transform="rotate(179.996 2.00061 18)" fill="#51718C" />
+										</svg>
+									</button>
+									<div className='page_group'>
+										{pagearray?.map((item, index) =>
+											(<div key={`page${index}`} onClick={() => this.handelGoNextPage(item, search)} className={page === `${item}` ? 'features' : 'one_page'}>{item}</div>)
+										)}
+									</div>
+									<button onClick={() => this.handelGoNextPage(maxpage, search)} className='one_page'>
+										<svg width="14" height="18" viewBox="0 0 14 18" fill="#51718C" xmlns="http://www.w3.org/2000/svg">
+											<path d="M1.4 0L0 1.5L7.4 9L0 16.5L1.4 18L10.4 9L1.4 0Z" fill="#51718C" />
+											<rect x="12" width="2" height="18" fill="#51718C" />
+										</svg>
+									</button>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -809,9 +902,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								</div>
 								<div className='col-12 enter'>
 									<textarea
-										value={remark.value}
+										id='remark'
+										value={remark}
 										onChange={this.handleInputChange.bind(this)}
-										name="remark"
 										className='long_text' />
 									<label className="label">備註<div className='error_msg'>{remark.errormsg}</div></label>
 								</div>
