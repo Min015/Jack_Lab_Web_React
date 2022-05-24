@@ -230,6 +230,10 @@ select {
     border: none;
 }
 
+textarea {
+    resize: none
+}
+
 ::placeholder {
     color: #797979;
 }
