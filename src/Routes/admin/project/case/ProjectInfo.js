@@ -97,7 +97,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					type: res.Type_id,
 					Creater_name: res.Creater_name,
 					tag: res.Tag.map(item => item.Name),
-					Record: res.Record,
 				})
 			}
 			const callbackRecord = (res) => {
@@ -284,6 +283,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				})
 			}
 		}
+		//取得現在Item
 		handelSetNow = (e) => {
 			const { id } = e.target;
 			const info = id.split(",")
@@ -407,7 +407,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				upload: array[0]
 			})
 		}
-
 		//下拉式選人判斷
 		handleGrop_down = () => {
 			this.setState({
@@ -425,7 +424,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				long
 			})
 		}
-		//新增標籤
 		//新增標籤
 		heandleAddTag = (e) => {
 			const target = e.target;
@@ -506,7 +504,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 
 		render() {
-			const { table_header, array, title, content, type, Creater_name, tag, participate, drop, long, disabled, Record, add, edit, delO, delAll, download, upload, remark, nowRecord } = this.state;
+			const { table_header, array, title, content, type, Creater_name, tag, participate, drop, long, disabled, add, edit, delO, delAll, download, upload, remark, nowRecord } = this.state;
 			const { pagearray, page, search, maxpage } = this.state;
 			const { PublicMemberList, ProjectTypeAll, ProjectRecord } = this.props;
 			return (
@@ -803,6 +801,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							</div>
 						</div>
 					</div>
+					{/* 新增專案記錄 */}
 					<div
 						className={add ? "popup_background active" : "popup_background"}
 						onClick={this.handelMouseDown}
@@ -847,6 +846,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							</div>
 						</div>
 					</div>
+					{/* 下載記錄檔案 */}
 					<div
 						className={download ? "popup_background active" : "popup_background"}
 						onClick={this.handelMouseDown}
@@ -887,6 +887,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							</div>
 						</div>
 					</div>
+					{/* 修改專案記錄 */}
 					<div
 						className={edit ? "popup_background active" : "popup_background"}
 						onClick={this.handelMouseDown}
@@ -938,6 +939,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							</div>
 						</div>
 					</div>
+					{/* 刪除單筆 */}
 					<div
 						className={delO ? "popup_background active" : "popup_background"}
 						onClick={this.handelMouseDown}
@@ -952,7 +954,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										<div className="close_btn" onClick={() => this.drop_down('delO')} />
 									</div>
 								</h1>
-
 								<h2 className='message'>
 									是否要刪除專案記錄<br />
 									「{nowRecord === undefined ? "" : nowRecord.File.Name}」
@@ -968,6 +969,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							</div>
 						</div>
 					</div>
+					{/* 刪除多筆 */}
 					<div
 						className={delAll ? "popup_background active" : "popup_background"}
 						onClick={this.handelMouseDown}
@@ -982,7 +984,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										<div className="close_btn" onClick={() => this.drop_down('delAll')} />
 									</div>
 								</h1>
-
 								<h2 className='message'>
 									是否要刪除「{array.length}」筆紀錄
 								</h2>

@@ -4,11 +4,17 @@ import '../main_category/add.scss';
 import MemberLayout from '../../../Components/Layout/front/member/MemberLayout';
 
 import { GET_PublicMembers } from '../../../Action/MemberAction';
-import { GET_Project, GET_ProjectTypeAll, POST_AddProject } from '../../../Action/ProjectAction';
+import {
+	GET_Project,
+	GET_ProjectInfo,
+	GET_ProjectTypeAll,
+	PUT_UpdateProject,
+} from '../../../Action/ProjectAction';
 const mapStateToProps = state => {
 	return {
 		PublicMemberList: state.memberReducer.PublicMemberList,
 		ProjectTypeAll: state.projectReducer.ProjectTypeAll,
+		ProjectInfo: state.projectReducer.ProjectInfo,
 	}
 }
 
@@ -17,12 +23,13 @@ const mapDispatchToProps = dispatch => {
 		GET_Project: () => dispatch(GET_Project()),
 		GET_ProjectTypeAll: () => dispatch(GET_ProjectTypeAll()),
 		GET_PublicMembers: () => dispatch(GET_PublicMembers()),
-		POST_AddProject: (payload, callback) => dispatch(POST_AddProject(payload, callback)),
+		GET_ProjectInfo: (payload, callback) => dispatch(GET_ProjectInfo(payload, callback)),
+		PUT_UpdateProject: (payload, callback) => dispatch(PUT_UpdateProject(payload, callback)),
 	}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(
-	class AddProject extends Component {
+	class UpdateProject extends Component {
 		state = {
 			participate: [],//已選擇
 			long: 0,//一個tag的長度
@@ -38,15 +45,39 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 		//載入所有人員名單
 		componentDidMount = async () => {
-			this.props.GET_PublicMembers();
+			console.log(this.props);
+			const { match } = this.props;
+			const { params } = match;
+			const nowid = params.id;
+			this.setState({
+				Id: nowid,
+			})
+			const callback = (res) => {
+				this.setState({
+					OldData: res,
+					title: res.Name,
+					content: res.Description,
+					participate: res.Member.map((item) => {
+						return {
+							account: item.Account,
+							name: item.Name
+						};
+					}),
+					type: res.Type_id,
+					tag: res.Tag.map(item => item.Name),
+				})
+			}
+			this.props.GET_ProjectInfo(nowid, callback);
 			this.props.GET_ProjectTypeAll();
+			this.props.GET_PublicMembers();
 		}
-		//送出
-		Submit = async () => {
-			const { title, content, participate, tag, type } = this.state;
+		//修改專案
+		EditProject = () => {
+			const { title, content, participate, tag, type, Id } = this.state;
 			if (title !== "" && content !== "" && type !== "" && participate.length !== 0) {
 				const addmember = participate?.map((item) => { return (item.account) });
 				const payload = {
+					Id: Id,
 					Name: title,
 					Description: content,
 					Proj_type: type,
@@ -54,24 +85,21 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					Member: addmember,
 				}
 				const callback = () => {
-					this.props.GET_Project();
 					this.setState({
-						add: false,
 						title: "",
 						content: "",
-						type: "1",
+						type: "",
 						tag: [],
 						participate: [],
 					})
-					this.props.history.push("/project");
+					this.props.history.push(`/project/projectinfo/${Id}/1/ `);
 				}
-				this.props.POST_AddProject(payload, callback);
+				this.props.PUT_UpdateProject(payload, callback);
 			}
 			else {
 				alert("您有必填欄位尚未填寫，請確認");
 			}
 		}
-
 		//不可以有空格
 		handleInputChange = event => {
 			const target = event.target;
@@ -113,7 +141,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				})
 			}
 		}
-
 		//下拉式選人判斷
 		drop_down = (e) => {
 			if (e === 'drop') {
@@ -193,6 +220,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		render() {
 			const { title, content, tag, participate, long, disabled, drop, type } = this.state;
 			const { PublicMemberList, ProjectTypeAll } = this.props;
+			console.log(this.props);
 			return (
 				<div onClick={this.handelMouseDown.bind(this)}>
 					<MemberLayout>
@@ -341,7 +369,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							<div className="inputbox">
 								<button
 									className="col-1 form_submit"
-									onClick={this.Submit}
+									onClick={this.EditProject}
 								>
 									送出
 								</button>

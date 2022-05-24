@@ -91,7 +91,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
       });
     }
     //選參與人
-    handelOnClick = e => {
+    handelSelectMember = e => {
       let participate = this.state.participate;
       const account = e.id;
       const name = e.value;
@@ -202,6 +202,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
               className="info_form"
               onClick={this.handelMouseDown.bind(this)}
             >
+              {/* 選擇專案類型 */}
               <div className="inputbox">
                 <div className="set col-4">
                   <select
@@ -257,7 +258,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                 <div className={drop === true ? "set col-12 focus" : "set col-12"}>
                   <div
                     className='choose input'
-                    onClick={this.handleGrop_down}
+                    onClick={() => this.drop_down('drop')}
                   >
                     {participate.length === 0 ? "參與人員" : ""}
                     {participate.length === 0 ? [] : participate.map((item, index) =>
@@ -272,7 +273,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                               id={item.account}
                               value={item.name}
                               checked
-                              onChange={(e) => { this.handelOnClick(e.target) }}
+                              onChange={(e) => { this.handelSelectMember(e.target) }}
                             />
                             <span>
                               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -298,7 +299,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                               id={item.Account}
                               value={item.Name}
                               className='choose'
-                              onChange={(e) => { this.handelOnClick(e.target) }}
+                              onChange={(e) => { this.handelSelectMember(e.target) }}
                             />
                             <label htmlFor={item.Account} className='choose'>{item.Name}</label>
                           </div>

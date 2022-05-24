@@ -3,12 +3,18 @@ import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 
 import GameList from './front_desk/game/GameList';
 import AddGame from './front_desk/game/AddGame';
+import GameInfo from './front_desk/game/info/GameInfo';
+
 import LabProject from './front_desk/project/LabProject';
 import AddProject from './front_desk/project/AddProject';
+import ProjectInfo from './front_desk/project/info/ProjectInfo';
+import UpdateProject from './front_desk/project/UpdateProject';
+
 import Meeting from './front_desk/meeting/Meeting';
 import AddMeeting from './front_desk/meeting/AddMeeting';
-import ProjectInfo from './front_desk/project/info/ProjectInfo';
 import MeetingInfo from './front_desk/meeting/info/MeetingInfo';
+import UpdateMeeting from './front_desk/meeting/UpdateMeeting';
+
 import SetInfo from './front_desk/setInfo/SetInfo';
 
 import AdminAlbum from './admin/index/album/AdminAlbum';
@@ -39,8 +45,6 @@ import Index from './guest/index/Index';
 
 import Student from './guest/lab_member/Student';
 import NoRoute from '../Routes/Notfound/NoRoute';
-import UpdateMeeting from './front_desk/meeting/UpdateMeeting';
-import GameInfo from './front_desk/game/info/GameInfo';
 
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
@@ -52,6 +56,7 @@ import SendfromDataMiddlewares from '../Middlewares/SendfromDataMiddlewares';
 import ProjectMiddlewares from '../Middlewares/ProjectMiddlewares';
 import GuestindexMiddlewares from '../Middlewares/GuestindexMiddlewares';
 import IntroduceMiddlewares from '../Middlewares/IntroduceMiddlewares'
+import { Router } from 'react-router-dom';
 
 
 const Meetingmiddlewares = [MeetingMiddlewares, thunk];
@@ -86,8 +91,8 @@ export default (
 				<Route path='/game/gameinfo/:id' exact component={GameInfo} />
 				<Route path='/game/addgame' exact component={AddGame} />
 
+				<Route path='/project/updateproject/:id' exact component={UpdateProject}/>
 				<Route path='/project/:page/:search/:ptype' exact component={LabProject} />
-				
 				<Route path='/project/addproject' exact component={AddProject} />
 				<Route path='/project/projectinfo/:id/:page/:search' exact component={ProjectInfo} />
 				<Route path='/project' exact component={() => <Redirect to='/project/1/ / ' />} />
