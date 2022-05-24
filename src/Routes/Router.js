@@ -90,10 +90,13 @@ export default (
 				<Route path='/project/addproject' exact component={AddProject} />
 				<Route path='/project/projectinfo' exact component={ProjectInfo} />
 
-				<Route path='/meeting' exact component={Meeting} />
-				<Route path='/meeting/meetinginfo/:id' exact component={MeetingInfo} />
+
 				<Route path='/meeting/updatemeeting/:id' exact component={UpdateMeeting} />
+				<Route path='/meeting/meetinginfo/:id' exact component={MeetingInfo} />
+				<Route path='/meeting/:page/:search' exact component={Meeting} />
 				<Route path='/meeting/addmeeting' exact component={AddMeeting} />
+				<Route path='/meeting' exact component={() => <Redirect to='/meeting/1/ ' />} />
+
 
 				<Route path='/setinfo' exact component={SetInfo} />
 

@@ -7,10 +7,11 @@ import MemberLayout from '../../../Components/Layout/front/member/MemberLayout';
 import '../main_category/category.scss';
 
 import CreateTable from './CreateTable';
-import{GET_Meeting} from'../../../Action/MeetingAction';
+import { GET_Meeting, DELETE_Meeting } from '../../../Action/MeetingAction';
 
 
 const mapStateToProps = state => {
+	console.log(state);
 	const { MeetingList } = state.meetingReducer;
 	return {
 		MeetingList
@@ -19,17 +20,13 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		GET_Meeting: () => dispatch(GET_Meeting())
+		GET_Meeting: (page, search, callback) => dispatch(GET_Meeting(page, search, callback)),
+		DELETE_Meeting: (payload, callback) => dispatch(DELETE_Meeting(payload, callback)),
 	}
 }
-
 export default connect(mapStateToProps, mapDispatchToProps)(
 	class Meeting extends Component {
 		state = {
-			all_data: 101,//總資料筆數
-			now_page: 1,//現在頁面
-			all_page: 0,
-			page: [],
 			table_header: [
 				"會議主題",
 				"會議日期",
@@ -37,60 +34,101 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				"記錄者",
 				"相關標籤",
 			],
-			year: ["2022", "2021", "2020", "2019", "2018", "2017"],
 		}
 		//生命週期
 		componentDidMount = async () => {
-			//分頁
-			// let { now_page, all_data, page } = this.state;
-			// let all_page = 0;
-			// if (all_data % 10 === 0) {
-			//     all_page = all_data / 10;
-			// }
-			// else {
-			//     all_page = (all_data - all_data % 10) / 10 + 1;
-			// }
-			// this.setState({
-			//     all_page
-			// })
-			// console.log(`總頁數有${all_page}`);
-			// for (let i = now_page - 2; i <= now_page + 2; i++) {
-			//     if (i > 0 && i <= all_page) {
-			//         page.push(i);
-			//     }
-			// }
-			// try {
-			//     const res = await GET_Meeting();
-			//     this.setState({
-			//         data: res.data.data,
-			//     });
-			// } catch (err) {
-			//     alert(err.response.data.message);
-			//     window.location.replace('http://localhost:3000/index');
-			// }
-			this.props.GET_Meeting();
+			const { match } = this.props;
+			const { params } = match;
+			console.log(params);
+			const nowpage = params.page;
+			const nowsearch = params.search;
+			this.setState({
+				page: nowpage,
+				search: nowsearch,
+			})
+			const callback = (res) => {
+				this.setState({
+					maxpage: res.page,
+				})
+				this.handelGetPage(nowpage, res.page);
+			}
+			this.props.GET_Meeting(nowpage, nowsearch, callback);
 		}
-
-		//func
+		//取得頁面
+		handelGetPage = (nowpage, maxpage) => {
+			let pagearray = [];
+			for (let i = (Number(nowpage) - 2); i <= (Number(nowpage) + 2); i++) {
+				if (i > 0 && i <= Number(maxpage)) {
+					pagearray.push(i)
+				}
+			}
+			this.setState({
+				pagearray
+			})
+		}
+		//換頁
+		handelGoNextPage = (page, search = " ") => {
+			const callback = (res) => {
+				const { match } = this.props;
+				const { params } = match;
+				const nowpage = params.page;
+				const nowsearch = params.search;
+				this.setState({
+					page: nowpage,
+					search: nowsearch,
+					maxpage: res.page,
+					pagearray: [],
+				})
+				this.handelGetPage(nowpage, res.page);
+			}
+			this.props.history.push(`/meeting/${page}/${search}`);
+			this.props.GET_Meeting(page, search, callback);
+		}
+		//不可以有空格
+		handleInputChange = event => {
+			const target = event.target;
+			let { value, id } = target;
+			if (id === 'search') {
+				value = value.trim();
+				if (value !== "") {
+					this.setState({
+						[id]: value,
+					});
+				}
+				else {
+					this.setState({
+						[id]: " ",
+					});
+				}
+			}
+			else {
+				value = value.trim();
+				this.setState({
+					[id]: value,
+				});
+			}
+		}
 
 
 		render() {
-			const { table_header, year, page} = this.state;
+			const { table_header } = this.state;
 			const { MeetingList } = this.props;
+			const { pagearray, page, search, maxpage } = this.state;
+			console.log(MeetingList);
 			return (
 				<div id='fornt_main'>
 					<MemberLayout>
 						<div className="works_area">
 							<div className="select_list">
-								<select name="year" required className="select">
+								{/* <select name="year" required className="select">
 									{year.map((item, index) => {
 										return (
 											<option key={index} value={item}>{item}</option>
 										)
 									})}
-								</select>
-								<input type="text" placeholder="輸入搜尋值" className="search" />
-								<input type="submit" value="送出" className="submit" />
+								</select> */}
+								<input type="text" placeholder="輸入搜尋值" className="search" id="search" value={search} onChange={this.handleInputChange.bind(this)} />
+								<input type="submit" value="送出" className="submit" onClick={() => this.handelGoNextPage(1, search)} />
 							</div>
 							<div className="search_add">
 								<div className="add">
@@ -104,23 +142,30 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							</div>
 						</div>
 						<div className="reaults_area">
-							<CreateTable table_header={table_header} table_content={MeetingList} />
+							<CreateTable table_header={table_header} table_content={((MeetingList === undefined || MeetingList.length === 0) ? [] : MeetingList.list)} />
 						</div>
-						<div className='page'>
-							<div className='one_page'>
-								<svg width="11" height="18" viewBox="0 0 11 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M0 9L9 18L10.4 16.5L3 9L10.4 1.5L9 0L0 9Z" fill="white" />
-								</svg>
-							</div>
-							<div className='page_group'>
-								{page.map((item, index) =>
-									(<a key={index}><div className='one_page'>{item}</div></a>)
-								)}
-							</div>
-							<div className='one_page'>
-								<svg width="11" height="18" viewBox="0 0 11 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M1.4 0L0 1.5L7.4 9L0 16.5L1.4 18L10.4 9L1.4 0Z" fill="white" />
-								</svg>
+						{/* 分頁 */}
+						<div className={(pagearray === undefined) ? "none" : "active"}>
+							<div className='center'>
+								<div className='page'>
+									<button onClick={() => this.handelGoNextPage(1, search)} className='one_page'>
+										<svg width="14" height="18" viewBox="0 0 14 18" fill="#ffffff" xmlns="http://www.w3.org/2000/svg">
+											<path d="M12.6006 17.9991L14.0005 16.499L6.59997 8.99955L13.9994 1.49902L12.5993 -0.000877613L3.59997 8.99976L12.6006 17.9991Z" fill="#ffffff" />
+											<rect x="2.00061" y="18" width="2" height="18" transform="rotate(179.996 2.00061 18)" fill="#ffffff" />
+										</svg>
+									</button>
+									<div className='page_group'>
+										{pagearray?.map((item, index) =>
+											(<div key={`page${index}`} onClick={() => this.handelGoNextPage(item, search)} className={page === `${item}` ? 'features' : 'one_page'}>{item}</div>)
+										)}
+									</div>
+									<button onClick={() => this.handelGoNextPage(maxpage, search)} className='one_page'>
+										<svg width="14" height="18" viewBox="0 0 14 18" fill="#ffffff" xmlns="http://www.w3.org/2000/svg">
+											<path d="M1.4 0L0 1.5L7.4 9L0 16.5L1.4 18L10.4 9L1.4 0Z" fill="#ffffff" />
+											<rect x="12" width="2" height="18" fill="#ffffff" />
+										</svg>
+									</button>
+								</div>
 							</div>
 						</div>
 					</MemberLayout>

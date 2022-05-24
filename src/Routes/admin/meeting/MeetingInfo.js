@@ -353,7 +353,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									<label className="label">輸入會議時間*</label>
 								</div>
 								<div className="set col-4">
-									<input type="text"
+									<input
+										type="text"
 										name="place"
 										placeholder="會議地點"
 										required

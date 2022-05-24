@@ -5,6 +5,7 @@ import BackLayout from '../../../Components/Layout/back/BackLayout';
 import '../style/info.scss';
 import { GET_PublicMembers } from '../../../Action/MemberAction';
 import { POST_AddMeeting, GET_Meeting } from '../../../Action/MeetingAction';
+
 const mapStateToProps = state => {
 	const { memberReducer } = state;
 	return (

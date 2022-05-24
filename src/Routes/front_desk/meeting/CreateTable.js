@@ -13,6 +13,7 @@ export default class CreateTable extends Component {
     }
     render() {
         const { table_header, table_content } = this.props;
+        console.log(table_content)
         let style;
         return (
             <table>
@@ -22,7 +23,7 @@ export default class CreateTable extends Component {
                     </tr>
                 </thead>
                 <tbody>
-                    {table_content?.map(
+                    {table_content === undefined ? [] : table_content.map(
                         (item, index) => {
                             style = this.handleSetStyle(index);
                             return (
@@ -38,11 +39,11 @@ export default class CreateTable extends Component {
                                             </svg>
                                         </Link>
                                     </td>
-                                    <td>{item.Time.substr(0,10)}</td>
+                                    <td>{item.Time.substr(0, 10)}</td>
                                     <td>{item.Place}</td>
                                     <td>{item.Name}</td>
                                     <td>
-                                        {item.Tag===undefined?[]:item.Tag.map((item, index) => {
+                                        {item.Tag === undefined ? [] : item.Tag.map((item, index) => {
                                             return (<span className='table_tag' key={`tag${index}`}>{`${item.Name}`} </span>)
                                         })}
                                     </td>
