@@ -13,7 +13,6 @@ export default class CreateTable extends Component {
     }
     render() {
         const { table_header, table_content } = this.props;
-        console.log(table_content)
         let style;
         return (
             <table>

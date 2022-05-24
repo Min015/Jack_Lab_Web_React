@@ -41,27 +41,6 @@ export default class GameList extends Component {
         game_type: ["選擇類型", "資訊應用服務創新大賽", "黑克松"],
     }
 
-    //生命週期
-    componentDidMount = async () => {
-        let { now_page, all_data, page } = this.state;
-        let all_page = 0;
-        if (all_data % 10 === 0) {
-            all_page = all_data / 10;
-        }
-        else {
-            all_page = (all_data - all_data % 10) / 10 + 1;
-        }
-        this.setState({
-            all_page
-        })
-        console.log(`總頁數有${all_page}`);
-        for (let i = now_page - 2; i <= now_page + 2; i++) {
-            if (i > 0 && i <= all_page) {
-                page.push(i);
-            }
-        }
-    }
-    //func
 
     render() {
         const { object, table_header, year, game_type, page } = this.state;

@@ -11,7 +11,6 @@ import { GET_Meeting, DELETE_Meeting } from '../../../Action/MeetingAction';
 
 
 const mapStateToProps = state => {
-	console.log(state);
 	const { MeetingList } = state.meetingReducer;
 	return {
 		MeetingList
@@ -39,7 +38,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		componentDidMount = async () => {
 			const { match } = this.props;
 			const { params } = match;
-			console.log(params);
 			const nowpage = params.page;
 			const nowsearch = params.search;
 			this.setState({
@@ -114,7 +112,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			const { table_header } = this.state;
 			const { MeetingList } = this.props;
 			const { pagearray, page, search, maxpage } = this.state;
-			console.log(MeetingList);
 			return (
 				<div id='fornt_main'>
 					<MemberLayout>

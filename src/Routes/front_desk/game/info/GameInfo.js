@@ -9,44 +9,6 @@ export default class GameInfo extends Component {
         data: [],
         drop: false,
     }
-    //生命週期
-    // componentDidMount = async () => {
-    //     const { match } = this.props;
-    //     const { params } = match;
-    //     this.setState({
-    //         Id: params.id,
-    //     })
-    //     try {
-    //         const res = await GET_MeetingInfo(params.id);
-    //         this.setState({ data: res.data.data });
-    //         // console.log(this.state.data);
-    //     } catch (err) {
-    //         console.log(err);
-    //     }
-    // }
-
-    //func
-    // Download = async (filename) => {
-    //     try {
-    //         let url = "http://localhost";
-    //         const res = await GET_download(filename);
-    //         // return res;
-    //         url += res.config.url;
-    //         window.open(url);
-    //     } catch (err) {
-    //         console.log(err);
-    //     }
-    // }
-    // Delete = async (id) => {
-    //     try {
-    //         const res = await DELETE_Meeting(id);
-    //         console.log(res);
-    //         window.location.replace('http://localhost:3000/meeting')
-    //     } catch (err) {
-    //         console.log(err);
-    //     }
-    // }
-
     handelMouseDown = (e) => {
         if (e.target.className === "window") {
             this.setState({

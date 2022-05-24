@@ -45,7 +45,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 		//載入所有人員名單
 		componentDidMount = async () => {
-			console.log(this.props);
 			const { match } = this.props;
 			const { params } = match;
 			const nowid = params.id;
@@ -220,7 +219,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		render() {
 			const { title, content, tag, participate, long, disabled, drop, type } = this.state;
 			const { PublicMemberList, ProjectTypeAll } = this.props;
-			console.log(this.props);
 			return (
 				<div onClick={this.handelMouseDown.bind(this)}>
 					<MemberLayout>

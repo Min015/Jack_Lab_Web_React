@@ -39,7 +39,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				Id: params.id,
 			})
 			const callback = (res) => {
-				console.log(42, res);
 				this.setState({
 					meetinginfo: res,
 				})
@@ -76,7 +75,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		render() {
 			const { drop } = this.state;
 			const { MeetingInfo } = this.props;
-			console.log(MeetingInfo);
 			return (
 				<div id='meeting_info'>
 					<MemberLayout>

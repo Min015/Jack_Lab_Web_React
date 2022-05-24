@@ -11,9 +11,7 @@ export default class BooksList extends Component {
         return (
             <div className='booklist'>
                 {books.map((item,index) => {
-                    // console.log(item);
                     const photo =item.book_photo;
-                    // console.log(photo);
                     return (
                         <div key={index} div className='col-3 book' >
                             <img src={book1} />
