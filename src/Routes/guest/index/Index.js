@@ -77,7 +77,7 @@ export default class Index extends Component {
                     <Carousel/>
                     <div className="contentin">
                         <div id='GuestIndex'>
-                            <div className='block'>
+                            {/* <div className='block'>
                                 <div className='index_title'>榮譽榜</div>
                                 <div className="works_area">
                                     <form action="">
@@ -101,7 +101,7 @@ export default class Index extends Component {
                                 <div className="reaults_area">
                                     <CreateTable table_header={table_header} table_content={object} />
                                 </div>
-                            </div>
+                            </div> */}
                             <div className='block'>
                                 <div className='index_title'>出版品</div>
                                 <Booklist books={books}/>

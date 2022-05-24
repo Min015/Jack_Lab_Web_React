@@ -116,9 +116,9 @@ export default class SetInfo extends Component {
                             </div>
                         </div>
                     </div>
-                    <div className="reaults_area">
+                    {/* <div className="reaults_area">
                         <CreateTable table_header={table_header} table_content={object} />
-                    </div>
+                    </div> */}
                     <div
                         className={drop ? "popup_background active" : "popup_background"}
                         onClick={this.handelMouseDown}
