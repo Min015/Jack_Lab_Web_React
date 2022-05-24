@@ -86,9 +86,12 @@ export default (
 				<Route path='/game/gameinfo/:id' exact component={GameInfo} />
 				<Route path='/game/addgame' exact component={AddGame} />
 
-				<Route path='/project' exact component={LabProject} />
+				<Route path='/project/:page/:search/:ptype' exact component={LabProject} />
+				
 				<Route path='/project/addproject' exact component={AddProject} />
-				<Route path='/project/projectinfo' exact component={ProjectInfo} />
+				<Route path='/project/projectinfo/:id/:page/:search' exact component={ProjectInfo} />
+				<Route path='/project' exact component={() => <Redirect to='/project/1/ / ' />} />
+				<Route path='/project/:page/:search/' exact component={() => <Redirect to='/project/1/ / ' />} />
 
 
 				<Route path='/meeting/updatemeeting/:id' exact component={UpdateMeeting} />

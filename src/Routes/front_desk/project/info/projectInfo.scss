@@ -36,7 +36,7 @@
                     border-radius   : 30px;
                     padding         : 4px 8px;
                     margin          : 2.5px;
-
+                    white-space: nowrap;
                     &:hover {
                         cursor: pointer;
                     }
@@ -88,6 +88,7 @@
     .project_content {
         margin: 30px 0px;
         height: 270px;
+        white-space: pre-line;
     }
 
     .something_content {
@@ -97,6 +98,7 @@
         overflow-y      : auto;
         @include border-set($form_border);
         @extend %every_content;
+        white-space: pre-line;
     }
 
     .reaults_area {

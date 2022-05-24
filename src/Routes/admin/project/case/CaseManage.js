@@ -4,7 +4,10 @@ import { Link } from 'react-router-dom';
 import BackLayout from '../../../../Components/Layout/back/BackLayout';
 import '../../style/mainstyle.scss';
 
-import { GET_Project, DELETE_Project, GET_ProjectTypeAll } from '../../../../Action/ProjectAction';
+import { 
+	GET_Project, 
+	DELETE_Project, 
+	GET_ProjectTypeAll } from '../../../../Action/ProjectAction';
 
 const mapStateToProps = state => {
 	const { projectReducer } = state;
