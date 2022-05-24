@@ -315,7 +315,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 						<div className="work">
 							<div className="edit_button">
 								<div className="work_btn add_btn" onClick={() => this.drop_down('add')}>
-									新增相片
+									新增輪播圖
 								</div>
 								<button
 									disabled={array.length === 0 ? true : false}
