@@ -85,12 +85,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					</Link>
 					<nav className="nav">
 						<ul className="header_ul">
-							<Link to="/setinfo">
+							{/* <Link to="/setinfo">
 								<li>去前台</li>
 							</Link>
 							<Link to="/adminalbum">
 								<li>去後台</li>
-							</Link>
+							</Link> */}
 							<div
 								to="/student"
 								className={isActive => (!isActive ? " nowP" : "")}

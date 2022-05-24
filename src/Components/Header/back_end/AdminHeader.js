@@ -33,12 +33,12 @@ export default class AdminHeader extends Component {
                         <img src={logo} />
                     </Link>
                     <nav>
-                        <div className="logout">
+                        {/* <div className="logout">
                             <Link to='/index'>去訪客</Link>
                         </div>
                         <div className="logout">
                             <Link to='/setinfo'>去前台</Link>
-                        </div>
+                        </div> */}
                         <div className="logout">
                             <p>
                                 <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
