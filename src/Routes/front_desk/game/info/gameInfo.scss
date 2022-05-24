@@ -101,7 +101,7 @@
             }
             .something_content {
                 background-color: $form_maincolor;
-                color           : $font_maincolor;
+                color           : $header_background;
                 padding         : 10px;
                 overflow-y      : auto;
                 @include border-set($form_border);

@@ -1,139 +1,140 @@
 @import '../../../../Mixin/global.scss';
 
 #meeting_info {
-    .add_title {
-        padding      : 10px 10px;
-        border-bottom: 1px $tr_even solid;
-        color        : $header_background;
-        @extend %between;
+	.add_title {
+		padding      : 10px 10px;
+		border-bottom: 1px $tr_even solid;
+		color        : $header_background;
+		@extend %between;
 
-        .title_name {
-            @extend %row;
-            @include ali-set(end);
+		.title_name {
+			@extend %row;
+			@include ali-set(end);
 
-            .tag {
-                margin-left: 20px;
-                @extend %row;
+			.tag {
+				margin-top: 10px;
+				@extend %row;
 
-                .small_tag {
-                    display         : inline-block;
-                    text-align      : center;
-                    min-width       : 30px;
-                    background-color: $tag_backgroud;
-                    color           : $font_maincolor;
-                    border-radius   : 30px;
-                    margin          : 2.5px;
-                    padding         : 4px 8px;
+				.small_tag {
+					display         : inline-block;
+					text-align      : center;
+					min-width       : 30px;
+					background-color: $tag_backgroud;
+					color           : $font_maincolor;
+					border-radius   : 30px;
+					padding         : 4px 8px;
+					margin          : 0px 5px 0px 0px;
+					font-size       : $s;
 
-                    &:hover {
-                        cursor: pointer;
-                    }
-                }
-            }
-        }
-    }
+					&:hover {
+						cursor: pointer;
+					}
+				}
+			}
+		}
+	}
 
-    .edit_button {
-        @extend %row;
+	.edit_button {
+		@extend %row;
 
-        .add {
-            margin-left     : 15px;
-            height          : 34px;
-            font-size       : $m;
-            background-color: $button_color;
+		.add {
+			margin-left     : 15px;
+			height          : 34px;
+			font-size       : $m;
+			background-color: $button_color;
 
-            a,
-            .func_btn {
-                height          : 100%;
-                width           : 103px;
-                color           : $font_maincolor;
-                background-color: $button_color;
-                @include ali-set();
-                @include jus-set();
-                @extend %row;
-                cursor: pointer;
+			a,
+			.func_btn {
+				height          : 100%;
+				width           : 103px;
+				color           : $font_maincolor;
+				background-color: $button_color;
+				@include ali-set();
+				@include jus-set();
+				@extend %row;
+				cursor: pointer;
 
-                &:link,
-                &:visited {
-                    color: $font_maincolor;
-                }
+				&:link,
+				&:visited {
+					color: $font_maincolor;
+				}
 
-                &:hover {
-                    background-color: $button_hover;
-                }
+				&:hover {
+					background-color: $button_hover;
+				}
 
-                svg {
-                    margin-left: 5px;
-                }
+				svg {
+					margin-left: 5px;
+				}
 
-                p {
-                    margin: 0px 10px 0px 5px;
-                }
-            }
-        }
-    }
+				p {
+					margin: 0px 10px 0px 5px;
+				}
+			}
+		}
+	}
 
-    .meeting {
-        margin: 30px 0px;
-        @extend %between;
+	.meeting {
+		margin: 30px 0px;
+		@extend %between;
 
-        .meeting_info {
-            padding: 10px;
-            @extend %between;
-            @extend %col;
+		.meeting_info {
+			padding: 10px;
+			@extend %between;
+			@extend %col;
 
-            .else_info {
-                @extend %row;
-                @extend %between;
+			.else_info {
+				@extend %row;
+				@extend %between;
 
-                .info_block_content {
-                    padding         : 0px 5px;
-                    // border-bottom: 1px black solid;
-                }
-            }
+				.info_block_content {
+					padding         : 0px 5px;
+					// border-bottom: 1px black solid;
+				}
+			}
 
-            p {
-                font-size    : $l;
-                font-weight  : bold;
-                margin-bottom: 10px;
-            }
+			p {
+				font-size    : $l;
+				font-weight  : bold;
+				margin-bottom: 10px;
+			}
 
-            .magin_top_70 {
-                margin-top: 70px;
+			.magin_top_70 {
+				margin-top: 70px;
 
-                .participant {
-                    min-height: 150px;
-                    max-height: 350px;
-                    width     : 578px;
-                }
+				.participant {
+					min-height: 150px;
+					max-height: 350px;
+					width     : 578px;
+				}
 
-                ol {
-                    padding-left: 45px;
+				ol {
+					padding-left: 45px;
 
-                    li {
-                        text-decoration: underline;
-                        margin-bottom  : 10px;
+					li {
+						text-decoration: underline;
+						margin-bottom  : 10px;
 
-                        &:hover {
-                            color: rgb(69, 69, 221);
-                        }
-                    }
-                }
-            }
+						&:hover {
+							color: rgb(69, 69, 221);
+						}
+					}
+				}
+			}
 
-        }
-    }
+		}
+	}
 
-    .something_content {
-        background-color: $form_maincolor;
-        color           : $font_maincolor;
-        padding         : 10px;
-        overflow-y      : auto;
-        @include border-set($form_border);
-        @extend %every_content;
-    }
+	.something_content {
+		background-color: $form_maincolor;
+		color           : $header_background;
+		padding         : 10px;
+		overflow-y      : auto;
+		@include border-set($form_border);
+		@extend %every_content;
+	}
 
-    .meeting_content {
-        height: 530px;
-    }
+	.meeting_content {
+		height: 530px;
+	}
 }

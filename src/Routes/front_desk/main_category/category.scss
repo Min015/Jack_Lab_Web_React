@@ -1,212 +1,212 @@
 @import '../../../Mixin/global.scss';
 
 #fornt_main {
-    .content {
-        padding-top     : $header_height;
-        padding-bottom  : 30px;
-        min-height      : calc(100vh - 86px);
-        background-color: $front_desk_content_background;
+	.content {
+		padding-top     : $header_height;
+		padding-bottom  : 30px;
+		min-height      : calc(100vh - 86px);
+		background-color: $front_desk_content_background;
 
-        .contentin {
-            width : $front_desk_width;
-            margin: 0px auto;
-            @extend %col;
-        }
-    }
+		.contentin {
+			width : $front_desk_width;
+			margin: 0px auto;
+			@extend %col;
+		}
+	}
 
-    .works_area {
-        position        : sticky;
-        z-index         : 1;
-        top             : 56px;
-        display         : flex;
-        margin          : 44px 0px;
-        height          : 34px;
-        width           : 100%;
-        background-color: $front_desk_content_background;
-        width           : 100%;
+	.works_area {
+		position        : sticky;
+		z-index         : 1;
+		top             : 56px;
+		display         : flex;
+		margin          : 44px 0px;
+		height          : 34px;
+		width           : 100%;
+		background-color: $front_desk_content_background;
+		width           : 100%;
 
-        .select_list {
-            display       : flex;
-            flex-direction: row;
+		.select_list {
+			display       : flex;
+			flex-direction: row;
 
-            .select {
-                margin-right: 20px;
-            }
+			.select {
+				margin-right: 20px;
+			}
 
-            .select,
-            .search {
-                font-size      : $m;
-                padding-left   : 5px;
-                width          : 142px;
-                // height      : 34px;
-                margin-right   : 20px;
-                color          : $prompt_color;
-                @include border-set();
-            }
+			.select,
+			.search {
+				font-size      : $m;
+				padding-left   : 5px;
+				width          : 142px;
+				// height      : 34px;
+				margin-right   : 20px;
+				color          : $prompt_color;
+				@include border-set();
+			}
 
-            .submit {
-                width           : 68px;
-                height          : 34px;
-                background-color: $button_color;
-                color           : $font_maincolor;
-                font-size       : $m;
-                cursor          : pointer;
-                @include jus-set();
+			.submit {
+				width           : 68px;
+				height          : 34px;
+				background-color: $button_color;
+				color           : $font_maincolor;
+				font-size       : $m;
+				cursor          : pointer;
+				@include jus-set();
 
-                &:hover {
-                    background-color: $button_hover;
-                }
-            }
-        }
-
-
-
-        .search_add {
-            margin-left: auto;
-
-            .add {
-                // width           : 121px;
-                height          : 34px;
-                font-size       : $m;
-                background-color: $button_color;
-
-                a,
-                .func_btn {
-                    height          : 100%;
-                    width           : 100%;
-                    color           : $font_maincolor;
-                    background-color: $button_color;
-                    @include ali-set();
-                    @include jus-set();
-                    @extend %row;
-                    cursor: pointer;
-
-                    &:link,
-                    &:visited {
-                        color: $font_maincolor;
-                    }
-
-                    &:hover {
-                        background-color: $button_hover;
-                    }
-
-                    svg {
-                        margin-left: 5px;
-                    }
-
-                    p {
-                        margin: 0px 10px 0px 5px;
-                    }
-                }
-            }
-        }
-    }
+				&:hover {
+					background-color: $button_hover;
+				}
+			}
+		}
 
 
-    .reaults_area {
-        table {
-            width: 100%;
 
-            .tr_odd {
-                background-color: $tr_odd;
-            }
+		.search_add {
+			margin-left: auto;
 
-            .tr_even {
-                background-color: $tr_even;
-            }
+			.add {
+				// width           : 121px;
+				height          : 34px;
+				font-size       : $m;
+				background-color: $button_color;
 
-            .tr_odd,
-            .tr_even {
-                .table_tag {
-                    display         : inline-block;
-                    text-align      : center;
-                    min-width       : 30px;
-                    background-color: $tag_backgroud;
-                    color           : $font_maincolor;
-                    padding         : 5px 10px;
-                    border-radius   : 30px;
-                    margin          : 2.5px;
-                }
-            }
+				a,
+				.func_btn {
+					height          : 100%;
+					width           : 100%;
+					color           : $font_maincolor;
+					background-color: $button_color;
+					@include ali-set();
+					@include jus-set();
+					@extend %row;
+					cursor: pointer;
 
-            th,
-            td {
-                @include border-set($main_backgroundcolor);
-            }
+					&:link,
+					&:visited {
+						color: $font_maincolor;
+					}
 
-            th {
-                height          : 59px;
-                font-size       : $l;
-                color           : $font_maincolor;
-                background-color: $th_background;
-                white-space     : nowrap;
-                min-width       : 78px;
-            }
+					&:hover {
+						background-color: $button_hover;
+					}
 
-            td {
-                height : 51px;
-                padding: 4px 15px;
-                color  : $header_background;
+					svg {
+						margin-left: 5px;
+					}
 
-                a {
-                    @include ali-set(flex-end);
+					p {
+						margin: 0px 10px 0px 5px;
+					}
+				}
+			}
+		}
+	}
 
-                    svg {
-                        margin-left: 10px;
-                    }
 
-                    &:link,
-                    &:visited {
-                        color: $header_background;
-                    }
+	.reaults_area {
+		table {
+			width: 100%;
 
-                    &:hover {
-                        // border-bottom: 1px black solid;
-                        text-decoration: underline;
-                    }
-                }
+			.tr_odd {
+				background-color: $tr_odd;
+			}
 
-                button {
-                    padding         : 7px 4px;
-                    background-color: $button_color;
-                    border          : 0px;
-                    color           : $font_maincolor;
-                    font-size       : $m;
-                    cursor          : pointer;
+			.tr_even {
+				background-color: $tr_even;
+			}
 
-                    &:hover {
-                        background-color: $button_hover
-                    }
-                }
-            }
-        }
-    }
+			.tr_odd,
+			.tr_even {
+				.table_tag {
+					display         : inline-block;
+					text-align      : center;
+					min-width       : 30px;
+					background-color: $tag_backgroud;
+					color           : $font_maincolor;
+					padding         : 5px 10px;
+					border-radius   : 30px;
+					margin          : 2.5px;
+				}
+			}
 
-    .page {
-        margin-top: 20px;
-        @extend %row;
-        @extend %between;
+			th,
+			td {
+				@include border-set($main_backgroundcolor);
+			}
 
-        .page_group {
-            @extend %row;
+			th {
+				height          : 59px;
+				font-size       : $l;
+				color           : $font_maincolor;
+				background-color: $th_background;
+				white-space     : nowrap;
+				min-width       : 78px;
+			}
 
-            .one_page {
-                margin: 0px 5px;
-            }
-        }
+			td {
+				height : 51px;
+				padding: 4px 15px;
+				color  : $header_background;
 
-        .one_page {
-            width           : 30px;
-            height          : 36px;
-            color           : $font_maincolor;
-            background-color: $button_color;
-            @include ali-set();
-            @include jus-set();
-            cursor: pointer;
+				a {
+					@include ali-set(flex-end);
 
-            &:hover {
-                background-color: $button_hover;
-            }
-        }
-    }
+					svg {
+						margin-left: 10px;
+					}
+
+					&:link,
+					&:visited {
+						color: $header_background;
+					}
+
+					&:hover {
+						// border-bottom: 1px black solid;
+						text-decoration: underline;
+					}
+				}
+
+				button {
+					padding         : 7px 4px;
+					background-color: $button_color;
+					border          : 0px;
+					color           : $font_maincolor;
+					font-size       : $m;
+					cursor          : pointer;
+
+					&:hover {
+						background-color: $button_hover
+					}
+				}
+			}
+		}
+	}
+
+	.page {
+		margin-top: 20px;
+		@extend %row;
+		@extend %between;
+
+		.page_group {
+			@extend %row;
+
+			.one_page {
+				margin: 0px 5px;
+			}
+		}
+
+		.one_page {
+			width           : 30px;
+			height          : 36px;
+			color           : $font_maincolor;
+			background-color: $button_color;
+			@include ali-set();
+			@include jus-set();
+			cursor: pointer;
+
+			&:hover {
+				background-color: $button_hover;
+			}
+		}
+	}
 }
