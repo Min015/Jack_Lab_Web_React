@@ -8,6 +8,13 @@ export const GET_AdminAlbum = (page, search, callback) => {
     });
   };
 }
+export const GET_AdminAlbumAll = () => {
+  return (dispatch) => {
+    dispatch({
+      type: "GET_AdminAlbumAll",
+    });
+  };
+}
 export const POST_AddAlbum = (payload, callback) => {
   return (dispatch) => {
     dispatch({

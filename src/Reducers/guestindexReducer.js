@@ -5,6 +5,8 @@ export default (state = initialState, action) => {
     switch (action.type) {
         case "SAVE_AdminAlbum":
             return { ...state, AlbumList: action.payload };
+        case "SAVE_AdminAlbumAll":
+            return { ...state, AlbumListAll: action.payload };
         case "SAVE_Book":
             return { ...state, BookList: action.payload }
         case "SAVE_BookInfo":

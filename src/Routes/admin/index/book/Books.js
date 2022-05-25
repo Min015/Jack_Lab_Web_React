@@ -34,7 +34,6 @@ const mapDispatchToProps = dispatch => {
 		GET_BookInfo: (payload, callback) => dispatch(GET_BookInfo(payload, callback)),
 		PUT_UpdateBookInfo: (payload, callback) => dispatch(PUT_UpdateBookInfo(payload, callback)),
 		POST_UpdateBookPhoto: (payload, callback) => dispatch(POST_UpdateBookPhoto(payload, callback)),
-
 	}
 }
 export default connect(mapStateToProps, mapDispatchToProps)(

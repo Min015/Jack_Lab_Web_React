@@ -1,31 +1,41 @@
 import { Component } from 'react';
 import '../style/guestmain.scss';
-import book1 from './img/book1.jpg';
-import book2 from './img/book2.jpg';
-import book3 from './img/book3.jpg';
-export default class BooksList extends Component {
-    //func
 
-    render() {
-        const { books } = this.props;
-        return (
-            <div className='booklist'>
-                {books.map((item,index) => {
-                    const photo =item.book_photo;
-                    return (
-                        <div key={index} div className='col-3 book' >
-                            <img src={book1} />
-                            <div className='booktitle'>
-                                {item.book_title}
-                            </div>
-                            <div className='bookauthor'>
-                                作者：<br />
-                                {item.book_author}
-                            </div>
-                        </div>
-                    )
-                })}
-            </div >
-        )
-    }
+export default class BooksList extends Component {
+	render() {
+		const { booklist } = this.props;
+		return (
+			<div className='center'>
+				<div className='booklist'>
+					{booklist === undefined ? [] : booklist.map((item, index) => {
+						let title="";
+						if(booklist!==undefined){
+							if(item.Title.length>25){
+								title=`${item.Title.substr(0, 25)}...`;
+							}
+							else{
+								title=item.Title;
+							}
+						}
+						return (
+							<div className='book' >
+								<img src={booklist === undefined ? "" : `http://localhost/${item.Image}`} alt="出版品" />
+								<div className='booktitle'>
+									{title}
+								</div>
+								<div className='bookauthor'>
+									作者：<br />
+									{booklist === undefined ? [] : item.Authors.map((item, index) => {
+										return (
+											<span>{item.name} </span>
+										)
+									})}
+								</div>
+							</div>
+						)
+					})}
+				</div >
+			</div>
+		)
+	}
 }

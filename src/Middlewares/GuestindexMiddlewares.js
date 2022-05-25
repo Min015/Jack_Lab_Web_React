@@ -35,6 +35,25 @@ const fetch = store => next => action => {
           });
         });
       break;
+    case "GET_AdminAlbumAll":
+      _axios
+        .get(`/album/select`,)
+        .then(response => {
+          if (response.status === 200) {
+            return response.data.data;
+          }
+        })
+        .catch(err => {
+          console.log(err.response.data);
+          throw new Error(err);
+        })
+        .then(json => {
+          return next({
+            type: 'SAVE_AdminAlbumAll',
+            payload: json
+          });
+        });
+      break;
     case "DELETE_AdAlbum":
       _axios
         .delete(`/album?id=${action.payload}`,)
@@ -58,6 +77,7 @@ const fetch = store => next => action => {
       _axios
         .get(`/book/list?page=${action.page}&search=${action.search}`,)
         .then(response => {
+          console.log(response);
           if (response.status === 200) {
             return response.data.data;
           }

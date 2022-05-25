@@ -8,10 +8,7 @@ import logo from '../img/logo.png';
 import { POST_Login } from "../../../Action/MemberAction";
 
 const mapStateToProps = state => {
-	const { MeetingList } = state.meetingReducer;
-	return {
-		MeetingList
-	}
+
 }
 
 const mapDispatchToProps = dispatch => {
@@ -91,12 +88,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							<Link to="/adminalbum">
 								<li>去後台</li>
 							</Link> */}
-							<div
+							{/* <div
 								to="/student"
 								className={isActive => (!isActive ? " nowP" : "")}
 							>
 								<li>實驗室介紹</li>
-							</div>
+							</div> */}
 							<div
 								to="/student"
 								className={(navData) => (navData.isActive ? "nowP" : "")}
