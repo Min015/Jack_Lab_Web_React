@@ -166,6 +166,25 @@ const fetch = store => next => action => {
 					}
 				});
 			break;
+		case "POST_UpdateMyPhoto":
+			_axios
+				.post('/member/photo', action.payload)
+				.then(response => {
+					console.log(response);
+					if (response.status === 200) {
+						console.log("修改個人大頭貼成功");
+					}
+				})
+				.catch(err => {
+					alert(err.response.data.data);
+					throw new Error(err);
+				})
+				.then(json => {
+					if (action.callback) {
+						action.callback(json)
+					}
+				});
+			break;
 		default:
 			break;
 	}

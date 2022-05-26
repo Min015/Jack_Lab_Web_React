@@ -44,13 +44,13 @@ export const GET_Class = () => {
     });
   };
 }
-export const GET_PrivateMember = (page, search,academic, callback) => {
+export const GET_PrivateMember = (page, search, academic, callback) => {
   return (dispatch) => {
     dispatch({
       type: "GET_PrivateMember",
       page: page,
       search: search,
-      academic:academic,
+      academic: academic,
       callback: callback,
     });
   };
@@ -138,6 +138,41 @@ export const DELETE_Member = (payload, callback) => {
       type: "DELETE_Member",
       payload: payload,
       callback: callback,
+    });
+  };
+}
+export const GET_MyInfo = (callback) => {
+  return (dispatch) => {
+    dispatch({
+      type: "GET_MyInfo",
+      callback: callback,
+    });
+  };
+}
+export const POST_UpdateMyPhoto = (payload, callback) => {
+  return (dispatch) => {
+    dispatch({
+      type: "POST_UpdateMyPhoto",
+      payload: payload,
+      callback: callback,
+    });
+  };
+}
+export const PUT_UpdateMyIntroduction = (payload, callback) => {
+  return (dispatch) => {
+    dispatch({
+      type: "PUT_UpdateMyIntroduction",
+      payload: payload,
+      callback: callback,
+    });
+  };
+}
+export const GET_MyProject = (page,callback) => {
+  return (dispatch) => {
+    dispatch({
+      type: "GET_MyProject",
+      page:page,
+      callback:callback,
     });
   };
 }

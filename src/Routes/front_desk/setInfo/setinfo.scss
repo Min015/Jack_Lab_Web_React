@@ -146,35 +146,81 @@
     }
 
     .reaults_area {
-        table {
-            width: 100%;
-            .tr_odd {
-                background-color: $tr_odd;
-            }
+		table {
+			width: 100%;
 
-            .tr_even {
-                background-color: $tr_even;
-            }
+			.tr_odd {
+				background-color: $tr_odd;
+			}
 
-            th,
-            td {
-                @include border-set($main_backgroundcolor);
-            }
+			.tr_even {
+				background-color: $tr_even;
+			}
+			th,
+			td {
+				@include border-set($main_backgroundcolor);
+			}
 
-            th {
-                height          : 59px;
-                font-size       : $l;
-                color           : $font_maincolor;
-                background-color: $th_background;
-                white-space     : nowrap;
-                min-width       : 78px;
-            }
+			th {
+				height          : 59px;
+				font-size       : $l;
+				color           : $font_maincolor;
+				background-color: $th_background;
+				white-space     : nowrap;
+				min-width       : 78px;
+			}
 
-            td {
-                height : 51px;
-                padding: 4px 15px;
-                color  : $header_background;
-            }
-        }
-    }
+			td {
+				height : 51px;
+				padding: 4px 15px;
+				color  : $header_background;
+
+				a {
+					@include ali-set(flex-end);
+
+					svg {
+						margin-left: 10px;
+					}
+
+					&:link,
+					&:visited {
+						color: $header_background;
+					}
+
+					&:hover {
+						// border-bottom: 1px black solid;
+						text-decoration: underline;
+					}
+				}
+			}
+		}
+	}
+
+	.page {
+		margin-top: 20px;
+		@extend %row;
+		@extend %between;
+
+		.page_group {
+			@extend %row;
+
+			.one_page {
+				margin: 0px 5px;
+			}
+		}
+
+		.one_page {
+			width           : 30px;
+			height          : 36px;
+			color           : $font_maincolor;
+			background-color: $button_color;
+			@include ali-set();
+			@include jus-set();
+			cursor: pointer;
+
+			&:hover {
+				background-color: $button_hover;
+			}
+		}
+	}
 }

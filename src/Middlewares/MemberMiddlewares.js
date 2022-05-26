@@ -301,6 +301,60 @@ const fetch = store => next => action => {
           }
         });
       break;
+    case "GET_MyInfo":
+      _axios
+        .get('/member/self',)
+        .then(response => response.data.data)
+        .catch(err => {
+          alert(err.response.data.data);
+          throw new Error(err);
+        })
+        .then(json => {
+          if (action.callback) {
+            action.callback(json)
+          }
+          return next({
+            type: 'SAVE_MyInfo',
+            payload: json
+          });
+        });
+      break;
+    case "PUT_UpdateMyIntroduction":
+      _axios
+        .put('/member/info', action.payload)
+        .then(response => {
+          if (response.status === 200) {
+            console.log("修改自我介紹成功");
+          }
+        })
+        .catch(err => {
+          alert(err.response.data.data);
+          throw new Error(err);
+        })
+        .then(json => {
+          if (action.callback) {
+            action.callback(json)
+          }
+        });
+      break;
+    case "GET_MyProject":
+      _axios
+        .get(`/member/project?page=${action.page}`,)
+        .then(response => response.data.data)
+        .catch(err => {
+          alert(err.response.data.data);
+          throw new Error(err);
+        })
+        .then(json => {
+          if (action.callback) {
+            action.callback(json)
+          }
+          return next({
+            type: 'SAVE_MyProject',
+            payload: json
+          });
+        });
+      break;
     default:
       break;
   }

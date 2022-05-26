@@ -19,6 +19,10 @@ export default (state = initialState, action) => {
       return { ...state, PermissionList: action.payload };
     case "SAVE_RolePermission":
       return { ...state, RolePermission: action.payload };
+    case "SAVE_MyInfo":
+      return { ...state, MyInfo: action.payload };
+    case "SAVE_MyProject":
+      return { ...state, MyProject: action.payload };
     default:
       return state;
   }

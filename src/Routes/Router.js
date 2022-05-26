@@ -106,8 +106,8 @@ export default (
 				<Route path='/meeting' exact component={() => <Redirect to='/meeting/1/ ' />} />
 
 
-				<Route path='/setinfo' exact component={SetInfo} />
-
+				<Route path='/setinfo/:page' exact component={SetInfo} />
+				<Route path='/setinfo' exact component={() => <Redirect to='/setinfo/1' />} />
 				{/* 後台 */}
 				<Route path='/adminalbum/:page/:search' exact component={AdminAlbum} />
 				<Route path='/adminalbum/:page' exact component={() => <Redirect to='/adminalbum/1/ ' />} />
