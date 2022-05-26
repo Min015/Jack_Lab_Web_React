@@ -1,6 +1,5 @@
 import { Component } from "react";
 import { connect } from "react-redux";
-import { POST_login, set_token } from '../../../Service/login/login';
 import { Link, NavLink } from "react-router-dom";
 import "./header1.scss";
 import "./popup_window.scss";
@@ -82,24 +81,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					</Link>
 					<nav className="nav">
 						<ul className="header_ul">
-							{/* <Link to="/setinfo">
-								<li>去前台</li>
-							</Link>
-							<Link to="/adminalbum">
-								<li>去後台</li>
-							</Link> */}
-							{/* <div
+							<NavLink
 								to="/student"
-								className={isActive => (!isActive ? " nowP" : "")}
-							>
-								<li>實驗室介紹</li>
-							</div> */}
-							<div
-								to="/student"
-								className={(navData) => (navData.isActive ? "nowP" : "")}
+								activeClassName="nowP"
 							>
 								<li>歷屆成員</li>
-							</div>
+							</NavLink>
 							<div
 								onClick={this.drop_down}
 							>
