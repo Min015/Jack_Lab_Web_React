@@ -160,7 +160,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		UpdateTeacher = () => {
 			const { page, search } = this.state;
 			const { newName, newTitle, newIntroduce, nowItem } = this.state;
-			if (newName === "" && newTitle === "" && newIntroduce === "") {
+			if (newName === "" || newTitle === "" || newIntroduce === "") {
 				alert("您有必填欄位尚未填寫，請確認");
 			}
 			else {
@@ -686,7 +686,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										className='long_text'
 										onChange={this.handelCanEnter.bind(this)}
 									/>
-									<label className="label">自介</label>
+									<label className="label">自介*</label>
 								</div>
 								<div className='btn_block'>
 									<button
