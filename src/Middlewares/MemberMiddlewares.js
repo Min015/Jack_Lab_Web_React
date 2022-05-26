@@ -355,6 +355,24 @@ const fetch = store => next => action => {
           });
         });
       break;
+      case "PUT_UpdateMyPassword":
+        _axios
+          .put('/member/pwd', action.payload)
+          .then(response => {
+            if (response.status === 200) {
+              console.log("修改密碼成功");
+            }
+          })
+          .catch(err => {
+            alert(err.response.data.data);
+            throw new Error(err);
+          })
+          .then(json => {
+            if (action.callback) {
+              action.callback(json)
+            }
+          });
+        break;
     default:
       break;
   }

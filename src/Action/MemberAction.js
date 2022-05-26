@@ -176,3 +176,12 @@ export const GET_MyProject = (page,callback) => {
     });
   };
 }
+export const PUT_UpdateMyPassword = (payload, callback) => {
+  return (dispatch) => {
+    dispatch({
+      type: "PUT_UpdateMyPassword",
+      payload: payload,
+      callback: callback,
+    });
+  };
+}
