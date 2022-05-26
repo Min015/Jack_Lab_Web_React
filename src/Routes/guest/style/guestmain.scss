@@ -49,6 +49,53 @@
 				}
 			}
 		}
+
+		.teacher_block {
+			@extend %col;
+
+			.teacher {
+				padding: 5px 0px;
+				@extend %row;
+
+				.teacherphoto {
+					width  : 250px;
+					height : 338px;
+					padding: 5px;
+
+
+					img {
+						width     : 100%;
+						height    : 90%;
+						object-fit: cover;
+					}
+
+					.teacherinfo {
+						text-align: center;
+
+						.name {
+							font-size  : $l;
+							font-weight: bold;
+						}
+					}
+				}
+
+				.teacherintroduce {
+					width      : 925.33px;
+					padding    : 5px;
+					white-space: pre-line;
+					margin-left: 10px;
+					line-height: 28px;
+				}
+			}
+		}
+
+		.labintroduce {
+			text-align: center;
+			white-space: pre-line;
+			line-height: 28px;
+			padding-bottom: 10px;
+			width: 100%;
+		}
 	}
 
 }
