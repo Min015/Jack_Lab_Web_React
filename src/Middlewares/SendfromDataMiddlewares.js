@@ -24,7 +24,7 @@ const fetch = store => next => action => {
 					}
 				})
 				.catch(err => {
-					alert(err.response.data.data);
+					alert(err.response.data.message);
 					throw new Error(err);
 				})
 				.then(json => {
@@ -43,7 +43,7 @@ const fetch = store => next => action => {
 					}
 				})
 				.catch((err) => {
-					alert(err.response.data.data);
+					alert(err.response.data.message);
 					throw new Error(err);
 				})
 				.then(json => {
@@ -62,7 +62,7 @@ const fetch = store => next => action => {
 					}
 				})
 				.catch(err => {
-					alert(err.response.data.data);
+					alert(err.response.data.message);
 					throw new Error(err);
 				})
 				.then(json => {
@@ -81,7 +81,7 @@ const fetch = store => next => action => {
 					}
 				})
 				.catch(err => {
-					alert(err.response.data.data);
+					alert(err.response.data.message);
 					throw new Error(err);
 				})
 				.then(json => {
@@ -100,7 +100,7 @@ const fetch = store => next => action => {
 					}
 				})
 				.catch(err => {
-					alert(err.response.data.data);
+					alert(err.response.data.message);
 					throw new Error(err);
 				})
 				.then(json => {
@@ -119,7 +119,7 @@ const fetch = store => next => action => {
 					}
 				})
 				.catch(err => {
-					alert(err.response.data.data);
+					alert(err.response.data.message);
 					throw new Error(err);
 				})
 				.then(json => {
@@ -138,7 +138,7 @@ const fetch = store => next => action => {
 					}
 				})
 				.catch(err => {
-					alert(err.response.data.data);
+					alert(err.response.data.message);
 					throw new Error(err);
 				})
 				.then(json => {
@@ -157,7 +157,7 @@ const fetch = store => next => action => {
 					}
 				})
 				.catch(err => {
-					alert(err.response.data.data);
+					alert(err.response.data.message);
 					throw new Error(err);
 				})
 				.then(json => {
@@ -176,7 +176,7 @@ const fetch = store => next => action => {
 					}
 				})
 				.catch(err => {
-					alert(err.response.data.data);
+					alert(err.response.data.message);
 					throw new Error(err);
 				})
 				.then(json => {

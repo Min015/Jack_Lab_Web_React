@@ -28,7 +28,7 @@ const fetch = store => next => action => {
           }
         })
         .catch(err => {
-          alert(err.response.data.data);
+          alert(err.response.data.message);
           throw new Error(err);
         })
       break;
@@ -37,7 +37,7 @@ const fetch = store => next => action => {
         .get('/member',)
         .then(response => response.data.data)
         .catch(err => {
-          alert(err.response.data.data);
+          alert(err.response.data.message);
           throw new Error(err);
         })
         .then(json => {
@@ -52,7 +52,7 @@ const fetch = store => next => action => {
         .get(`/manager/role/list?page=${action.page}&search=${action.search}`,)
         .then(response => response.data.data)
         .catch(err => {
-          alert(err.response.data.data);
+          alert(err.response.data.message);
           throw new Error(err);
         })
         .then(json => {
@@ -70,7 +70,7 @@ const fetch = store => next => action => {
         .get(`/manager/role/select`,)
         .then(response => response.data.data)
         .catch(err => {
-          alert(err.response.data.data);
+          alert(err.response.data.message);
           throw new Error(err);
         })
         .then(json => {
@@ -85,7 +85,7 @@ const fetch = store => next => action => {
         .get('/academic',)
         .then(response => response.data.data)
         .catch(err => {
-          alert(err.response.data.data);
+          alert(err.response.data.message);
           throw new Error(err);
         })
         .then(json => {
@@ -100,7 +100,7 @@ const fetch = store => next => action => {
         .get('/class',)
         .then(response => response.data.data)
         .catch(err => {
-          alert(err.response.data.data);
+          alert(err.response.data.message);
           throw new Error(err);
         })
         .then(json => {
@@ -118,7 +118,7 @@ const fetch = store => next => action => {
           return response.data.data;
         })
         .catch(err => {
-          alert(err.response.data.data);
+          alert(err.response.data.message);
           throw new Error(err);
         })
         .then(json => {
@@ -136,7 +136,7 @@ const fetch = store => next => action => {
         .post('/manager/useradd', action.payload)
         .then(response => { console.log("新增成功") })
         .catch(err => {
-          alert(err.response.data.data);
+          alert(err.response.data.message);
           throw new Error(err);
         })
         .then(json => {
@@ -154,7 +154,7 @@ const fetch = store => next => action => {
           }
         })
         .catch(err => {
-          alert(err.response.data.data);
+          alert(err.response.data.message);
           throw new Error(err);
         })
       break;
@@ -167,7 +167,7 @@ const fetch = store => next => action => {
           }
         })
         .catch(err => {
-          alert(err.response.data.data);
+          alert(err.response.data.message);
           throw new Error(err);
         })
       break;
@@ -178,7 +178,7 @@ const fetch = store => next => action => {
           return response.data.data
         })
         .catch(err => {
-          alert(err.response.data.data);
+          alert(err.response.data.message);
           throw new Error(err);
         })
         .then(json => {
@@ -195,7 +195,7 @@ const fetch = store => next => action => {
           return response.data.data
         })
         .catch(err => {
-          alert(err.response.data.data);
+          alert(err.response.data.message);
           throw new Error(err);
         })
         .then(json => {
@@ -217,7 +217,7 @@ const fetch = store => next => action => {
           }
         })
         .catch(err => {
-          alert(err.response.data.data);
+          alert(err.response.data.message);
           throw new Error(err);
         })
         .then(json => {
@@ -235,7 +235,7 @@ const fetch = store => next => action => {
           }
         })
         .catch(err => {
-          alert(err.response.data.data);
+          alert(err.response.data.message);
           throw new Error(err);
         })
         .then(json => {
@@ -254,7 +254,7 @@ const fetch = store => next => action => {
           }
         })
         .catch(err => {
-          alert(err.response.data.data);
+          alert(err.response.data.message);
           throw new Error(err);
         })
         .then(json => {
@@ -273,7 +273,7 @@ const fetch = store => next => action => {
           }
         })
         .catch(err => {
-          alert(err.response.data.data);
+          alert(err.response.data.message);
           throw new Error(err);
         })
         .then(json => {
@@ -292,7 +292,7 @@ const fetch = store => next => action => {
           }
         })
         .catch(err => {
-          alert(err.response.data.data);
+          alert(err.response.data.message);
           throw new Error(err);
         })
         .then(json => {
@@ -306,7 +306,7 @@ const fetch = store => next => action => {
         .get('/member/self',)
         .then(response => response.data.data)
         .catch(err => {
-          alert(err.response.data.data);
+          alert(err.response.data.message);
           throw new Error(err);
         })
         .then(json => {
@@ -328,7 +328,7 @@ const fetch = store => next => action => {
           }
         })
         .catch(err => {
-          alert(err.response.data.data);
+          alert(err.response.data.message);
           throw new Error(err);
         })
         .then(json => {
@@ -342,7 +342,7 @@ const fetch = store => next => action => {
         .get(`/member/project?page=${action.page}`,)
         .then(response => response.data.data)
         .catch(err => {
-          alert(err.response.data.data);
+          alert(err.response.data.message);
           throw new Error(err);
         })
         .then(json => {
@@ -364,7 +364,7 @@ const fetch = store => next => action => {
             }
           })
           .catch(err => {
-            alert(err.response.data.data);
+            alert(err.response.data.message);
             throw new Error(err);
           })
           .then(json => {

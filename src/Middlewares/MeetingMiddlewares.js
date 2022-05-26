@@ -26,7 +26,7 @@ const fetch = store => next => action => {
 					}
 				})
 				.catch(err => {
-					alert(err.response.data.data);
+					alert(err.response.data.message);
 					throw new Error(err);
 				})
 				.then(json => {
@@ -49,7 +49,7 @@ const fetch = store => next => action => {
 					}
 				})
 				.catch(err => {
-					alert(err.response.data.data);
+					alert(err.response.data.message);
 					throw new Error(err);
 				})
 				.then(json => {
@@ -69,7 +69,7 @@ const fetch = store => next => action => {
 					window.open(BaseURL + response.config.url);
 				})
 				.catch(err => {
-					alert(err.response.data.data);
+					alert(err.response.data.message);
 					throw new Error(err);
 				})
 			break;
@@ -78,7 +78,7 @@ const fetch = store => next => action => {
 				.delete(`/meeting?id=${action.payload}`,)
 				.then(response => { console.log(response) })
 				.catch(err => {
-					alert(err.response.data.data);
+					alert(err.response.data.message);
 					throw new Error(err);
 				})
 				.then(json => {
