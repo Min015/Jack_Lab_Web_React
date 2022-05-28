@@ -103,6 +103,7 @@ export default (
 				<Route path='/meeting/meetinginfo/:id' exact component={MeetingInfo} />
 				<Route path='/meeting/:page/:search' exact component={Meeting} />
 				<Route path='/meeting/addmeeting' exact component={AddMeeting} />
+				<Route path='/meeting/:page/' exact component={() => <Redirect to='/meeting/1/  ' />} />
 				<Route path='/meeting' exact component={() => <Redirect to='/meeting/1/ ' />} />
 
 
