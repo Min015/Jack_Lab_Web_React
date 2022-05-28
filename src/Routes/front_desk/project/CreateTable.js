@@ -2,18 +2,8 @@ import { Component } from 'react';
 import '../main_category/category.scss';
 import { Link } from 'react-router-dom';
 export default class CreateTable extends Component {
-    //func
-    handleSetStyle = (i) => {
-        if (i % 2 === 0) {
-            return "tr_odd"
-        }
-        else if (i % 2 === 1) {
-            return "tr_even";
-        }
-    }
     render() {
         const { table_header, table_content } = this.props;
-        let style;
         return (
             <table>
                 <thead>
@@ -24,9 +14,8 @@ export default class CreateTable extends Component {
                 <tbody>
                     {table_content === undefined ? [] : table_content.map(
                         (item, index) => {
-                            style = this.handleSetStyle(index);
                             return (
-                                <tr className={style}>
+                                <tr className={index % 2 === 0 ? 'tr_odd' : 'tr_even'}>
                                     <td>{item.Type_name}</td>
                                     <td>
                                         <Link to={`/project/projectinfo/${item.Id}/1/ `}>

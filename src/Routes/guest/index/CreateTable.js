@@ -1,18 +1,8 @@
 import { Component } from 'react';
 import '../style/guestmain.scss';
 export default class CreateTable extends Component {
-    //func
-    handleSetStyle = (i) => {
-        if (i % 2 === 0) {
-            return "tr_odd"
-        }
-        else if (i % 2 === 1) {
-            return "tr_even";
-        }
-    }
     render() {
         const { table_header, table_content } = this.props;
-        let style;
         return (
             <table>
                 <thead>
@@ -23,9 +13,8 @@ export default class CreateTable extends Component {
                 <tbody>
                     {table_content.map(
                         (item, index) => {
-                            style = this.handleSetStyle(index);
                             return (
-                                <tr key={index} className={style}>
+                                <tr key={index} className={index % 2 === 0 ? 'tr_odd' : 'tr_even'}>
                                     <td>{item.g_year}</td>
                                     <td>{item.g_type}</td>
                                     <td>{item.g_group}</td>

@@ -320,15 +320,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				remark: info[1],
 			});
 		}
-		handleSetStyle = (i) => {
-			if (i % 2 === 0) {
-				return "tr_odd"
-			}
-			else if (i % 2 === 1) {
-				return "tr_even";
-			}
-		}
-
 		render() {
 			const { Id, table_header, add, edit, delO, delAll, download, upload, remark, nowRecord } = this.state;
 			const { pagearray, page, search, maxpage } = this.state;
@@ -413,9 +404,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									<tbody>
 										{ProjectRecord === undefined ? [] : ProjectRecord.list.map(
 											(item, index) => {
-												const style = this.handleSetStyle(index);
 												return (
-													<tr className={style}>
+													<tr className={index % 2 === 0 ? 'tr_odd' : 'tr_even'}>
 														<td>{item.Remark}</td>
 														<td>{item.Uploader_name}</td>
 														<td>{item.CreateTime}</td>
