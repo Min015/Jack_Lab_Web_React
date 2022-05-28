@@ -41,14 +41,22 @@ const fetch = store => next => action => {
           else if (response.data.data.admin === 0) {
             window.location.replace('http://localhost:3000/setinfo');
           }
+          console.log(44, response);
+          return response;
         })
         .catch(err => {
-          alert(err.response.data.message);
-          throw new Error(err);
+          if (err.response.status === 401) {
+            localStorage.clear();
+            window.location.replace('http://localhost:3000/index');
+            console.log("清除token");
+          }
         })
         .then(json => {
+          if (action.callback) {
+            action.callback(json)
+          }
           return next({
-            type: 'SAVE_PublicMembers',
+            type: 'SAVE_IsLogin',
             payload: json
           });
         });
@@ -58,6 +66,10 @@ const fetch = store => next => action => {
         .get('/member',)
         .then(response => response.data.data)
         .catch(err => {
+          if (err.response.status === 401) {
+            localStorage.clear();
+            window.location.replace('http://localhost:3000/index');
+          }
           alert(err.response.data.message);
           throw new Error(err);
         })
@@ -73,7 +85,11 @@ const fetch = store => next => action => {
         .get(`/manager/role/list?page=${action.page}&search=${action.search}`,)
         .then(response => response.data.data)
         .catch(err => {
-          alert(err.response.data.message);
+          if (err.response.status === 401) {
+            localStorage.clear();
+            window.location.replace('http://localhost:3000/index');
+          }
+          alert(`${err.response.data.message}`);
           throw new Error(err);
         })
         .then(json => {
@@ -91,6 +107,10 @@ const fetch = store => next => action => {
         .get(`/manager/role/select`,)
         .then(response => response.data.data)
         .catch(err => {
+          if (err.response.status === 401) {
+            localStorage.clear();
+            window.location.replace('http://localhost:3000/index');
+          }
           alert(err.response.data.message);
           throw new Error(err);
         })
@@ -106,6 +126,10 @@ const fetch = store => next => action => {
         .get('/academic',)
         .then(response => response.data.data)
         .catch(err => {
+          if (err.response.status === 401) {
+            localStorage.clear();
+            window.location.replace('http://localhost:3000/index');
+          }
           alert(err.response.data.message);
           throw new Error(err);
         })
@@ -121,6 +145,10 @@ const fetch = store => next => action => {
         .get('/class',)
         .then(response => response.data.data)
         .catch(err => {
+          if (err.response.status === 401) {
+            localStorage.clear();
+            window.location.replace('http://localhost:3000/index');
+          }
           alert(err.response.data.message);
           throw new Error(err);
         })
@@ -138,6 +166,10 @@ const fetch = store => next => action => {
           return response.data.data;
         })
         .catch(err => {
+          if (err.response.status === 401) {
+            localStorage.clear();
+            window.location.replace('http://localhost:3000/index');
+          }
           alert(err.response.data.message);
           throw new Error(err);
         })
@@ -160,6 +192,10 @@ const fetch = store => next => action => {
           }
         })
         .catch(err => {
+          if (err.response.status === 401) {
+            localStorage.clear();
+            window.location.replace('http://localhost:3000/index');
+          }
           alert(err.response.data.message);
           throw new Error(err);
         })
@@ -178,6 +214,10 @@ const fetch = store => next => action => {
           }
         })
         .catch(err => {
+          if (err.response.status === 401) {
+            localStorage.clear();
+            window.location.replace('http://localhost:3000/index');
+          }
           alert(err.response.data.message);
           throw new Error(err);
         })
@@ -202,6 +242,10 @@ const fetch = store => next => action => {
           return response.data.data
         })
         .catch(err => {
+          if (err.response.status === 401) {
+            localStorage.clear();
+            window.location.replace('http://localhost:3000/index');
+          }
           alert(err.response.data.message);
           throw new Error(err);
         })
@@ -219,6 +263,10 @@ const fetch = store => next => action => {
           return response.data.data
         })
         .catch(err => {
+          if (err.response.status === 401) {
+            localStorage.clear();
+            window.location.replace('http://localhost:3000/index');
+          }
           alert(err.response.data.message);
           throw new Error(err);
         })
@@ -241,6 +289,10 @@ const fetch = store => next => action => {
           }
         })
         .catch(err => {
+          if (err.response.status === 401) {
+            localStorage.clear();
+            window.location.replace('http://localhost:3000/index');
+          }
           alert(err.response.data.message);
           throw new Error(err);
         })
@@ -259,6 +311,10 @@ const fetch = store => next => action => {
           }
         })
         .catch(err => {
+          if (err.response.status === 401) {
+            localStorage.clear();
+            window.location.replace('http://localhost:3000/index');
+          }
           alert(err.response.data.message);
           throw new Error(err);
         })
@@ -277,6 +333,10 @@ const fetch = store => next => action => {
           }
         })
         .catch(err => {
+          if (err.response.status === 401) {
+            localStorage.clear();
+            window.location.replace('http://localhost:3000/index');
+          }
           alert(err.response.data.message);
           throw new Error(err);
         })
@@ -295,6 +355,10 @@ const fetch = store => next => action => {
           }
         })
         .catch(err => {
+          if (err.response.status === 401) {
+            localStorage.clear();
+            window.location.replace('http://localhost:3000/index');
+          }
           alert(err.response.data.message);
           throw new Error(err);
         })
@@ -308,12 +372,16 @@ const fetch = store => next => action => {
       _axios
         .delete(`/manager/user?id=${action.payload}`,)
         .then(response => {
-          
+
           if (response.status === 200) {
             console.log("刪除成員成功")
           }
         })
         .catch(err => {
+          if (err.response.status === 401) {
+            localStorage.clear();
+            window.location.replace('http://localhost:3000/index');
+          }
           alert(err.response.data.message);
           throw new Error(err);
         })
@@ -328,6 +396,10 @@ const fetch = store => next => action => {
         .get('/member/self',)
         .then(response => response.data.data)
         .catch(err => {
+          if (err.response.status === 401) {
+            localStorage.clear();
+            window.location.replace('http://localhost:3000/index');
+          }
           alert(err.response.data.message);
           throw new Error(err);
         })
@@ -350,6 +422,10 @@ const fetch = store => next => action => {
           }
         })
         .catch(err => {
+          if (err.response.status === 401) {
+            localStorage.clear();
+            window.location.replace('http://localhost:3000/index');
+          }
           alert(err.response.data.message);
           throw new Error(err);
         })
@@ -364,6 +440,10 @@ const fetch = store => next => action => {
         .get(`/member/project?page=${action.page}`,)
         .then(response => response.data.data)
         .catch(err => {
+          if (err.response.status === 401) {
+            localStorage.clear();
+            window.location.replace('http://localhost:3000/index');
+          }
           alert(err.response.data.message);
           throw new Error(err);
         })
@@ -386,6 +466,10 @@ const fetch = store => next => action => {
           }
         })
         .catch(err => {
+          if (err.response.status === 401) {
+            localStorage.clear();
+            window.location.replace('http://localhost:3000/index');
+          }
           alert(err.response.data.message);
           throw new Error(err);
         })

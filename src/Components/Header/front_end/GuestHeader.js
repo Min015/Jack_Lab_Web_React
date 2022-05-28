@@ -4,16 +4,16 @@ import { Link, NavLink } from "react-router-dom";
 import "./header1.scss";
 import "./popup_window.scss";
 import logo from '../img/logo.png';
-import { POST_Login,GET_IsLogin } from "../../../Action/MemberAction";
+import { POST_Login, GET_IsLogin } from "../../../Action/MemberAction";
 
 const mapStateToProps = state => {
-	
+
 }
 
 const mapDispatchToProps = dispatch => {
 	return {
 		POST_Login: (payload) => dispatch(POST_Login(payload)),
-		GET_IsLogin:()=>dispatch(GET_IsLogin()),
+		GET_IsLogin: (callback) => dispatch(GET_IsLogin(callback)),
 	}
 }
 
@@ -27,26 +27,28 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				Password: "",
 			}
 		}
-		//生命週期
-
-		LOGIN = async () => {
+		LOGIN = () => {
 			this.props.POST_Login(this.state.payload);
 		}
-		IsLogin=()=>{
-			this.props.GET_IsLogin();
+		IsLogin = () => {
+			const callback = (res) => {
+				if(res!==undefined&&res.status===200){
+					this.setState({
+						drop:false
+					})
+				}
+				else{
+					this.setState({
+						drop:true
+					})
+				}
+			}
+			this.props.GET_IsLogin(callback);
 		}
-		//func
 		drop_down = () => {
-			if (this.state.drop === false) {
-				this.setState({
-					drop: true,
-				})
-			}
-			else {
-				this.setState({
-					drop: false,
-				})
-			}
+			this.setState({
+				drop: !this.state.drop,
+			})
 		}
 		handelMouseDown = (e) => {
 			if (e.target.className === "signupFrm") {
@@ -77,6 +79,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		render() {
 			const { drop } = this.state;
 			const token = localStorage.getItem("user_token");
+			console.log(84, token);
 			return (
 				<header className="header">
 					<Link to="/index" className="logo">
@@ -91,8 +94,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								<li>歷屆成員</li>
 							</NavLink>
 							<div
-							onClick={token===null?this.drop_down:this.IsLogin.bind()}
-								//this.drop_down
+								onClick={(token===null||token===undefined)?this.drop_down.bind():this.IsLogin.bind()}
 							>
 								<li>進入研究室</li>
 							</div>

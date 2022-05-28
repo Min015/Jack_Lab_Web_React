@@ -6,10 +6,11 @@ export const POST_Login = (payload) => {
     });
   };
 }
-export const GET_IsLogin = () => {
+export const GET_IsLogin = (callback) => {
   return (dispatch) => {
     dispatch({
       type: "GET_IsLogin",
+      callback:callback,
     });
   };
 }

@@ -39,7 +39,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			delAll: false,
 		}
 		//生命週期
-		componentDidMount = () => {
+		componentDidMount = async() => {
 			const { match } = this.props;
 			const { params } = match;
 			const nowpage = params.page;
@@ -53,9 +53,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					maxpage: res.page,
 				})
 				this.handelGetPage(nowpage, res.page);
+				this.props.GET_Permission();
 			}
-			this.props.GET_Role(nowpage, nowsearch, callback);
-			this.props.GET_Permission();
+			await this.props.GET_Role(nowpage, nowsearch, callback);
 		}
 		//取得頁面
 		handelGetPage = (nowpage, maxpage) => {

@@ -16,13 +16,18 @@ const fetch = store => next => action => {
     case "GET_LabIntroduce":
       _axios
         .get(`/labinfo/list?page=${action.page}&search=${action.search}`,)
-        .then(response => {return response.data.data;
+        .then(response => {
+          return response.data.data;
           // if (response.status === 200) {
           //   console.log("取得LAB介紹");
           //   return response.data.data;
           // }
         })
         .catch(err => {
+          if (err.response.status === 401) {
+            localStorage.clear();
+            window.location.replace('http://localhost:3000/index');
+          }
           alert(err.response.data.message);
           throw new Error(err);
         })
@@ -45,6 +50,10 @@ const fetch = store => next => action => {
           }
         })
         .catch(err => {
+          if (err.response.status === 401) {
+            localStorage.clear();
+            window.location.replace('http://localhost:3000/index');
+          }
           alert(err.response.data.message);
           throw new Error(err);
         })
@@ -63,6 +72,10 @@ const fetch = store => next => action => {
           }
         })
         .catch(err => {
+          if (err.response.status === 401) {
+            localStorage.clear();
+            window.location.replace('http://localhost:3000/index');
+          }
           alert(err.response.data.message);
           throw new Error(err);
         })
@@ -81,6 +94,10 @@ const fetch = store => next => action => {
           }
         })
         .catch(err => {
+          if (err.response.status === 401) {
+            localStorage.clear();
+            window.location.replace('http://localhost:3000/index');
+          }
           alert(err.response.data.message);
           throw new Error(err);
         })
@@ -93,13 +110,18 @@ const fetch = store => next => action => {
     case "GET_TeacherIntroduce":
       _axios
         .get(`/manager/teacher/list?page=${action.page}&search=${action.search}`,)
-        .then(response => {return response.data.data;
+        .then(response => {
+          return response.data.data;
           // if (response.status === 200) {
           //   console.log("取得教師介紹");
           //   return response.data.data;
           // }
         })
         .catch(err => {
+          if (err.response.status === 401) {
+            localStorage.clear();
+            window.location.replace('http://localhost:3000/index');
+          }
           alert(err.response.data.message);
           throw new Error(err);
         })
@@ -122,6 +144,10 @@ const fetch = store => next => action => {
           }
         })
         .catch(err => {
+          if (err.response.status === 401) {
+            localStorage.clear();
+            window.location.replace('http://localhost:3000/index');
+          }
           alert(err.response.data.message);
           throw new Error(err);
         })
@@ -140,6 +166,10 @@ const fetch = store => next => action => {
           }
         })
         .catch(err => {
+          if (err.response.status === 401) {
+            localStorage.clear();
+            window.location.replace('http://localhost:3000/index');
+          }
           alert(err.response.data.message);
           throw new Error(err);
         })
@@ -158,6 +188,10 @@ const fetch = store => next => action => {
           }
         })
         .catch(err => {
+          if (err.response.status === 401) {
+            localStorage.clear();
+            window.location.replace('http://localhost:3000/index');
+          }
           alert(err.response.data.message);
           throw new Error(err);
         })
