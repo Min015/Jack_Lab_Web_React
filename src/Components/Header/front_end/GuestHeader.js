@@ -4,15 +4,16 @@ import { Link, NavLink } from "react-router-dom";
 import "./header1.scss";
 import "./popup_window.scss";
 import logo from '../img/logo.png';
-import { POST_Login } from "../../../Action/MemberAction";
+import { POST_Login,GET_IsLogin } from "../../../Action/MemberAction";
 
 const mapStateToProps = state => {
-
+	
 }
 
 const mapDispatchToProps = dispatch => {
 	return {
-		POST_Login: (payload) => dispatch(POST_Login(payload))
+		POST_Login: (payload) => dispatch(POST_Login(payload)),
+		GET_IsLogin:()=>dispatch(GET_IsLogin()),
 	}
 }
 
@@ -29,9 +30,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		//生命週期
 
 		LOGIN = async () => {
-			const payload = this.state.payload;
-			this.props.POST_Login(payload);
-			// window.location.replace('http://localhost:3000/setinfo');
+			this.props.POST_Login(this.state.payload);
+		}
+		IsLogin=()=>{
+			this.props.GET_IsLogin();
 		}
 		//func
 		drop_down = () => {
@@ -73,7 +75,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			}
 		}
 		render() {
-			const { drop } = this.state
+			const { drop } = this.state;
+			const token = localStorage.getItem("user_token");
 			return (
 				<header className="header">
 					<Link to="/index" className="logo">
@@ -88,7 +91,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								<li>歷屆成員</li>
 							</NavLink>
 							<div
-								onClick={this.drop_down}
+							onClick={token===null?this.drop_down:this.IsLogin.bind()}
+								//this.drop_down
 							>
 								<li>進入研究室</li>
 							</div>
@@ -118,7 +122,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										name="account"
 										onChange={this.handelInput}
 									/>
-									<label for="Email" className="label">
+									<label htmlFor="Email" className="label">
 										帳號
 									</label>
 								</div>
@@ -131,7 +135,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										name="password"
 										onChange={this.handelInput}
 									/>
-									<label for="Password" className="label">
+									<label htmlFor="Password" className="label">
 										密碼
 									</label>
 								</div>

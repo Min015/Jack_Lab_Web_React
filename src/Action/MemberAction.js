@@ -6,6 +6,13 @@ export const POST_Login = (payload) => {
     });
   };
 }
+export const GET_IsLogin = () => {
+  return (dispatch) => {
+    dispatch({
+      type: "GET_IsLogin",
+    });
+  };
+}
 export const GET_PublicMembers = () => {
   return (dispatch) => {
     dispatch({
