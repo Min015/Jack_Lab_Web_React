@@ -39,6 +39,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			content: "",
 			time: "",
 			place: "",
+			all_file_q: 0,
 		}
 
 		//載入所有人員名單
@@ -63,6 +64,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 						};
 					}),
 					tag: res.Tag.map(item => item.Name),
+					all_file_q: res.File.length,
 				})
 			}
 			this.props.GET_PublicMembers();
@@ -161,29 +163,41 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 		//選擇要刪除的檔案
 		handelOnClick = e => {
-			let delfile = this.state.delfile;
-			if (e.checked === true) {
-				if (!delfile.includes(e.value)) {
-					delfile.push(e.value);
+			let { all_file_q, delfile } = this.state;
+			const { array } = this.state;
+			if (e.checked === false) {
+				if (all_file_q + array.length < 5) {
+					delfile.forEach((item, index) => {
+						if (item === e.value) {
+							delfile.splice(index, 1);
+							all_file_q = all_file_q + 1;
+						}
+					})
+				}
+				else {
+					e.checked = true;
+					alert("會議不可超過五個檔案，若想更新檔案，請先刪除舊檔")
 				}
 			}
 			else {
-				delfile.forEach((item, index) => {
-					if (item === e.value) {
-						delfile.splice(index, 1)
-					}
-				})
+				if (!delfile.includes(e.value)) {
+					delfile.push(e.value);
+					all_file_q = all_file_q - 1;
+				}
 			}
 			this.setState({
-				delfile
+				delfile,
+				all_file_q,
 			})
 		}
 		//選檔案
 		handleSelectFile = (files) => {
+			const { all_file_q } = this.state;
+			const filelen = all_file_q + files.length;
 			let nowsize = 0;
 			const { all_file_max_size, one_file_max_size, mimes_type } = this.state;
-			if (files.length > 5) {
-				alert("一次請勿上傳超過五個檔案")
+			if (filelen > 5) {
+				alert("會議不可超過五個檔案，若想更新檔案，請先刪除舊檔");
 			}
 			else {
 				let array = [];
@@ -229,7 +243,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		//下拉式選人關閉
 		handelMouseDown = (e) => {
 			const cn = (e.target.className);
-			const name = (cn.length>=6?cn.substr(0, 6):'');
+			const name = (cn.length >= 6 ? cn.substr(0, 6) : '');
 			if (name !== "choose") {
 				this.setState({
 					drop: false,
@@ -296,8 +310,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 
 		render() {
-			const { array, title, content, time, tag, place, participate, drop, long, disabled, delfile } = this.state;
+			const { array, title, content, time, tag, place, participate, drop, long, disabled, delfile, all_file_q } = this.state;
 			const { PublicMemberList, MeetingInfo } = this.props;
+			console.log(all_file_q);
 			return (
 				<BackLayout>
 					<div className='bg'>
@@ -470,6 +485,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 															<p>
 																<label className='deselect'>
 																	<input
+																		disabled={array.length === 5 ? true : false}
 																		id={`${index},${item.Name}`}
 																		type='checkbox'
 																		value={item.Name}
