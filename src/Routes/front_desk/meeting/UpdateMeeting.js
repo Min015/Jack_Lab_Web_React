@@ -232,7 +232,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		//下拉式選人關閉
 		handelMouseDown = (e) => {
 			const cn = (e.target.className);
-			const name = (cn.length>=6?cn.substr(0, 6):'');
+			const name = (cn.length >= 6 ? cn.substr(0, 6) : '');
 			if (name !== "choose") {
 				this.setState({
 					drop: false,
@@ -300,6 +300,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		render() {
 			const { array, title, content, time, tag, place, participate, drop, long, disabled, delfile } = this.state;
 			const { PublicMemberList, MeetingInfo } = this.props;
+			console.log(delfile);
 			return (
 				<div>
 					<MemberLayout>
@@ -469,7 +470,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										<div className='file'>
 											{(MeetingInfo === undefined || MeetingInfo.File.length === 0) ? "" : MeetingInfo.File.map((item, index) => {
 												return (
-													<div key={`MeetingInfo${index}`}>
+													<div key={`MeetingInfo${index}`} className='oldfile'>
 														<div className='oncheck'>
 															<p>
 																<label className='deselect'>

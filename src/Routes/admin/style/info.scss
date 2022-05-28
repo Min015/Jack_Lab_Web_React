@@ -82,13 +82,33 @@
 			}
 		}
 
+		.oldfile {
+			@include ali-set();
+			@extend %row;
+			.reserve {
+				svg,
+				path {
+					fill: black
+				}
+			}
+
+			.delete {
+				svg,
+				path {
+					fill: red
+				}
+			}
+		}
+
 		.oncheck {
 			@extend %row;
 			@include ali-set();
+			@include jus-set();
 
 			p {
 				@extend %row;
 				@include ali-set();
+				@include jus-set();
 
 				.deselect {
 					padding     : 0;
@@ -104,6 +124,12 @@
 						width  : 15px;
 					}
 				}
+			}
+
+			.input,
+			span,
+			label {
+				cursor: pointer;
 			}
 		}
 
@@ -171,6 +197,7 @@
 				border-bottom: 1px $boder_color solid !important;
 				@extend %row;
 				@include ali-set();
+
 
 				label {
 					width      : 100%;
@@ -277,10 +304,10 @@
 	margin-top: 15px;
 
 	.label {
-		display    : flex;
-		font-size  : $l;
-		font-weight: 600;
-		color      : $from_title;
+		display      : flex;
+		font-size    : $l;
+		font-weight  : 600;
+		color        : $from_title;
 		margin-bottom: 5px;
 	}
 

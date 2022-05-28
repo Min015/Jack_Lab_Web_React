@@ -68,11 +68,13 @@
 			color           : $header_background;
 			background-color: rgba(245, 245, 220, 0);
 		}
-		select{
-			option{
+
+		select {
+			option {
 				// background-color: $main_backgroundcolor;
 			}
 		}
+
 		button {
 			border: 0px;
 			cursor: pointer;
@@ -292,8 +294,58 @@
 	#filename {
 		padding: 10px 45px 0px 45px;
 	}
-}
 
-.active {
-	display: block !important;
+	.oldfile {
+		@include ali-set();
+		@extend %row;
+
+		.reserve {
+
+			svg,
+			path {
+				fill: black
+			}
+		}
+
+		.delete {
+
+			svg,
+			path {
+				fill: red
+			}
+		}
+	}
+
+	.oncheck {
+		@extend %row;
+		@include ali-set();
+		@include jus-set();
+
+		p {
+			@extend %row;
+			@include ali-set();
+			@include jus-set();
+
+			.deselect {
+				padding     : 0;
+				margin-right: 3px;
+				cursor      : pointer;
+
+				input[type=checkbox] {
+					display: none;
+				}
+
+				input[type=checkbox]+span {
+					display: flex;
+					width  : 15px;
+				}
+			}
+		}
+
+		.input,
+		span,
+		label {
+			cursor: pointer;
+		}
+	}
 }
