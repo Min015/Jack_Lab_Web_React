@@ -232,7 +232,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		//下拉式選人關閉
 		handelMouseDown = (e) => {
 			const cn = (e.target.className);
-			const name = cn.substr(0, 6)
+			const name = (cn.length>=6?cn.substr(0, 6):'');
 			if (name !== "choose") {
 				this.setState({
 					drop: false,
@@ -298,7 +298,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			})
 		}
 		render() {
-			const { array, title, content, time, tag, place, participate, drop, long, disabled } = this.state;
+			const { array, title, content, time, tag, place, participate, drop, long, disabled, delfile } = this.state;
 			const { PublicMemberList, MeetingInfo } = this.props;
 			return (
 				<div>
@@ -467,28 +467,30 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									<div className="set col-4">
 										<label className="label">刪除舊檔</label>
 										<div className='file'>
-											<table>
-												<tbody>
-													{(MeetingInfo === undefined || MeetingInfo.File.length === 0) ? "" : MeetingInfo.File.map((item, index) => {
-														return (
-															<tr key={`MeetingInfo${index}`}>
-																<td>
+											{(MeetingInfo === undefined || MeetingInfo.File.length === 0) ? "" : MeetingInfo.File.map((item, index) => {
+												return (
+													<div key={`MeetingInfo${index}`}>
+														<div className='oncheck'>
+															<p>
+																<label className='deselect'>
 																	<input
+																		id={`${index},${item.Name}`}
 																		type='checkbox'
-																		// id={item.Account}
 																		value={item.Name}
-																		// className='choose'
 																		onChange={(e) => { this.handelOnClick(e.target) }}
 																	/>
-																</td>
-																<td>
-																	{item.Name}
-																</td>
-															</tr>
-														)
-													})}
-												</tbody>
-											</table>
+																	<span className={delfile.includes(item.Name) ? 'delete' : 'reserve'}>
+																		<svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg">
+																			<path d="M15.2687 5.38142e-08C16.6204 -0.000190445 17.9235 0.50539 18.9219 1.41747C19.9203 2.32955 20.542 3.58224 20.6649 4.92958H29.0597C29.4341 4.92969 29.7945 5.07203 30.068 5.32783C30.3416 5.58364 30.5079 5.93383 30.5334 6.30765C30.5589 6.68147 30.4417 7.05105 30.2055 7.34172C29.9692 7.63238 29.6315 7.82245 29.2607 7.87352L29.0597 7.88732H27.9111L27.0147 15.6682C24.7936 15.0547 22.4349 15.1658 20.2812 15.9853C18.1275 16.8048 16.2909 18.2901 15.038 20.2255C13.7852 22.1609 13.1814 24.4456 13.3142 26.7479C13.4471 29.0501 14.3098 31.25 15.777 33.0282H9.0351C8.06845 33.0283 7.13547 32.6728 6.41366 32.0293C5.69185 31.3857 5.23158 30.4991 5.12042 29.538L2.62424 7.88732H1.47761C1.12055 7.88731 0.775565 7.75789 0.506465 7.52299C0.237365 7.2881 0.0623518 6.96363 0.013791 6.60958L0 6.40845C1.50576e-05 6.05108 0.129326 5.7058 0.364019 5.43648C0.598711 5.16715 0.922909 4.99198 1.27666 4.94338L1.47761 4.92958H9.87242C9.99531 3.58224 10.617 2.32955 11.6154 1.41747C12.6138 0.50539 13.9169 -0.000190445 15.2687 5.38142e-08V5.38142e-08ZM15.2687 2.95775C14.0767 2.95775 13.0818 3.80563 12.8552 4.92958H17.6821C17.4536 3.80563 16.4606 2.95775 15.2687 2.95775V2.95775ZM24.1343 35C26.4857 35 28.7407 34.0651 30.4033 32.4011C32.0659 30.737 33 28.4801 33 26.1268C33 23.7734 32.0659 21.5165 30.4033 19.8524C28.7407 18.1884 26.4857 17.2535 24.1343 17.2535C21.783 17.2535 19.528 18.1884 17.8654 19.8524C16.2027 21.5165 15.2687 23.7734 15.2687 26.1268C15.2687 28.4801 16.2027 30.737 17.8654 32.4011C19.528 34.0651 21.783 35 24.1343 35V35ZM22.3691 22.3882L20.6019 24.1549H23.6418C25.0787 24.1549 26.4568 24.7262 27.4728 25.7432C28.4889 26.7601 29.0597 28.1393 29.0597 29.5775V30.0704C29.0597 30.3319 28.9559 30.5827 28.7712 30.7676C28.5864 30.9525 28.3359 31.0563 28.0746 31.0563C27.8134 31.0563 27.5628 30.9525 27.3781 30.7676C27.1933 30.5827 27.0896 30.3319 27.0896 30.0704V29.5775C27.0896 28.6623 26.7263 27.7846 26.0797 27.1374C25.4331 26.4903 24.5562 26.1268 23.6418 26.1268H20.6019L22.3691 27.8935C22.554 28.0786 22.658 28.3297 22.658 28.5915C22.658 28.8534 22.554 29.1044 22.3691 29.2896C22.1841 29.4747 21.9332 29.5787 21.6716 29.5787C21.4101 29.5787 21.1592 29.4747 20.9742 29.2896L17.5225 25.833C17.3391 25.648 17.2365 25.3977 17.2372 25.1371C17.238 24.8764 17.342 24.6268 17.5264 24.4428L20.9742 20.9921C21.1592 20.807 21.4101 20.703 21.6716 20.703C21.9332 20.703 22.1841 20.807 22.3691 20.9921C22.554 21.1772 22.658 21.4283 22.658 21.6901C22.658 21.952 22.554 22.203 22.3691 22.3882V22.3882Z" fill="black" />
+																		</svg>
+																	</span>
+																</label>
+															</p>
+															<label htmlFor={`${index},${item.Name}`}>{item.Name}</label>
+														</div>
+													</div>
+												)
+											})}
 										</div>
 									</div>
 								</div>

@@ -165,7 +165,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
     //下拉式選人關閉
     handelMouseDown = (e) => {
       const cn = (e.target.className);
-      const name = cn.substr(0, 6)
+      const name = (cn.length>=6?cn.substr(0, 6):'');
       if (name !== "choose") {
         this.setState({
           drop: false,

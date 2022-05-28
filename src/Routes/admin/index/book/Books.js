@@ -278,7 +278,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 		handelMouseDown = (e) => {
 			const cn = (e.target.className);
-			const name = cn.substr(0, 6);
+			const name = (cn.length>=6?cn.substr(0, 6):'');
 			if (e.target.className === "window") {
 				this.setState({
 					add: false,
