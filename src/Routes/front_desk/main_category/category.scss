@@ -15,7 +15,6 @@
 	}
 
 	.works_area {
-		position        : sticky;
 		z-index         : 1;
 		top             : 56px;
 		display         : flex;
@@ -150,10 +149,6 @@
 
 				a {
 					@include ali-set(flex-end);
-
-					svg {
-						margin-left: 10px;
-					}
 
 					&:link,
 					&:visited {

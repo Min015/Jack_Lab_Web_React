@@ -119,6 +119,14 @@ $studentcard_background:#ADC5D9;
     overflow-y: auto;
 }
 
+%absolutely_center {
+    display        : flex;
+    align-items    : center;
+    justify-content: center;
+    text-align     : center;
+}
+
+
 .col-05 {
     width: $col-05;
 }
@@ -248,4 +256,7 @@ table {
 
 .none {
     display: none !important;
+}
+.absolutely_center{
+    @extend %absolutely_center;
 }
