@@ -58,7 +58,6 @@ const fetch = store => next => action => {
       _axios
         .delete(`/album?id=${action.payload}`,)
         .then(response => {
-          console.log(response);
           if (response.status === 200) {
             console.log("刪除相簿成功")
           }
@@ -77,7 +76,6 @@ const fetch = store => next => action => {
       _axios
         .get(`/book/list?page=${action.page}&search=${action.search}`,)
         .then(response => {
-          console.log(response);
           if (response.status === 200) {
             return response.data.data;
           }
@@ -118,7 +116,6 @@ const fetch = store => next => action => {
       _axios
         .delete(`/book?id=${action.payload}`,)
         .then(response => {
-          console.log(response);
           if (response.status === 200) {
             console.log("刪除出版品成功")
           }
@@ -159,7 +156,6 @@ const fetch = store => next => action => {
       _axios
         .put('/book', action.payload)
         .then(response => {
-          console.log(response);
           if (response.status === 200) {
             console.log("修改出版品資訊成功");
           }

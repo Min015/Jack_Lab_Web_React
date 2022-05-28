@@ -44,9 +44,7 @@ export default class Student extends Component {
             <div>
                 <GuestHeader />
                 <div className="content">
-
                     <CreateStudentCard student={students} />
-
                 </div>
             </div>
         )

@@ -18,7 +18,6 @@ const fetch = store => next => action => {
       _axios
         .get(`/project/type?page=${action.page}&search=${action.search}`,)
         .then(response => {
-          console.log(response);
           if (response.status === 200) {
             return response.data.data;
           }
@@ -41,7 +40,6 @@ const fetch = store => next => action => {
       _axios
         .get(`/project/type/select`,)
         .then(response => {
-          console.log(response);
           if (response.status === 200) {
             return response.data.data;
           }
@@ -61,7 +59,6 @@ const fetch = store => next => action => {
       _axios
         .post(`/project/type`, action.payload)
         .then(response => {
-          console.log(response);
           if (response.status === 200) {
             console.log("新增專案類型成功");
           }
@@ -80,7 +77,6 @@ const fetch = store => next => action => {
       _axios
         .put(`/project/type`, action.payload)
         .then(response => {
-          console.log(response);
           if (response.status === 200) {
             console.log("修改專案類型成功");
           }
@@ -99,7 +95,6 @@ const fetch = store => next => action => {
       _axios
         .delete(`/project/type?id=${action.payload}`,)
         .then(response => {
-          console.log(response);
           if (response.status === 200) {
             console.log("刪除專案性質成功")
           }
@@ -118,7 +113,6 @@ const fetch = store => next => action => {
       _axios
         .get(`/project/list?page=${action.page}&search=${action.search}&id=${action.id}`,)
         .then(response => {
-          console.log(response);
           if (response.status === 200) {
             return response.data.data;
           }
@@ -141,7 +135,6 @@ const fetch = store => next => action => {
       _axios
         .get(`/project?id=${action.payload}`,)
         .then(response => {
-          console.log(response);
           if (response.status === 200) {
             return response.data.data;
           }
@@ -164,7 +157,6 @@ const fetch = store => next => action => {
       _axios
         .get(`/project/record?id=${action.payload}&page=${action.page}&search=${action.search}`,)
         .then(response => {
-          console.log(response);
           if (response.status === 200) {
             return response.data.data;
           }
@@ -187,9 +179,8 @@ const fetch = store => next => action => {
       _axios
         .post(`/project`, action.payload)
         .then(response => {
-          console.log(response);
           if (response.status === 200) {
-            console.log("建立專案成功");
+            console.log("新增專案成功");
           }
         })
         .catch(err => {
@@ -206,7 +197,6 @@ const fetch = store => next => action => {
       _axios
         .put(`/project`, action.payload)
         .then(response => {
-          console.log(response);
           if (response.status === 200) {
             console.log("修改專案內容成功");
           }
@@ -225,7 +215,6 @@ const fetch = store => next => action => {
       _axios
         .get(`/download/project?id=${action.payload}`,)
         .then(response => {
-          console.log(response);
           if (response.status === 200) {
             window.open(`${BaseURL}/download/project?id=${action.payload}`)
           }
@@ -239,7 +228,6 @@ const fetch = store => next => action => {
       _axios
         .delete(`/project/record?id=${action.payload}`,)
         .then(response => {
-          console.log(response);
           if (response.status === 200) {
             console.log("刪除專案記錄")
           }
@@ -258,7 +246,6 @@ const fetch = store => next => action => {
       _axios
         .delete(`/project?id=${action.payload}`,)
         .then(response => {
-          console.log(response);
           if (response.status === 200) {
             console.log("刪除專案成功")
           }

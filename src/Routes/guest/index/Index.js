@@ -19,7 +19,6 @@ import {
 } from '../../../Action/IntroduceAction'
 
 const mapStateToProps = state => {
-	console.log(state);
 	return {
 		AlbumListAll: state.guestindexReducer.AlbumListAll,
 		BookList: state.guestindexReducer.BookList,

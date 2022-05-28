@@ -191,7 +191,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		render() {
 			const { MyInfo, MyProject } = this.props;
 			const { table_header, edit, photo, upload, introduction, pagearray, page, maxpage } = this.state;
-			console.log("MyProject", MyProject);
 			return (
 				<div id='personal_info'>
 					<MemberLayout>

@@ -8,7 +8,7 @@ export default class Lab extends Component {
 			<div>
 				{LabIntroduceList === undefined ? [] : LabIntroduceList.list.map((item, index) => {
 					return (
-						<div>
+						<div key={`LabIntroduceList${index}`}>
 							<div className='index_title'>{item.Title}</div>
 							<div className='center'>
 								<div className='labintroduce'>

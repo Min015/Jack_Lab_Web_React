@@ -16,11 +16,11 @@ const fetch = store => next => action => {
     case "GET_LabIntroduce":
       _axios
         .get(`/labinfo/list?page=${action.page}&search=${action.search}`,)
-        .then(response => {
-          if (response.status === 200) {
-            console.log("取得LAB介紹");
-            return response.data.data;
-          }
+        .then(response => {return response.data.data;
+          // if (response.status === 200) {
+          //   console.log("取得LAB介紹");
+          //   return response.data.data;
+          // }
         })
         .catch(err => {
           alert(err.response.data.message);
@@ -76,7 +76,6 @@ const fetch = store => next => action => {
       _axios
         .delete(`labinfo?id=${action.payload}`,)
         .then(response => {
-          console.log(response);
           if (response.status === 200) {
             console.log("刪除LAB介紹成功")
           }
@@ -94,11 +93,11 @@ const fetch = store => next => action => {
     case "GET_TeacherIntroduce":
       _axios
         .get(`/manager/teacher/list?page=${action.page}&search=${action.search}`,)
-        .then(response => {
-          if (response.status === 200) {
-            console.log("取得教師介紹");
-            return response.data.data;
-          }
+        .then(response => {return response.data.data;
+          // if (response.status === 200) {
+          //   console.log("取得教師介紹");
+          //   return response.data.data;
+          // }
         })
         .catch(err => {
           alert(err.response.data.message);
@@ -154,7 +153,6 @@ const fetch = store => next => action => {
       _axios
         .delete(`/manager/teacher?id=${action.payload}`,)
         .then(response => {
-          console.log(response);
           if (response.status === 200) {
             console.log("刪除Teacher介紹成功")
           }

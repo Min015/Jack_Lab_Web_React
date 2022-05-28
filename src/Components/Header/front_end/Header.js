@@ -36,7 +36,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 
 		LOGOUT = () => {
 			localStorage.removeItem('user_token');
-			// this.props.history.push(`/index`);
 			window.location.replace('http://localhost:3000/index');
 		}
 

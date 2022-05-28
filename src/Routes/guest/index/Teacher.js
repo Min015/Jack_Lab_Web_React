@@ -9,7 +9,7 @@ export default class Teacher extends Component {
 				<div className='teacher_block'>
 					{TeacherIntroduceList === undefined ? [] : TeacherIntroduceList.list.map((item, index) => {
 						return (
-							<div className='teacher'>
+							<div key={`TeacherIntroduceList${index}`} className='teacher'>
 								<div className='teacherphoto'>
 									<img src={item === undefined ? "" : `http://localhost/${item.Image}`} alt="教師頭像" className='Image' />
 									<div className='teacherinfo'>

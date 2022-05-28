@@ -18,7 +18,7 @@ export default class BooksList extends Component {
 							}
 						}
 						return (
-							<div className='book' >
+							<div key={`book${index}`} className='book' >
 								<img src={booklist === undefined ? "" : `http://localhost/${item.Image}`} alt="出版品" />
 								<div className='booktitle'>
 									{title}
@@ -27,7 +27,7 @@ export default class BooksList extends Component {
 									作者：<br />
 									{booklist === undefined ? [] : item.Authors.map((item, index) => {
 										return (
-											<span>{item.name} </span>
+											<span key={`author${index}`}>{item.name} </span>
 										)
 									})}
 								</div>

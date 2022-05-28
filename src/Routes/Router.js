@@ -1,5 +1,5 @@
-import React from 'react'
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
+import React from 'react';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
 import GameList from './front_desk/game/GameList';
 import AddGame from './front_desk/game/AddGame';

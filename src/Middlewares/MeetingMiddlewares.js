@@ -43,7 +43,6 @@ const fetch = store => next => action => {
 			_axios
 				.get(`/meeting?id=${action.payload}`,)
 				.then(response => {
-					console.log(response);
 					if (response.status === 200) {
 						return response.data.data;
 					}
@@ -76,7 +75,11 @@ const fetch = store => next => action => {
 		case "DELETE_Meeting":
 			_axios
 				.delete(`/meeting?id=${action.payload}`,)
-				.then(response => { console.log(response) })
+				.then(response => {
+          if (response.status === 200) {
+            console.log("刪除會議成功")
+          }
+        })
 				.catch(err => {
 					alert(err.response.data.message);
 					throw new Error(err);

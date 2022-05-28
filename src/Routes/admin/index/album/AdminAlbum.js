@@ -213,7 +213,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		handelSetNow = (e) => {
 			const { id } = e.target;
 			const info = id.split(",")
-			console.log(info);
 			this.setState({
 				now: {
 					Id: info[0],
@@ -311,7 +310,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		render() {
 			const { table_header, array, add, edit, upload, now, previview, newTitle, delO, delAll, pagearray, page, search, maxpage } = this.state;
 			const { AlbumList } = this.props;
-			console.log(AlbumList);
 			return (
 				<BackLayout>
 					<div className='bg'>

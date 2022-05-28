@@ -18,9 +18,8 @@ const fetch = store => next => action => {
 			_axios
 				.post('/meeting', action.payload)
 				.then(response => {
-					console.log(response);
 					if (response.status === 200) {
-						console.log("新增成功");
+						console.log("新增會議成功");
 					}
 				})
 				.catch(err => {
@@ -37,9 +36,8 @@ const fetch = store => next => action => {
 			_axios
 				.post('/meeting', action.payload)
 				.then(response => {
-					console.log(response)
 					if (response.status === 200) {
-						console.log("修改成功")
+						console.log("修改會議成功")
 					}
 				})
 				.catch((err) => {
@@ -56,7 +54,6 @@ const fetch = store => next => action => {
 			_axios
 				.post('/project/record', action.payload)
 				.then(response => {
-					console.log(response);
 					if (response.status === 200) {
 						console.log("新增專案記錄成功");
 					}
@@ -75,7 +72,6 @@ const fetch = store => next => action => {
 			_axios
 				.post('/project/record', action.payload)
 				.then(response => {
-					console.log(response);
 					if (response.status === 200) {
 						console.log("更新專案記錄成功");
 					}
@@ -94,7 +90,6 @@ const fetch = store => next => action => {
 			_axios
 				.post('/album', action.payload)
 				.then(response => {
-					console.log(response);
 					if (response.status === 200) {
 						console.log("新增相片成功");
 					}
@@ -113,7 +108,6 @@ const fetch = store => next => action => {
 			_axios
 				.post('/album', action.payload)
 				.then(response => {
-					console.log(response);
 					if (response.status === 200) {
 						console.log("修改相片成功");
 					}
@@ -132,7 +126,6 @@ const fetch = store => next => action => {
 			_axios
 				.post('/manager/teacher/photo', action.payload)
 				.then(response => {
-					console.log(response);
 					if (response.status === 200) {
 						console.log("修改教師大頭貼成功");
 					}
@@ -151,7 +144,6 @@ const fetch = store => next => action => {
 			_axios
 				.post('/book/image', action.payload)
 				.then(response => {
-					console.log(response);
 					if (response.status === 200) {
 						console.log("修改出版品圖片成功");
 					}
@@ -170,7 +162,6 @@ const fetch = store => next => action => {
 			_axios
 				.post('/member/photo', action.payload)
 				.then(response => {
-					console.log(response);
 					if (response.status === 200) {
 						console.log("修改個人大頭貼成功");
 					}
