@@ -17,39 +17,6 @@
 	.center {
 		display: flex;
 
-		.booklist {
-			margin : 0px auto;
-			display: flex;
-			@extend %row;
-
-			.book {
-				width  : 217.06px;
-				padding: 5px;
-				margin : 5px;
-				@include border-set();
-
-				img {
-					width     : 100%;
-					height    : 217.05px;
-					object-fit: cover;
-				}
-
-				.booktitle {
-					font-size  : $l;
-					padding    : 5px;
-					word-wrap  : break-word;
-					font-weight: bold;
-					border-top : 1px $boder_color solid;
-					height     : 49px;
-				}
-
-				.bookauthor {
-					font-size: $m;
-					padding  : 5px;
-				}
-			}
-		}
-
 		.teacher_block {
 			@extend %col;
 
@@ -90,12 +57,43 @@
 		}
 
 		.labintroduce {
-			text-align: center;
-			white-space: pre-line;
-			line-height: 28px;
+			text-align    : center;
+			white-space   : pre-line;
+			line-height   : 28px;
 			padding-bottom: 10px;
-			width: 100%;
+			width         : 100%;
 		}
 	}
 
+	.booklist {
+		display: flex;
+		@extend %row;
+
+		.book {
+			width  : 217.06px;
+			padding: 5px;
+			margin : 5px;
+			@include border-set();
+
+			img {
+				width     : 100%;
+				height    : 217.05px;
+				object-fit: cover;
+			}
+
+			.booktitle {
+				font-size  : $l;
+				padding    : 5px;
+				word-wrap  : break-word;
+				font-weight: bold;
+				border-top : 1px $boder_color solid;
+				height     : 49px;
+			}
+
+			.bookauthor {
+				font-size: $m;
+				padding  : 5px;
+			}
+		}
+	}
 }
