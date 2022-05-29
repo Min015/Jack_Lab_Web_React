@@ -193,3 +193,10 @@ export const PUT_UpdateMyPassword = (payload, callback) => {
     });
   };
 }
+export const GET_Student = () => {
+  return (dispatch) => {
+    dispatch({
+      type: "GET_Student",
+    });
+  };
+}

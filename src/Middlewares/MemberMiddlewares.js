@@ -479,6 +479,28 @@ const fetch = store => next => action => {
           }
         });
       break;
+    case "GET_Student":
+      _axios
+        .get('/student',)
+        .then(response => response.data.data)
+        .catch(err => {
+          if (err.response.status === 401) {
+            localStorage.clear();
+            window.location.replace('http://localhost:3000/index');
+          }
+          alert(err.response.data.message);
+          throw new Error(err);
+        })
+        .then(json => {
+          if (action.callback) {
+            action.callback(json)
+          }
+          return next({
+            type: 'SAVE_Student',
+            payload: json
+          });
+        });
+      break;
     default:
       break;
   }
