@@ -4,6 +4,8 @@ import BackLayout from '../../../../Components/Layout/back/BackLayout';
 import './teacher.scss';
 import searchbtn from '../../style/img/searchButton.png';
 import camera from '../../style/img/camera.png';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 import {
 	GET_TeacherIntroduce,
@@ -308,6 +310,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				[id]: value,
 			});
 		}
+		//CKEditor
+		handelCKEditor = (event, editor) => {
+			const data = editor.getData();
+			this.setState({
+				newIntroduce: data,
+			})
+		}
 		//全選
 		handelAllChange = e => {
 			const checkboxes = document.getElementsByName('Box');
@@ -375,12 +384,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			const rule = /^[a-zA-Z0-9\.\@]{1,}$/;
 			return rule.test(Account);
 		}
-
 		render() {
 			const { table_header, array, photo, upload, newAccount, newPassword, newName, newTitle, newIntroduce, nowItem } = this.state;
 			const { add, edit, delO, delAll } = this.state;
 			const { pagearray, page, search, maxpage } = this.state;
 			const { TeacherIntroduceList } = this.props;
+			console.log(393, (TeacherIntroduceList === undefined ? "" : TeacherIntroduceList.list));
 			return (
 				<BackLayout>
 					<div className='bg'>
@@ -449,9 +458,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 												<td>{item.Name}</td>
 												<td>{item.Title}</td>
 												<td>
-													<div className='introduce'>
-														{item.Introduction}
-													</div>
+													<div className='introduce' dangerouslySetInnerHTML={{ __html: item.Introduction }}></div>
 												</td>
 												<td>
 													<div className="action">
@@ -678,13 +685,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										職位*
 									</label>
 								</div>
-								<div className='col-12 enter'>
-									<textarea
-										maxLength={5000}
-										value={newIntroduce}
-										id="newIntroduce"
-										className='long_text'
-										onChange={this.handelCanEnter.bind(this)}
+								<div id='ckeditor_edit' className='col-12 enter'>
+									<CKEditor
+										id='ckedit'
+										editor={ClassicEditor}
+										data={newIntroduce}
+										onChange={(event, editor) => this.handelCKEditor(event, editor)}
 									/>
 									<label className="label">自介*</label>
 								</div>

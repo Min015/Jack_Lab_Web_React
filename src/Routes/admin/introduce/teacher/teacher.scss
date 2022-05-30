@@ -108,3 +108,27 @@
 		}
 	}
 }
+
+#ckeditor_edit {
+	position: relative;
+
+	.ck {
+		.ck-editor__main {
+			max-height: 160px;
+
+			.ck-content {
+				max-height: 160px;
+			}
+		}
+	}
+
+	.label {
+		position: absolute;
+		top     : -7px;
+		left    : 3px;
+		padding: 0px 4px;
+		font-size: $s;
+		color    : $prompt_color;
+		background-color: $main_backgroundcolor;
+	}
+}

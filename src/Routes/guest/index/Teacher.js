@@ -16,8 +16,7 @@ export default class Teacher extends Component {
 										<span className='name'>{item.Name}</span> <span>{item.Title}</span>
 									</div>
 								</div>
-								<div className='teacherintroduce'>
-									{item.Introduction}
+								<div className='teacherintroduce' dangerouslySetInnerHTML={{__html:item.Introduction}}>
 								</div>
 							</div>
 						)

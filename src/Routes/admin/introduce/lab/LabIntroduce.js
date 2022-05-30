@@ -4,6 +4,8 @@ import BackLayout from '../../../../Components/Layout/back/BackLayout';
 import '../../style/mainstyle.scss';
 import searchbtn from '../../style/img/searchButton.png';
 import { GET_LabIntroduce, POST_AddLabIntroduce, PUT_UpdateLabIntroduce, DELETE_LabIntroduce, } from '../../../../Action/IntroduceAction';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 const mapStateToProps = state => {
 	const { introduceReducer } = state;
@@ -246,6 +248,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				[id]: value,
 			});
 		}
+		//CKEditor
+		handelCKEditor = (event, editor) => {
+			const data = editor.getData();
+			this.setState({
+				newContent: data,
+			})
+		}
 		//全選
 		handelAllChange = e => {
 			const checkboxes = document.getElementsByName('Box');
@@ -340,7 +349,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 												</td>
 												<td>{((page - 1) * 10) + index + 1}</td>
 												<td>{item.Title}</td>
-												<td className='canenter'>{item.Content}</td>
+												<td className='canenter'>
+													{/* {item.Content} */}
+													<div dangerouslySetInnerHTML={{ __html: item.Content }}></div>
+													</td>
 												<td>
 													<div className="action">
 														<div className="svg" onClick={() => this.drop_down('edit')}>
@@ -427,13 +439,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										標題*
 									</label>
 								</div>
-								<div className='col-12 enter'>
-									<textarea
-										maxLength='2000'
-										className='long_text'
-										value={newContent}
-										id='newContent'
-										onChange={this.handelCanEnter.bind(this)}
+								<div id='ckeditor_edit' className='col-12 enter'>
+									<CKEditor
+										editor={ClassicEditor}
+										data={newContent}
+										onChange={(event, editor) => this.handelCKEditor(event, editor)}
 									/>
 									<label className="label">內容*</label>
 								</div>
@@ -478,13 +488,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										標題*
 									</label>
 								</div>
-								<div className='col-12 enter'>
-									<textarea
-										maxLength='2000'
-										className='long_text'
-										value={newContent}
-										id='newContent'
-										onChange={this.handelCanEnter.bind(this)}
+								<div id='ckeditor_edit' className='col-12 enter'>
+									<CKEditor
+										editor={ClassicEditor}
+										data={newContent}
+										onChange={(event, editor) => this.handelCKEditor(event, editor)}
 									/>
 									<label className="label">內容*</label>
 								</div>

@@ -11,9 +11,7 @@ export default class Lab extends Component {
 						<div key={`LabIntroduceList${index}`}>
 							<div className='index_title'>{item.Title}</div>
 							<div className='center'>
-								<div className='labintroduce'>
-									{item.Content}
-								</div>
+								<div className='labintroduce' dangerouslySetInnerHTML={{ __html: item.Content }}></div>
 							</div>
 						</div>
 					)
