@@ -22,6 +22,11 @@
 				@include ali-set();
 				@include jus-set();
 			}
+			.this{
+				li{
+					background-color: rgb(91, 156, 199);
+				}
+			}
 			&::-webkit-scrollbar {
         /*-------滾動條整體樣式----*/
 				height: 5px;

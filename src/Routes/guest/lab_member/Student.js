@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { connect } from "react-redux";
+import { NavLink } from "react-router-dom";
 import GuestHeader from '../../../Components/Header/front_end/GuestHeader';
 import CreateStudentCard from './CreateStudentCard';
 import '../style/studentcard.scss';
@@ -13,25 +14,36 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    GET_Student: () => dispatch(GET_Student()),
+    GET_Student: (payload, callback) => dispatch(GET_Student(payload, callback)),
   }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(
   class Student extends Component {
     state = {
+      time: []
     }
 
     //生命週期
     componentDidMount = () => {
-      this.props.GET_Student();
+      const { match } = this.props;
+      const { params } = match;
+      const nowtime = params.time;
+      const callback = (res) => {
+        this.setState({
+          time: res.time
+        })
+        this.props.GET_Student(nowtime);
+      }
+      this.props.GET_Student(nowtime, callback);
     }
     //func
 
     //渲染
     render() {
       const { Student } = this.props;
-      console.log(Student);
+      const { time } = this.state;
+      console.log(time);
       return (
         <div>
           <GuestHeader />
@@ -39,9 +51,22 @@ export default connect(mapStateToProps, mapDispatchToProps)(
             <div id='stu_card'>
               <nav>
                 <ul>
-                  {Student === undefined ? "" : Student.time.map((item, index) => {
+                  <NavLink
+                    to={`/student/ `}
+                    activeClassName="this"
+                    onClick={() => this.props.GET_Student(` `)}
+                  >
+                    <li>全員</li>
+                  </NavLink>
+                  {time.map((item, index) => {
                     return (
-                      <li key={`time${index}`}>{item}</li>
+                      <NavLink
+                        to={`/student/${item}`}
+                        activeClassName="this"
+                        onClick={() => this.props.GET_Student(`${item}`)}
+                      >
+                        <li key={`time${index}`}>{item}</li>
+                      </NavLink>
                     )
                   })}
                 </ul>
@@ -53,7 +78,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                       <div className='card_in'>
                         <div className='stu_i'>
                           <div className='img'>
-                          <img src={Student === undefined ? "" : `http://localhost/${item.Image}`} alt="學生頭像" />
+                            <img src={Student === undefined ? "" : `http://localhost/${item.Image}`} alt="學生頭像" />
                           </div>
                         </div>
                         <div className='stu_n'>{item.Name}</div>

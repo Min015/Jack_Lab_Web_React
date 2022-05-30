@@ -177,8 +177,8 @@ export default (
 
 
 				<Route path='/index' exact component={Index} />
-				<Route path='/student' exact component={Student} />
-
+				<Route path='/student/:time' exact component={Student} />
+				<Route path='/student' exact component={() => <Redirect to='/student/ ' />} />
 
 				<Route path='*' exact component={NoRoute} />
 				{/* 找不到 */}

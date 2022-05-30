@@ -481,7 +481,7 @@ const fetch = store => next => action => {
       break;
     case "GET_Student":
       _axios
-        .get('/student',)
+        .get(`/student?time=${action.payload}`,)
         .then(response => response.data.data)
         .catch(err => {
           if (err.response.status === 401) {
