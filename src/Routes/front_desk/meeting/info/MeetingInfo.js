@@ -56,7 +56,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			this.props.history.push("/meeting")
 		}
 
-		handelMouseDown = (e) => {
+		handleMouseDown = (e) => {
 			if (e.target.className === "window") {
 				this.setState({
 					drop: false,
@@ -75,6 +75,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		render() {
 			const { drop } = this.state;
 			const { MeetingInfo } = this.props;
+			console.log(MeetingInfo);
 			return (
 				<div id='meeting_info'>
 					<MemberLayout>
@@ -173,7 +174,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					</MemberLayout>
 					<div
 						className={drop ? "popup_background active" : "popup_background"}
-						onClick={this.handelMouseDown}
+						onClick={this.handleMouseDown}
 					>
 						<div className="window">
 							<div className="form">

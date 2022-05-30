@@ -27,6 +27,8 @@ export default (state = initialState, action) => {
       return { ...state, IsLogin: action.payload };
     case "SAVE_Student":
       return { ...state, Student: action.payload };
+    case "SAVE_MyPermission":
+      return { ...state, MyPermission: action.payload };
     default:
       return state;
   }

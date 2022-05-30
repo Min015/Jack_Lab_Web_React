@@ -1,8 +1,9 @@
-export const POST_Login = (payload) => {
+export const POST_Login = (payload,callback) => {
   return (dispatch) => {
     dispatch({
       type: "POST_Login",
       payload: payload,
+      callback:callback,
     });
   };
 }
@@ -199,6 +200,13 @@ export const GET_Student = (payload,callback) => {
       type: "GET_Student",
       payload:payload,
       callback:callback,
+    });
+  };
+}
+export const SAVE_Permission = () => {
+  return (dispatch) => {
+    dispatch({
+      type: "SAVE_Permission",
     });
   };
 }

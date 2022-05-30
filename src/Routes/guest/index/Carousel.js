@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import '../style/Carousel.scss';
-import carousel from './img/img1.jpg';
+import photo from './img/img1.jpg';
 
 export default class MysCarousel extends Component {
 	state = {
@@ -58,12 +58,12 @@ export default class MysCarousel extends Component {
 				>
 					<ul className="ul">
 						{
-							AlbumListAll === undefined ? [] : AlbumListAll.map((item, index) => {
+							(AlbumListAll === undefined || AlbumListAll === '') ? [] : AlbumListAll.map((item, index) => {
 								return (
 									<li className={index === showIndex ? 'show' : ''}
 										key={`AlbumListAll${index}`}
 									>
-										<img src={AlbumListAll === undefined ? { carousel } : `http://localhost/${item.Image}`} alt="輪播圖" />
+										<img src={(AlbumListAll === undefined || AlbumListAll === '') ? { photo } : `http://localhost/${item.Image}`} alt="輪播圖" />
 									</li>
 								)
 							})
@@ -71,7 +71,7 @@ export default class MysCarousel extends Component {
 					</ul>
 					<ul className="dots" style={{ width: dot * 20 + 'px' }}>
 						{
-							AlbumListAll === undefined ? [] : AlbumListAll.map((value, index) => {
+							(AlbumListAll === undefined || AlbumListAll === '') ? [] : AlbumListAll.map((value, index) => {
 								return (
 									<li key={`Album${index}`}
 										className={index === showIndex ? 'active' : ''}

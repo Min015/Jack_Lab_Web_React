@@ -9,6 +9,7 @@ import { GET_Student, } from '../../../Action/MemberAction';
 const mapStateToProps = state => {
   return {
     Student: state.memberReducer.Student,
+    StudentTime: state.memberReducer.StudentTime,
   }
 }
 
@@ -58,14 +59,15 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                   >
                     <li>全員</li>
                   </NavLink>
-                  {time.map((item, index) => {
+                  {Student === undefined ? "" : time.map((item, index) => {
                     return (
                       <NavLink
+                        key={`time${index}`}
                         to={`/student/${item}`}
                         activeClassName="this"
                         onClick={() => this.props.GET_Student(`${item}`)}
                       >
-                        <li key={`time${index}`}>{item}</li>
+                        <li>{item}</li>
                       </NavLink>
                     )
                   })}
@@ -74,7 +76,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
               <div className='block'>
                 {Student === undefined ? "" : Student.list.map((item, index) => {
                   return (
-                    <div className='card'>
+                    <div key={`student${index}`} className='card'>
                       <div className='card_in'>
                         <div className='stu_i'>
                           <div className='img'>

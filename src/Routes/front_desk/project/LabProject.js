@@ -61,13 +61,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				this.setState({
 					maxpage: res.page,
 				})
-				this.handelGetPage(nowpage, res.page);
+				this.handleGetPage(nowpage, res.page);
 			}
 			this.props.GET_Project(nowpage, nowsearch, nowtype, callback);
 			this.props.GET_ProjectTypeAll();
 		}
 		//取得頁面
-		handelGetPage = (nowpage, maxpage) => {
+		handleGetPage = (nowpage, maxpage) => {
 			let pagearray = [];
 			for (let i = (Number(nowpage) - 2); i <= (Number(nowpage) + 2); i++) {
 				if (i > 0 && i <= Number(maxpage)) {
@@ -79,7 +79,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			})
 		}
 		//換頁
-		handelGoNextPage = (page, search = " ", ptype = " ") => {
+		handleGoNextPage = (page, search = " ", ptype = " ") => {
 			const callback = (res) => {
 				const { match } = this.props;
 				const { params } = match;
@@ -93,7 +93,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					maxpage: res.page,
 					pagearray: [],
 				})
-				this.handelGetPage(nowpage, res.page);
+				this.handleGetPage(nowpage, res.page);
 			}
 			this.props.history.push(`/project/${page}/${search}/${ptype}`);
 			this.props.GET_Project(page, search, ptype, callback);
@@ -144,7 +144,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									)}
 								</select>
 								<input type="text" placeholder="搜尋" className="search" id="search" value={search} onChange={this.handleInputChange.bind(this)} />
-								<input type="submit" value="送出" className="submit" onClick={() => this.handelGoNextPage(1, search, ptype)} />
+								<input type="submit" value="送出" className="submit" onClick={() => this.handleGoNextPage(1, search, ptype)} />
 							</div>
 							<div className="search_add">
 								<div className="add">
@@ -164,7 +164,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 						<div className={(pagearray === undefined) ? "none" : "active"}>
 							<div className='center'>
 								<div className='page'>
-									<button onClick={() => this.handelGoNextPage(1, search)} className='one_page'>
+									<button onClick={() => this.handleGoNextPage(1, search)} className='one_page'>
 										<svg width="14" height="18" viewBox="0 0 14 18" fill="#ffffff" xmlns="http://www.w3.org/2000/svg">
 											<path d="M12.6006 17.9991L14.0005 16.499L6.59997 8.99955L13.9994 1.49902L12.5993 -0.000877613L3.59997 8.99976L12.6006 17.9991Z" fill="#ffffff" />
 											<rect x="2.00061" y="18" width="2" height="18" transform="rotate(179.996 2.00061 18)" fill="#ffffff" />
@@ -172,10 +172,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									</button>
 									<div className='page_group'>
 										{pagearray?.map((item, index) =>
-											(<div key={`page${index}`} onClick={() => this.handelGoNextPage(item, search)} className={page === `${item}` ? 'features' : 'one_page'}>{item}</div>)
+											(<div key={`page${index}`} onClick={() => this.handleGoNextPage(item, search)} className={page === `${item}` ? 'features' : 'one_page'}>{item}</div>)
 										)}
 									</div>
-									<button onClick={() => this.handelGoNextPage(maxpage, search)} className='one_page'>
+									<button onClick={() => this.handleGoNextPage(maxpage, search)} className='one_page'>
 										<svg width="14" height="18" viewBox="0 0 14 18" fill="#ffffff" xmlns="http://www.w3.org/2000/svg">
 											<path d="M1.4 0L0 1.5L7.4 9L0 16.5L1.4 18L10.4 9L1.4 0Z" fill="#ffffff" />
 											<rect x="12" width="2" height="18" fill="#ffffff" />

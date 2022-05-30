@@ -35,7 +35,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 
 
 		LOGOUT = () => {
-			localStorage.removeItem('user_token');
+			localStorage.clear();
 			window.location.replace('http://localhost:3000/index');
 		}
 
@@ -97,7 +97,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				})
 			}
 		}
-		handelMouseDown = (e) => {
+		handleMouseDown = (e) => {
 			if (e.target.className === "window") {
 				this.setState({
 					revise: false,
@@ -142,7 +142,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					</nav>
 					<div
 						className={logout ? "popup_background active" : "popup_background"}
-						onClick={this.handelMouseDown}
+						onClick={this.handleMouseDown}
 					>
 						<div className="window">
 							<div className="prompt">
@@ -170,7 +170,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					</div>
 					<div
 						className={revise ? "popup_background active" : "popup_background"}
-						onClick={this.handelMouseDown}
+						onClick={this.handleMouseDown}
 					>
 						<div className="window">
 							<div className="form">

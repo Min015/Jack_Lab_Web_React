@@ -8,12 +8,12 @@ import '../main_category/category.scss';
 
 import CreateTable from './CreateTable';
 import { GET_Meeting, DELETE_Meeting } from '../../../Action/MeetingAction';
-
+import { SAVE_Permission,} from '../../../Action/MemberAction';
 
 const mapStateToProps = state => {
-	const { MeetingList } = state.meetingReducer;
 	return {
-		MeetingList
+		MeetingList:state.meetingReducer.MeetingList,
+		MyPermission:state.memberReducer.MyPermission,
 	}
 }
 
@@ -21,6 +21,7 @@ const mapDispatchToProps = dispatch => {
 	return {
 		GET_Meeting: (page, search, callback) => dispatch(GET_Meeting(page, search, callback)),
 		DELETE_Meeting: (payload, callback) => dispatch(DELETE_Meeting(payload, callback)),
+		SAVE_Permission:()=>dispatch(SAVE_Permission()),
 	}
 }
 export default connect(mapStateToProps, mapDispatchToProps)(
@@ -48,12 +49,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				this.setState({
 					maxpage: res.page,
 				})
-				this.handelGetPage(nowpage, res.page);
+				this.handleGetPage(nowpage, res.page);
+				this.props.SAVE_Permission();
 			}
 			this.props.GET_Meeting(nowpage, nowsearch, callback);
 		}
 		//取得頁面
-		handelGetPage = (nowpage, maxpage) => {
+		handleGetPage = (nowpage, maxpage) => {
 			let pagearray = [];
 			for (let i = (Number(nowpage) - 2); i <= (Number(nowpage) + 2); i++) {
 				if (i > 0 && i <= Number(maxpage)) {
@@ -65,7 +67,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			})
 		}
 		//換頁
-		handelGoNextPage = (page, search = " ") => {
+		handleGoNextPage = (page, search = " ") => {
 			const callback = (res) => {
 				const { match } = this.props;
 				const { params } = match;
@@ -77,7 +79,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					maxpage: res.page,
 					pagearray: [],
 				})
-				this.handelGetPage(nowpage, res.page);
+				this.handleGetPage(nowpage, res.page);
 			}
 			this.props.history.push(`/meeting/${page}/${search}`);
 			this.props.GET_Meeting(page, search, callback);
@@ -110,7 +112,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 
 		render() {
 			const { table_header } = this.state;
-			const { MeetingList } = this.props;
+			const { MeetingList,MyPermission } = this.props;
 			const { pagearray, page, search, maxpage } = this.state;
 			return (
 				<div id='fornt_main'>
@@ -125,9 +127,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									})}
 								</select> */}
 								<input type="text" placeholder="輸入搜尋值" className="search" id="search" value={search} onChange={this.handleInputChange.bind(this)} />
-								<input type="submit" value="送出" className="submit" onClick={() => this.handelGoNextPage(1, search)} />
+								<input type="submit" value="送出" className="submit" onClick={() => this.handleGoNextPage(1, search)} />
 							</div>
-							<div className="search_add">
+							<div className={(MyPermission!==undefined&&MyPermission!==[]&&MyPermission.includes('M001'))?"search_add":"none"}>
 								<div className="add">
 									<Link to='/meeting/addmeeting'>
 										<svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -145,7 +147,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 						<div className={(pagearray === undefined) ? "none" : "active"}>
 							<div className='center'>
 								<div className='page'>
-									<button onClick={() => this.handelGoNextPage(1, search)} className='one_page'>
+									<button onClick={() => this.handleGoNextPage(1, search)} className='one_page'>
 										<svg width="14" height="18" viewBox="0 0 14 18" fill="#ffffff" xmlns="http://www.w3.org/2000/svg">
 											<path d="M12.6006 17.9991L14.0005 16.499L6.59997 8.99955L13.9994 1.49902L12.5993 -0.000877613L3.59997 8.99976L12.6006 17.9991Z" fill="#ffffff" />
 											<rect x="2.00061" y="18" width="2" height="18" transform="rotate(179.996 2.00061 18)" fill="#ffffff" />
@@ -153,10 +155,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									</button>
 									<div className='page_group'>
 										{pagearray?.map((item, index) =>
-											(<div key={`page${index}`} onClick={() => this.handelGoNextPage(item, search)} className={page === `${item}` ? 'features' : 'one_page'}>{item}</div>)
+											(<div key={`page${index}`} onClick={() => this.handleGoNextPage(item, search)} className={page === `${item}` ? 'features' : 'one_page'}>{item}</div>)
 										)}
 									</div>
-									<button onClick={() => this.handelGoNextPage(maxpage, search)} className='one_page'>
+									<button onClick={() => this.handleGoNextPage(maxpage, search)} className='one_page'>
 										<svg width="14" height="18" viewBox="0 0 14 18" fill="#ffffff" xmlns="http://www.w3.org/2000/svg">
 											<path d="M1.4 0L0 1.5L7.4 9L0 16.5L1.4 18L10.4 9L1.4 0Z" fill="#ffffff" />
 											<rect x="12" width="2" height="18" fill="#ffffff" />

@@ -130,7 +130,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			}
 		}
 		//可以空格
-		handelCanEnter = event => {
+		handleCanEnter = event => {
 			const target = event.target;
 			let { value, id } = target;
 			this.setState({
@@ -138,7 +138,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			});
 		}
 		//選參與人
-		handelSelectMember = e => {
+		handleSelectMember = e => {
 			let participate = this.state.participate;
 			const account = e.id;
 			const name = e.value;
@@ -162,7 +162,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			}
 		}
 		//選擇要刪除的檔案
-		handelOnClick = e => {
+		handleOnClick = e => {
 			let { all_file_q, delfile } = this.state;
 			const { array } = this.state;
 			if (e.checked === false) {
@@ -241,7 +241,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			}
 		}
 		//下拉式選人關閉
-		handelMouseDown = (e) => {
+		handleMouseDown = (e) => {
 			const cn = (e.target.className);
 			const name = (cn.length >= 6 ? cn.substr(0, 6) : '');
 			if (name !== "choose") {
@@ -318,7 +318,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					<div className='bg'>
 						<div
 							className="info_form"
-							onClick={this.handelMouseDown.bind(this)}
+							onClick={this.handleMouseDown.bind(this)}
 						>
 							{/* 輸入會議主題 */}
 							<div className="inputbox">
@@ -347,7 +347,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										className="input"
 										value={content}
 										id='content'
-										onChange={this.handelCanEnter.bind(this)}
+										onChange={this.handleCanEnter.bind(this)}
 									>
 									</textarea>
 									<label className="label">會議內容*</label>
@@ -402,7 +402,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 															id={item.account}
 															value={item.name}
 															checked
-															onChange={(e) => { this.handelSelectMember(e.target) }}
+															onChange={(e) => { this.handleSelectMember(e.target) }}
 														/>
 														<span>
 															<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -428,7 +428,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 															id={item.Account}
 															value={item.Name}
 															className='choose'
-															onChange={(e) => { this.handelSelectMember(e.target) }}
+															onChange={(e) => { this.handleSelectMember(e.target) }}
 														/>
 														<label htmlFor={item.Account} className='choose'>{item.Name}</label>
 													</div>
@@ -489,7 +489,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 																		id={`${index},${item.Name}`}
 																		type='checkbox'
 																		value={item.Name}
-																		onChange={(e) => { this.handelOnClick(e.target) }}
+																		onChange={(e) => { this.handleOnClick(e.target) }}
 																	/>
 																	<span className={delfile.includes(item.Name) ? 'delete' : 'reserve'}>
 																		<svg width="33" height="35" viewBox="0 0 33 35" fill="none" xmlns="http://www.w3.org/2000/svg">

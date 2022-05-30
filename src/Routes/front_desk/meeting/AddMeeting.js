@@ -83,7 +83,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
       });
     }
     //可以空格
-    handelCanEnter = event => {
+    handleCanEnter = event => {
       const target = event.target;
       let { value, id } = target;
       this.setState({
@@ -91,7 +91,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
       });
     }
     //選參與人
-    handelSelectMember = e => {
+    handleSelectMember = e => {
       let participate = this.state.participate;
       const account = e.id;
       const name = e.value;
@@ -163,7 +163,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
       }
     }
     //下拉式選人關閉
-    handelMouseDown = (e) => {
+    handleMouseDown = (e) => {
       const cn = (e.target.className);
       const name = (cn.length>=6?cn.substr(0, 6):'');
       if (name !== "choose") {
@@ -242,7 +242,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
             </div>
             <div
               className="add_form"
-              onClick={this.handelMouseDown.bind(this)}
+              onClick={this.handleMouseDown.bind(this)}
             >
               {/* 輸入會議主題 */}
               <div className="inputbox">
@@ -271,7 +271,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                     className="input"
                     value={content}
                     id='content'
-                    onChange={this.handelCanEnter.bind(this)}
+                    onChange={this.handleCanEnter.bind(this)}
                   ></textarea>
                   <label className="label">輸入會議內容<div className='error_msg'>*</div></label>
                 </div>
@@ -324,7 +324,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                               id={item.account}
                               value={item.name}
                               checked
-                              onChange={(e) => { this.handelSelectMember(e.target) }}
+                              onChange={(e) => { this.handleSelectMember(e.target) }}
                             />
                             <span>
                               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -350,7 +350,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                               id={item.Account}
                               value={item.Name}
                               className='choose'
-                              onChange={(e) => { this.handelSelectMember(e.target) }}
+                              onChange={(e) => { this.handleSelectMember(e.target) }}
                             />
                             <label htmlFor={item.Account} className='choose'>{item.Name}</label>
                           </div>

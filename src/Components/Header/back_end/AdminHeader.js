@@ -7,7 +7,7 @@ export default class AdminHeader extends Component {
         logout: false,
     }
     LOGOUT = () => {
-        localStorage.removeItem('user_token');
+        localStorage.clear();
         window.location.replace('http://localhost:3000/index');
     }
     drop_down = (e) => {
@@ -17,7 +17,7 @@ export default class AdminHeader extends Component {
             })
         }
     }
-    handelMouseDown = (e) => {
+    handleMouseDown = (e) => {
         if (e.target.className === "window") {
             this.setState({
                 logout: false,
@@ -59,7 +59,7 @@ export default class AdminHeader extends Component {
                     </nav>
                     <div
                         className={logout ? "popup_background active" : "popup_background"}
-                        onClick={this.handelMouseDown}
+                        onClick={this.handleMouseDown}
                     >
                         <div className="window">
                             <div className="prompt">

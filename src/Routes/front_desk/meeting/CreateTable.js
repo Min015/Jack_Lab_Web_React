@@ -1,11 +1,7 @@
 import { Component } from 'react';
 import '../main_category/category.scss';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 export default class CreateTable extends Component {
-	handlegoinfo = (id) => {
-		//<Redirect to={`/meeting/meetinginfo/${id}`}></Redirect>
-		//this.props.history.push(`/meeting/meetinginfo/${id}`)
-	}
 	render() {
 		const { table_header, table_content } = this.props;
 		return (

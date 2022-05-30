@@ -12,11 +12,13 @@ import {
 	POST_UpdateMyPhoto,
 	PUT_UpdateMyIntroduction,
 	GET_MyProject,
+	SAVE_Permission,
 } from '../../../Action/MemberAction';
 const mapStateToProps = state => {
 	return {
 		MyInfo: state.memberReducer.MyInfo,
 		MyProject: state.memberReducer.MyProject,
+		MyPermission:state.memberReducer.MyPermission,
 	}
 }
 
@@ -26,6 +28,7 @@ const mapDispatchToProps = dispatch => {
 		POST_UpdateMyPhoto: (payload, callback) => dispatch(POST_UpdateMyPhoto(payload, callback)),
 		PUT_UpdateMyIntroduction: (payload, callback) => dispatch(PUT_UpdateMyIntroduction(payload, callback)),
 		GET_MyProject: (page, callback) => dispatch(GET_MyProject(page, callback)),
+		SAVE_Permission:()=>dispatch(SAVE_Permission()),
 	}
 }
 
@@ -61,13 +64,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				this.setState({
 					maxpage: res.page,
 				})
-				this.handelGetPage(nowpage, res.page);
+				this.handleGetPage(nowpage, res.page);
 			}
 			this.props.GET_MyInfo(callback);
 			this.props.GET_MyProject(nowpage, callbacklist);
+			this.props.SAVE_Permission();
 		}
 		//取得頁面
-		handelGetPage = (nowpage, maxpage) => {
+		handleGetPage = (nowpage, maxpage) => {
 			let pagearray = [];
 			for (let i = (Number(nowpage) - 2); i <= (Number(nowpage) + 2); i++) {
 				if (i > 0 && i <= Number(maxpage)) {
@@ -79,7 +83,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			})
 		}
 		//換頁
-		handelGoNextPage = (page) => {
+		handleGoNextPage = (page) => {
 			const callback = (res) => {
 				const { match } = this.props;
 				const { params } = match;
@@ -89,7 +93,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					maxpage: res.page,
 					pagearray: [],
 				})
-				this.handelGetPage(nowpage, res.page);
+				this.handleGetPage(nowpage, res.page);
 			}
 			this.props.history.push(`/setinfo/${page}`);
 			this.props.GET_Project(page, callback);
@@ -133,7 +137,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				this.props.PUT_UpdateMyIntroduction(payload, callback);
 			}
 		}
-		handelMouseDown = (e) => {
+		handleMouseDown = (e) => {
 			if (e.target.className === "window") {
 				this.setState({
 					edit: false,
@@ -155,7 +159,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			}
 		}
 		//可以空格
-		handelCanEnter(event) {
+		handleCanEnter(event) {
 			const target = event.target;
 			let { value, id } = target;
 			this.setState({
@@ -189,8 +193,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			})
 		}
 		render() {
-			const { MyInfo, MyProject } = this.props;
+			const { MyInfo, MyProject} = this.props;
 			const { table_header, edit, photo, upload, introduction, pagearray, page, maxpage } = this.state;
+			// console.log('permission=>',MyPermission);
 			return (
 				<div id='personal_info'>
 					<MemberLayout>
@@ -239,7 +244,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 						<div className={(pagearray === undefined) ? "none" : "active"}>
 							<div className='center'>
 								<div className='page'>
-									<button onClick={() => this.handelGoNextPage(1)} className='one_page'>
+									<button onClick={() => this.handleGoNextPage(1)} className='one_page'>
 										<svg width="14" height="18" viewBox="0 0 14 18" fill="#ffffff" xmlns="http://www.w3.org/2000/svg">
 											<path d="M12.6006 17.9991L14.0005 16.499L6.59997 8.99955L13.9994 1.49902L12.5993 -0.000877613L3.59997 8.99976L12.6006 17.9991Z" fill="#ffffff" />
 											<rect x="2.00061" y="18" width="2" height="18" transform="rotate(179.996 2.00061 18)" fill="#ffffff" />
@@ -247,10 +252,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									</button>
 									<div className='page_group'>
 										{pagearray?.map((item, index) =>
-											(<div key={`page${index}`} onClick={() => this.handelGoNextPage(item)} className={page === `${item}` ? 'features' : 'one_page'}>{item}</div>)
+											(<div key={`page${index}`} onClick={() => this.handleGoNextPage(item)} className={page === `${item}` ? 'features' : 'one_page'}>{item}</div>)
 										)}
 									</div>
-									<button onClick={() => this.handelGoNextPage(maxpage)} className='one_page'>
+									<button onClick={() => this.handleGoNextPage(maxpage)} className='one_page'>
 										<svg width="14" height="18" viewBox="0 0 14 18" fill="#ffffff" xmlns="http://www.w3.org/2000/svg">
 											<path d="M1.4 0L0 1.5L7.4 9L0 16.5L1.4 18L10.4 9L1.4 0Z" fill="#ffffff" />
 											<rect x="12" width="2" height="18" fill="#ffffff" />
@@ -261,7 +266,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 						</div>
 						<div
 							className={edit ? "popup_background active" : "popup_background"}
-							onClick={this.handelMouseDown}
+							onClick={this.handleMouseDown}
 						>
 							<div className="window">
 								<div className="form">
@@ -280,7 +285,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 											maxLength={5000}
 											value={introduction}
 											id="introduction"
-											onChange={this.handelCanEnter.bind(this)}
+											onChange={this.handleCanEnter.bind(this)}
 										>
 
 										</textarea>
@@ -298,7 +303,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 						</div>
 						<div
 							className={photo ? "popup_background active" : "popup_background"}
-							onClick={this.handelMouseDown}
+							onClick={this.handleMouseDown}
 						>
 							<div className="window">
 								<div className="form">
@@ -316,7 +321,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									</div>
 									<div className='enter'>
 										<input type='file' id='f' onChange={e => this.handleSelectFile(e.target.files)} />
-										<label for='f' className='nowfile'>
+										<label htmlFor='f' className='nowfile'>
 											選擇相片
 										</label>
 									</div>

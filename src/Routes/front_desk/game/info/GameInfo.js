@@ -9,7 +9,7 @@ export default class GameInfo extends Component {
         data: [],
         drop: false,
     }
-    handelMouseDown = (e) => {
+    handleMouseDown = (e) => {
         if (e.target.className === "window") {
             this.setState({
                 drop: false,
@@ -116,7 +116,7 @@ export default class GameInfo extends Component {
                 </MemberLayout>
                 <div
                     className={drop ? "popup_background active" : "popup_background"}
-                    onClick={this.handelMouseDown}
+                    onClick={this.handleMouseDown}
                 >
                     <div className="window">
                         <div className="form">

@@ -5,19 +5,19 @@ import "./header1.scss";
 import "./popup_window.scss";
 import logo from '../img/logo.png';
 
-// import { POST_Login, GET_IsLogin } from "../../../Action/MemberAction";
-// const mapStateToProps = state => {
+import { POST_Login, GET_IsLogin } from "../../../Action/MemberAction";
+const mapStateToProps = state => {
 
-// }
+}
 
-// const mapDispatchToProps = dispatch => {
-// 	return {
-// 		POST_Login: (payload) => dispatch(POST_Login(payload)),
-// 		GET_IsLogin: (callback) => dispatch(GET_IsLogin(callback)),
-// 	}
-// }
+const mapDispatchToProps = dispatch => {
+	return {
+		POST_Login: (payload) => dispatch(POST_Login(payload)),
+		GET_IsLogin: (callback) => dispatch(GET_IsLogin(callback)),
+	}
+}
 
-export default 
+export default connect(mapStateToProps, mapDispatchToProps)(
 	class GuestHeader extends Component {
 		constructor(props) {
 			super(props);
@@ -34,10 +34,10 @@ export default
 			console.log(payload);
 			const { Login } = this.props
 			console.log(Login);
-			if (Login) {
-				Login(payload)
-			}
-			// this.props.POST_Login(payload);
+			// if (Login) {
+			// 	Login(payload)
+			// }
+			this.props.POST_Login(payload);
 		}
 		IsLogin = () => {
 			const { IsLogin } = this.props
@@ -54,10 +54,10 @@ export default
 					})
 				}
 			}
-			if (IsLogin) {
-				IsLogin(callback)
-			}
-			// this.props.GET_IsLogin(callback);
+			// if (IsLogin) {
+			// 	IsLogin(callback)
+			// }
+			this.props.GET_IsLogin(callback);
 		}
 		drop_down = () => {
 			this.setState({
@@ -171,3 +171,4 @@ export default
 			);
 		}
 	}
+)

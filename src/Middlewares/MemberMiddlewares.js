@@ -10,7 +10,6 @@ const _axios = axios.create({
     'Authorization': `bearer ${token}`
   }
 })
-
 const fetch = store => next => action => {
   switch (action.type) {
     case "POST_Login":
@@ -18,17 +17,25 @@ const fetch = store => next => action => {
         .post('/login', action.payload)
         .then(response => {
           localStorage.setItem('user_token', response.data.data.token);
+          localStorage.setItem('account', response.data.data.account);
           if (response.data.data.admin === 1) {
             window.location.replace('http://localhost:3000/adminalbum');
           }
           else if (response.data.data.admin === 0) {
+            localStorage.setItem('permission', response.data.data.permission);
             window.location.replace('http://localhost:3000/setinfo');
           }
+          return response.data.data
         })
         .catch(err => {
           alert(err.response.data.message);
           throw new Error(err);
         })
+        .then(json => {
+          if (action.callback) {
+            action.callback(json)
+          }
+        });
       break;
     case "GET_IsLogin":
       _axios
@@ -501,6 +508,12 @@ const fetch = store => next => action => {
           });
         });
       break;
+    case "SAVE_Permission":
+      const permission = localStorage.getItem("permission").split(',');
+      return next({
+        type: 'SAVE_MyPermission',
+        payload: permission
+      });
     default:
       break;
   }

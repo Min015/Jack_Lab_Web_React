@@ -22,14 +22,14 @@ export default class GTypeManage extends Component {
     //生命週期
 
     //func
-    handelAllChange = e => {
+    handleAllChange = e => {
         const checkboxes = document.getElementsByName('Box');
         for (let i = 0; i < checkboxes.length; i++) {
             checkboxes[i].checked = e.target.checked;
-            this.handelOnClick(checkboxes[i]);
+            this.handleOnClick(checkboxes[i]);
         }
     }
-    handelOnClick = e => {
+    handleOnClick = e => {
         let array = this.state.array;
         const num = this.state.table_content.length;
         const AllChange = document.getElementsByName('AllChange');
@@ -82,7 +82,7 @@ export default class GTypeManage extends Component {
                                 <input
                                     type="checkbox"
                                     name='AllChange'
-                                    onChange={this.handelAllChange}
+                                    onChange={this.handleAllChange}
                                 />
                             </th>
                             <th className="col-05">#</th>
@@ -100,7 +100,7 @@ export default class GTypeManage extends Component {
                                                 id=""
                                                 name="Box"
                                                 value={item.gty_id}
-                                                onChange={(e) => { this.handelOnClick(e.target) }}
+                                                onChange={(e) => { this.handleOnClick(e.target) }}
                                             />
 
                                         </td>
