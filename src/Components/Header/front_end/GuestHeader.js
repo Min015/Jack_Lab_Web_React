@@ -1,49 +1,63 @@
-import { Component } from "react";
+import React,{ Component } from "react";
 import { connect } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import "./header1.scss";
 import "./popup_window.scss";
 import logo from '../img/logo.png';
-import { POST_Login, GET_IsLogin } from "../../../Action/MemberAction";
 
-const mapStateToProps = state => {
+// import { POST_Login, GET_IsLogin } from "../../../Action/MemberAction";
+// const mapStateToProps = state => {
 
-}
+// }
 
-const mapDispatchToProps = dispatch => {
-	return {
-		POST_Login: (payload) => dispatch(POST_Login(payload)),
-		GET_IsLogin: (callback) => dispatch(GET_IsLogin(callback)),
-	}
-}
+// const mapDispatchToProps = dispatch => {
+// 	return {
+// 		POST_Login: (payload) => dispatch(POST_Login(payload)),
+// 		GET_IsLogin: (callback) => dispatch(GET_IsLogin(callback)),
+// 	}
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(
+export default 
 	class GuestHeader extends Component {
-		state = {
-			drop: false,
-			post: [],
-			payload: {
-				Account: "",
-				Password: "",
+		constructor(props) {
+			super(props);
+			this.state = {
+				drop: false,
+				payload: {
+					Account: "",
+					Password: "",
+				}
 			}
 		}
 		LOGIN = () => {
-			this.props.POST_Login(this.state.payload);
+			const { payload } = this.state;
+			console.log(payload);
+			const { Login } = this.props
+			console.log(Login);
+			if (Login) {
+				Login(payload)
+			}
+			// this.props.POST_Login(payload);
 		}
 		IsLogin = () => {
+			const { IsLogin } = this.props
+			console.log(IsLogin);
 			const callback = (res) => {
-				if(res!==undefined&&res.status===200){
+				if (res !== undefined && res.status === 200) {
 					this.setState({
-						drop:false
+						drop: false
 					})
 				}
-				else{
+				else {
 					this.setState({
-						drop:true
+						drop: true
 					})
 				}
 			}
-			this.props.GET_IsLogin(callback);
+			if (IsLogin) {
+				IsLogin(callback)
+			}
+			// this.props.GET_IsLogin(callback);
 		}
 		drop_down = () => {
 			this.setState({
@@ -79,7 +93,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		render() {
 			const { drop } = this.state;
 			const token = localStorage.getItem("user_token");
-			console.log(84, token);
+			const { value } = this.props;
+			console.log(this.props);
 			return (
 				<header className="header">
 					<Link to="/index" className="logo">
@@ -94,7 +109,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								<li>歷屆成員</li>
 							</NavLink>
 							<div
-								onClick={(token===null||token===undefined)?this.drop_down.bind():this.IsLogin.bind()}
+								onClick={(token === null || token === undefined) ? this.drop_down.bind() : this.IsLogin.bind()}
 							>
 								<li>進入研究室</li>
 							</div>
@@ -156,4 +171,3 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			);
 		}
 	}
-)
