@@ -56,7 +56,7 @@ import SendfromDataMiddlewares from '../Middlewares/SendfromDataMiddlewares';
 import ProjectMiddlewares from '../Middlewares/ProjectMiddlewares';
 import GuestindexMiddlewares from '../Middlewares/GuestindexMiddlewares';
 import IntroduceMiddlewares from '../Middlewares/IntroduceMiddlewares'
-import MyClass from '../Utils/MyClass'
+
 
 
 const Meetingmiddlewares = [MeetingMiddlewares, thunk];

@@ -171,7 +171,7 @@ export default class Header extends Component {
 									value={oldpassword}
 									onChange={this.handleInputChange.bind(this)}
 								/>
-								<label for="Email" className="label">
+								<label htmlFor="Email" className="label">
 									舊密碼
 								</label>
 							</div>
@@ -184,7 +184,7 @@ export default class Header extends Component {
 									value={password}
 									onChange={this.handleInputChange.bind(this)}
 								/>
-								<label for="Password" className="label">
+								<label htmlFor="Password" className="label">
 									新密碼
 								</label>
 							</div>
@@ -197,7 +197,7 @@ export default class Header extends Component {
 									value={password_confirm}
 									onChange={this.handleInputChange.bind(this)}
 								/>
-								<label for="Password" className="label">
+								<label htmlFor="Password" className="label">
 									確認密碼
 								</label>
 							</div>
