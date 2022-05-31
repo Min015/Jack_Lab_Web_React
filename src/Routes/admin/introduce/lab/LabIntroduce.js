@@ -4,8 +4,8 @@ import BackLayout from '../../../../Components/Layout/back/BackLayout';
 import '../../style/mainstyle.scss';
 import searchbtn from '../../style/img/searchButton.png';
 import { GET_LabIntroduce, POST_AddLabIntroduce, PUT_UpdateLabIntroduce, DELETE_LabIntroduce, } from '../../../../Action/IntroduceAction';
+import { Editor as ClassEditor } from 'ckeditor5-custom-build/build/ckeditor';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 const mapStateToProps = state => {
 	const { introduceReducer } = state;
@@ -22,6 +22,35 @@ const mapDispatchToProps = dispatch => {
 		DELETE_LabIntroduce: (payload, callback) => dispatch(DELETE_LabIntroduce(payload, callback)),
 	}
 }
+const editorConfiguration = {
+	toolbar: [
+		'heading',
+		'|',
+		'bold',
+		'italic',
+		'underline',
+		'strikethrough',
+		'removeFormat',
+		'link',
+		'fontSize',
+		'fontFamily',
+		'fontColor',
+		'fontBackgroundColor',
+		'horizontalLine',
+		'|',
+		'bulletedList',
+		'numberedList',
+		'alignment',
+		'outdent',
+		'indent',
+		'|',
+		'mediaEmbed',
+		'undo',
+		'redo',
+		'findAndReplace',
+		'codeBlock',
+		'code']
+};
 export default connect(mapStateToProps, mapDispatchToProps)(
 	class LabIntroduce extends Component {
 		state = {
@@ -438,7 +467,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								</div>
 								<div id='ckeditor_edit' className='col-12 enter'>
 									<CKEditor
-										editor={ClassicEditor}
+										editor={ClassEditor}
 										data={newContent}
 										onChange={(event, editor) => this.handleCKEditor(event, editor)}
 									/>
@@ -487,7 +516,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								</div>
 								<div id='ckeditor_edit' className='col-12 enter'>
 									<CKEditor
-										editor={ClassicEditor}
+										editor={ClassEditor}
+										config={editorConfiguration}
 										data={newContent}
 										onChange={(event, editor) => this.handleCKEditor(event, editor)}
 									/>

@@ -4,8 +4,9 @@ import BackLayout from '../../../../Components/Layout/back/BackLayout';
 import './teacher.scss';
 import searchbtn from '../../style/img/searchButton.png';
 import camera from '../../style/img/camera.png';
+import { Editor as ClassEditor } from 'ckeditor5-custom-build/build/ckeditor';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+
 
 import {
 	GET_TeacherIntroduce,
@@ -21,6 +22,35 @@ const mapStateToProps = state => {
 		introduceReducer
 	)
 }
+const editorConfiguration = {
+	toolbar: [
+		'heading',
+		'|',
+		'bold',
+		'italic',
+		'underline',
+		'strikethrough',
+		'removeFormat',
+		'link',
+		'fontSize',
+		'fontFamily',
+		'fontColor',
+		'fontBackgroundColor',
+		'horizontalLine',
+		'|',
+		'bulletedList',
+		'numberedList',
+		'alignment',
+		'outdent',
+		'indent',
+		'|',
+		'mediaEmbed',
+		'undo',
+		'redo',
+		'findAndReplace',
+		'codeBlock',
+		'code']
+};
 
 const mapDispatchToProps = dispatch => {
 	return {
@@ -685,7 +715,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								<div id='ckeditor_edit' className='col-12 enter'>
 									<CKEditor
 										id='ckedit'
-										editor={ClassicEditor}
+										config={ editorConfiguration }
+										editor={ClassEditor}
 										data={newIntroduce}
 										onChange={(event, editor) => this.handleCKEditor(event, editor)}
 									/>
