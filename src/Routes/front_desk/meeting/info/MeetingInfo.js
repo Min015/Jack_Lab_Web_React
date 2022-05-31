@@ -45,6 +45,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				})
 			}
 			this.props.GET_MeetingInfo(params.id, callback);
+			this.props.SAVE_Permission();
 		}
 
 		//func

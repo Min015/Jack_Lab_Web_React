@@ -92,6 +92,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			}
 			this.props.GET_ProjectInfo(nowid);
 			this.props.GET_ProjectRecord(nowid, nowpage, nowsearch, callbackRecord);
+			this.props.SAVE_Permission();
 		}
 		//取得頁面
 		handleGetPage = (nowpage, maxpage) => {

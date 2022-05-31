@@ -68,6 +68,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			}
 			this.props.GET_Project(nowpage, nowsearch, nowtype, callback);
 			this.props.GET_ProjectTypeAll();
+			this.props.SAVE_Permission();
 		}
 		//取得頁面
 		handleGetPage = (nowpage, maxpage) => {
@@ -129,6 +130,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		render() {
 			const { table_header, pagearray, page, search, maxpage, ptype } = this.state;
 			const { Project, ProjectTypeAll, MyPermission } = this.props;
+			console.log(MyPermission);
 			return (
 				<div id='fornt_main'>
 					<MemberLayout>
