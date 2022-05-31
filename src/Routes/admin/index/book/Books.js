@@ -509,14 +509,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 																	編輯
 																</div>
 															</div>
-															{/* <div className="svg">
-															<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-																<path d="M17.5375 2.83605L15.1747 0.463507C14.5232 -0.190681 13.4207 -0.147876 12.7142 0.563335C12.0076 1.27278 11.9615 2.3815 12.6148 3.03568L14.9776 5.40822C15.6291 6.06241 16.7315 6.01963 17.4398 5.3084C18.1464 4.59719 18.1908 3.49203 17.5375 2.83605ZM2.47467 10.8432L7.20033 15.5882L14.88 7.87883L10.1543 3.13374L2.47467 10.8432ZM0 18L6.23283 16.7469L1.24799 11.7415L0 18Z" fill="#51718C" />
-															</svg>
-															<div className="hover">
-																編輯
-															</div>
-														</div> */}
 															<div onClick={() => this.drop_down('delO')} className="svg">
 																<svg id={`${item.Id},${item.Title}`} onClick={this.handleSetNow.bind()}
 																	width="15" height="18" viewBox="0 0 15 18" fill="none" xmlns="http://www.w3.org/2000/svg">

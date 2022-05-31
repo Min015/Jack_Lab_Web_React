@@ -389,7 +389,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			const { add, edit, delO, delAll } = this.state;
 			const { pagearray, page, search, maxpage } = this.state;
 			const { TeacherIntroduceList } = this.props;
-			console.log(393, (TeacherIntroduceList === undefined ? "" : TeacherIntroduceList.list));
 			return (
 				<BackLayout>
 					<div className='bg'>
@@ -457,9 +456,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 												</td>
 												<td>{item.Name}</td>
 												<td>{item.Title}</td>
-												<td>
-													<div className='introduce' dangerouslySetInnerHTML={{ __html: item.Introduction }}></div>
-												</td>
+												<td><div className='introduce' dangerouslySetInnerHTML={{ __html: item.Introduction }}></div></td>
 												<td>
 													<div className="action">
 														<div onClick={() => this.drop_down('edit')} className="svg">

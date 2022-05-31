@@ -349,10 +349,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 												</td>
 												<td>{((page - 1) * 10) + index + 1}</td>
 												<td>{item.Title}</td>
-												<td className='canenter'>
-													{/* {item.Content} */}
-													<div dangerouslySetInnerHTML={{ __html: item.Content }}></div>
-													</td>
+												<td className='canenter'><div dangerouslySetInnerHTML={{ __html: item.Content }}></div></td>
 												<td>
 													<div className="action">
 														<div className="svg" onClick={() => this.drop_down('edit')}>

@@ -444,9 +444,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 												<td>{((page - 1) * 10) + index + 1}</td>
 												<td>{item.Id}</td>
 												<td>{item.Account}</td>
-												<td>
-													{item.Name}
-												</td>
+												<td>{item.Name}</td>
 												<td>
 													<select
 														id={item.Account}
