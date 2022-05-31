@@ -10,9 +10,7 @@ import {
 	POST_UpdataAlbum,
 	DELETE_AdAlbum,
 } from '../../../../Action/IndexAction';
-import {
-	handleGetPage,
-} from '../../../../Utils/MyClass';
+
 const mapStateToProps = state => {
 	const { guestindexReducer } = state;
 	return (
@@ -26,7 +24,6 @@ const mapDispatchToProps = dispatch => {
 		POST_AddAlbum: (payload, callback) => dispatch(POST_AddAlbum(payload, callback)),
 		POST_UpdataAlbum: (payload, callback) => dispatch(POST_UpdataAlbum(payload, callback)),
 		DELETE_AdAlbum: (payload, callback) => dispatch(DELETE_AdAlbum(payload, callback)),
-		//handleGetPage:(nowpage, maxpage)=>dispatch(handleGetPage(nowpage, maxpage)),
 	}
 }
 export default connect(mapStateToProps, mapDispatchToProps)(
@@ -290,7 +287,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			const { all_file_max_size, one_file_max_size, mimes_type } = this.state;
 			let array = [];
 			for (let index = 0; index < files.length; index++) {
-				const file_type = files[index].name.split(".").pop();
+				const file_type = files[index].name.split(".").pop().toLowerCase();
 				if (!mimes_type.includes(file_type)) {
 					const media_type = mimes_type.map((item) => ` ${item}`);
 					alert(`上傳檔案類型錯誤,請選擇${media_type}類型的檔案`);

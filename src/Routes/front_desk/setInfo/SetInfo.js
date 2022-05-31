@@ -172,7 +172,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			const { all_file_max_size, one_file_max_size, mimes_type } = this.state;
 			let array = [];
 			for (let index = 0; index < files.length; index++) {
-				const file_type = files[index].name.split(".").pop();
+				const file_type = files[index].name.split(".").pop().toLowerCase();
 				if (!mimes_type.includes(file_type)) {
 					const media_type = mimes_type.map((item) => ` ${item}`);
 					alert(`上傳檔案類型錯誤,請選擇${media_type}類型的檔案`);
