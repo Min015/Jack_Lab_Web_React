@@ -194,7 +194,7 @@ const fetch = store => next => action => {
         .post('/manager/useradd', action.payload)
         .then(response => {
           if (response.status === 200) {
-            console.log("修改使用者成功")
+            console.log("新增使用者成功")
           }
         })
         .catch(err => {
