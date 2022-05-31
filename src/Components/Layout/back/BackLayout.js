@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import AdminHeader from '../../Header/back_end/AdminHeader';
 import Sidebar from '../../Sidebar/Sidebar';
 import './backlayout.scss';

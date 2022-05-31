@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import MemberLayout from '../../../Components/Layout/front/member/MemberLayout';
 import '../main_category/add.scss';
 export default class UpdateGame extends Component {

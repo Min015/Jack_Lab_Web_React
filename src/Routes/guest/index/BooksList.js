@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import '../style/guestmain.scss';
 export default class BooksList extends Component {
 	render() {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
 import GameList from './front_desk/game/GameList';
@@ -93,7 +93,7 @@ export default (
 				<Route path='/game/gameinfo/:id' exact component={GameInfo} />
 				<Route path='/game/addgame' exact component={AddGame} />
 
-				<Route path='/project/updateproject/:id' exact component={UpdateProject}/>
+				<Route path='/project/updateproject/:id' exact component={UpdateProject} />
 				<Route path='/project/:page/:search/:ptype' exact component={LabProject} />
 				<Route path='/project/addproject' exact component={AddProject} />
 				<Route path='/project/projectinfo/:id/:page/:search' exact component={ProjectInfo} />

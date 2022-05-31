@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { connect } from "react-redux";
 import Header from '../../../Header/front_end/Header';
 import './memberlayout.scss';

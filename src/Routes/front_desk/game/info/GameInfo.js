@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import MemberLayout from '../../../../Components/Layout/front/member/MemberLayout';
 import Header from '../../../../Components/Header/front_end/Header';
 import { Link } from 'react-router-dom';

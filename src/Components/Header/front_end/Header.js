@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import './header1.scss';
 import "./popup_window.scss";

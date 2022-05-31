@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import BackLayout from '../../../../Components/Layout/back/BackLayout';
 import { Link } from 'react-router-dom';
 import '../../style/mainstyle.scss';

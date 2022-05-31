@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { connect } from "react-redux";
 import MemberLayout from '../../../Components/Layout/front/member/MemberLayout';
 import '../main_category/add.scss';

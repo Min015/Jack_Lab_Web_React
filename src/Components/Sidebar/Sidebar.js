@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import './sidebar.scss';
 export default class Sidebar extends Component {
