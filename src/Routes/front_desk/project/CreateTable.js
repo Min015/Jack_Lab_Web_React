@@ -21,7 +21,7 @@ export default class CreateTable extends Component {
 					{table_content === undefined ? [] : table_content.map(
 						(item, index) => {
 							return (
-								<tr className={index % 2 === 0 ? 'tr_odd' : 'tr_even'}>
+								<tr key={`tr${index}`} className={index % 2 === 0 ? 'tr_odd' : 'tr_even'}>
 									<td>{item.Type_name}</td>
 									<td>{item.Name}</td>
 									<td>{item.Creater_name}</td>

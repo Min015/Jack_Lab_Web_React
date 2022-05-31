@@ -7,14 +7,14 @@ export default class CreateTable extends Component {
             <table>
                 <thead>
                     <tr>
-                        {table_header.map(item => (<th>{item}</th>))}
+                        {table_header.map((item,index) => (<th key={`th${index}`}>{item}</th>))}
                     </tr>
                 </thead>
                 <tbody>
                     {table_content.map(
                         (item, index) => {
                             return (
-                                <tr key={index} className={index % 2 === 0 ? 'tr_odd' : 'tr_even'}>
+                                <tr key={`content${index}`} className={index % 2 === 0 ? 'tr_odd' : 'tr_even'}>
                                     <td>{item.g_year}</td>
                                     <td>{item.g_type}</td>
                                     <td>{item.g_group}</td>

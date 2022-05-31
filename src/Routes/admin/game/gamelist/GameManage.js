@@ -84,13 +84,13 @@ export default class GameManage extends Component {
                     </div>
                     <form className="searchform">
                         <select name="" defaultValue={gM_type[0]}>
-                            {gM_type.map(item =>
-                                <option value={item}>{item}</option>
+                            {gM_type.map((item,index) =>
+                                <option key={`gMtype${index}`} value={item}>{item}</option>
                             )}
                         </select>
                         <select name="" defaultValue={gM_Y[0]}>
-                            {gM_Y.map(item =>
-                                <option value={item}>{item}</option>
+                            {gM_Y.map((item,index) =>
+                                <option key={`gM_Y${index}`} value={item}>{item}</option>
                             )}
                         </select>
                         <input type="text" placeholder="搜尋" />
@@ -120,7 +120,7 @@ export default class GameManage extends Component {
                         {table_content.map(
                             (item, index) => {
                                 return (
-                                    <tr key={index} className={array.includes(item.gM_id) ? "onchange" : ""}>
+                                    <tr key={`content${index}`} className={array.includes(item.gM_id) ? "onchange" : ""}>
                                         <td className="check">
                                             <input type="checkbox"
                                                 id=""

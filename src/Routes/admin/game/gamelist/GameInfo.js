@@ -46,9 +46,9 @@ export default class GameInfo extends Component {
                     <div className="inputbox">
                         <div className="set col-4">
                             <select name="" defaultValue={object.gM_type} required className="input">
-                                {game_type.map((item) => {
+                                {game_type.map((item,index) => {
                                     return (
-                                        <option value={item}>{item}</option>
+                                        <option key={`game_type${index}`} value={item}>{item}</option>
                                     )
                                 })}
                             </select>
@@ -66,9 +66,9 @@ export default class GameInfo extends Component {
                         </div>
                         <div className="set col-4">
                             <select name="" defaultValue={object.gM_ranking} required className="input" >
-                                {game_rank.map((item) => {
+                                {game_rank.map((item,index) => {
                                     return (
-                                        <option value={item}>{item}</option>
+                                        <option key={`game_rank${index}`} value={item}>{item}</option>
                                     )
                                 })}
                             </select>
@@ -114,8 +114,8 @@ export default class GameInfo extends Component {
                     </div>
                     <div id="filename">
                         <ol>
-                            {object.gM_file.map(item => (<li>{item}</li>))}
-                            {array.map(item => (<li>{item}</li>))}
+                            {object.gM_file.map((item,index) => (<li key={`gMfile${index}`}>{item}</li>))}
+                            {array.map((item,index) => (<li key={`array${index}`}>{item}</li>))}
                         </ol>
                     </div>
                     <div className="inputbox">

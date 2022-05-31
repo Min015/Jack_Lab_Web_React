@@ -94,7 +94,7 @@ export default class GTypeManage extends Component {
                         {table_content.map(
                             (item, index) => {
                                 return (
-                                    <tr key={index} className={array.includes(item.gty_id) ? "onchange" : ""}>
+                                    <tr key={`table_content${index}`} className={array.includes(item.gty_id) ? "onchange" : ""}>
                                         <td className="check">
                                             <input type="checkbox"
                                                 id=""
