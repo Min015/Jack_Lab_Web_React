@@ -7,12 +7,12 @@ import './meetingInfo.scss';
 import '../../../../Mixin/popup_window.scss';
 
 import { GET_MeetingInfo, GET_MeetingDownload, DELETE_Meeting } from '../../../../Action/MeetingAction';
-
+import { SAVE_Permission, } from '../../../../Action/MemberAction';
 
 const mapStateToProps = state => {
-	const { MeetingInfo } = state.meetingReducer;
 	return {
-		MeetingInfo
+		MeetingInfo: state.meetingReducer.MeetingInfo,
+		MyPermission: state.memberReducer.MyPermission,
 	}
 }
 
@@ -21,6 +21,7 @@ const mapDispatchToProps = dispatch => {
 		GET_MeetingInfo: (payload, callback) => dispatch(GET_MeetingInfo(payload, callback)),
 		GET_MeetingDownload: (payload) => dispatch(GET_MeetingDownload(payload)),
 		DELETE_Meeting: (payload) => dispatch(DELETE_Meeting(payload)),
+		SAVE_Permission: () => dispatch(SAVE_Permission()),
 	}
 }
 
@@ -74,7 +75,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 
 		render() {
 			const { drop } = this.state;
-			const { MeetingInfo } = this.props;
+			const { MeetingInfo, MyPermission } = this.props;
+			const account = localStorage.getItem('account');
 			console.log(MeetingInfo);
 			return (
 				<div id='meeting_info'>
@@ -95,7 +97,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								</h2>
 							</div>
 							<div className="edit_button">
-								<div className="add">
+								<div className={(MeetingInfo !== undefined && MeetingInfo.Uploader === account && MyPermission !== undefined && MyPermission.includes('M001')) ? "add" : "none"}>
 									<Link to={`/meeting/updatemeeting/${this.state.Id}`}>
 										<svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
 											<path d="M18.5118 2.99361L16.0177 0.489257C15.33 -0.201275 14.1663 -0.156091 13.4205 0.594632C12.6747 1.34349 12.626 2.51381 13.3156 3.20432L15.8097 5.70867C16.4974 6.39921 17.661 6.35405 18.4087 5.60331C19.1545 4.85259 19.2014 3.68603 18.5118 2.99361ZM2.61215 11.4456L7.60035 16.4543L15.7066 8.31654L10.7184 3.30784L2.61215 11.4456ZM0 19L6.5791 17.6773L1.31732 12.3938L0 19Z" fill="white" />
@@ -103,7 +105,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										<p>修改記錄</p>
 									</Link>
 								</div>
-								<div className="add">
+								<div className={(MeetingInfo !== undefined && MeetingInfo.Uploader === account && MyPermission !== undefined && MyPermission.includes('M002')) ? "add" : "none"}>
 									<div
 										className='func_btn'
 										onClick={() => this.drop_down('drop')}

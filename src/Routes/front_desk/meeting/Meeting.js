@@ -108,8 +108,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				});
 			}
 		}
-
-
 		render() {
 			const { table_header } = this.state;
 			const { MeetingList,MyPermission } = this.props;

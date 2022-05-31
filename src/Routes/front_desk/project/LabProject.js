@@ -10,12 +10,14 @@ import {
 	DELETE_Project,
 	GET_ProjectTypeAll
 } from '../../../Action/ProjectAction';
+import { SAVE_Permission, } from '../../../Action/MemberAction';
 
 const mapStateToProps = state => {
-	const { projectReducer } = state;
-	return (
-		projectReducer
-	)
+	return {
+		Project: state.projectReducer.Project,
+		ProjectTypeAll: state.projectReducer.ProjectTypeAll,
+		MyPermission: state.memberReducer.MyPermission,
+	}
 }
 
 const mapDispatchToProps = dispatch => {
@@ -23,6 +25,7 @@ const mapDispatchToProps = dispatch => {
 		GET_Project: (page, search, id, callback) => dispatch(GET_Project(page, search, id, callback)),
 		GET_ProjectTypeAll: () => dispatch(GET_ProjectTypeAll()),
 		DELETE_Project: (payload, callback) => dispatch(DELETE_Project(payload, callback)),
+		SAVE_Permission: () => dispatch(SAVE_Permission()),
 	}
 }
 
@@ -125,7 +128,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 
 		render() {
 			const { table_header, pagearray, page, search, maxpage, ptype } = this.state;
-			const { Project, ProjectTypeAll } = this.props;
+			const { Project, ProjectTypeAll, MyPermission } = this.props;
 			return (
 				<div id='fornt_main'>
 					<MemberLayout>
@@ -146,7 +149,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								<input type="text" placeholder="搜尋" className="search" id="search" value={search} onChange={this.handleInputChange.bind(this)} />
 								<input type="submit" value="送出" className="submit" onClick={() => this.handleGoNextPage(1, search, ptype)} />
 							</div>
-							<div className="search_add">
+							<div className={(MyPermission !== undefined && MyPermission !== [] && MyPermission.includes('P001')) ? "search_add" : "none"}>
 								<div className="add">
 									<Link to='/project/addproject'>
 										<svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">

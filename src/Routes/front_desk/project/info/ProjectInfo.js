@@ -16,12 +16,15 @@ import {
 	POST_UpdateProjectRecord,
 } from '../../../../Action/ProjectAction';
 
+import { SAVE_Permission, } from '../../../../Action/MemberAction';
+
 const mapStateToProps = state => {
 	return {
 		PublicMemberList: state.memberReducer.PublicMemberList,
 		ProjectTypeAll: state.projectReducer.ProjectTypeAll,
 		ProjectInfo: state.projectReducer.ProjectInfo,
 		ProjectRecord: state.projectReducer.ProjectRecord,
+		MyPermission: state.memberReducer.MyPermission,
 	}
 }
 
@@ -35,6 +38,7 @@ const mapDispatchToProps = dispatch => {
 		GET_RecordFile: (payload) => dispatch(GET_RecordFile(payload)),
 		DELETE_ProjectRecord: (payload, callback) => dispatch(DELETE_ProjectRecord(payload, callback)),
 		POST_UpdateProjectRecord: (payload, callback) => dispatch(POST_UpdateProjectRecord(payload, callback)),
+		SAVE_Permission: () => dispatch(SAVE_Permission()),
 	}
 }
 export default connect(mapStateToProps, mapDispatchToProps)(
@@ -323,7 +327,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		render() {
 			const { Id, table_header, add, edit, delO, delAll, download, upload, remark, nowRecord } = this.state;
 			const { pagearray, page, search, maxpage } = this.state;
-			const { ProjectRecord, ProjectInfo } = this.props;
+			const { ProjectRecord, ProjectInfo, MyPermission } = this.props;
+			const account = localStorage.getItem('account');
+			const projectmember = (ProjectInfo === undefined ? [] : ProjectInfo.Member.map((item) => item.Account))
+			console.log(ProjectRecord);
 			return (
 				<div id='project_info'>
 					<MemberLayout>
@@ -341,7 +348,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									</div></h2>
 							</div>
 							<div className="edit_button">
-								<div className="add">
+								<div className={(ProjectInfo !== undefined && projectmember.includes(account)) ? "add" : "none"}>
 									<div
 										className='func_btn'
 										onClick={() => this.drop_down('add')}
@@ -352,7 +359,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										<p>新增記錄</p>
 									</div>
 								</div>
-								<div className="add">
+								<div className={(ProjectInfo !== undefined && ProjectInfo.Creater === account && MyPermission !== undefined && MyPermission.includes('P001')) ? "add" : "none"}>
 									<Link to={`/project/updateproject/${Id}`}>
 										<svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
 											<path d="M18.5118 2.99361L16.0177 0.489257C15.33 -0.201275 14.1663 -0.156091 13.4205 0.594632C12.6747 1.34349 12.626 2.51381 13.3156 3.20432L15.8097 5.70867C16.4974 6.39921 17.661 6.35405 18.4087 5.60331C19.1545 4.85259 19.2014 3.68603 18.5118 2.99361ZM2.61215 11.4456L7.60035 16.4543L15.7066 8.31654L10.7184 3.30784L2.61215 11.4456ZM0 19L6.5791 17.6773L1.31732 12.3938L0 19Z" fill="white" />
@@ -360,7 +367,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										<p>修改專案</p>
 									</Link>
 								</div>
-								<div className="add">
+								<div className={(ProjectInfo !== undefined && ProjectInfo.Creater === account && MyPermission !== undefined && MyPermission.includes('P002')) ? "add" : "none"}>
 									<div
 										className='func_btn'
 										onClick={() => this.drop_down('delAll')}
@@ -390,7 +397,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									<input type="submit" value="送出" className="submit" onClick={() => this.handleGoNextPage(1, search)} />
 								</div>
 							</div>
-
 							<div className="reaults_area">
 								<table>
 									<thead>
@@ -423,7 +429,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 																		下載
 																	</div>
 																</div>
-																<div onClick={() => this.drop_down('edit')} className="svg">
+																<div onClick={() => this.drop_down('edit')} className={(ProjectRecord !== undefined && item.Uploader === account) ? "svg" : "none"}>
 																	<svg id={`${item.Id},${item.Remark},${item.File.Id},${item.File.Name},${item.Uploader_name}`} onClick={this.handleSetNow.bind()}
 																		width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 																		<path id={`${item.Id},${item.Remark},${item.File.Id},${item.File.Name},${item.Uploader_name}`} onClick={this.handleSetNow.bind()}
@@ -433,7 +439,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 																		編輯
 																	</div>
 																</div>
-																<div onClick={() => this.drop_down('delO')} className="svg">
+																<div onClick={() => this.drop_down('delO')} className={(ProjectRecord !== undefined && ProjectInfo !== undefined && ProjectInfo.Creater === account) ? "svg" : "none"}>
 																	<svg id={`${item.Id},${item.Remark},${item.File.Id},${item.File.Name},${item.Uploader_name}`} onClick={this.handleSetNow.bind()}
 																		width="15" height="18" viewBox="0 0 15 18" fill="none" xmlns="http://www.w3.org/2000/svg">
 																		<path id={`${item.Id},${item.Remark},${item.File.Id},${item.File.Name},${item.Uploader_name}`} onClick={this.handleSetNow.bind()}
@@ -477,7 +483,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								</div>
 							</div>
 						</div>
-					</MemberLayout>
+					</MemberLayout >
 					{/* 新增專案記錄 */}
 					<div
 						className={add ? "popup_background active" : "popup_background"}
@@ -522,9 +528,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								</div>
 							</div>
 						</div>
-					</div>
+					</div >
 					{/* 下載記錄檔案 */}
-					<div
+					< div
 						className={download ? "popup_background active" : "popup_background"}
 						onClick={this.handleMouseDown}
 					>
@@ -563,7 +569,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								</div>
 							</div>
 						</div>
-					</div>
+					</div >
 					{/* 修改專案記錄 */}
 					<div
 						className={edit ? "popup_background active" : "popup_background"}
@@ -615,7 +621,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								</div>
 							</div>
 						</div>
-					</div>
+					</div >
 					{/* 刪除專案紀錄 */}
 					<div
 						className={delO ? "popup_background active" : "popup_background"}
@@ -676,7 +682,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							</div>
 						</div>
 					</div>
-				</div>
+				</div >
 			)
 		}
 	}
