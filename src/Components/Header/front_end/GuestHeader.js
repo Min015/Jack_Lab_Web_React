@@ -18,16 +18,18 @@ export default class GuestHeader extends Component {
 	}
 	LOGIN = () => {
 		const { payload } = this.state;
-		console.log(payload);
-		const { Login } = this.props
-		console.log(Login);
-		if (Login) {
-			Login(payload)
+		if (payload.Account === "" || payload.Password === "") {
+			alert("請輸入帳號密碼");
+		}
+		else {
+			const { Login } = this.props;
+			if (Login) {
+				Login(payload)
+			}
 		}
 	}
 	IsLogin = () => {
 		const { IsLogin } = this.props
-		console.log(IsLogin);
 		const callback = (res) => {
 			if (res !== undefined && res.status === 200) {
 				this.setState({

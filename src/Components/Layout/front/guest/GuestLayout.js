@@ -30,8 +30,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			return (
 				<div id="guest">
 					<GuestHeader
-						a="1121"
-						value="123"
 						Login={this.handleLogin}
 						IsLogin={this.handleIsLogin}
 					/>
