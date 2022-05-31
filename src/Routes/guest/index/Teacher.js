@@ -11,6 +11,7 @@ export default class Teacher extends Component {
 						return (
 							<div key={`TeacherIntroduceList${index}`} className='teacher'>
 								<div className='teacherphoto'>
+									<div className='imgBG'></div>
 									<img src={item === undefined ? "" : `http://localhost/${item.Image}`} alt="教師頭像" className='Image' />
 									<div className='teacherinfo'>
 										<span className='name'>{item.Name}</span> <span>{item.Title}</span>

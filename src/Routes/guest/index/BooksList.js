@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import '../style/guestmain.scss';
-
 export default class BooksList extends Component {
 	render() {
 		const { booklist } = this.props;
@@ -18,7 +17,6 @@ export default class BooksList extends Component {
 							}
 						}
 						return (
-
 							<div key={`book${index}`} className='book' >
 								<img src={booklist === undefined ? "" : `http://localhost/${item.Image}`} alt="出版品" />
 								<div className='booktitle'>
@@ -33,7 +31,6 @@ export default class BooksList extends Component {
 									})}
 								</div>
 							</div>
-
 						)
 					})}
 				</div >
