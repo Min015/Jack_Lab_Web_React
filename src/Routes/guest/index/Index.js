@@ -1,11 +1,10 @@
 import { Component } from 'react';
 import { connect } from "react-redux";
-import GuestHeader from '../../../Components/Header/front_end/GuestHeader';
 import Carousel from './Carousel';
 import Booklist from './BooksList';
 import Teacher from './Teacher';
 import Lab from './Lab';
-
+import GuestLayout from '../../../Components/Layout/front/guest/GuestLayout';
 import '../style/guestmain.scss';
 
 import {
@@ -16,7 +15,7 @@ import {
 import {
 	GET_TeacherIntroduce,
 	GET_LabIntroduce,
-} from '../../../Action/IntroduceAction'
+} from '../../../Action/IntroduceAction';
 
 const mapStateToProps = state => {
 	return {
@@ -36,10 +35,8 @@ const mapDispatchToProps = dispatch => {
 	}
 }
 
-
 export default connect(mapStateToProps, mapDispatchToProps)(
 	class Index extends Component {
-
 		componentDidMount = () => {
 			this.props.GET_AdminAlbumAll();
 			this.props.GET_Book('1', " ");
@@ -47,31 +44,27 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			this.props.GET_LabIntroduce('1', " ");
 		}
 		render() {
-			const { AlbumListAll, BookList, TeacherIntroduceList,LabIntroduceList } = this.props;
+			const { AlbumListAll, BookList, TeacherIntroduceList, LabIntroduceList } = this.props;
 			const booklist = (BookList === undefined ? [] : BookList.list.filter((item, index) => {
 				return index < 5;
 			}))
-
 			return (
-				<div>
-					<GuestHeader />
-					<div className="content">
-						<Carousel AlbumListAll={AlbumListAll} />
-						<div id='GuestIndex'>
-							<div className='block'>
-								<div className='index_title'>教師介紹</div>
-								<Teacher TeacherIntroduceList={TeacherIntroduceList} />
-							</div>
-							<div className='block'>
-								<Lab LabIntroduceList={LabIntroduceList} />
-							</div>
-							<div className='block'>
-								<div className='index_title'>出版品</div>
-								<Booklist booklist={booklist} />
-							</div>
+				<GuestLayout>
+					<Carousel AlbumListAll={AlbumListAll} />
+					<div id='GuestIndex'>
+						<div className='block'>
+							<div className='index_title'>教師介紹</div>
+							<Teacher TeacherIntroduceList={TeacherIntroduceList} />
+						</div>
+						<div className='block'>
+							<Lab LabIntroduceList={LabIntroduceList} />
+						</div>
+						<div className='block'>
+							<div className='index_title'>出版品</div>
+							<Booklist booklist={booklist} />
 						</div>
 					</div>
-				</div>
+				</GuestLayout>
 			)
 		}
 	}

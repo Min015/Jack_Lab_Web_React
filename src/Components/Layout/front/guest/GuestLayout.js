@@ -15,30 +15,31 @@ const mapDispatchToProps = dispatch => {
 	}
 }
 
-export default
+export default connect(mapStateToProps, mapDispatchToProps)(
 	class GuestLayout extends Component {
-	handleLogin = (payload) => {
-		console.log('layout', payload)
-		this.props.POST_Login(payload);
-	}
-	handleIsLogin = (callback) => {
-		console.log('callback', callback)
-		this.props.GET_IsLogin(callback);
-	}
-	render() {
-		const { children } = this.props;
-		return (
-			<div id="guest">
-				<GuestHeader
-				// a="1121"
-				// value="123"
-				// Login={this.handleLogin}
-				// IsLogin={this.handleIsLogin}
-				/>
-				<div className="content">
-					{children}
+		handleLogin = (payload) => {
+			console.log('layout', payload)
+			this.props.POST_Login(payload);
+		}
+		handleIsLogin = (callback) => {
+			console.log('callback', callback)
+			this.props.GET_IsLogin(callback);
+		}
+		render() {
+			const { children } = this.props;
+			return (
+				<div id="guest">
+					<GuestHeader
+						a="1121"
+						value="123"
+						Login={this.handleLogin}
+						IsLogin={this.handleIsLogin}
+					/>
+					<div className="content">
+						{children}
+					</div>
 				</div>
-			</div>
-		)
+			)
+		}
 	}
-}
+)
