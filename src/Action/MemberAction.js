@@ -73,19 +73,21 @@ export const POST_UserAdd = (payload, callback) => {
     });
   };
 }
-export const PUT_ChangeRole = (payload) => {
+export const PUT_ChangeRole = (payload,callback) => {
   return (dispatch) => {
     dispatch({
       type: "PUT_ChangeRole",
       payload: payload,
+      callback:callback,
     });
   };
 }
-export const PUT_ChangeClass = (payload) => {
+export const PUT_ChangeClass = (payload,callback) => {
   return (dispatch) => {
     dispatch({
       type: "PUT_ChangeClass",
       payload: payload,
+      callback:callback,
     });
   };
 }

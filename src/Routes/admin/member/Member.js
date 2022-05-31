@@ -18,8 +18,8 @@ const mapDispatchToProps = dispatch => {
 		GET_Class: () => dispatch(GET_Class()),
 		GET_PrivateMember: (page, search, academic, callback) => dispatch(GET_PrivateMember(page, search, academic, callback)),
 		POST_UserAdd: (payload, callback) => dispatch(POST_UserAdd(payload, callback)),
-		PUT_ChangeRole: (payload) => dispatch(PUT_ChangeRole(payload)),
-		PUT_ChangeClass: (payload) => dispatch(PUT_ChangeClass(payload)),
+		PUT_ChangeRole: (payload,callback) => dispatch(PUT_ChangeRole(payload,callback)),
+		PUT_ChangeClass: (payload,callback) => dispatch(PUT_ChangeClass(payload,callback)),
 		PUT_ChangePassword: (payload, callback) => dispatch(PUT_ChangePassword(payload, callback)),
 		DELETE_Member: (payload, callback) => dispatch(DELETE_Member(payload, callback)),
 	}
@@ -56,18 +56,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		componentDidMount = () => {
 			const { match } = this.props;
 			const { params } = match;
-			// let nowpage = "";
-			// let nowsearch = "";
-			// let academic = "";
-			// if (params.page !== undefined) {
-			// 	nowpage = params.page;
-			// }
-			// if (params.search !== undefined) {
-			// 	nowsearch = params.search;
-			// }
-			// if (params.academic !== undefined) {
-			// 	academic = params.academic;
-			// }
 			const nowpage = params.page;
 			const nowsearch = params.search;
 			const academic = params.academic;
@@ -132,7 +120,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 						Role_Id: newRole,
 					}
 					const callback = () => {
-						this.props.GET_PrivateMember(page, search, academic);
 						this.setState({
 							add: false,
 							newAccount: "",
@@ -141,6 +128,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							newRole: "",
 							academic: " ",
 						})
+						this.props.GET_PrivateMember(page, search, academic);
 					}
 					this.props.POST_UserAdd(payload, callback);
 				}
@@ -154,23 +142,31 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 		//修改角色
 		ChangeRole = (e) => {
+			const { page, search, academic } = this.state;
 			const target = e.target;
 			let { value, id } = target;
 			const payload = {
 				Account: id,
 				Role: value,
 			}
-			this.props.PUT_ChangeRole(payload);
+			const callback = () => {
+				this.props.GET_PrivateMember(page, search, academic);
+			}
+			this.props.PUT_ChangeRole(payload,callback);
 		}
 		//修改班級
 		ChangeClass = (e) => {
+			const { page, search, academic } = this.state;
 			const target = e.target;
 			let { value, id } = target;
 			const payload = {
 				Account: id,
 				Class: value,
 			}
-			this.props.PUT_ChangeClass(payload);
+			const callback = () => {
+				this.props.GET_PrivateMember(page, search, academic);
+			}
+			this.props.PUT_ChangeClass(payload,callback);
 		}
 		//修改密碼
 		ChangePasswordAd = () => {
@@ -448,7 +444,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 												<td>
 													<select
 														id={item.Account}
-														defaultValue={item.Role_Id}
+														value={item.Role_Id}
 														onChange={this.ChangeRole.bind(this)}
 													>
 														{RoleListAll === undefined ? [] : RoleListAll.map((item, index) =>
@@ -459,7 +455,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 												<td>
 													<select
 														id={item.Account}
-														defaultValue={item.Class_Id}
+														value={item.Class_Id}
 														onChange={this.ChangeClass.bind(this)}
 													>
 														{ClassList === undefined ? [] : ClassList.map((item, index) =>

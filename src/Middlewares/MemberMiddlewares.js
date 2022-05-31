@@ -227,6 +227,11 @@ const fetch = store => next => action => {
           alert(err.response.data.message);
           throw new Error(err);
         })
+        .then(json => {
+          if (action.callback) {
+            action.callback(json)
+          }
+        });
       break;
     case "PUT_ChangeClass":
       _axios
@@ -240,6 +245,11 @@ const fetch = store => next => action => {
           alert(err.response.data.message);
           throw new Error(err);
         })
+        .then(json => {
+          if (action.callback) {
+            action.callback(json)
+          }
+        });
       break;
     case "GET_Permission":
       _axios
