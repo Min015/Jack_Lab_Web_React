@@ -57,17 +57,20 @@
                 border-radius: 60%;
                 position     : absolute;
                 top          : -1px;
-                @include image-set(101%, 101%);
+                left         : -1px;
+                @include image-set(102%, 102%);
             }
         }
-        .camera{
+
+        .camera {
             width        : 25px;
             height       : 25px;
             border-radius: 50%;
-            position: absolute;
-            left: 145px;
-            top:10px;
-            z-index: 5px;
+            position     : absolute;
+            left         : 145px;
+            top          : 10px;
+            z-index      : 5px;
+
             img {
                 border-radius: 60%;
                 @include image-set(100%, 100%);
@@ -75,28 +78,32 @@
         }
 
         .information {
-            height : 73px;
-            padding: 15px 20px 15px 20px;
+            height  : 73px;
+            padding : 15px 20px 15px 20px;
             position: relative;
+
             .edit_pen {
                 margin-left: 500px;
-                cursor: pointer;
-                .edit_introduce{
+                cursor     : pointer;
+
+                .edit_introduce {
                     position: relative;
-                    .colse{
-                        position: absolute;
-                        top: 0px;
-                        width: 100%;
+
+                    .colse {
+                        position   : absolute;
+                        top        : 0px;
+                        width      : 100%;
                         margin-left: auto;
-                        .close_btn{
+
+                        .close_btn {
                             margin-left: auto;
-                            width: 26px;
-                            height: 26px;
+                            width      : 26px;
+                            height     : 26px;
                         }
                     }
-                    
+
                     svg {
-                        position: relative;
+                        position   : relative;
                         display    : flex;
                         margin-left: auto;
                     }
@@ -146,81 +153,82 @@
     }
 
     .reaults_area {
-		table {
-			width: 100%;
+        table {
+            width: 100%;
 
-			.tr_odd {
-				background-color: $tr_odd;
-			}
+            .tr_odd {
+                background-color: $tr_odd;
+            }
 
-			.tr_even {
-				background-color: $tr_even;
-			}
-			th,
-			td {
-				@include border-set($main_backgroundcolor);
-			}
+            .tr_even {
+                background-color: $tr_even;
+            }
 
-			th {
-				height          : 59px;
-				font-size       : $l;
-				color           : $font_maincolor;
-				background-color: $th_background;
-				white-space     : nowrap;
-				min-width       : 78px;
-			}
+            th,
+            td {
+                @include border-set($main_backgroundcolor);
+            }
 
-			td {
-				height : 51px;
-				padding: 4px 15px;
-				color  : $header_background;
+            th {
+                height          : 59px;
+                font-size       : $l;
+                color           : $font_maincolor;
+                background-color: $th_background;
+                white-space     : nowrap;
+                min-width       : 78px;
+            }
 
-				a {
-					@include ali-set(flex-end);
+            td {
+                height : 51px;
+                padding: 4px 15px;
+                color  : $header_background;
 
-					svg {
-						margin-left: 10px;
-					}
+                a {
+                    @include ali-set(flex-end);
 
-					&:link,
-					&:visited {
-						color: $header_background;
-					}
+                    svg {
+                        margin-left: 10px;
+                    }
 
-					&:hover {
-						// border-bottom: 1px black solid;
-						text-decoration: underline;
-					}
-				}
-			}
-		}
-	}
+                    &:link,
+                    &:visited {
+                        color: $header_background;
+                    }
 
-	.page {
-		margin-top: 20px;
-		@extend %row;
-		@extend %between;
+                    &:hover {
+                        // border-bottom: 1px black solid;
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+    }
 
-		.page_group {
-			@extend %row;
+    .page {
+        margin-top: 20px;
+        @extend %row;
+        @extend %between;
 
-			.one_page {
-				margin: 0px 5px;
-			}
-		}
+        .page_group {
+            @extend %row;
 
-		.one_page {
-			width           : 30px;
-			height          : 36px;
-			color           : $font_maincolor;
-			background-color: $button_color;
-			@include ali-set();
-			@include jus-set();
-			cursor: pointer;
+            .one_page {
+                margin: 0px 5px;
+            }
+        }
 
-			&:hover {
-				background-color: $button_hover;
-			}
-		}
-	}
+        .one_page {
+            width           : 30px;
+            height          : 36px;
+            color           : $font_maincolor;
+            background-color: $button_color;
+            @include ali-set();
+            @include jus-set();
+            cursor: pointer;
+
+            &:hover {
+                background-color: $button_hover;
+            }
+        }
+    }
 }
