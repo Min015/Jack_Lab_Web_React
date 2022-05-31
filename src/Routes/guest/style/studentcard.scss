@@ -2,74 +2,81 @@
 
 #stu_card {
 
+	// max-width: 1215px;
+	// margin: 0px auto;
 	nav {
 
 		ul {
 			@extend %row;
 			@include jus-set();
-			padding: 5px 0px;
+			padding   : 5px 0px;
 			overflow-x: auto;
+
 			li {
-				width: 40px;
+				width           : 40px;
 				height          : 35px;
-				padding: 0px 10px;
-				border-radius: 30px;
-				color: $font_maincolor;
+				padding         : 0px 10px;
+				border-radius   : 30px;
+				color           : $font_maincolor;
 				background-color: $button_color;
 				text-align      : center;
-				margin: 0px 5px;
-				cursor: pointer;
+				margin          : 0px 5px;
+				cursor          : pointer;
 				@include ali-set();
 				@include jus-set();
 			}
-			.this{
-				li{
+
+			.this {
+				li {
 					background-color: rgb(91, 156, 199);
 				}
 			}
+
 			&::-webkit-scrollbar {
-        /*-------滾動條整體樣式----*/
+				/*-------滾動條整體樣式----*/
 				height: 5px;
-    }
+			}
 
-    &::-webkit-scrollbar-thumb {
-        /*滾動條裡面小方塊樣式*/
-        border-radius: 8px;
-        background   : $form_maincolor;
-    }
+			&::-webkit-scrollbar-thumb {
+				/*滾動條裡面小方塊樣式*/
+				border-radius: 8px;
+				background   : $form_maincolor;
+			}
 
-    &::-webkit-scrollbar-track {
-        /*滾動條裡面軌道樣式*/
-        border-radius: 0px;
-        background   : $scrollbar_track;
-    }
+			&::-webkit-scrollbar-track {
+				/*滾動條裡面軌道樣式*/
+				border-radius: 0px;
+				background   : $scrollbar_track;
+			}
 		}
 	}
+
+
 	.block {
-		margin : 0px 10px;
+		margin: 0px 10px;
+		display: flex;
 		@extend %row;
 		flex-wrap: wrap;
 		// justify-content: center;
 	}
 
 	.card {
-		width: 239.06px;
+		width        : 239.06px;
 		margin-bottom: 20px;
 
 		.card_in {
 			margin: 5px 10px;
-			border-inline: solid;
 			@include border-set();
 		}
 
 		.stu_i {
-			height          : 250px;
+			height: 250px;
 
 			.img {
-				width           : 100%;
-				height          : 100%;
-				background-color: aliceblue;
-				img{
+				width : 100%;
+				height: 100%;
+
+				img {
 					@include image-set();
 				}
 			}
@@ -77,16 +84,16 @@
 
 		.stu_n,
 		.stu_t {
-			text-align: center;
 			@include ali-set();
-			@include jus-set();
+			@include jus-set(start);
+			padding-left: 20px;
 		}
 
 		.stu_n {
 			font-size       : $l;
 			height          : 40px;
-			color: $header_background;
-			font-weight: bold;
+			color           : $header_background;
+			font-weight     : bold;
 			background-color: $tr_odd;
 		}
 
@@ -97,3 +104,64 @@
 		}
 	}
 }
+
+// @media screen and (max-width:576px) {
+// 	#stu_card {
+// 		.card {
+// 			width: calc(100% - 22px);
+
+// 			img {
+// 				height: 524px;
+// 			}
+// 		}
+// 	}
+// }
+
+// @media screen and (min-width:576px) {
+// 	#stu_card {
+// 		.card {
+// 			width: calc(50% - 22px);
+
+// 			img {
+// 				height: 347px;
+// 			}
+// 		}
+// 	}
+// }
+
+// @media screen and (min-width:768px) {
+// 	#stu_card {
+// 		.card {
+// 			width: calc(33.333333% - 22px);
+
+// 			img {
+// 				height: 307px;
+// 			}
+// 		}
+// 	}
+// }
+
+// @media screen and (min-width:992px) {
+// 	#stu_card {
+// 		.card {
+// 			width: calc(25% - 22px);
+
+// 			img {
+// 				height: 276.5px;
+// 			}
+// 		}
+// 	}
+// }
+
+// @media screen and (min-width:1200px) {
+// 	#stu_card {
+
+// 		.card {
+// 			width: calc(20% - 22px);
+
+// 			img {
+// 				height: 217.05px;
+// 			}
+// 		}
+// 	}
+// }
