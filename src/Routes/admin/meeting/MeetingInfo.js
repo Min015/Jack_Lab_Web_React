@@ -312,7 +312,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		render() {
 			const { array, title, content, time, tag, place, participate, drop, long, disabled, delfile, all_file_q } = this.state;
 			const { PublicMemberList, MeetingInfo } = this.props;
-			console.log(all_file_q);
 			return (
 				<BackLayout>
 					<div className='bg'>

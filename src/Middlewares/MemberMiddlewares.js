@@ -48,7 +48,6 @@ const fetch = store => next => action => {
           else if (response.data.data.admin === 0) {
             window.location.replace('http://localhost:3000/setinfo');
           }
-          console.log(44, response);
           return response;
         })
         .catch(err => {

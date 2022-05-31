@@ -330,7 +330,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			const { ProjectRecord, ProjectInfo, MyPermission } = this.props;
 			const account = localStorage.getItem('account');
 			const projectmember = (ProjectInfo === undefined ? [] : ProjectInfo.Member.map((item) => item.Account))
-			console.log(ProjectRecord);
 			return (
 				<div id='project_info'>
 					<MemberLayout>

@@ -18,11 +18,9 @@ const mapDispatchToProps = dispatch => {
 export default connect(mapStateToProps, mapDispatchToProps)(
 	class GuestLayout extends Component {
 		handleLogin = (payload) => {
-			console.log('layout', payload)
 			this.props.POST_Login(payload);
 		}
 		handleIsLogin = (callback) => {
-			console.log('callback', callback)
 			this.props.GET_IsLogin(callback);
 		}
 		render() {

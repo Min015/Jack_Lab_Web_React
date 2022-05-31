@@ -77,7 +77,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			const { drop } = this.state;
 			const { MeetingInfo, MyPermission } = this.props;
 			const account = localStorage.getItem('account');
-			console.log(MeetingInfo);
 			return (
 				<div id='meeting_info'>
 					<MemberLayout>
