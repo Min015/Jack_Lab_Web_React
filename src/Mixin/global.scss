@@ -209,12 +209,6 @@ a {
     }
 }
 
-ul {
-    li {
-        list-style: none;
-    }
-}
-
 input {
     background-color: none;
     outline         : none;
@@ -257,6 +251,7 @@ table {
 .none {
     display: none !important;
 }
-.absolutely_center{
+
+.absolutely_center {
     @extend %absolutely_center;
 }

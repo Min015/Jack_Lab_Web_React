@@ -24,18 +24,21 @@
 		display: flex;
 
 		.teacher_block {
+			width: 100%;
 			@extend %col;
+
 
 			.teacher {
 				padding   : 5px 0px;
 				margin-top: 25px;
-
+				padding: 5px;
 
 				.teacherphoto {
 					position    : relative;
 					padding     : 5px;
 					margin-right: 0px;
-					margin      : 0px auto;
+					margin      :auto auto;
+					align-items : center;
 
 					.imgBG {
 						position        : absolute;
@@ -62,20 +65,26 @@
 				}
 
 				.teacherintroduce {
-					padding    : 5px;
-					white-space: pre-line;
-					margin-left: 10px;
-					line-height: 40px;
+					padding       : 5px;
+					white-space   : pre-line;
+					// margin-left: 10px;
+					line-height   : 40px;
+					align-items   : flex-start;
+
+					ol,
+					ul {
+						padding-left: 40px;
+					}
 				}
 			}
 		}
 
 		.labintroduce {
-			text-align    : center;
-			white-space   : pre-line;
-			line-height   : 28px;
-			padding-bottom: 10px;
-			width         : 100%;
+			text-align       : center;
+			white-space      : pre-line;
+			line-height      : 28px;
+			// padding-bottom: 10px;
+			// width         : 100%;
 		}
 	}
 
@@ -126,6 +135,11 @@
 			width : 66.666667%;
 			height: 338px;
 		}
+
+		.teacherintroduce {
+			width : 80%;
+			margin: 0px auto;
+		}
 	}
 }
 
@@ -142,6 +156,11 @@
 		.teacherphoto {
 			width : 66.666667%;
 			height: 338px;
+		}
+
+		.teacherintroduce {
+			width : 80%;
+			margin: 0px auto;
 		}
 	}
 }
@@ -161,7 +180,7 @@
 			flex-direction: column;
 
 			.teacherphoto {
-				width : 66.666667%;
+				width : 50%;
 				height: 338px;
 			}
 		}
@@ -186,21 +205,36 @@
 				width : 33.333333%;
 				height: 338px;
 			}
+
+			.teacherintroduce {
+				width       : calc(66.666667% - 130px);
+				padding-left: 130px;
+			}
 		}
 	}
 }
 
 @media screen and (min-width:1200px) {
 	#GuestIndex {
-		.teacher {
-			width: 1140px;
-		}
-
 		.book {
 			width: calc(20% - 22px);
 
 			img {
 				height: 217.05px;
+			}
+		}
+
+		.teacher {
+			// width: 1140px;
+
+			.teacherphoto {
+				width : 25%;
+				height: 338px;
+			}
+
+			.teacherintroduce {
+				width       : calc(75% - 150px);
+				padding-left: 150px;
 			}
 		}
 	}
