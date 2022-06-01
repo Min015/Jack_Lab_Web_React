@@ -5,7 +5,7 @@
 	margin   : 0px auto;
 
 	.block {
-		// padding: 10px 10px;
+		padding: 20px 0px;
 	}
 
 	.teacher_i {
@@ -13,11 +13,11 @@
 	}
 
 	.index_title {
-		text-align   : center;
-		font-weight  : bold;
-		color        : $header_background;
-		font-size    : 32px;
-		margin-bottom: 10px;
+		text-align : center;
+		font-weight: bold;
+		color      : $header_background;
+		font-size  : 32px;
+		padding    : 20px 0px;
 	}
 
 	.center {
@@ -29,15 +29,14 @@
 
 
 			.teacher {
-				padding   : 5px 0px;
-				margin-top: 25px;
-				padding: 5px;
+				// margin-top: 25px;
+				// padding   : 0px 30px;
 
 				.teacherphoto {
 					position    : relative;
 					padding     : 5px;
 					margin-right: 0px;
-					margin      :auto auto;
+					margin      : auto auto;
 					align-items : center;
 
 					.imgBG {
@@ -65,11 +64,10 @@
 				}
 
 				.teacherintroduce {
-					padding       : 5px;
-					white-space   : pre-line;
-					// margin-left: 10px;
-					line-height   : 40px;
-					align-items   : flex-start;
+					padding    : 5px;
+					white-space: pre-line;
+					line-height: 40px;
+					align-items: flex-start;
 
 					ol,
 					ul {
@@ -79,19 +77,28 @@
 			}
 		}
 
-		.labintroduce {
-			text-align       : center;
-			white-space      : pre-line;
-			line-height      : 28px;
-			// padding-bottom: 10px;
-			// width         : 100%;
+		.introduce {
+			padding: 5px;
+
+			.labintroduce {
+				white-space: pre-line;
+				line-height: 28px;
+			}
 		}
+
+	}
+
+	.booklist,
+	.teacher,
+	.labintroduce {
+		padding: 0px 30px;
 	}
 
 	.booklist {
 		display  : flex;
 		flex-wrap: wrap;
-		width    : 100%;
+		width    : calc(100% - 60px);
+
 		@extend %row;
 
 		.book {
@@ -127,13 +134,13 @@
 			width: calc(100% - 22px);
 
 			img {
-				height: 524px;
+				height: 525px;
 			}
 		}
 
 		.teacherphoto {
 			width : 66.666667%;
-			height: 338px;
+			height: 340px;
 		}
 
 		.teacherintroduce {
@@ -149,13 +156,13 @@
 			width: calc(50% - 22px);
 
 			img {
-				height: 347px;
+				height: 350px;
 			}
 		}
 
 		.teacherphoto {
 			width : 66.666667%;
-			height: 338px;
+			height: 340px;
 		}
 
 		.teacherintroduce {
@@ -171,7 +178,7 @@
 			width: calc(33.333333% - 22px);
 
 			img {
-				height: 307px;
+				height: 310px;
 			}
 		}
 
@@ -181,7 +188,7 @@
 
 			.teacherphoto {
 				width : 50%;
-				height: 338px;
+				height: 340px;
 			}
 		}
 	}
@@ -193,7 +200,7 @@
 			width: calc(25% - 22px);
 
 			img {
-				height: 276.5px;
+				height: 275px;
 			}
 		}
 
@@ -203,7 +210,7 @@
 
 			.teacherphoto {
 				width : 33.333333%;
-				height: 338px;
+				height: 340px;
 			}
 
 			.teacherintroduce {
@@ -220,16 +227,15 @@
 			width: calc(20% - 22px);
 
 			img {
-				height: 217.05px;
+				height: 220px;
 			}
 		}
 
 		.teacher {
-			// width: 1140px;
 
 			.teacherphoto {
 				width : 25%;
-				height: 338px;
+				height: 340px;
 			}
 
 			.teacherintroduce {
