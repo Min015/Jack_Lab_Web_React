@@ -157,6 +157,28 @@ const fetch = store => next => action => {
           }
         });
       break;
+    case "GET_TeacherInfo":
+      _axios
+        .get(`/manager/teacher?id=${action.payload}`,)
+        .then(response =>  response.data.data)
+        .catch(err => {
+          if (err.response.status === 401) {
+            localStorage.clear();
+            window.location.replace('http://localhost:3000/index');
+          }
+          alert(err.response.data.message);
+          throw new Error(err);
+        })
+        .then(json => {
+          if (action.callback) {
+            action.callback(json)
+          }
+          return next({
+            type: 'SAVE_TeacherInfo',
+            payload: json
+          });
+        });
+      break;
     case "PUT_UpdateTeacherIntroduce":
       _axios
         .put('/manager/teacher/info', action.payload)

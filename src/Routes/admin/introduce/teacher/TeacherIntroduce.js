@@ -14,6 +14,7 @@ import {
 	POST_UpdatePhoto,
 	PUT_UpdateTeacherIntroduce,
 	DELETE_TeacherIntroduce,
+	GET_TeacherInfo,
 } from '../../../../Action/IntroduceAction';
 
 const mapStateToProps = state => {
@@ -59,6 +60,7 @@ const mapDispatchToProps = dispatch => {
 		POST_UpdatePhoto: (payload, callback) => dispatch(POST_UpdatePhoto(payload, callback)),
 		PUT_UpdateTeacherIntroduce: (payload, callback) => dispatch(PUT_UpdateTeacherIntroduce(payload, callback)),
 		DELETE_TeacherIntroduce: (payload, callback) => dispatch(DELETE_TeacherIntroduce(payload, callback)),
+		GET_TeacherInfo: (payload, callback) => dispatch(GET_TeacherInfo(payload, callback)),
 	}
 }
 export default connect(mapStateToProps, mapDispatchToProps)(
@@ -187,6 +189,25 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			else {
 				alert("請選擇相片");
 			}
+		}
+		//取得教師詳細資料
+		GetTeacherInfo = (e) => {
+			const { id } = e.target;
+			const callback = (res) => {
+				console.log(res)
+				this.setState({
+					nowItem: {
+						Id: res.Id,
+						Name: res.Name,
+						Title: res.Title,
+						Introduction: res.Introduction,
+					},
+					newName: res.Name,
+					newTitle: res.Title,
+					newIntroduce: res.Introduction,
+				})
+			}
+			this.props.GET_TeacherInfo(id, callback);
 		}
 		//修改教師資訊
 		UpdateTeacher = () => {
@@ -490,9 +511,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 												<td>
 													<div className="action">
 														<div onClick={() => this.drop_down('edit')} className="svg">
-															<svg id={`${item.Id},${item.Name},${item.Title},${item.Introduction}`} onClick={this.handleSetNow.bind()}
+															<svg id={`${item.Id}`} onClick={this.GetTeacherInfo.bind()}
 																width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-																<path id={`${item.Id},${item.Name},${item.Title},${item.Introduction}`} onClick={this.handleSetNow.bind()}
+																<path id={`${item.Id}`} onClick={this.GetTeacherInfo.bind()}
 																	d="M17.5375 2.83605L15.1747 0.463507C14.5232 -0.190681 13.4207 -0.147876 12.7142 0.563335C12.0076 1.27278 11.9615 2.3815 12.6148 3.03568L14.9776 5.40822C15.6291 6.06241 16.7315 6.01963 17.4398 5.3084C18.1464 4.59719 18.1908 3.49203 17.5375 2.83605ZM2.47467 10.8432L7.20033 15.5882L14.88 7.87883L10.1543 3.13374L2.47467 10.8432ZM0 18L6.23283 16.7469L1.24799 11.7415L0 18Z" fill="#51718C" />
 															</svg>
 															<div className="hover">
@@ -715,7 +736,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								<div id='ckeditor_edit' className='col-12 enter'>
 									<CKEditor
 										id='ckedit'
-										config={ editorConfiguration }
+										config={editorConfiguration}
 										editor={ClassEditor}
 										data={newIntroduce}
 										onChange={(event, editor) => this.handleCKEditor(event, editor)}

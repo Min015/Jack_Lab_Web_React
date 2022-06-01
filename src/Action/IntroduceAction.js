@@ -63,6 +63,15 @@ export const POST_UpdatePhoto = (payload, callback) => {
     });
   };
 }
+export const GET_TeacherInfo = (payload, callback) => {
+  return (dispatch) => {
+    dispatch({
+      type: "GET_TeacherInfo",
+      payload:payload,
+      callback: callback,
+    });
+  };
+}
 export const PUT_UpdateTeacherIntroduce = (payload, callback) => {
   return (dispatch) => {
     dispatch({
