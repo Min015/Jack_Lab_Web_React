@@ -4,6 +4,8 @@ import BackLayout from '../../../../Components/Layout/back/BackLayout';
 import '../../style/mainstyle.scss';
 import '../../../../Mixin/popup_window.scss'
 import searchbtn from '../../style/img/searchButton.png';
+import { handleGetPage } from '../../../../Utils/MyClass';
+
 import {
 	GET_AdminAlbum,
 	POST_AddAlbum,
@@ -58,22 +60,25 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				this.setState({
 					maxpage: res.page,
 				})
-				this.handleGetPage(nowpage, res.page);
+				const pagearray = handleGetPage(nowpage, res.page);
+				this.setState({
+					pagearray
+				})
 			}
 			this.props.GET_AdminAlbum(nowpage, nowsearch, callback);
 		}
 		//取得頁面
-		handleGetPage = (nowpage, maxpage) => {
-			let pagearray = [];
-			for (let i = (Number(nowpage) - 2); i <= (Number(nowpage) + 2); i++) {
-				if (i > 0 && i <= Number(maxpage)) {
-					pagearray.push(i)
-				}
-			}
-			this.setState({
-				pagearray
-			})
-		}
+		// handleGetPage = (nowpage, maxpage) => {
+		// 	let pagearray = [];
+		// 	for (let i = (Number(nowpage) - 2); i <= (Number(nowpage) + 2); i++) {
+		// 		if (i > 0 && i <= Number(maxpage)) {
+		// 			pagearray.push(i)
+		// 		}
+		// 	}
+		// 	this.setState({
+		// 		pagearray
+		// 	})
+		// }
 		//換頁
 		handleGoNextPage = (page, search = " ") => {
 			const callback = (res) => {
@@ -87,7 +92,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					maxpage: res.page,
 					pagearray: [],
 				})
-				this.handleGetPage(nowpage, res.page);
+				const pagearray = handleGetPage(nowpage, res.page);
+				this.setState({
+					pagearray
+				})
 			}
 			this.props.history.push(`/adminalbum/${page}/${search}`);
 			this.props.GET_AdminAlbum(page, search, callback);
@@ -218,7 +226,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					Id: info[0],
 					Title: info[1],
 					Image: info[2],
-					File:info[3]
+					File: info[3]
 				},
 				newTitle: info[1],
 			})
