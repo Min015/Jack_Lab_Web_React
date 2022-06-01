@@ -27,30 +27,27 @@ const editorConfiguration = {
 	toolbar: [
 		'heading',
 		'|',
+		'fontFamily',
+		'fontSize',
+		'fontColor',
+		'fontBackgroundColor',
 		'bold',
 		'italic',
 		'underline',
 		'strikethrough',
-		'removeFormat',
-		'link',
-		'fontSize',
-		'fontFamily',
-		'fontColor',
-		'fontBackgroundColor',
-		'horizontalLine',
 		'|',
+		'horizontalLine',
+		'link',
 		'bulletedList',
 		'numberedList',
-		'alignment',
 		'outdent',
 		'indent',
+		'alignment',
 		'|',
-		'mediaEmbed',
 		'undo',
 		'redo',
 		'findAndReplace',
-		'codeBlock',
-		'code']
+	]
 };
 
 const mapDispatchToProps = dispatch => {
@@ -194,7 +191,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		GetTeacherInfo = (e) => {
 			const { id } = e.target;
 			const callback = (res) => {
-				console.log(res)
 				this.setState({
 					nowItem: {
 						Id: res.Id,
@@ -693,7 +689,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 						onClick={this.handleMouseDown}
 					>
 						<div className="window">
-							<div className="form">
+							<div className="form editor_form">
 								<h1 className="title">
 									修改教師資訊
 									<div className="close">

@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import BackLayout from '../../../../Components/Layout/back/BackLayout';
 import '../../style/mainstyle.scss';
 import searchbtn from '../../style/img/searchButton.png';
-import { GET_LabIntroduce, POST_AddLabIntroduce, PUT_UpdateLabIntroduce, DELETE_LabIntroduce, } from '../../../../Action/IntroduceAction';
+import { GET_LabIntroduce, POST_AddLabIntroduce, PUT_UpdateLabIntroduce, DELETE_LabIntroduce, GET_LabInfo, } from '../../../../Action/IntroduceAction';
 import { Editor as ClassEditor } from 'ckeditor5-custom-build/build/ckeditor';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 
@@ -20,36 +20,34 @@ const mapDispatchToProps = dispatch => {
 		POST_AddLabIntroduce: (payload, callback) => dispatch(POST_AddLabIntroduce(payload, callback)),
 		PUT_UpdateLabIntroduce: (payload, callback) => dispatch(PUT_UpdateLabIntroduce(payload, callback)),
 		DELETE_LabIntroduce: (payload, callback) => dispatch(DELETE_LabIntroduce(payload, callback)),
+		GET_LabInfo: (payload, callback) => dispatch(GET_LabInfo(payload, callback)),
 	}
 }
 const editorConfiguration = {
 	toolbar: [
 		'heading',
 		'|',
+		'fontFamily',
+		'fontSize',
+		'fontColor',
+		'fontBackgroundColor',
 		'bold',
 		'italic',
 		'underline',
 		'strikethrough',
-		'removeFormat',
-		'link',
-		'fontSize',
-		'fontFamily',
-		'fontColor',
-		'fontBackgroundColor',
-		'horizontalLine',
 		'|',
+		'horizontalLine',
+		'link',
 		'bulletedList',
 		'numberedList',
-		'alignment',
 		'outdent',
 		'indent',
+		'alignment',
 		'|',
-		'mediaEmbed',
 		'undo',
 		'redo',
 		'findAndReplace',
-		'codeBlock',
-		'code']
+	]
 };
 export default connect(mapStateToProps, mapDispatchToProps)(
 	class LabIntroduce extends Component {
@@ -137,6 +135,22 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			else {
 				alert("您有必填欄位尚未填寫，請確認");
 			}
+		}
+		//取得教師詳細資料
+		GetLabInfo = (e) => {
+			const { id } = e.target;
+			const callback = (res) => {
+				this.setState({
+					nowItem: {
+						Id: res.Id,
+						Title: res.Title,
+						Content: res.Content,
+					},
+					newTitle: res.Title,
+					newContent: res.Content,
+				})
+			}
+			this.props.GET_LabInfo(id, callback);
 		}
 		//修改
 		UpdateLabIntroduce = () => {
@@ -382,9 +396,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 												<td>
 													<div className="action">
 														<div className="svg" onClick={() => this.drop_down('edit')}>
-															<svg id={`${item.Id},${item.Title},${item.Content}`} onClick={this.handleSetNow.bind()}
+															<svg id={`${item.Id}`} onClick={this.GetLabInfo.bind()}
 																width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-																<path id={`${item.Id},${item.Title},${item.Content}`} onClick={this.handleSetNow.bind()}
+																<path id={`${item.Id}`} onClick={this.GetLabInfo.bind()}
 																	d="M17.5375 2.83605L15.1747 0.463507C14.5232 -0.190681 13.4207 -0.147876 12.7142 0.563335C12.0076 1.27278 11.9615 2.3815 12.6148 3.03568L14.9776 5.40822C15.6291 6.06241 16.7315 6.01963 17.4398 5.3084C18.1464 4.59719 18.1908 3.49203 17.5375 2.83605ZM2.47467 10.8432L7.20033 15.5882L14.88 7.87883L10.1543 3.13374L2.47467 10.8432ZM0 18L6.23283 16.7469L1.24799 11.7415L0 18Z" fill="#51718C" />
 															</svg>
 															<div className="hover">
@@ -440,7 +454,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 						onClick={this.handleMouseDown}
 					>
 						<div className="window">
-							<div className="form">
+							<div className="form editor_form">
 								<h1 className="title">
 									新增研究室介紹
 									<div className="close">
@@ -489,7 +503,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 						onClick={this.handleMouseDown}
 					>
 						<div className="window">
-							<div className="form">
+							<div className="form editor_form">
 								<h1 className="title">
 									修改研究室介紹
 									<div className="close">
