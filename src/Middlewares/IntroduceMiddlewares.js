@@ -63,6 +63,24 @@ const fetch = store => next => action => {
           }
         });
       break;
+    case "GET_LabInfo":
+      _axios
+        .get(`/labinfo?id=${action.payload}`,)
+        .then(response => response.data.data)
+        .catch(err => {
+          if (err.response.status === 401) {
+            localStorage.clear();
+            window.location.replace('http://localhost:3000/index');
+          }
+          alert(err.response.data.message);
+          throw new Error(err);
+        })
+        .then(json => {
+          if (action.callback) {
+            action.callback(json)
+          }
+        });
+      break;
     case "PUT_UpdateLabIntroduce":
       _axios
         .put('/labinfo', action.payload)
@@ -160,7 +178,7 @@ const fetch = store => next => action => {
     case "GET_TeacherInfo":
       _axios
         .get(`/manager/teacher?id=${action.payload}`,)
-        .then(response =>  response.data.data)
+        .then(response => response.data.data)
         .catch(err => {
           if (err.response.status === 401) {
             localStorage.clear();
@@ -173,10 +191,6 @@ const fetch = store => next => action => {
           if (action.callback) {
             action.callback(json)
           }
-          return next({
-            type: 'SAVE_TeacherInfo',
-            payload: json
-          });
         });
       break;
     case "PUT_UpdateTeacherIntroduce":

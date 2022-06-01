@@ -8,6 +8,15 @@ export const GET_LabIntroduce = (page, search, callback) => {
     });
   };
 }
+export const GET_LabInfo = (payload, callback) => {
+  return (dispatch) => {
+    dispatch({
+      type: "GET_LabInfo",
+      payload:payload,
+      callback: callback,
+    });
+  };
+}
 export const POST_AddLabIntroduce = (payload, callback) => {
   return (dispatch) => {
     dispatch({
