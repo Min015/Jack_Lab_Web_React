@@ -29,9 +29,6 @@
 
 
 			.teacher {
-				// margin-top: 25px;
-				// padding   : 0px 30px;
-
 				.teacherphoto {
 					position    : relative;
 					padding     : 5px;
@@ -102,8 +99,9 @@
 		@extend %row;
 
 		.book {
-			padding: 5px;
-			margin : 5px;
+			position: relative;
+			padding : 5px;
+			margin  : 5px;
 			@include border-set();
 
 			img {
@@ -118,12 +116,50 @@
 				font-weight: bold;
 				border-top : 1px $boder_color solid;
 				height     : 49px;
+
+				label {
+					position        : absolute;
+					display         : none;
+					width           : 90%;
+					font-size       : 12px;
+					word-wrap       : break-word;
+					background-color: rgb(226, 225, 225);
+					margin-left     : 10px;
+					padding         : 5px;
+					color           : black;
+				}
+
+				&:hover {
+					label {
+						display: block;
+					}
+				}
 			}
 
 			.bookauthor {
 				font-size: $m;
 				padding  : 5px;
+
+				label {
+					position           : absolute;
+					display            : none;
+					width              : 90%;
+					font-size          : 12px;
+					word-wrap          : break-word;
+					background-color   : rgb(226, 225, 225);
+					// margin-left     : 10px;
+					padding            : 5px;
+					color              : black;
+				}
+
+				&:hover {
+					label {
+						display: block;
+					}
+				}
 			}
+
+
 		}
 	}
 }
@@ -229,6 +265,14 @@
 			img {
 				height: 220px;
 			}
+
+			.booktitle {
+				label {
+					top : 285px;
+					left: 0px;
+				}
+			}
+
 		}
 
 		.teacher {
