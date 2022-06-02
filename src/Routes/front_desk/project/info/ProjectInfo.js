@@ -73,12 +73,33 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			remark: "",
 		}
 		//生命週期
-		componentDidMount = async () => {
+		componentDidMount = () => {
+			//新寫法
+			// const { history } = this.props;
+			// const temp = history.location.pathname.split("/project/projectinfo/")
+			// const params = temp[1].split("/");
+			// let nowsearch="";
+			// if(params[2]===""){
+			// 	nowsearch=" "
+			// }
+			// const nowid = params[0];
+			// const nowpage = params[1];
+			// console.log(params);
+
+			//舊寫法
 			const { match } = this.props;
 			const { params } = match;
 			const nowid = params.id;
 			const nowpage = params.page;
-			const nowsearch = params.search;
+			let nowsearch;
+			if (params.search === "") {
+				nowsearch = " ";
+			}
+			else {
+				nowsearch = params.search;
+			}
+
+
 			this.setState({
 				Id: nowid,
 				page: nowpage,
@@ -110,10 +131,26 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		handleGoNextPage = (page, search = " ") => {
 			const { Id } = this.state;
 			const callback = (res) => {
+				//新寫法
+				// const { history } = this.props;
+				// const temp = history.location.pathname.split("/project/projectinfo/")
+				// const params = temp[1].split("/");
+				// const nowpage = params[1];
+				// const nowsearch = params[2];
+
+				//舊寫法
 				const { match } = this.props;
 				const { params } = match;
 				const nowpage = params.page;
-				const nowsearch = params.search;
+				let nowsearch;
+				if (params.search === "") {
+					nowsearch = " ";
+				}
+				else {
+					nowsearch = params.search;
+				}
+
+				
 				this.setState({
 					page: nowpage,
 					search: nowsearch,
@@ -340,7 +377,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									<div className="tag">
 										{ProjectInfo === undefined ? "" : ProjectInfo.Tag?.map((item, index) => {
 											return (
-												<div key={index} className="small_tag">
+												<div key={`Tag${index}`} className="small_tag">
 													{item.Name}
 												</div>
 											)
@@ -411,7 +448,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										{ProjectRecord === undefined ? [] : ProjectRecord.list.map(
 											(item, index) => {
 												return (
-													<tr className={index % 2 === 0 ? 'tr_odd' : 'tr_even'}>
+													<tr key={`ProjectRecord${index}`} className={index % 2 === 0 ? 'tr_odd' : 'tr_even'}>
 														<td>{item.Remark}</td>
 														<td>{item.Uploader_name}</td>
 														<td>{item.CreateTime}</td>

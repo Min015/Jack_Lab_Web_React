@@ -130,7 +130,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		render() {
 			const { table_header, pagearray, page, search, maxpage, ptype } = this.state;
 			const { Project, ProjectTypeAll, MyPermission } = this.props;
-			console.log(MyPermission);
 			return (
 				<div id='fornt_main'>
 					<MemberLayout>

@@ -42,9 +42,10 @@ import AdProjectInfo from './admin/project/case/ProjectInfo';
 import AdCaseAdd from './admin/project/case/CaseAdd';
 
 import Index from './guest/index/Index';
-
 import Student from './guest/lab_member/Student';
-import NoRoute from '../Routes/Notfound/NoRoute';
+
+import NoRoute from '../Components/Notfound/NoRoute';
+import Verify from '../Components/Verify/Verify';
 
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
@@ -65,7 +66,6 @@ const SendfromDatamiddlewares = [SendfromDataMiddlewares, thunk];
 const Projectmiddlewares = [ProjectMiddlewares, thunk];
 const Guestindexmiddlewares = [GuestindexMiddlewares, thunk];
 const Introducemiddlewares = [IntroduceMiddlewares, thunk];
-// const myclass=[MyClass,thunk];
 
 
 const store = createStore(
@@ -78,7 +78,6 @@ const store = createStore(
 			...Projectmiddlewares,
 			...Guestindexmiddlewares,
 			...Introducemiddlewares,
-			// ...myclass,
 		),
 	)
 );
@@ -94,9 +93,18 @@ export default (
 				<Route path='/game/addgame' exact component={AddGame} />
 
 				<Route path='/project/updateproject/:id' exact component={UpdateProject} />
-				<Route path='/project/:page/:search/:ptype' exact component={LabProject} />
 				<Route path='/project/addproject' exact component={AddProject} />
-				<Route path='/project/projectinfo/:id/:page/:search' component={ProjectInfo} />
+				
+				{/* 新寫法 */}
+				{/* <Route path='/project/projectinfo/' component={ProjectInfo} />
+				<Route path='/project/:page/:search/:ptype' exact component={LabProject} /> */}
+				
+				{/* 原寫法 */}
+				<Route path='/project/projectinfo/:id/:page/:search' exact component={ProjectInfo} />
+				<Route path='/project/:page/:search/:ptype' exact component={LabProject} />
+				
+				
+				
 				<Route path='/project' exact component={() => <Redirect to='/project/1/ / ' />} />
 				<Route path='/project/:page/:search/' exact component={() => <Redirect to='/project/1/ / ' />} />
 
@@ -182,7 +190,9 @@ export default (
 				<Route path='/student/:time' exact component={Student} />
 				<Route path='/student' exact component={() => <Redirect to='/student/ ' />} />
 
+				<Route path='/emailvalidate' component={Verify}/>
 				<Route path='*' exact component={NoRoute} />
+
 				{/* 找不到 */}
 			</Switch>
 		</BrowserRouter>
