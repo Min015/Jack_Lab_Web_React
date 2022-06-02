@@ -212,3 +212,13 @@ export const SAVE_Permission = () => {
     });
   };
 }
+export const GET_Emailvalidate=(account,token,callback)=>{
+  return (dispatch) => {
+    dispatch({
+      type: "GET_Emailvalidate",
+      account:account,
+      token:token,
+      callback:callback,
+    });
+  };
+}

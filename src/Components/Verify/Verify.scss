@@ -1,0 +1,42 @@
+@import '../../Mixin/global.scss';
+
+#Verify {
+  margin        : 0px auto;
+  height        : calc(100vh - 86px);
+  display       : flex;
+  flex-direction: column;
+  align-items   : center;
+
+  .VerifyCenter {
+    position   : relative;
+    width      : 300px;
+    height     : 200px;
+    margin     : auto 0px;
+    font-weight: bold;
+    text-align : center;
+    @include border-set();
+    @extend %col;
+    // background-color: antiquewhite;
+    border-radius: 8px;
+    padding      : 20px 40px;
+
+    .message {
+      margin-top: 70px;
+      color     : $header_background;
+      font-size : 24px;
+    }
+
+    a {
+      position        : absolute;
+      bottom          : 20px;
+      width           : 272px;
+      display         : block;
+      color           : $font_maincolor;
+      background-color: $button_color;
+      padding         : 7px 14px;
+      border-radius   : 5px;
+      margin-top      : auto;
+      cursor          : pointer;
+    }
+  }
+}

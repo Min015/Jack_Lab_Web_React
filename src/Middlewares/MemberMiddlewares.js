@@ -388,7 +388,6 @@ const fetch = store => next => action => {
       _axios
         .delete(`/manager/user?id=${action.payload}`,)
         .then(response => {
-
           if (response.status === 200) {
             console.log("刪除成員成功")
           }
@@ -523,6 +522,21 @@ const fetch = store => next => action => {
         type: 'SAVE_MyPermission',
         payload: permission
       });
+    case "GET_Emailvalidate":
+      _axios
+        .get(`/emailvalidate?email=${action.account}&token=${action.token}`,)
+        .then(response =>{
+          return response.data.message;
+        })
+        .catch(err => {
+          return(err.response.data.message);
+        })
+        .then(json => {
+          if (action.callback) {
+            action.callback(json)
+          }
+        });
+      break;
     default:
       break;
   }
