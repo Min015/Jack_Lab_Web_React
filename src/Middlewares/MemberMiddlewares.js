@@ -1,6 +1,6 @@
 import axios from "axios";
 const token = localStorage.getItem("user_token");
-const BaseURL = 'http://localhost/api';
+const BaseURL = 'https://jacklab.servehttp.com/api';
 const _axios = axios.create({
   baseURL: BaseURL,
   timeout: 30000,
@@ -523,6 +523,7 @@ const fetch = store => next => action => {
         payload: permission
       });
     case "GET_Emailvalidate":
+      console.log('middlewares',action.account)
       _axios
         .get(`/emailvalidate?email=${action.account}&token=${action.token}`,)
         .then(response =>{

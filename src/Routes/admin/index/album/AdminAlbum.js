@@ -563,7 +563,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									</div>
 								</h1>
 								<div className='photo'>
-									<img src={now === undefined ? "" : `http://localhost/${now.Image}`} alt="輪播圖" />
+									<img src={now === undefined ? "" : `https://jacklab.servehttp.com/${now.Image}`} alt="輪播圖" />
 								</div>
 							</div>
 						</div>

@@ -66,7 +66,7 @@ export default class MysCarousel extends Component {
 										<li className={index === showIndex ? 'show' : ''}
 											key={`AlbumListAll${index}`}
 										>
-											<img src={(AlbumListAll === undefined || AlbumListAll === '') ? "" : `http://localhost/${item.Image}`} alt="輪播圖" />
+											<img src={(AlbumListAll === undefined || AlbumListAll === '') ? "" : `https://jacklab.servehttp.com/${item.Image}`} alt="輪播圖" />
 										</li>
 									)
 								})
