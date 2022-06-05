@@ -33,6 +33,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				"會議地點",
 				"記錄者",
 				"相關標籤",
+				"操作",
 			],
 		}
 		//生命週期

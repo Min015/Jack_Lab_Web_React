@@ -13,7 +13,7 @@ export default class CreateTable extends Component {
 						<th>{table_header[2]}</th>
 						<th >{table_header[3]}</th>
 						<th>{table_header[4]}</th>
-						<th className='col-05'>操作</th>
+						<th className='col-05'>{table_header[5]}</th>
 					</tr>
 				</thead>
 				<tbody>

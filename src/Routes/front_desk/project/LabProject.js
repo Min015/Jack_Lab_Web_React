@@ -39,6 +39,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				"建立者",
 				"建立時間",
 				"相關標籤",
+				"操作",
 			],
 			delO: false,
 			delAll: false,
