@@ -30,11 +30,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
       const params = temp[1].split("/");
       const account = params[0];
       const token = params[1];
-
       const jumurl = () => {
         this.props.history.push(`/index`);
       }
-
       const callback = (res) => {
         this.setState({
           validatemessage: res,
