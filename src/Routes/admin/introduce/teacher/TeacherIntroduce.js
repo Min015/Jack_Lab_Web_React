@@ -67,7 +67,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				"頭像",
 				"姓名",
 				"職稱",
-				"介紹",
+				// "介紹",
 			],
 			add: false,
 			edit: false,
@@ -469,9 +469,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									</th>
 									<th className="col-05">#</th>
 									<th className="col-2">{table_header[0]}</th>
-									<th className="col-1">{table_header[1]}</th>
-									<th className="col-1">{table_header[2]}</th>
-									<th>{table_header[3]}</th>
+									<th className="col-4">{table_header[1]}</th>
+									<th className="col-4">{table_header[2]}</th>
+									{/* <th>{table_header[3]}</th> */}
 									<th className="col-1"></th>
 								</tr>
 							</thead>
@@ -508,7 +508,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 													</td>
 													<td>{item.Name}</td>
 													<td>{item.Title}</td>
-													<td><div className='introduce' dangerouslySetInnerHTML={{ __html: item.Introduction }}></div></td>
+													{/* <td><div className='introduce' dangerouslySetInnerHTML={{ __html: item.Introduction }}></div></td> */}
 													<td>
 														<div className="action">
 															<div onClick={() => this.drop_down('edit')} className="svg">
