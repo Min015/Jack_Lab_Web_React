@@ -85,7 +85,9 @@
 		.oldfile {
 			@include ali-set();
 			@extend %row;
+
 			.reserve {
+
 				svg,
 				path {
 					fill: black
@@ -93,6 +95,7 @@
 			}
 
 			.delete {
+
 				svg,
 				path {
 					fill: red
@@ -259,6 +262,7 @@
 			@include ali-set();
 			@include jus-set();
 			font-size: $m;
+			width    : 80px;
 
 			a {
 				width : 100%;
