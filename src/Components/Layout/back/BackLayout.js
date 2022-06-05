@@ -7,7 +7,7 @@ import logo from '../img/logo.png';
 import menu from '../img/menu.png';
 export default class BackLayout extends Component {
     state = {
-        sidebarclick: false,
+        sidebarclick: true,
         logout: false,
         show: {
             sidebar: {
@@ -50,10 +50,10 @@ export default class BackLayout extends Component {
             })
         }
     }
+
     render() {
         const { children } = this.props;
-        const { logout, sidebarclick,show,hide } = this.state;
-        console.log(sidebarclick);
+        const { logout, sidebarclick, show, hide } = this.state;
         return (
             <div>
                 {/* <AdminHeader/> */}
@@ -116,7 +116,7 @@ export default class BackLayout extends Component {
                 </div>
                 <div className="content">
                     {/* <Sidebar /> */}
-                    <div style={sidebarclick===true?(show.sidebar):(hide.sidebar)} className="sidebar">
+                    <div style={sidebarclick === true ? (show.sidebar) : (hide.sidebar)} className="sidebar">
                         <div className="set">
                             <div className="sidebar_title">
                                 首頁
@@ -221,7 +221,7 @@ export default class BackLayout extends Component {
                             </ul>
                         </div>
                     </div>
-                    <div style={sidebarclick===true?(show.content_in):(hide.content_in)} className="content_in">
+                    <div style={sidebarclick === true ? (show.content_in) : (hide.content_in)} className="content_in">
                         <div className="in">
                             {children}
                         </div>
