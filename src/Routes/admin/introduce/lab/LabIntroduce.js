@@ -28,7 +28,6 @@ const editorConfiguration = {
 		'heading',
 		'|',
 		'fontFamily',
-		'fontSize',
 		'fontColor',
 		'fontBackgroundColor',
 		'bold',
