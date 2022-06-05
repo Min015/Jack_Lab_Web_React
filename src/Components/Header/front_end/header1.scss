@@ -32,14 +32,16 @@
         position     : relative;
 
         li {
-            padding: 8px 16px;
-            color  : $font_maincolor;
+            padding   : 8px 16px;
+            color     : $font_maincolor;
             list-style: none;
+            cursor    : pointer;
         }
 
         .preson_info {
             height: 37px;
             @include ali-set();
+            cursor: pointer;
 
             svg {
                 margin: 0px 1px;

@@ -29,6 +29,7 @@
     .logout {
         @include ali-set();
         margin: 0px 5px;
+        cursor: pointer;
 
         a,
         p,
