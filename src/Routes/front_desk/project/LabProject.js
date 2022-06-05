@@ -169,7 +169,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 						<div className={(pagearray === undefined) ? "none" : "active"}>
 							<div className='center'>
 								<div className='page'>
-									<button onClick={() => this.handleGoNextPage(1, search)} className='one_page'>
+									<button onClick={() => this.handleGoNextPage(1, search)} className='features'>
 										<svg width="14" height="18" viewBox="0 0 14 18" fill="#ffffff" xmlns="http://www.w3.org/2000/svg">
 											<path d="M12.6006 17.9991L14.0005 16.499L6.59997 8.99955L13.9994 1.49902L12.5993 -0.000877613L3.59997 8.99976L12.6006 17.9991Z" fill="#ffffff" />
 											<rect x="2.00061" y="18" width="2" height="18" transform="rotate(179.996 2.00061 18)" fill="#ffffff" />
@@ -180,7 +180,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 											(<div key={`page${index}`} onClick={() => this.handleGoNextPage(item, search)} className={page === `${item}` ? 'features' : 'one_page'}>{item}</div>)
 										)}
 									</div>
-									<button onClick={() => this.handleGoNextPage(maxpage, search)} className='one_page'>
+									<button onClick={() => this.handleGoNextPage(maxpage, search)} className='features'>
 										<svg width="14" height="18" viewBox="0 0 14 18" fill="#ffffff" xmlns="http://www.w3.org/2000/svg">
 											<path d="M1.4 0L0 1.5L7.4 9L0 16.5L1.4 18L10.4 9L1.4 0Z" fill="#ffffff" />
 											<rect x="12" width="2" height="18" fill="#ffffff" />
