@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './admin_header.scss';
 import logo from '../img/logo.png';
+import menu from '../img/menu.png';
 export default class AdminHeader extends Component {
     state = {
         logout: false,
@@ -29,16 +30,13 @@ export default class AdminHeader extends Component {
         return (
             <div>
                 <header id="admin_header">
-                    <Link to='/index' className="logo">
-                        <img src={logo} />
-                    </Link>
+                    <div className='header_left'>
+                        <div className='menu'><img src={menu} alt="menu" /></div>
+                        <Link to='/index' className="logo">
+                            <img src={logo} alt="logo" />
+                        </Link>
+                    </div>
                     <nav>
-                        {/* <div className="logout">
-                            <Link to='/index'>去訪客</Link>
-                        </div>
-                        <div className="logout">
-                            <Link to='/setinfo'>去前台</Link>
-                        </div> */}
                         <div className="logout">
                             <p>
                                 <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">

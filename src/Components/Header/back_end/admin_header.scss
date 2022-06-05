@@ -10,11 +10,25 @@
     @include ali-set();
     @extend %row;
     @extend %between;
-
+    .header_left{
+        @extend %row;
+        height: 100%;
+        margin-left: 30px;
+        align-items: center;
+    }
+    .menu{
+        width: 20px;
+        height: 100%;
+        display: none;
+        padding-right: 30px;
+        img{
+            margin-top: 17px;
+            @include image-set(20px,20px);
+        }
+    }
     .logo {
         width      : 125px;
         height     : 40px;
-        margin-left: 30px;
 
         img {
             @include image-set(100%, 100%, contain);
@@ -50,5 +64,10 @@
                 margin-right: 5px;
             }
         }
+    }
+}
+@media screen and (max-width:1200px) {
+    .menu {
+        display: block !important;
     }
 }

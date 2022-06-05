@@ -7,6 +7,7 @@
     padding-bottom  : 20px;
     overflow-y      : auto;
     position        : fixed;
+    display         : none;
 
     .set {
         .sidebar_title {
@@ -15,10 +16,6 @@
             color    : $font_maincolor;
             @include ali-set();
             @extend %between;
-
-            // &:hover {
-            //     background-color: $sidebar_hover_background;
-            // }
         }
 
         li {
@@ -79,5 +76,12 @@
         path {
             fill: $font_maincolor !important;
         }
+    }
+}
+
+@media screen and (min-width:1200px) {
+    .sidebar {
+        display: block;
+        width: $admin_sidebar_width;
     }
 }
