@@ -3,8 +3,8 @@
 .content_in {
     position        : absolute;
     right           : 0px;
+    width           : calc(100% - 250px);
     min-height      : calc(100vh - 56px);
-    width           : 100%;
     background-color: $admin_main_background;
 
     .in {
@@ -13,8 +13,26 @@
         padding-bottom: 15px;
     }
 }
-@media screen and (min-width:1200px) {
-	.content_in{
-        width           : calc(100% - 250px);
+
+.sidebar {
+    display: block;
+}
+
+@media screen and (max-width:1200px) {
+    .sidebar {
+        display: none;
+    }
+
+    .content_in {
+        width: 100%;
+    }
+
+    .sidebar_show {
+        display: block !important;
+        width  : 250px !important;
+    }
+
+    .content_in_hide {
+        width: calc(100% - 250px);
     }
 }
