@@ -45,6 +45,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				"專案類型",
 				"專案名",
 				"建立時間",
+				"操作",
 			],
 		}
 		componentDidMount = async () => {
