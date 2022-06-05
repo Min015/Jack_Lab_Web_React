@@ -7,8 +7,8 @@
     background-color: $front_desk_content_background;
 
     .contentin {
-        width : $front_desk_width;
-        margin: 0px auto;
+        // width : $front_desk_width;
+        margin: 0px 30px;
         @extend %col;
     }
 }
