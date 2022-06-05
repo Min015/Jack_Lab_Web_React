@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 
 import '../style/Carousel.scss';
-import photo from './img/img1.jpg';
-
+import nocarousel from './img/nocarousel.jpg'
 export default class MysCarousel extends Component {
 	state = {
 		showIndex: 0, //顯示第幾個圖片
@@ -58,15 +57,19 @@ export default class MysCarousel extends Component {
 				>
 					<ul className="ul">
 						{
-							(AlbumListAll === undefined || AlbumListAll === '') ? [] : AlbumListAll.map((item, index) => {
-								return (
-									<li className={index === showIndex ? 'show' : ''}
-										key={`AlbumListAll${index}`}
-									>
-										<img src={(AlbumListAll === undefined || AlbumListAll === '') ? { photo } : `http://localhost/${item.Image}`} alt="輪播圖" />
-									</li>
-								)
-							})
+							(AlbumListAll === undefined || AlbumListAll === '') ?
+								<li className='show'>
+									<img src={nocarousel} alt="輪播圖" />
+								</li>
+								: AlbumListAll.map((item, index) => {
+									return (
+										<li className={index === showIndex ? 'show' : ''}
+											key={`AlbumListAll${index}`}
+										>
+											<img src={(AlbumListAll === undefined || AlbumListAll === '') ? "" : `http://localhost/${item.Image}`} alt="輪播圖" />
+										</li>
+									)
+								})
 						}
 					</ul>
 					<ul className="dots" style={{ width: dot * 20 + 'px' }}>

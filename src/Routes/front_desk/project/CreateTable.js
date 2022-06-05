@@ -19,7 +19,7 @@ class CreateTable extends Component {
 				<tbody>
 					{(table_content === undefined || table_content.length === 0) ?
 						<tr className='tr_odd'>
-							<td colSpan={table_header === undefined ? "1" : table_header.length}>
+							<td colSpan={table_header === undefined ? "1" : table_header.length} className='nocontent'>
 								暫無資料
 							</td>
 						</tr>

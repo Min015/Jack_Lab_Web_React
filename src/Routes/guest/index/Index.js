@@ -53,7 +53,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					<Carousel AlbumListAll={AlbumListAll} />
 					<div id='GuestIndex'>
 						<div className='block'>
-							<div className='index_title'>教師介紹</div>
+							<div className='index_title teachertitle'>教師介紹</div>
 							<Teacher TeacherIntroduceList={TeacherIntroduceList} />
 						</div>
 						<Lab LabIntroduceList={LabIntroduceList} />

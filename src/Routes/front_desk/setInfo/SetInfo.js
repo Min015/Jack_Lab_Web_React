@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import MemberLayout from '../../../Components/Layout/front/member/MemberLayout';
 import './setinfo.scss';
 import '../../../Mixin/popup_window.scss';
-import info from './img/info.png';
 import camera from './img/camera.png';
 import CreateTable from './CreateTable';
 
@@ -203,7 +202,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								<div className="card_banner"></div>
 								<div className="card_content">
 									<div className="head_stickers">
-										<img src={MyInfo === undefined ? { info } : `http://localhost/${MyInfo.Image}`} alt={`大頭貼`} />
+										<img src={MyInfo === undefined ? "": `http://localhost/${MyInfo.Image}`} alt={`大頭貼`} />
 									</div>
 									<div className="information">
 										<div className="edit_pen">
