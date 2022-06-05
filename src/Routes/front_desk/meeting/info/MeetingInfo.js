@@ -79,7 +79,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			const { MeetingInfo, MyPermission } = this.props;
 			const account = localStorage.getItem('account');
 			return (
-				<div id='meeting_info'>
+				<div id='meetingInfo'>
 					<MemberLayout>
 						<div className="add_title">
 							<div className="title_name">
@@ -126,10 +126,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							</div>
 						</div>
 						<div className="meeting">
-							<div className="col-5 something_content meeting_content">
+							<div className="something_content meeting_content">
 								{MeetingInfo === undefined ? "" : MeetingInfo.Content}
 							</div>
-							<div className="col-6 meeting_info">
+							<div className="meeting_info">
 								<div className="else_info">
 									<div className="col-3">
 										<p>時間</p>

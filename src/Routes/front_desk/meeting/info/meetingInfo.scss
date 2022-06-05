@@ -1,6 +1,6 @@
 @import '../../../../Mixin/global.scss';
 
-#meeting_info {
+#meetingInfo {
 	.add_title {
 		padding      : 10px 10px;
 		border-bottom: 1px $tr_even solid;
@@ -80,6 +80,7 @@
 
 		.meeting_info {
 			padding: 10px;
+			width  : $col-6;
 			@extend %between;
 			@extend %col;
 
@@ -105,7 +106,7 @@
 				.participant {
 					min-height: 150px;
 					max-height: 350px;
-					width     : 578px;
+					width     : calc(100% - 20px);
 				}
 
 				ol {
@@ -136,5 +137,29 @@
 
 	.meeting_content {
 		height: 530px;
+		width : $col-5;
+	}
+}
+
+@media screen and (max-width:768px) {
+	#meetingInfo {
+		.meeting {
+			flex-direction: column;
+
+			.meeting_content
+			{
+				width: calc(100% - 20px);
+			}
+			.meeting_info{
+				width: 100%;
+				padding: 0px;
+				.else_info{
+					p{
+						margin-top: 10px;
+					}
+				}
+			}
+		}
+
 	}
 }

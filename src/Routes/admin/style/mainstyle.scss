@@ -262,6 +262,14 @@
 		@include jus-set();
 		cursor: pointer;
 
+		&:hover {
+			color           : $font_maincolor;
+			background-color: $button_color;
+
+			* {
+				fill: $font_maincolor;
+			}
+		}
 	}
 
 	.features {

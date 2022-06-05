@@ -1,19 +1,6 @@
 @import '../../../../Mixin/global.scss';
 
 #project_info {
-	.content {
-		padding-top     : $header_height;
-		padding-bottom  : 30px;
-		background-color: $front_desk_content_background;
-
-		.contentin {
-			width : $front_desk_width;
-			margin: 0px auto;
-			@extend %col;
-		}
-	}
-
-
 	.add_title {
 		padding      : 10px 10px;
 		border-bottom: 1px $tr_even solid;
@@ -110,9 +97,7 @@
 		display         : flex;
 		margin          : 44px 0px;
 		height          : 34px;
-		width           : 100%;
 		background-color: $front_desk_content_background;
-		width           : 100%;
 
 		.select_list {
 			display       : flex;
@@ -154,7 +139,6 @@
 			margin-left: auto;
 
 			.add {
-				// width           : 121px;
 				height          : 34px;
 				font-size       : $m;
 				background-color: $button_color;
@@ -189,6 +173,12 @@
 				}
 			}
 		}
+	}
+
+	.works_area,
+	.reaults_area,
+	.center {
+		min-width: 400px;
 	}
 
 	.reaults_area {
@@ -228,6 +218,7 @@
 				@extend %row;
 				height         : 100%;
 				justify-content: space-evenly;
+
 				.delete {
 					@extend %row;
 				}
@@ -264,6 +255,37 @@
 					width : 18px;
 					height: 18px;
 				}
+			}
+		}
+	}
+}
+
+@media screen and (max-width:768px) {
+	.add_title {
+		flex-direction: column;
+
+		.edit_button {
+			margin: 15px 0px 15px 0px;
+
+			.add {
+				margin-left : 0px !important;
+				margin-right: 15px;
+			}
+		}
+	}
+}
+
+@media screen and (max-width:430px) {
+	.add_title {
+		flex-direction: column;
+
+		.edit_button {
+			margin        : 15px 0px 15px 0px;
+			flex-direction: row !important;
+
+			.add {
+				margin-left : 0px !important;
+				margin-right: 15px;
 			}
 		}
 	}

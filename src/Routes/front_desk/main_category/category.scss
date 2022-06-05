@@ -5,11 +5,9 @@
 		z-index         : 1;
 		top             : 56px;
 		display         : flex;
-		margin          : 44px 0px;
-		height          : 34px;
-		width           : 100%;
+		margin          : 20px 0px;
+		min-width       : 400px;
 		background-color: $front_desk_content_background;
-		width           : 100%;
 
 		.select_list {
 			display       : flex;
@@ -21,17 +19,16 @@
 
 			.select,
 			.search {
-				font-size      : $m;
-				padding-left   : 5px;
-				width          : 142px;
-				// height      : 34px;
-				margin-right   : 20px;
-				color          : $prompt_color;
+				font-size   : $m;
+				padding-left: 5px;
+				width       : 142px;
+				margin-right: 20px;
+				color       : $prompt_color;
 				@include border-set();
 			}
 
 			.submit {
-				width           : 68px;
+				min-width       : 68px;
 				height          : 34px;
 				background-color: $button_color;
 				color           : $font_maincolor;
@@ -51,10 +48,10 @@
 			margin-left: auto;
 
 			.add {
-				// width           : 121px;
 				height          : 34px;
 				font-size       : $m;
 				background-color: $button_color;
+				width           : 105px;
 
 				a,
 				.func_btn {
@@ -90,8 +87,9 @@
 
 
 	.reaults_area {
-		min-width: 435px;
+		min-width : 400px;
 		overflow-x: auto;
+
 		table {
 			width: 100%;
 
@@ -165,7 +163,9 @@
 			}
 		}
 	}
-
+	.center{
+		min-width: 400px;
+	}
 	.page {
 		margin-top: 20px;
 		@extend %row;
@@ -190,6 +190,20 @@
 
 			&:hover {
 				background-color: $button_hover;
+			}
+		}
+	}
+}
+
+@media screen and (max-width:576px) {
+	#fornt_main {
+		.works_area {
+			display       : flex;
+			flex-direction: column;
+
+			.search_add {
+				margin-left: 0px;
+				margin-top : 20px;
 			}
 		}
 	}

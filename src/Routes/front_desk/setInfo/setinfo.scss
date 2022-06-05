@@ -2,7 +2,7 @@
 
 #personal_info {
     .card {
-        width: 100%;
+        min-width:400px;
         @extend %row;
         @extend %between;
 
@@ -71,7 +71,6 @@
             position: relative;
 
             .edit_pen {
-                margin-left: 500px;
                 cursor     : pointer;
 
                 .edit_introduce {
@@ -174,10 +173,6 @@
                 a {
                     @include ali-set(flex-end);
 
-                    svg {
-                        margin-left: 10px;
-                    }
-
                     &:link,
                     &:visited {
                         color: $header_background;
@@ -191,7 +186,9 @@
             }
         }
     }
-
+    .center{
+        min-width: 400px;
+    }
     .page {
         margin-top: 20px;
         @extend %row;
