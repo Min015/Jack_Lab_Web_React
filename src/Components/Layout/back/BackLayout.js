@@ -7,7 +7,7 @@ import logo from '../img/logo.png';
 import menu from '../img/menu.png';
 export default class BackLayout extends Component {
     state = {
-        sidebarclick: true,
+        sidebarclick: false,
         logout: false,
         show: {
             sidebar: {
