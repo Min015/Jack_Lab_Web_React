@@ -50,10 +50,9 @@
 		}
 
 		.form_submit {
-			font-size       : $m;
-			color           : $font_maincolor;
-			margin-left     : auto;
-			background-color: $button_color;
+			font-size          : $m;
+			color              : $font_maincolor !important;
+			background-color   : $button_color;
 			@include ali-set();
 			@include jus-set();
 			cursor: pointer;
@@ -270,12 +269,14 @@
 			@include ali-set();
 			@include jus-set();
 			font-size: $m;
+			width    : 80px;
 
 			a {
 				width : 100%;
 				height: 100%;
 				@include ali-set();
 				@include jus-set();
+
 			}
 		}
 
