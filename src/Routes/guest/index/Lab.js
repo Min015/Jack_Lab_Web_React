@@ -9,12 +9,10 @@ export default class Lab extends Component {
 				{LabIntroduceList === undefined ? [] : LabIntroduceList.list.map((item, index) => {
 					return (
 						<div className='block'>
-							<div key={`LabIntroduceList${index}`}>
+							<div key={`LabIntroduceList${index}`} className="center">
 								<div className='index_title'>{item.Title}</div>
-								<div className='introduce'>
-									<div className='labintroduce' >
-										<div dangerouslySetInnerHTML={{ __html: item.Content }}></div>
-									</div>
+								<div className='labintroduce' >
+									<div dangerouslySetInnerHTML={{ __html: item.Content }}></div>
 								</div>
 							</div>
 						</div>

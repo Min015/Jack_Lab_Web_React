@@ -1,29 +1,32 @@
 @import '../../../Mixin/global.scss';
 
 #GuestIndex {
-	max-width: 1215px;
-	margin   : 0px auto;
 
 	.block {
-		padding: 20px 0px;
+		padding      : 20px 0px;
+		border-bottom: 1px rgb(241, 241, 241) solid;
 	}
 
-	.teacher_i {
-		// background-color: rgb(226, 226, 226);
+	.index_odd {
+		background-color: rgb(249, 249, 249);
 	}
 
 	.index_title {
-		text-align : center;
-		font-weight: bold;
-		color      : $header_background;
-		font-size  : 32px;
-		padding    : 20px 0px;
+		text-align    : center;
+		font-weight   : bold;
+		color         : $header_background;
+		font-size     : 32px;
+		width         : calc(100% - 100px);
+		padding       : 20px 30px;
+		letter-spacing: 10px;
+		margin        : 0px 20px;
 	}
-	.teachertitle{
-		margin-bottom: 30px;
-	}
+
 	.center {
-		display: flex;
+		display       : flex;
+		flex-direction: column;
+		max-width         : 1215px;
+		margin        : 0px auto;
 
 		.teacher_block {
 			width: 100%;
@@ -31,7 +34,8 @@
 
 
 			.teacher {
-				padding: 35px 0px;
+				padding: 35px 30px;
+
 				.teacherphoto {
 					position    : relative;
 					padding     : 5px;
@@ -77,21 +81,16 @@
 			}
 		}
 
-		.introduce {
-			padding: 5px;
-
-			.labintroduce {
-				white-space: pre-line;
-				line-height: 28px;
-			}
+		.labintroduce {
+			white-space: pre-line;
+			line-height: 28px;
 		}
-
 	}
 
 	.booklist,
 	.teacher,
 	.labintroduce {
-		padding: 0px 30px;
+		padding: 20px 30px;
 	}
 
 	.booklist {
@@ -106,6 +105,7 @@
 			padding : 5px;
 			margin  : 5px;
 			@include border-set();
+			background-color: $main_backgroundcolor;
 
 			img {
 				width     : 100%;

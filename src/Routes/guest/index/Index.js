@@ -52,12 +52,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				<GuestLayout>
 					<Carousel AlbumListAll={AlbumListAll} />
 					<div id='GuestIndex'>
-						<div className='block'>
-							<div className='index_title teachertitle'>教師介紹</div>
+						<div className='block index_odd'>
+							<div className='index_title'>教師介紹</div>
 							<Teacher TeacherIntroduceList={TeacherIntroduceList} />
 						</div>
 						<Lab LabIntroduceList={LabIntroduceList} />
-						<div className='block'>
+						<div className='block index_odd'>
 							<div className='index_title'>出版品</div>
 							<Booklist booklist={booklist} />
 						</div>
