@@ -329,7 +329,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 											className="submitBtn"
 											onClick={this.UpdateMyPhoto}
 										>
-											新增
+											修改
 										</button>
 									</div>
 								</div>
