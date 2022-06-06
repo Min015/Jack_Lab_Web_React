@@ -236,7 +236,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					array: [],
 				})
 				this.props.GET_Project(1, search);
-				this.props.history.push(`/project/1/${search}/ `);
+				this.props.history.push(`/project/1/ / `);
 			}
 			this.props.DELETE_Project(id, callback);
 		}
