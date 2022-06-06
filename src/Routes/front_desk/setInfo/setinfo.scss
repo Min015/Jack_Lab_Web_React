@@ -2,7 +2,6 @@
 
 #personal_info {
     .card {
-        min-width:400px;
         @extend %row;
         @extend %between;
 
@@ -185,9 +184,6 @@
                 }
             }
         }
-    }
-    .center{
-        min-width: 400px;
     }
     .page {
         margin-top: 20px;
