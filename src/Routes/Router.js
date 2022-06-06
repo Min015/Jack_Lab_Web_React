@@ -94,17 +94,17 @@ export default (
 
 				<Route path='/project/updateproject/:id' exact component={UpdateProject} />
 				<Route path='/project/addproject' exact component={AddProject} />
-				
+
 				{/* 新寫法 */}
 				<Route path='/project/projectinfo/' component={ProjectInfo} />
 				<Route path='/project/:page/:search/:ptype' exact component={LabProject} />
-				
+
 				{/* 原寫法 */}
 				{/* <Route path='/project/projectinfo/:id/:page/:search' exact component={ProjectInfo} />
 				<Route path='/project/:page/:search/:ptype' exact component={LabProject} /> */}
-				
-				
-				
+
+
+
 				<Route path='/project' exact component={() => <Redirect to='/project/1/ / ' />} />
 				<Route path='/project/:page/:search/' exact component={() => <Redirect to='/project/1/ / ' />} />
 
@@ -165,17 +165,14 @@ export default (
 				<Route path='/gamemanage/gameinfo' exact component={AdGameInfo} />
 				<Route path='/gtypemanage' exact component={GTypeManage} />
 
-
+				<Route path='/casemanage/caseinfo/' component={AdProjectInfo} />
 				<Route path='/casemanage/caseadd' exact component={AdCaseAdd} />
-
 				<Route path='/casemanage/:page/:search/:ptype' exact component={CaseManage} />
 				<Route path='/casemanage/:page/:search' exact component={() => <Redirect to='/casemanage/1/ / ' />} />
 				<Route path='/casemanage/:page' exact component={() => <Redirect to='/casemanage/1/ / ' />} />
 				<Route path='/casemanage/:page//' exact component={() => <Redirect to='/casemanage/1/ / ' />} />
 
 				<Route path='/casemanage' exact component={() => <Redirect to='/casemanage/1/ /   ' />} />
-				<Route path='/casemanage/caseinfo/:id/:page/:search' exact component={AdProjectInfo} />
-
 
 				<Route path='/typemange/:page/:search' exact component={TypeManage} />
 				<Route path='/typemange/:page' exact component={() => <Redirect to='/typemange/1/ ' />} />
@@ -190,7 +187,7 @@ export default (
 				<Route path='/student/:time' exact component={Student} />
 				<Route path='/student' exact component={() => <Redirect to='/student/ ' />} />
 
-				<Route path='/emailvalidate' component={Verify}/>
+				<Route path='/emailvalidate' component={Verify} />
 				<Route path='*' exact component={NoRoute} />
 
 				{/* 找不到 */}
