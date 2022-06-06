@@ -2,11 +2,10 @@
 
 #stu_card {
 	nav {
-
 		ul {
 			@extend %row;
 			@include jus-set();
-			padding   : 5px 0px;
+			padding   : 15px 0px;
 			overflow-x: auto;
 
 			li {
@@ -48,17 +47,15 @@
 		}
 	}
 
-
 	.block {
-		margin: 0px 10px;
-		display: flex;
-		@extend %row;
-		flex-wrap: wrap;
-		// justify-content: center;
+		padding              : 0px 30px;
+		display              : grid;
+		column-gap           : 10px;
+		row-gap              : 10px;
 	}
 
 	.card {
-		// width        : 239.06px;
+		width        : 100%;
 		margin-bottom: 20px;
 
 		.card_in {
@@ -104,60 +101,40 @@
 
 @media screen and (max-width:576px) {
 	#stu_card {
-		.card {
-			width: calc(100% - 22px);
-
-			img {
-				height: 525px;
-			}
+		.block {
+			grid-template-columns: repeat(1, 1fr);
 		}
 	}
 }
 
 @media screen and (min-width:576px) {
 	#stu_card {
-		.card {
-			width: calc(50% - 22px);
-
-			img {
-				height: 350px;
-			}
+		.block {
+			grid-template-columns: repeat(2, 1fr);
 		}
 	}
 }
 
 @media screen and (min-width:768px) {
 	#stu_card {
-		.card {
-			width: calc(33.333333% - 22px);
-
-			img {
-				height: 310px;
-			}
+		.block {
+			grid-template-columns: repeat(3, 1fr);
 		}
 	}
 }
 
 @media screen and (min-width:992px) {
 	#stu_card {
-		.card {
-			width: calc(25% - 22px);
-
-			img {
-				height: 275px;
-			}
+		.block {
+			grid-template-columns: repeat(4, 1fr);
 		}
 	}
 }
 
 @media screen and (min-width:1200px) {
 	#stu_card {
-		.card {
-			width: calc(20% - 22px);
-
-			img {
-				height: 220px;
-			}
+		.block {
+			grid-template-columns: repeat(5, 1fr);
 		}
 	}
 }
