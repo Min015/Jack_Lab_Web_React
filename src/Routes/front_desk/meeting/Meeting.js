@@ -8,12 +8,12 @@ import '../main_category/category.scss';
 
 import CreateTable from './CreateTable';
 import { GET_Meeting, DELETE_Meeting } from '../../../Action/MeetingAction';
-import { SAVE_Permission,} from '../../../Action/MemberAction';
+import { SAVE_Permission, } from '../../../Action/MemberAction';
 
 const mapStateToProps = state => {
 	return {
-		MeetingList:state.meetingReducer.MeetingList,
-		MyPermission:state.memberReducer.MyPermission,
+		MeetingList: state.meetingReducer.MeetingList,
+		MyPermission: state.memberReducer.MyPermission,
 	}
 }
 
@@ -21,7 +21,7 @@ const mapDispatchToProps = dispatch => {
 	return {
 		GET_Meeting: (page, search, callback) => dispatch(GET_Meeting(page, search, callback)),
 		DELETE_Meeting: (payload, callback) => dispatch(DELETE_Meeting(payload, callback)),
-		SAVE_Permission:()=>dispatch(SAVE_Permission()),
+		SAVE_Permission: () => dispatch(SAVE_Permission()),
 	}
 }
 export default connect(mapStateToProps, mapDispatchToProps)(
@@ -111,7 +111,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 		render() {
 			const { table_header } = this.state;
-			const { MeetingList,MyPermission } = this.props;
+			const { MeetingList, MyPermission } = this.props;
 			const { pagearray, page, search, maxpage } = this.state;
 			return (
 				<div id='fornt_main'>
@@ -128,7 +128,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								<input type="text" placeholder="輸入搜尋值" className="search" id="search" value={search} onChange={this.handleInputChange.bind(this)} />
 								<input type="submit" value="送出" className="submit" onClick={() => this.handleGoNextPage(1, search)} />
 							</div>
-							<div className={(MyPermission!==undefined&&MyPermission!==[]&&MyPermission.includes('M001'))?"search_add":"none"}>
+							<div className={(MyPermission !== undefined && MyPermission !== [] && MyPermission.includes('M001')) ? "search_add" : "none"}>
 								<div className="add">
 									<Link to='/meeting/addmeeting'>
 										<svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -153,7 +153,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										</svg>
 									</button>
 									<div className='page_group'>
-										{pagearray?.map((item, index) =>
+										{pagearray === undefined ? "" : pagearray.map((item, index) =>
 											(<div key={`page${index}`} onClick={() => this.handleGoNextPage(item, search)} className={page === `${item}` ? 'features' : 'one_page'}>{item}</div>)
 										)}
 									</div>

@@ -163,34 +163,56 @@
 			}
 		}
 	}
-	.center{
+
+	.center {
 		min-width: 400px;
 	}
+
 	.page {
-		margin-top: 20px;
+		display: flex;
+		margin : 20px auto 0px auto;
 		@extend %row;
-		@extend %between;
 
 		.page_group {
+			margin: 0px 30px;
 			@extend %row;
 
-			.one_page {
+			.one_page,
+			.features {
 				margin: 0px 5px;
+				width : 30px;
 			}
 		}
 
 		.one_page {
 			width           : 30px;
 			height          : 36px;
-			color           : $font_maincolor;
-			background-color: $button_color;
+			color           : $button_color;
+			background-color: $font_maincolor;
+			border          : 0px;
 			@include ali-set();
 			@include jus-set();
 			cursor: pointer;
 
 			&:hover {
-				background-color: $button_hover;
+				color           : $font_maincolor;
+				background-color: $button_color;
+
+				* {
+					fill: $font_maincolor;
+				}
 			}
+		}
+
+		.features {
+			color           : $font_maincolor;
+			background-color: $button_color;
+			width           : 30px;
+			height          : 36px;
+			border          : 0px;
+			@include ali-set();
+			@include jus-set();
+			cursor: pointer;
 		}
 	}
 }
