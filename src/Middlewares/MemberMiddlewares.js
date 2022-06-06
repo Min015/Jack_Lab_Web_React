@@ -80,6 +80,9 @@ const fetch = store => next => action => {
           throw new Error(err);
         })
         .then(json => {
+          if (action.callback) {
+            action.callback(json)
+          }
           return next({
             type: 'SAVE_PublicMembers',
             payload: json
@@ -523,14 +526,14 @@ const fetch = store => next => action => {
         payload: permission
       });
     case "GET_Emailvalidate":
-      console.log('middlewares',action.account)
+      console.log('middlewares', action.account)
       _axios
         .get(`/emailvalidate?email=${action.account}&token=${action.token}`,)
-        .then(response =>{
+        .then(response => {
           return response.data.message;
         })
         .catch(err => {
-          return(err.response.data.message);
+          return (err.response.data.message);
         })
         .then(json => {
           if (action.callback) {

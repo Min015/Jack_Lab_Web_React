@@ -15,10 +15,11 @@ export const GET_IsLogin = (callback) => {
     });
   };
 }
-export const GET_PublicMembers = () => {
+export const GET_PublicMembers = (callback) => {
   return (dispatch) => {
     dispatch({
       type: "GET_PublicMembers",
+      callback:callback,
     });
   };
 }
