@@ -78,9 +78,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			const { history } = this.props;
 			const temp = history.location.pathname.split("/project/projectinfo/")
 			const params = temp[1].split("/");
-			let nowsearch="";
-			if(params[2]===""){
-				nowsearch=" "
+			let nowsearch = "";
+			if (params[2] === "") {
+				nowsearch = " "
 			}
 			const nowid = params[0];
 			const nowpage = params[1];
@@ -363,7 +363,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			const { pagearray, page, search, maxpage } = this.state;
 			const { ProjectRecord, ProjectInfo, MyPermission } = this.props;
 			const account = localStorage.getItem('account');
-			const projectmember = (ProjectInfo === undefined || ProjectInfo.Member === undefined ? "" : ProjectInfo.Member.map((item) => item.Account))
+			const projectmember = (ProjectInfo === undefined || ProjectInfo.Member === undefined ? "" : ProjectInfo.Member.map((item) => item.Account));
 			return (
 				<div id='project_info'>
 					<MemberLayout>
@@ -423,13 +423,21 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 						<div className="project_content something_content">
 							{ProjectInfo === undefined ? "" : ProjectInfo.Description}
 						</div>
+						<p className='title'>參與人員</p>
+						<div className="something_content">
+							{ProjectInfo === undefined ? [] : ProjectInfo.Member?.map((item, index) =>
+								<span key={index}>{`${item.Name}　`}</span>
+							)}
+						</div>
 						<div className={(ProjectRecord === undefined) ? 'none' : 'active'}>
+							{/* 搜尋列 */}
 							<div className="works_area">
 								<div className="select_list">
 									<input type="text" placeholder="輸入搜尋值" className="search" id="search" value={search} onChange={this.handleInputChange.bind(this)} />
 									<input type="submit" value="送出" className="submit" onClick={() => this.handleGoNextPage(1, search)} />
 								</div>
 							</div>
+							{/* 表格 */}
 							<div className="reaults_area">
 								<table>
 									<thead>
