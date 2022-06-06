@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
+import { Link } from 'react-router-dom';
 import '../main_category/add.scss';
 import MemberLayout from '../../../Components/Layout/front/member/MemberLayout';
 
@@ -129,6 +130,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					this.setState({
 						participate: newarray,
 					})
+				}
+				else {
+					alert("不要排擠自己")
 				}
 			}
 		}
@@ -358,6 +362,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								</div>
 							</div>
 							<div className="inputbox">
+								<Link to={`/project`} className="form_submit">
+									返回
+								</Link>
 								<button
 									className="col-1 form_submit"
 									onClick={this.Submit}

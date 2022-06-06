@@ -81,11 +81,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					account,
 					name
 				}
-				let participate = this.state.participate;
-				participate.push(obj);
 				this.setState({
 					my: obj,
-					participate,
 				})
 			}
 			this.props.GET_PublicMembers(callbackmember);
@@ -180,6 +177,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					this.setState({
 						participate: newarray,
 					})
+				}
+				else{
+					alert("不可刪除建立者")
 				}
 			}
 		}
@@ -553,14 +553,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							{/* 送出 */}
 							<div id="work_col">
 								<button
-									className="col-1 form_submit"
+									className="form_submit"
 								>
 									<Link to={`/meeting/meetinginfo/${this.state.Id}`}>
 										返回
 									</Link>
 								</button>
 								<button
-									className="col-1 form_submit"
+									className="form_submit"
 									onClick={this.Update}
 								>
 									修改

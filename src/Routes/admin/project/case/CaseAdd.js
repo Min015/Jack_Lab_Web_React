@@ -15,7 +15,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     GET_ProjectTypeAll: () => dispatch(GET_ProjectTypeAll()),
-    GET_PublicMembers: () => dispatch(GET_PublicMembers()),
+    GET_PublicMembers: (callback) => dispatch(GET_PublicMembers(callback)),
     POST_AddProject: (payload, callback) => dispatch(POST_AddProject(payload, callback)),
   }
 }
@@ -23,6 +23,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
   class CaseAdd extends Component {
     state = {
       participate: [],//已選擇
+      my: [],
       long: 0,//一個tag的長度
       tag: [],//已輸入的tag
       drop: false,
@@ -38,7 +39,25 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 
     //載入所有人員名單
     componentDidMount = async () => {
-      this.props.GET_PublicMembers();
+      const nowaccount = localStorage.getItem("account");
+      const callback = (res) => {
+        const a = res.find((item) => {
+          return item.Account === nowaccount;
+        })
+        const account = a.Account;
+        const name = a.Name;
+        const obj = {
+          account,
+          name
+        }
+        let participate = this.state.participate;
+        participate.push(obj);
+        this.setState({
+          my: obj,
+          participate,
+        })
+      }
+      this.props.GET_PublicMembers(callback);
       this.props.GET_ProjectTypeAll();
     }
     //送出
@@ -90,7 +109,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
     }
     //選參與人
     handleSelectMember = e => {
-      let participate = this.state.participate;
+      let { participate, my } = this.state
       const account = e.id;
       const name = e.value;
       const obj = {
@@ -106,10 +125,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         })
       }
       else {
-        let newarray = participate.filter((item) => item.account !== obj.account)
-        this.setState({
-          participate: newarray,
-        })
+        if (obj.account !== my.account) {
+          let newarray = participate.filter((item) => item.account !== obj.account)
+          this.setState({
+            participate: newarray,
+          })
+        }
       }
     }
 

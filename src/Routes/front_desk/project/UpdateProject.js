@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
+import { Link } from 'react-router-dom';
 import '../main_category/add.scss';
 import MemberLayout from '../../../Components/Layout/front/member/MemberLayout';
 
@@ -76,11 +77,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					account,
 					name
 				}
-				let participate = this.state.participate;
-				participate.push(obj);
 				this.setState({
 					my: obj,
-					participate,
 				})
 			}
 			this.props.GET_PublicMembers(callbackmember);
@@ -156,6 +154,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					this.setState({
 						participate: newarray,
 					})
+				}
+				else {
+					alert("不可刪除建立者")
 				}
 			}
 		}
@@ -236,7 +237,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			})
 		}
 		render() {
-			const { title, content, tag, participate, long, disabled, drop, type } = this.state;
+			const { title, content, tag, participate, long, disabled, drop, type, Id } = this.state;
 			const { PublicMemberList, ProjectTypeAll } = this.props;
 			return (
 				<div onClick={this.handleMouseDown.bind(this)}>
@@ -384,6 +385,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								</div>
 							</div>
 							<div className="inputbox">
+								<Link to={`/project/projectinfo/${Id}/1/ `}
+									className="col-1 form_submit"
+									onClick={this.EditProject}
+								>
+									返回
+								</Link>
 								<button
 									className="col-1 form_submit"
 									onClick={this.EditProject}

@@ -57,6 +57,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					content: res.Content,
 					time: `${Mtime[0]}T${Mtime[1]}:${meeting_time[1]}`,
 					place: res.Place,
+					Name: res.Name,
 					participate: res.Member.map((item) => {
 						return {
 							account: item.Account,
@@ -95,7 +96,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					data.append(`Tag[${index}]`, item)
 				)
 				const callback = () => {
-					this.props.GET_Meeting();
 					this.props.history.push("/meetingmanage");
 				}
 				this.props.POST_UpdateMeeting(data, callback);
@@ -139,7 +139,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 		//選參與人
 		handleSelectMember = e => {
-			let participate = this.state.participate;
+			let { participate, Name } = this.state
 			const account = e.id;
 			const name = e.value;
 			const obj = {
@@ -155,10 +155,15 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				})
 			}
 			else {
-				let newarray = participate.filter((item) => item.account !== obj.account)
-				this.setState({
-					participate: newarray,
-				})
+				if (Name === obj.name) {
+					alert("不可刪除建立者")
+				}
+				else {
+					let newarray = participate.filter((item) => item.account !== obj.account)
+					this.setState({
+						participate: newarray,
+					})
+				}
 			}
 		}
 		//選擇要刪除的檔案
@@ -310,7 +315,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 
 		render() {
-			const { array, title, content, time, tag, place, participate, drop, long, disabled, delfile, all_file_q } = this.state;
+			const { array, title, content, time, tag, place, Name, participate, drop, long, disabled, delfile, } = this.state;
 			const { PublicMemberList, MeetingInfo } = this.props;
 			return (
 				<BackLayout>
@@ -379,6 +384,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										onChange={this.handleInputChange.bind(this)}
 									/>
 									<label className="label">輸入會議地點*</label>
+								</div>
+							</div>
+							<div className="inputbox">
+								<div className="set col-4">
+									<input defaultValue={Name} disabled type="text" placeholder="建立者" required maxLength="50" className="input" />
+									<label className="label">建立者</label>
 								</div>
 							</div>
 							{/* 參與人員 */}

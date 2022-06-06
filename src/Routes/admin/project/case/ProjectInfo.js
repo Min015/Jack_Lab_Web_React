@@ -85,11 +85,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			const nowpage = params[1];
 
 
-			// const { match } = this.props;
-			// const { params } = match;
-			// const nowid = params.id;
-			// const nowpage = params.page;
-			// const nowsearch = params.search;
 			this.setState({
 				Id: nowid,
 				page: nowpage,
@@ -364,7 +359,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 		//選參與人
 		handleOnClick = e => {
-			let participate = this.state.participate;
+			let { participate, Creater_name } = this.state
 			const account = e.id;
 			const name = e.value;
 			const obj = {
@@ -380,24 +375,15 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				})
 			}
 			else {
-				let newarray = participate.filter((item) => item.account !== obj.account)
-				this.setState({
-					participate: newarray,
-				})
-			}
-			if (participate.length === 0) {
-				this.setState({
-					member: {
-						errormsg: "*",
-					},
-				})
-			}
-			else {
-				this.setState({
-					member: {
-						errormsg: "",
-					},
-				})
+				if (Creater_name === obj.name) {
+					alert("不可刪除建立者")
+				}
+				else {
+					let newarray = participate.filter((item) => item.account !== obj.account)
+					this.setState({
+						participate: newarray,
+					})
+				}
 			}
 		}
 		//選檔案
