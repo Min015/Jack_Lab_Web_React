@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import BackLayout from '../../../Components/Layout/back/BackLayout';
 import '../style/info.scss';
 import { GET_PublicMembers } from '../../../Action/MemberAction';
-import { POST_AddMeeting, GET_Meeting } from '../../../Action/MeetingAction';
+import { POST_AddMeeting } from '../../../Action/MeetingAction';
 
 const mapStateToProps = state => {
 	const { memberReducer } = state;
@@ -16,7 +16,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 	return {
 		GET_PublicMembers: () => dispatch(GET_PublicMembers()),
-		GET_Meeting: () => dispatch(GET_Meeting()),
 		POST_AddMeeting: (payload, callback) => dispatch(POST_AddMeeting(payload, callback)),
 	}
 }
@@ -63,7 +62,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					data.append(`Tag[${index}]`, item)
 				);
 				const callback = () => {
-					this.props.GET_Meeting();
 					this.props.history.push("/meetingmanage");
 				}
 				this.props.POST_AddMeeting(data, callback);
@@ -165,7 +163,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		//下拉式選人關閉
 		handleMouseDown = (e) => {
 			const cn = (e.target.className);
-			const name = (cn.length>=6?cn.substr(0, 6):'');
+			const name = (cn.length >= 6 ? cn.substr(0, 6) : '');
 			if (name !== "choose") {
 				this.setState({
 					drop: false,
@@ -205,7 +203,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					disabled: false,
 				})
 				if (e.keyCode === 32) {
-					if (!tag.includes(value)&&(value!=="")) {
+					if (!tag.includes(value) && (value !== "")) {
 						tag.push(value);
 					}
 					e.target.value = "";

@@ -4,7 +4,7 @@ import '../main_category/add.scss';
 import MemberLayout from '../../../Components/Layout/front/member/MemberLayout';
 
 import { GET_PublicMembers } from '../../../Action/MemberAction';
-import { GET_Project, GET_ProjectTypeAll, POST_AddProject } from '../../../Action/ProjectAction';
+import { GET_ProjectTypeAll, POST_AddProject } from '../../../Action/ProjectAction';
 const mapStateToProps = state => {
 	return {
 		PublicMemberList: state.memberReducer.PublicMemberList,
@@ -14,7 +14,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		GET_Project: () => dispatch(GET_Project()),
 		GET_ProjectTypeAll: () => dispatch(GET_ProjectTypeAll()),
 		GET_PublicMembers: () => dispatch(GET_PublicMembers()),
 		POST_AddProject: (payload, callback) => dispatch(POST_AddProject(payload, callback)),
@@ -54,12 +53,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					Member: addmember,
 				}
 				const callback = () => {
-					this.props.GET_Project();
 					this.setState({
 						add: false,
 						title: "",
 						content: "",
-						type: "1",
+						type: " ",
 						tag: [],
 						participate: [],
 					})

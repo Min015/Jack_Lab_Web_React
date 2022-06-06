@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import MemberLayout from '../../../Components/Layout/front/member/MemberLayout';
 import '../main_category/add.scss';
 import { GET_PublicMembers } from '../../../Action/MemberAction';
-import { POST_AddMeeting, GET_Meeting } from '../../../Action/MeetingAction';
+import { POST_AddMeeting } from '../../../Action/MeetingAction';
 
 const mapStateToProps = state => {
   const { memberReducer } = state;
@@ -15,7 +15,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     GET_PublicMembers: () => dispatch(GET_PublicMembers()),
-    GET_Meeting: () => dispatch(GET_Meeting()),
     POST_AddMeeting: (payload, callback) => dispatch(POST_AddMeeting(payload, callback)),
   }
 }
@@ -63,7 +62,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
           data.append(`Tag[${index}]`, item)
         );
         const callback = () => {
-          this.props.GET_Meeting();
           this.props.history.push("/meeting");
         }
         this.props.POST_AddMeeting(data, callback);

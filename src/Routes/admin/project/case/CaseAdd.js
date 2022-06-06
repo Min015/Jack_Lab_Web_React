@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import BackLayout from '../../../../Components/Layout/back/BackLayout';
 import '../../style/info.scss';
 import { GET_PublicMembers } from '../../../../Action/MemberAction';
-import { GET_Project, GET_ProjectTypeAll, POST_AddProject } from '../../../../Action/ProjectAction';
+import { GET_ProjectTypeAll, POST_AddProject } from '../../../../Action/ProjectAction';
 const mapStateToProps = state => {
   return {
     PublicMemberList: state.memberReducer.PublicMemberList,
@@ -14,7 +14,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    GET_Project: () => dispatch(GET_Project()),
     GET_ProjectTypeAll: () => dispatch(GET_ProjectTypeAll()),
     GET_PublicMembers: () => dispatch(GET_PublicMembers()),
     POST_AddProject: (payload, callback) => dispatch(POST_AddProject(payload, callback)),
@@ -55,7 +54,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
           Member: addmember,
         }
         const callback = () => {
-          this.props.GET_Project();
           this.setState({
             add: false,
             title: "",
@@ -126,7 +124,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
     //下拉式選人關閉
     handleMouseDown = (e) => {
       const cn = (e.target.className);
-      const name = (cn.length>=6?cn.substr(0, 6):'');
+      const name = (cn.length >= 6 ? cn.substr(0, 6) : '');
       if (name !== "choose") {
         this.setState({
           drop: false,
