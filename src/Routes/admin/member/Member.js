@@ -33,7 +33,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 
 			array: [],
 			table_header: [
-				"學生編號",
+				// "學生編號",
 				"帳號",
 				"姓名",
 				"班級",
@@ -415,12 +415,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										/>
 									</td>
 									<td className="col-05">#</td>
-									<td className="col-1">{table_header[0]}</td>
-									<td>{table_header[1]}</td>
+									{/* <td className="col-1">{table_header[0]}</td> */}
+									<td>{table_header[0]}</td>
+									<td className="col-1">{table_header[1]}</td>
 									<td className="col-1">{table_header[2]}</td>
-									<td className="col-1">{table_header[4]}</td>
 									<td className="col-3">{table_header[3]}</td>
-									<td className="col-1_5">{table_header[5]}</td>
+									<td className="col-1_5">{table_header[4]}</td>
 									<td className="col-1"></td>
 								</tr>
 							</thead>
@@ -444,7 +444,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 														/>
 													</td>
 													<td>{((page - 1) * 10) + index + 1}</td>
-													<td>{item.Id}</td>
+													{/* <td>{item.Id}</td> */}
 													<td>{item.Account}</td>
 													<td>{item.Name}</td>
 													<td>
