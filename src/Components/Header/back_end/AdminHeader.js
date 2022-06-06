@@ -17,6 +17,12 @@ export default class AdminHeader extends Component {
                 logout: !this.state.logout,
             })
         }
+        else if (e === 'sidebarclick') {
+            const { onClick } = this.props;
+            if (onClick) {
+                onClick();
+            }
+        }
     }
     handleMouseDown = (e) => {
         if (e.target.className === "window") {
@@ -31,7 +37,7 @@ export default class AdminHeader extends Component {
             <div>
                 <header id="admin_header">
                     <div className='header_left'>
-                        <div className='menu'><img src={menu} alt="menu" /></div>
+                        <div className='menu' onClick={() => this.drop_down('sidebarclick')}><img src={menu} alt="menu" /></div>
                         <Link to='/index' className="logo">
                             <img src={logo} alt="logo" />
                         </Link>
