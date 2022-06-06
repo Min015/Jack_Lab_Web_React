@@ -5,7 +5,6 @@ import MemberLayout from '../../../Components/Layout/front/member/MemberLayout';
 
 import { GET_PublicMembers } from '../../../Action/MemberAction';
 import {
-	GET_Project,
 	GET_ProjectInfo,
 	GET_ProjectTypeAll,
 	PUT_UpdateProject,
@@ -20,7 +19,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		GET_Project: () => dispatch(GET_Project()),
 		GET_ProjectTypeAll: () => dispatch(GET_ProjectTypeAll()),
 		GET_PublicMembers: () => dispatch(GET_PublicMembers()),
 		GET_ProjectInfo: (payload, callback) => dispatch(GET_ProjectInfo(payload, callback)),

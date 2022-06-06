@@ -5,7 +5,7 @@ import '../main_category/add.scss';
 import { Link } from 'react-router-dom';
 
 import { GET_PublicMembers } from '../../../Action/MemberAction';
-import { GET_MeetingInfo, POST_UpdateMeeting, GET_Meeting } from '../../../Action/MeetingAction';
+import { GET_MeetingInfo, POST_UpdateMeeting, } from '../../../Action/MeetingAction';
 
 const mapStateToProps = state => {
 	return {
@@ -17,7 +17,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 	return {
 		GET_PublicMembers: () => dispatch(GET_PublicMembers()),
-		GET_Meeting: () => dispatch(GET_Meeting()),
 		GET_MeetingInfo: (payload, callback) => dispatch(GET_MeetingInfo(payload, callback)),
 		POST_UpdateMeeting: (payload, callback) => dispatch(POST_UpdateMeeting(payload, callback)),
 	}
@@ -98,7 +97,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					data.append(`Tag[${index}]`, item)
 				)
 				const callback = () => {
-					this.props.GET_Meeting();
 					this.props.history.push("/meeting");
 				}
 				this.props.POST_UpdateMeeting(data, callback);
