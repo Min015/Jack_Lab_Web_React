@@ -96,12 +96,12 @@ export default (
 				<Route path='/project/addproject' exact component={AddProject} />
 				
 				{/* 新寫法 */}
-				{/* <Route path='/project/projectinfo/' component={ProjectInfo} />
-				<Route path='/project/:page/:search/:ptype' exact component={LabProject} /> */}
+				<Route path='/project/projectinfo/' component={ProjectInfo} />
+				<Route path='/project/:page/:search/:ptype' exact component={LabProject} />
 				
 				{/* 原寫法 */}
-				<Route path='/project/projectinfo/:id/:page/:search' exact component={ProjectInfo} />
-				<Route path='/project/:page/:search/:ptype' exact component={LabProject} />
+				{/* <Route path='/project/projectinfo/:id/:page/:search' exact component={ProjectInfo} />
+				<Route path='/project/:page/:search/:ptype' exact component={LabProject} /> */}
 				
 				
 				

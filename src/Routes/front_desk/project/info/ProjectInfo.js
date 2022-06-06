@@ -75,29 +75,29 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		//生命週期
 		componentDidMount = () => {
 			//新寫法
-			// const { history } = this.props;
-			// const temp = history.location.pathname.split("/project/projectinfo/")
-			// const params = temp[1].split("/");
-			// let nowsearch="";
-			// if(params[2]===""){
-			// 	nowsearch=" "
-			// }
-			// const nowid = params[0];
-			// const nowpage = params[1];
-			// console.log(params);
+			const { history } = this.props;
+			const temp = history.location.pathname.split("/project/projectinfo/")
+			const params = temp[1].split("/");
+			let nowsearch="";
+			if(params[2]===""){
+				nowsearch=" "
+			}
+			const nowid = params[0];
+			const nowpage = params[1];
+			console.log(params);
 
 			//舊寫法
-			const { match } = this.props;
-			const { params } = match;
-			const nowid = params.id;
-			const nowpage = params.page;
-			let nowsearch;
-			if (params.search === "") {
-				nowsearch = " ";
-			}
-			else {
-				nowsearch = params.search;
-			}
+			// const { match } = this.props;
+			// const { params } = match;
+			// const nowid = params.id;
+			// const nowpage = params.page;
+			// let nowsearch;
+			// if (params.search === "") {
+			// 	nowsearch = " ";
+			// }
+			// else {
+			// 	nowsearch = params.search;
+			// }
 
 
 			this.setState({
@@ -132,25 +132,22 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			const { Id } = this.state;
 			const callback = (res) => {
 				//新寫法
-				// const { history } = this.props;
-				// const temp = history.location.pathname.split("/project/projectinfo/")
-				// const params = temp[1].split("/");
-				// const nowpage = params[1];
-				// const nowsearch = params[2];
-
+				const { history } = this.props;
+				const temp = history.location.pathname.split("/project/projectinfo/")
+				const params = temp[1].split("/");
+				const nowpage = params[1];
+				const nowsearch = params[2];
 				//舊寫法
-				const { match } = this.props;
-				const { params } = match;
-				const nowpage = params.page;
-				let nowsearch;
-				if (params.search === "") {
-					nowsearch = " ";
-				}
-				else {
-					nowsearch = params.search;
-				}
-
-
+				// const { match } = this.props;
+				// const { params } = match;
+				// const nowpage = params.page;
+				// let nowsearch;
+				// if (params.search === "") {
+				// 	nowsearch = " ";
+				// }
+				// else {
+				// 	nowsearch = params.search;
+				// }
 				this.setState({
 					page: nowpage,
 					search: nowsearch,
@@ -367,7 +364,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			const { pagearray, page, search, maxpage } = this.state;
 			const { ProjectRecord, ProjectInfo, MyPermission } = this.props;
 			const account = localStorage.getItem('account');
-			const projectmember = (ProjectInfo === undefined ? [] : ProjectInfo.Member.map((item) => item.Account))
+			console.log('ProjectInfo', ProjectInfo);
+			const projectmember = (ProjectInfo === undefined || ProjectInfo.Member === undefined ? "" : ProjectInfo.Member.map((item) => item.Account))
 			return (
 				<div id='project_info'>
 					<MemberLayout>
@@ -445,7 +443,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										</tr>
 									</thead>
 									<tbody>
-										{(ProjectRecord === undefined||ProjectRecord.list.length===0) ?
+										{(ProjectRecord === undefined || ProjectRecord.list.length === 0) ?
 											<tr className='tr_odd'>
 												<td colSpan={table_header === undefined ? "1" : table_header.length} className='nocontent'>
 													暫無資料
@@ -512,7 +510,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 											</svg>
 										</button>
 										<div className='page_group'>
-											{pagearray?.map((item, index) =>
+											{pagearray === undefined ? "" : pagearray.map((item, index) =>
 												(<div key={`page${index}`} onClick={() => this.handleGoNextPage(item, search)} className={page === `${item}` ? 'features' : 'one_page'}>{item}</div>)
 											)}
 										</div>
