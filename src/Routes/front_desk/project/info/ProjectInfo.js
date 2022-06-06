@@ -84,7 +84,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			}
 			const nowid = params[0];
 			const nowpage = params[1];
-			console.log(params);
 
 			//舊寫法
 			// const { match } = this.props;

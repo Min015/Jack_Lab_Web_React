@@ -73,11 +73,23 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			remark: "",
 		}
 		componentDidMount = async () => {
-			const { match } = this.props;
-			const { params } = match;
-			const nowid = params.id;
-			const nowpage = params.page;
-			const nowsearch = params.search;
+			//新寫法
+			const { history } = this.props;
+			const temp = history.location.pathname.split("/casemanage/caseinfo/")
+			const params = temp[1].split("/");
+			let nowsearch = "";
+			if (params[2] === "") {
+				nowsearch = " "
+			}
+			const nowid = params[0];
+			const nowpage = params[1];
+
+
+			// const { match } = this.props;
+			// const { params } = match;
+			// const nowid = params.id;
+			// const nowpage = params.page;
+			// const nowsearch = params.search;
 			this.setState({
 				Id: nowid,
 				page: nowpage,
@@ -126,10 +138,17 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		handleGoNextPage = (page, search = " ") => {
 			const { Id } = this.state;
 			const callback = (res) => {
-				const { match } = this.props;
-				const { params } = match;
-				const nowpage = params.page;
-				const nowsearch = params.search;
+				//新寫法
+				const { history } = this.props;
+				const temp = history.location.pathname.split("/casemanage/caseinfo/")
+				const params = temp[1].split("/");
+				const nowpage = params[1];
+				const nowsearch = params[2];
+
+				// const { match } = this.props;
+				// const { params } = match;
+				// const nowpage = params.page;
+				// const nowsearch = params.search;
 				this.setState({
 					page: nowpage,
 					search: nowsearch,
@@ -303,7 +322,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		//下拉式選人關閉&關閉視窗
 		handleMouseDown = (e) => {
 			const cn = e.target.className;
-			const name = (cn.length>=6?cn.substr(0, 6):'');
+			const name = (cn.length >= 6 ? cn.substr(0, 6) : '');
 			if (name === "window") {
 				this.setState({
 					edit: false,
@@ -715,7 +734,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 												</tr>
 											</thead>
 											<tbody>
-												{(ProjectRecord === undefined ) ? "" : ProjectRecord.list.map(
+												{(ProjectRecord === undefined) ? "" : ProjectRecord.list.map(
 													(item, index) => {
 														return (
 															<tr key={`Record${index}`} className={array.includes(`${item.Id}`) ? "onchange" : ""}>
