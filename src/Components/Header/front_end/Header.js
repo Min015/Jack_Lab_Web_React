@@ -19,25 +19,36 @@ export default class Header extends Component {
 		window.location.replace('http://localhost:3000/index');
 	}
 	UpdateMyPassword = () => {
-		const { oldpassword, password, password_confirm } = this.state
+		const { oldpassword, password, password_confirm } = this.state;
 		if (oldpassword !== "" && password !== "" && password_confirm !== "") {
-			if (password === password_confirm) {
-				const payload = {
-					oldpassword: oldpassword,
-					password: password,
-					password_confirm: password_confirm,
+			const err = " ";
+			if (password.substr(0, 1) !== err && password.substr(-1, 1) !== err &&
+				password_confirm.substr(0, 1) !== err && password_confirm.substr(-1, 1) !== err) {
+				if (password === password_confirm) {
+					const payload = {
+						oldpassword: oldpassword,
+						password: password,
+						password_confirm: password_confirm,
+					}
+					const callback = () => {
+						this.setState({
+							revise: false,
+							oldpassword: "",
+							password: "",
+							password_confirm: "",
+						})
+					}
+					const { UpdatePassword } = this.props;
+					if (UpdatePassword) {
+						UpdatePassword(payload, callback)
+					}
 				}
-				const callback = () => {
+				else {
 					this.setState({
-						revise: false,
-						oldpassword: "",
 						password: "",
 						password_confirm: "",
 					})
-				}
-				const { UpdatePassword } = this.props;
-				if (UpdatePassword) {
-					UpdatePassword(payload, callback)
+					alert("密碼及確認密碼不一致");
 				}
 			}
 			else {
@@ -45,18 +56,17 @@ export default class Header extends Component {
 					password: "",
 					password_confirm: "",
 				})
-				alert("密碼及確認密碼不一致")
+				alert("密碼首尾字元不可為空格")
 			}
 		}
 		else {
-			alert("您有必填欄位尚未填寫，請確認")
+			alert("您有必填欄位尚未填寫，請確認(密碼)")
 		}
 	}
 	//不可以有空格
 	handleInputChange = event => {
 		const target = event.target;
 		let { value, id } = target;
-		value = value.trim();
 		this.setState({
 			[id]: value,
 		});
@@ -70,6 +80,9 @@ export default class Header extends Component {
 		else if (e === 'revise') {
 			this.setState({
 				revise: !this.state.revise,
+				oldpassword: "",
+				password: "",
+				password_confirm: "",
 			})
 		}
 		else if (e === 'logout') {
@@ -82,6 +95,9 @@ export default class Header extends Component {
 		if (e.target.className === "window") {
 			this.setState({
 				revise: false,
+				oldpassword: "",
+				password: "",
+				password_confirm: "",
 				logout: false,
 			})
 		}

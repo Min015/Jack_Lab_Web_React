@@ -173,29 +173,40 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			const { page, search, academic } = this.state;
 			const { password, password2, now } = this.state;
 			if (password !== "" && password2 !== "") {
-				if (password === password2) {
-					const payload = {
-						account: now.Account,
-						password: password,
-						password_confirm: password2,
+				const err = " ";
+				if (password.substr(0, 1) !== err && password.substr(-1, 1) !== err &&
+					password2.substr(0, 1) !== err && password2.substr(-1, 1) !== err) {
+					if (password === password2) {
+						const payload = {
+							account: now.Account,
+							password: password,
+							password_confirm: password2,
+						}
+						const callback = () => {
+							this.props.GET_PrivateMember(page, search, academic);
+							this.setState({
+								edit: false,
+								password: "",
+								password2: "",
+								now: {},
+							})
+						}
+						this.props.PUT_ChangePassword(payload, callback);
 					}
-					const callback = () => {
-						this.props.GET_PrivateMember(page, search, academic);
+					else {
 						this.setState({
-							edit: false,
 							password: "",
 							password2: "",
-							now: {},
 						})
+						alert("兩次密碼輸入不一致");
 					}
-					this.props.PUT_ChangePassword(payload, callback);
 				}
 				else {
-					alert("兩次密碼輸入不一致");
 					this.setState({
 						password: "",
 						password2: "",
 					})
+					alert("密碼首尾字元不可為空格");
 				}
 			}
 			else {
@@ -310,7 +321,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			const target = event.target;
 			let { value, id } = target;
 			if (id === 'search') {
-				value = value.trim();
 				if (value !== "") {
 					this.setState({
 						[id]: value,
@@ -323,7 +333,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				}
 			}
 			else {
-				value = value.trim();
 				this.setState({
 					[id]: value,
 				});
