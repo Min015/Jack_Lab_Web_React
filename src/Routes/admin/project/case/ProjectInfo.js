@@ -4,9 +4,8 @@ import { Link } from 'react-router-dom';
 import BackLayout from '../../../../Components/Layout/back/BackLayout';
 import '../../../../Mixin/popup_window.scss';
 import '../../style/info.scss';
-
 import searchbtn from '../../style/img/searchButton.png';
-
+import { handleGetPage } from '../../../../Utils/MyClass';
 import { GET_PublicMembers } from '../../../../Action/MemberAction';
 import {
 	GET_Project,
@@ -54,7 +53,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			disabled: false,
 			all_file_max_size: 1024 * 1024 * 50,//50M
 			one_file_max_size: 1024 * 1024 * 30,//30M
-			mimes_type: ['zip', '7z', 'rar', 'svg', 'png', 'jpg', 'jpeg', 'csv', 'txt', 'xlx', 'xls', 'xlsx', 'pdf', 'doc', 'docx', 'ppt', 'pptx'],//媒體類型
+			mimes_type: ['zip', '7z', 'rar', 'tgz', 'ico', 'gif', 'png', 'jpg', 'jpeg', 'svg', 'psd', 'xml', 'csv', 'txt', 'xlx', 'xls', 'xlxs', 'pdf', 'doc', 'docx', 'ppt', 'pptx', 'vsd', 'vsdx', 'mp3', 'acc', 'ogg'],//媒體類型
 			title: "",
 			content: "",
 			type: "",
@@ -106,28 +105,17 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					tag: res.Tag.map(item => item.Name),
 				})
 			}
-			const callbackRecord = (res) => {
+			const callbackpage = (res) => {
+				const pagearray = handleGetPage(nowpage, res.page);
 				this.setState({
+					pagearray,
 					maxpage: res.page,
 				})
-				this.handleGetPage(nowpage, res.page);
 			}
 			this.props.GET_ProjectInfo(nowid, callback);
-			this.props.GET_ProjectRecord(nowid, nowpage, nowsearch, callbackRecord);
+			this.props.GET_ProjectRecord(nowid, nowpage, nowsearch, callbackpage);
 			this.props.GET_ProjectTypeAll();
 			this.props.GET_PublicMembers();
-		}
-		//取得頁面
-		handleGetPage = (nowpage, maxpage) => {
-			let pagearray = [];
-			for (let i = (Number(nowpage) - 2); i <= (Number(nowpage) + 2); i++) {
-				if (i > 0 && i <= Number(maxpage)) {
-					pagearray.push(i)
-				}
-			}
-			this.setState({
-				pagearray
-			})
 		}
 		//換頁
 		handleGoNextPage = (page, search = " ") => {
@@ -139,18 +127,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				const params = temp[1].split("/");
 				const nowpage = params[1];
 				const nowsearch = params[2];
-
-				// const { match } = this.props;
-				// const { params } = match;
-				// const nowpage = params.page;
-				// const nowsearch = params.search;
+				const pagearray = handleGetPage(nowpage, res.page);
 				this.setState({
+					pagearray,
 					page: nowpage,
 					search: nowsearch,
 					maxpage: res.page,
-					pagearray: [],
 				})
-				this.handleGetPage(nowpage, res.page);
 			}
 			this.props.history.push(`/casemanage/caseinfo/${Id}/${page}/${search} `);
 			this.props.GET_ProjectRecord(Id, page, search, callback);
@@ -194,7 +177,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				data.append('Remark', remark);
 				data.append('File', upload);
 				const callback = () => {
-					this.props.GET_ProjectRecord(Id, page, search);
+					const callbackpage = res => {
+						const pagearray = handleGetPage(page, res.page);
+						this.setState({
+							pagearray,
+							maxpage: res.page,
+						})
+					}
+					this.props.GET_ProjectRecord(Id, page, search, callbackpage);
 					this.setState({
 						add: false,
 						remark: "",
@@ -344,15 +334,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		handleInputChange = event => {
 			const target = event.target;
 			let { value, id } = target;
-			value = value.trim();
-			this.setState({
-				[id]: value,
-			});
-		}
-		//可以空格
-		handleCanEnter = event => {
-			const target = event.target;
-			let { value, id } = target;
 			this.setState({
 				[id]: value,
 			});
@@ -445,7 +426,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				this.setState({
 					disabled: false,
 				})
-				if (e.keyCode === 32) {
+				if (e.keyCode === 13) {
 					if (!tag.includes(value) && (value !== "")) {
 						tag.push(value);
 					}
@@ -569,7 +550,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										className="input"
 										id="content"
 										value={content}
-										onChange={this.handleCanEnter.bind(this)}
+										onChange={this.handleInputChange.bind(this)}
 									></textarea>
 									<label className="label">內容描入*</label>
 								</div>
@@ -828,7 +809,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										maxLength={500}
 										id="remark"
 										value={remark}
-										onChange={this.handleCanEnter.bind(this)}
+										onChange={this.handleInputChange.bind(this)}
 									/>
 									<label className="label">備註*</label>
 								</div>

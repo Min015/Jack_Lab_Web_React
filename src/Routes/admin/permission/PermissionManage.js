@@ -4,6 +4,8 @@ import BackLayout from '../../../Components/Layout/back/BackLayout';
 import '../style/mainstyle.scss';
 import '../../../Mixin/popup_window.scss'
 import searchbtn from '../style/img/searchButton.png';
+import { handleGetPage } from '../../../Utils/MyClass';
+
 import { GET_Role, GET_PermissionList, GET_RolePermission, PUT_ChangeRolePermission, POST_RoleAdd, DELETE_Role, } from '../../../Action/MemberAction';
 const mapStateToProps = state => {
 	const { memberReducer } = state;
@@ -49,25 +51,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				search: nowsearch,
 			})
 			const callback = (res) => {
+				const pagearray = handleGetPage(nowpage, res.page);
 				this.setState({
+					pagearray,
 					maxpage: res.page,
 				})
-				this.handleGetPage(nowpage, res.page);
 				this.props.GET_Permission();
 			}
 			await this.props.GET_Role(nowpage, nowsearch, callback);
-		}
-		//取得頁面
-		handleGetPage = (nowpage, maxpage) => {
-			let pagearray = [];
-			for (let i = (Number(nowpage) - 2); i <= (Number(nowpage) + 2); i++) {
-				if (i > 0 && i <= Number(maxpage)) {
-					pagearray.push(i)
-				}
-			}
-			this.setState({
-				pagearray
-			})
 		}
 		//換頁
 		handleGoNextPage = (page, search = " ") => {
@@ -76,13 +67,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				const { params } = match;
 				const nowpage = params.page;
 				const nowsearch = params.search;
+				const pagearray = handleGetPage(nowpage, res.page);
 				this.setState({
+					pagearray,
 					page: nowpage,
 					search: nowsearch,
 					maxpage: res.page,
-					pagearray: [],
 				})
-				this.handleGetPage(nowpage, res.page);
 			}
 			this.props.history.push(`/pemissionmanage/${page}/${search}`);
 			this.props.GET_Role(page, search, callback);
@@ -90,9 +81,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		//新增
 		RoleAdd = () => {
 			const { page, search } = this.state;
-			const { newRoleName, role_permission } = this.state;
+			const {  role_permission } = this.state;
+			let{newRoleName}=this.state;
+			newRoleName=newRoleName.trim();
 			if (newRoleName === "") {
-				alert("您有必填欄位尚未填寫，請確認");
+				alert("請填寫角色名(不可皆為空格)");
 			}
 			else {
 				if (role_permission.length !== 0) {
@@ -101,7 +94,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 						Permission: role_permission,
 					}
 					const callback = () => {
-						this.props.GET_Role(page, search);
+						const callbackpage = res => {
+							const pagearray = handleGetPage(page, res.page);
+							this.setState({
+								pagearray,
+								maxpage: res.page,
+							})
+						}
+						this.props.GET_Role(page, search, callbackpage);
 						this.setState({
 							add: false,
 							newRoleName: "",
@@ -165,7 +165,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			const target = event.target;
 			let { value, id } = target;
 			if (id === 'search') {
-				value = value.trim();
 				if (value !== "") {
 					this.setState({
 						[id]: value,
@@ -178,7 +177,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				}
 			}
 			else {
-				value = value.trim();
 				this.setState({
 					[id]: value,
 				});

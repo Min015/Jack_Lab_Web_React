@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link } from 'react-router-dom';
 import BackLayout from '../../../../Components/Layout/back/BackLayout';
 import '../../style/mainstyle.scss';
-
+import { handleGetPage } from '../../../../Utils/MyClass';
 import {
 	GET_Project,
 	DELETE_Project,
@@ -56,25 +56,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				ptype: nowtype,
 			})
 			const callback = (res) => {
+				const pagearray = handleGetPage(nowpage, res.page);
 				this.setState({
+					pagearray,
 					maxpage: res.page,
 				})
-				this.handleGetPage(nowpage, res.page);
 			}
 			this.props.GET_Project(nowpage, nowsearch, nowtype, callback);
 			this.props.GET_ProjectTypeAll();
-		}
-		//取得頁面
-		handleGetPage = (nowpage, maxpage) => {
-			let pagearray = [];
-			for (let i = (Number(nowpage) - 2); i <= (Number(nowpage) + 2); i++) {
-				if (i > 0 && i <= Number(maxpage)) {
-					pagearray.push(i)
-				}
-			}
-			this.setState({
-				pagearray
-			})
 		}
 		//換頁
 		handleGoNextPage = (page, search = " ", ptype = " ") => {
@@ -84,14 +73,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				const nowpage = params.page;
 				const nowsearch = params.search;
 				const nowtype = params.ptype;
+				const pagearray = handleGetPage(nowpage, res.page);
 				this.setState({
+					pagearray,
 					page: nowpage,
 					search: nowsearch,
 					ptype: nowtype,
 					maxpage: res.page,
-					pagearray: [],
 				})
-				this.handleGetPage(nowpage, res.page);
 			}
 			this.props.history.push(`/casemanage/${page}/${search}/${ptype}`);
 			this.props.GET_Project(page, search, ptype, callback);
@@ -162,7 +151,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			const target = event.target;
 			let { value, id } = target;
 			if (id === 'search') {
-				value = value.trim();
 				if (value !== "") {
 					this.setState({
 						[id]: value,
@@ -175,7 +163,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				}
 			}
 			else {
-				value = value.trim();
 				this.setState({
 					[id]: value,
 				});
@@ -247,7 +234,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									)}
 								</select>
 								<input type="text" placeholder="搜尋" id="search" value={search} onChange={this.handleInputChange.bind(this)} />
-								<input type="submit" value="送出" className="searchBtn" onClick={() => this.handleGoNextPage(1, search, ptype)} />
+								<input type="submit" value="送出" className="searchBtn" id="casesearch" onClick={() => this.handleGoNextPage(1, search, ptype)} />
 							</div>
 						</div>
 						<table className="col-12 admin_table">

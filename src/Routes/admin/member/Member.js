@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import BackLayout from '../../../Components/Layout/back/BackLayout';
 import '../style/mainstyle.scss';
 import '../../../Mixin/popup_window.scss';
+import { handleGetPage } from '../../../Utils/MyClass';
 import { GET_RoleAll, GET_Academic, GET_Class, GET_PrivateMember, POST_UserAdd, PUT_ChangeRole, PUT_ChangeClass, PUT_ChangePassword, DELETE_Member } from '../../../Action/MemberAction';
 const mapStateToProps = state => {
 	const { memberReducer } = state;
@@ -30,14 +31,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			add: false,
 			edit: false,
 			delete: false,
-
 			array: [],
 			table_header: [
-				// "學生編號",
 				"帳號",
 				"姓名",
-				"班級",
 				"角色",
+				"班級",
 				"帳號創建日期",
 			],
 			newAccount: "",
@@ -65,27 +64,16 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				academic: academic,
 			})
 			const callback = (res) => {
+				const pagearray = handleGetPage(nowpage, res.page);
 				this.setState({
+					pagearray,
 					maxpage: res.page,
 				})
-				this.handleGetPage(nowpage, res.page);
 			}
 			this.props.GET_RoleAll();
 			this.props.GET_Academic();
 			this.props.GET_Class();
 			this.props.GET_PrivateMember(nowpage, nowsearch, academic, callback);
-		}
-		//取得頁面
-		handleGetPage = (nowpage, maxpage) => {
-			let pagearray = [];
-			for (let i = (Number(nowpage) - 2); i <= (Number(nowpage) + 2); i++) {
-				if (i > 0 && i <= Number(maxpage)) {
-					pagearray.push(i)
-				}
-			}
-			this.setState({
-				pagearray
-			})
 		}
 		//換頁
 		handleGoNextPage = (page, search = " ", academic = " ") => {
@@ -95,14 +83,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				const nowpage = params.page;
 				const nowsearch = params.search;
 				const academic = params.academic;
+				const pagearray = handleGetPage(nowpage, res.page);
 				this.setState({
+					pagearray,
 					page: nowpage,
 					search: nowsearch,
 					academic: academic,
 					maxpage: res.page,
-					pagearray: [],
 				})
-				this.handleGetPage(nowpage, res.page);
 			}
 			this.props.history.push(`/member/${page}/${search}/${academic}`);
 			this.props.GET_PrivateMember(page, search, academic, callback);
@@ -110,27 +98,41 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		//新增
 		AddMember = () => {
 			const { page, search, academic } = this.state;
-			const { newAccount, newName, newClass, newRole } = this.state;
+			const { newAccount, newClass, newRole } = this.state;
+			let { newName } = this.state;
 			if (newAccount !== "" && newName !== "" && newClass !== "" && newRole !== "") {
 				if (this.EmailCheck(newAccount)) {
-					const payload = {
-						Account: newAccount,
-						Name: newName,
-						Class_Id: newClass,
-						Role_Id: newRole,
+					newName = newName.trim();
+					if (newName !== "") {
+						const payload = {
+							Account: newAccount,
+							Name: newName,
+							Class_Id: newClass,
+							Role_Id: newRole,
+						}
+						const callback = () => {
+							this.setState({
+								add: false,
+								newAccount: "",
+								newName: "",
+								newClass: "",
+								newRole: "",
+								academic: " ",
+							})
+							const callbackpage = res => {
+								const pagearray = handleGetPage(page, res.page);
+								this.setState({
+									pagearray,
+									maxpage: res.page,
+								})
+							}
+							this.props.GET_PrivateMember(page, search, academic, callbackpage);
+						}
+						this.props.POST_UserAdd(payload, callback);
 					}
-					const callback = () => {
-						this.setState({
-							add: false,
-							newAccount: "",
-							newName: "",
-							newClass: "",
-							newRole: "",
-							academic: " ",
-						})
-						this.props.GET_PrivateMember(page, search, academic);
+					else {
+						alert("成員名稱不可皆為空格字元");
 					}
-					this.props.POST_UserAdd(payload, callback);
 				}
 				else {
 					alert("帳號格式錯誤，請輸入電子郵件");
@@ -173,9 +175,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			const { page, search, academic } = this.state;
 			const { password, password2, now } = this.state;
 			if (password !== "" && password2 !== "") {
-				const err = " ";
-				if (password.substr(0, 1) !== err && password.substr(-1, 1) !== err &&
-					password2.substr(0, 1) !== err && password2.substr(-1, 1) !== err) {
+				if (this.handlePasswordCheck(password) &&this.handlePasswordCheck(password2)) {
 					if (password === password2) {
 						const payload = {
 							account: now.Account,
@@ -378,6 +378,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		EmailCheck = Email => {
 			const rule = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
 			return rule.test(Email);
+		}
+		handlePasswordCheck = password => {
+			return (password.substr(0, 1) !== " " && password.substr(-1, 1) !== " ")
 		}
 		render() {
 			const { table_header, array, add, edit, delO, delAll, newAccount, newName, newClass, newRole, password, password2, now, academic } = this.state;

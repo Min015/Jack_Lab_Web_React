@@ -17,7 +17,7 @@ const mapStateToProps = state => {
 	return {
 		MyInfo: state.memberReducer.MyInfo,
 		MyProject: state.memberReducer.MyProject,
-		MyPermission:state.memberReducer.MyPermission,
+		MyPermission: state.memberReducer.MyPermission,
 	}
 }
 
@@ -27,7 +27,7 @@ const mapDispatchToProps = dispatch => {
 		POST_UpdateMyPhoto: (payload, callback) => dispatch(POST_UpdateMyPhoto(payload, callback)),
 		PUT_UpdateMyIntroduction: (payload, callback) => dispatch(PUT_UpdateMyIntroduction(payload, callback)),
 		GET_MyProject: (page, callback) => dispatch(GET_MyProject(page, callback)),
-		SAVE_Permission:()=>dispatch(SAVE_Permission()),
+		SAVE_Permission: () => dispatch(SAVE_Permission()),
 	}
 }
 
@@ -38,7 +38,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			photo: false,
 			edit: false,
 			upload: {},
-			mimes_type: ['svg', 'png', 'jpg', 'jpeg', 'csv',],//媒體類型
+			mimes_type: ['ico', 'gif', 'png', 'jpg', 'jpeg', 'svg',],//媒體類型
 			all_file_max_size: 1024 * 1024 * 50,//50M
 			one_file_max_size: 1024 * 1024 * 30,//30M
 			table_header: [
@@ -159,7 +159,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			}
 		}
 		//可以空格
-		handleCanEnter(event) {
+		handleInputChange = event => {
 			const target = event.target;
 			let { value, id } = target;
 			this.setState({
@@ -193,7 +193,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			})
 		}
 		render() {
-			const { MyInfo, MyProject} = this.props;
+			const { MyInfo, MyProject } = this.props;
 			const { table_header, edit, photo, upload, introduction, pagearray, page, maxpage } = this.state;
 			return (
 				<div id='personal_info'>
@@ -203,7 +203,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								<div className="card_banner"></div>
 								<div className="card_content">
 									<div className="head_stickers">
-										<img src={MyInfo === undefined ? "": `https://jacklab.servehttp.com/${MyInfo.Image}`} alt={`大頭貼`} />
+										<img src={MyInfo === undefined ? "" : `https://jacklab.servehttp.com/${MyInfo.Image}`} alt={`大頭貼`} />
 									</div>
 									<div className="information">
 										<div className="edit_pen">
@@ -284,9 +284,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 											maxLength={5000}
 											value={introduction}
 											id="introduction"
-											onChange={this.handleCanEnter.bind(this)}
+											onChange={this.handleInputChange.bind(this)}
 										>
-
 										</textarea>
 									</div>
 									<div className='btn_block'>

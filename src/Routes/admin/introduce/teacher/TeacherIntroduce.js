@@ -6,7 +6,7 @@ import searchbtn from '../../style/img/searchButton.png';
 import camera from '../../style/img/camera.png';
 import { Editor as ClassEditor } from 'ckeditor5-custom-build/build/ckeditor';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
-
+import { handleGetPage } from '../../../../Utils/MyClass';
 
 import {
 	GET_TeacherIntroduce,
@@ -74,7 +74,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			delO: false,
 			delAll: false,
 			photo: false,
-			mimes_type: ['svg', 'png', 'jpg', 'jpeg', 'csv',],//媒體類型
+			mimes_type: ['ico', 'gif', 'png', 'jpg', 'jpeg', 'svg',],//媒體類型
 			all_file_max_size: 1024 * 1024 * 50,//50M
 			one_file_max_size: 1024 * 1024 * 30,//30M
 			newAccount: "",
@@ -94,24 +94,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				search: nowsearch,
 			})
 			const callback = (res) => {
+				const pagearray = handleGetPage(nowpage, res.page);
 				this.setState({
+					pagearray,
 					maxpage: res.page,
 				})
-				this.handleGetPage(nowpage, res.page);
 			}
 			this.props.GET_TeacherIntroduce(nowpage, nowsearch, callback);
-		}
-		//取得頁面
-		handleGetPage = (nowpage, maxpage) => {
-			let pagearray = [];
-			for (let i = (Number(nowpage) - 2); i <= (Number(nowpage) + 2); i++) {
-				if (i > 0 && i <= Number(maxpage)) {
-					pagearray.push(i)
-				}
-			}
-			this.setState({
-				pagearray
-			})
 		}
 		//換頁
 		handleGoNextPage = (page, search = " ") => {
@@ -120,13 +109,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				const { params } = match;
 				const nowpage = params.page;
 				const nowsearch = params.search;
+				const pagearray = handleGetPage(nowpage, res.page);
 				this.setState({
+					pagearray,
 					page: nowpage,
 					search: nowsearch,
 					maxpage: res.page,
-					pagearray: [],
 				})
-				this.handleGetPage(nowpage, res.page);
 			}
 			this.props.history.push(`/teacherintroduce/${page}/${search}`);
 			this.props.GET_TeacherIntroduce(page, search, callback);
@@ -134,27 +123,50 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		//新增
 		AddTeacher = () => {
 			const { page, search } = this.state;
-			const { newAccount, newPassword, newName, newTitle } = this.state;
+			const { newAccount } = this.state;
+			let { newPassword, newName, newTitle } = this.state;
 			if (newAccount !== "" && newPassword !== "" && newName !== "" && newTitle !== "") {
 				if (this.AccountCheck(newAccount)) {
-					const payload = {
-						Account: newAccount,
-						Password: newPassword,
-						Name: newName,
-						Title: newTitle,
-					};
-					const callback = () => {
-						this.props.GET_TeacherIntroduce(page, search);
-						this.setState({
-							add: false,
-							newAccount: "",
-							newPassword: "",
-							newName: "",
-							newTitle: "",
-							newIntroduce: "",
-						})
+					if (this.handlePasswordCheck(newPassword)) {
+						newName = newName.trim();
+						newTitle = newTitle.trim();
+						if (newName !== "" && newTitle !== "") {
+							const payload = {
+								Account: newAccount,
+								Password: newPassword,
+								Name: newName,
+								Title: newTitle,
+							};
+							const callback = () => {
+								const callbackpage = res => {
+									const pagearray = handleGetPage(page, res.page);
+									this.setState({
+										pagearray,
+										maxpage: res.page,
+									})
+								}
+								this.props.GET_TeacherIntroduce(page, search, callbackpage);
+								this.setState({
+									add: false,
+									newAccount: "",
+									newPassword: "",
+									newName: "",
+									newTitle: "",
+									newIntroduce: "",
+								})
+							}
+							this.props.POST_AddTeacher(payload, callback);
+						}
+						else {
+							alert("名稱與職位不可皆為空格字元")
+						}
 					}
-					this.props.POST_AddTeacher(payload, callback);
+					else {
+						this.setState({
+							newPassword: ""
+						})
+						alert("密碼首尾字元不可為空格")
+					}
 				}
 				else {
 					alert("帳號格式錯誤(只能有英數.及@)")
@@ -207,24 +219,32 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		//修改教師資訊
 		UpdateTeacher = () => {
 			const { page, search } = this.state;
-			const { newName, newTitle, newIntroduce, nowItem } = this.state;
+			const { newIntroduce, nowItem } = this.state;
+			let { newName, newTitle, } = this.state;
 			if (newName === "" || newTitle === "" || newIntroduce === "") {
 				alert("您有必填欄位尚未填寫，請確認");
 			}
 			else {
-				const payload = {
-					Id: nowItem.Id,
-					Name: newName,
-					Title: newTitle,
-					Introduction: newIntroduce,
+				newName = newName.trim();
+				newTitle = newTitle.trim();
+				if (newName !== "" || newTitle !== "") {
+					const payload = {
+						Id: nowItem.Id,
+						Name: newName,
+						Title: newTitle,
+						Introduction: newIntroduce,
+					}
+					const callback = () => {
+						this.props.GET_TeacherIntroduce(page, search);
+						this.setState({
+							edit: false,
+						});
+					}
+					this.props.PUT_UpdateTeacherIntroduce(payload, callback);
 				}
-				const callback = () => {
-					this.props.GET_TeacherIntroduce(page, search);
-					this.setState({
-						edit: false,
-					});
+				else {
+					alert("名稱與職位不可皆為空格字元")
 				}
-				this.props.PUT_UpdateTeacherIntroduce(payload, callback);
 			}
 		}
 		//刪除
@@ -329,7 +349,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			const target = event.target;
 			let { value, id } = target;
 			if (id === 'search') {
-				value = value.trim();
 				if (value !== "") {
 					this.setState({
 						[id]: value,
@@ -342,19 +361,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				}
 			}
 			else {
-				value = value.trim();
 				this.setState({
 					[id]: value,
 				});
 			}
-		}
-		//可以空格
-		handleCanEnter(event) {
-			const target = event.target;
-			let { value, id } = target;
-			this.setState({
-				[id]: value,
-			});
 		}
 		//CKEditor
 		handleCKEditor = (event, editor) => {
@@ -429,6 +439,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		AccountCheck = Account => {
 			const rule = /^[a-zA-Z0-9\.\@]{1,}$/;
 			return rule.test(Account);
+		}
+		handlePasswordCheck = password => {
+			return (password.substr(0, 1) !== " " && password.substr(-1, 1) !== " ")
 		}
 		render() {
 			const { table_header, array, photo, upload, newAccount, newPassword, newName, newTitle, newIntroduce, nowItem } = this.state;

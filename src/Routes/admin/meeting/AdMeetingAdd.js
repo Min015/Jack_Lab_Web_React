@@ -31,14 +31,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			disabled: false,
 			all_file_max_size: 1024 * 1024 * 50,//50M
 			one_file_max_size: 1024 * 1024 * 30,//30M
-			mimes_type: ['zip', '7z', 'rar', 'svg', 'png', 'jpg', 'jpeg', 'csv', 'txt', 'xlx', 'xls', 'xlsx', 'pdf', 'doc', 'docx', 'ppt', 'pptx'],//媒體類型
+			mimes_type: ['zip', '7z', 'rar', 'tgz', 'ico', 'gif', 'png', 'jpg', 'jpeg', 'svg', 'psd', 'xml', 'csv', 'txt', 'xlx', 'xls', 'xlxs', 'pdf', 'doc', 'docx', 'ppt', 'pptx', 'vsd', 'vsdx', 'mp3', 'acc', 'ogg',],//媒體類型
 			title: "",
 			content: "",
 			time: "",
 			place: "",
 		}
-
-
 		//載入所有人員名單
 		componentDidMount = () => {
 			const nowaccount = localStorage.getItem("account");
@@ -63,27 +61,35 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 		//送出
 		Submit = () => {
-			const { title, content, time, place, array, participate, tag } = this.state;
+			let { title, content, time, place, array, participate, tag } = this.state;
 			if (title !== "" && content !== "" && time !== "" && place !== "" && participate.length !== 0) {
-				const addmember = participate.map((item) => { return (item.account) });
-				let data = new FormData();
-				data.append('Title', title);
-				data.append('Content', content);
-				data.append('Time', time);
-				data.append('Place', place);
-				array.map((item, index) =>
-					data.append(`Files[${index}]`, item)
-				);
-				addmember.map((item, index) =>
-					data.append(`Member[${index}]`, item)
-				)
-				tag.map((item, index) =>
-					data.append(`Tag[${index}]`, item)
-				);
-				const callback = () => {
-					this.props.history.push("/meetingmanage");
+				title = title.trim();
+				content = content.trim();
+				place = place.trim();
+				if (title !== "" && content !== "" && place !== "") {
+					const addmember = participate.map((item) => { return (item.account) });
+					let data = new FormData();
+					data.append('Title', title);
+					data.append('Content', content);
+					data.append('Time', time);
+					data.append('Place', place);
+					array.map((item, index) =>
+						data.append(`Files[${index}]`, item)
+					);
+					addmember.map((item, index) =>
+						data.append(`Member[${index}]`, item)
+					)
+					tag.map((item, index) =>
+						data.append(`Tag[${index}]`, item)
+					);
+					const callback = () => {
+						this.props.history.push("/meetingmanage");
+					}
+					this.props.POST_AddMeeting(data, callback);
 				}
-				this.props.POST_AddMeeting(data, callback);
+				else{
+					alert("會議主題、會議內容、會議地點不可皆為空格字元");
+				}
 			}
 			else {
 				alert("您有必填欄位尚未填寫，請確認");
@@ -92,15 +98,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 
 		//不可以有空格
 		handleInputChange = event => {
-			const target = event.target;
-			let { value, id } = target;
-			value = value.trim();
-			this.setState({
-				[id]: value,
-			});
-		}
-		//可以空格
-		handleCanEnter = event => {
 			const target = event.target;
 			let { value, id } = target;
 			this.setState({
@@ -223,7 +220,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				this.setState({
 					disabled: false,
 				})
-				if (e.keyCode === 32) {
+				if (e.keyCode === 13) {
 					if (!tag.includes(value) && (value !== "")) {
 						tag.push(value);
 					}
@@ -287,10 +284,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										className="input"
 										value={content}
 										id='content'
-										onChange={this.handleCanEnter.bind(this)}
+										onChange={this.handleInputChange.bind(this)}
 									>
 									</textarea>
-									<label className="label">會議內容*</label>
+									<label className="label">輸入會議內容*</label>
 								</div>
 							</div>
 							{/* 輸入會議時間地點 */}

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import MemberLayout from '../../../../Components/Layout/front/member/MemberLayout';
 import './projectInfo.scss';
 import '../../../../Mixin/popup_window.scss';
-
+import { handleGetPage } from '../../../../Utils/MyClass';
 import {
 	GET_Project,
 	DELETE_Project,
@@ -63,7 +63,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			tag: [],//已輸入的tag
 			all_file_max_size: 1024 * 1024 * 50,//50M
 			one_file_max_size: 1024 * 1024 * 30,//30M
-			mimes_type: ['zip', '7z', 'rar', 'svg', 'png', 'jpg', 'jpeg', 'csv', 'txt', 'xlx', 'xls', 'xlsx', 'pdf', 'doc', 'docx', 'ppt', 'pptx'],//媒體類型
+			mimes_type: ['zip', '7z', 'rar', 'tgz', 'ico', 'gif', 'png', 'jpg', 'jpeg', 'svg', 'psd', 'xml', 'csv', 'txt', 'xlx', 'xls', 'xlxs', 'pdf', 'doc', 'docx', 'ppt', 'pptx', 'vsd', 'vsdx', 'mp3', 'acc', 'ogg'],//媒體類型
 			title: "",
 			content: "",
 			type: "",
@@ -84,47 +84,21 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			}
 			const nowid = params[0];
 			const nowpage = params[1];
-
-			//舊寫法
-			// const { match } = this.props;
-			// const { params } = match;
-			// const nowid = params.id;
-			// const nowpage = params.page;
-			// let nowsearch;
-			// if (params.search === "") {
-			// 	nowsearch = " ";
-			// }
-			// else {
-			// 	nowsearch = params.search;
-			// }
-
-
 			this.setState({
 				Id: nowid,
 				page: nowpage,
 				search: nowsearch,
 			})
-			const callbackRecord = (res) => {
+			const callbackpage = (res) => {
+				const pagearray = handleGetPage(nowpage, res.page);
 				this.setState({
+					pagearray,
 					maxpage: res.page,
 				})
-				this.handleGetPage(nowpage, res.page);
 			}
 			this.props.GET_ProjectInfo(nowid);
-			this.props.GET_ProjectRecord(nowid, nowpage, nowsearch, callbackRecord);
+			this.props.GET_ProjectRecord(nowid, nowpage, nowsearch, callbackpage);
 			this.props.SAVE_Permission();
-		}
-		//取得頁面
-		handleGetPage = (nowpage, maxpage) => {
-			let pagearray = [];
-			for (let i = (Number(nowpage) - 2); i <= (Number(nowpage) + 2); i++) {
-				if (i > 0 && i <= Number(maxpage)) {
-					pagearray.push(i)
-				}
-			}
-			this.setState({
-				pagearray
-			})
 		}
 		//換頁
 		handleGoNextPage = (page, search = " ") => {
@@ -136,24 +110,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				const params = temp[1].split("/");
 				const nowpage = params[1];
 				const nowsearch = params[2];
-				//舊寫法
-				// const { match } = this.props;
-				// const { params } = match;
-				// const nowpage = params.page;
-				// let nowsearch;
-				// if (params.search === "") {
-				// 	nowsearch = " ";
-				// }
-				// else {
-				// 	nowsearch = params.search;
-				// }
+				const pagearray = handleGetPage(nowpage, res.page);
 				this.setState({
+					pagearray,
 					page: nowpage,
 					search: nowsearch,
 					maxpage: res.page,
-					pagearray: [],
 				})
-				this.handleGetPage(nowpage, res.page);
 			}
 			this.props.history.push(`/project/projectinfo/${Id}/${page}/${search}`);
 			this.props.GET_ProjectRecord(Id, page, search, callback);
@@ -168,7 +131,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				data.append('Remark', remark);
 				data.append('File', upload);
 				const callback = () => {
-					this.props.GET_ProjectRecord(Id, page, search);
+					const callbackpage = res => {
+						const pagearray = handleGetPage(page, res.page);
+						this.setState({
+							pagearray,
+							maxpage: res.page,
+						})
+					}
+					this.props.GET_ProjectRecord(Id, page, search, callbackpage);
 					this.setState({
 						add: false,
 						remark: "",
@@ -271,7 +241,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			const target = event.target;
 			let { value, id } = target;
 			if (id === 'search') {
-				value = value.trim();
 				if (value !== "") {
 					this.setState({
 						[id]: value,
@@ -284,19 +253,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				}
 			}
 			else {
-				value = value.trim();
 				this.setState({
 					[id]: value,
 				});
 			}
-		}
-		//可以空格
-		handleCanEnter = event => {
-			const target = event.target;
-			let { value, id } = target;
-			this.setState({
-				[id]: value,
-			});
 		}
 		//drop_down
 		drop_down = (e) => {
@@ -423,7 +383,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 						<div className="project_content something_content">
 							{ProjectInfo === undefined ? "" : ProjectInfo.Description}
 						</div>
-						<p className='title'>參與人員</p>
+						<p className='membertitle'>參與人員</p>
 						<div className="something_content">
 							{ProjectInfo === undefined ? [] : ProjectInfo.Member?.map((item, index) =>
 								<span key={index}>{`${item.Name}　`}</span>
@@ -553,7 +513,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										maxLength={500}
 										id="remark"
 										value={remark}
-										onChange={this.handleCanEnter.bind(this)}
+										onChange={this.handleInputChange.bind(this)}
 									/>
 									<label className="label">備註*</label>
 								</div>

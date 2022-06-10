@@ -37,7 +37,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			nowclass: "selectlist",
 			all_file_max_size: 1024 * 1024 * 50,//50M
 			one_file_max_size: 1024 * 1024 * 30,//30M
-			mimes_type: ['zip', '7z', 'rar', 'svg', 'png', 'jpg', 'jpeg', 'csv', 'txt', 'xlx', 'xls', 'xlsx', 'pdf', 'doc', 'docx', 'ppt', 'pptx'],//媒體類型
+			mimes_type: ['zip', '7z', 'rar', 'tgz', 'ico', 'gif', 'png', 'jpg', 'jpeg', 'svg', 'psd', 'xml', 'csv', 'txt', 'xlx', 'xls', 'xlxs', 'pdf', 'doc', 'docx', 'ppt', 'pptx', 'vsd', 'vsdx', 'mp3', 'acc', 'ogg'],//媒體類型
 			title: "",
 			content: "",
 			time: "",
@@ -127,7 +127,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			const target = event.target;
 			let { value, id } = target;
 			if (id === 'search') {
-				value = value.trim();
 				if (value !== "") {
 					this.setState({
 						[id]: value,
@@ -140,19 +139,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				}
 			}
 			else {
-				value = value.trim();
 				this.setState({
 					[id]: value,
 				});
 			}
-		}
-		//可以空格
-		handleCanEnter = event => {
-			const target = event.target;
-			let { value, id } = target;
-			this.setState({
-				[id]: value,
-			});
 		}
 		//選參與人
 		handleSelectMember = e => {
@@ -178,7 +168,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 						participate: newarray,
 					})
 				}
-				else{
+				else {
 					alert("不可刪除建立者")
 				}
 			}
@@ -304,7 +294,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				this.setState({
 					disabled: false,
 				})
-				if (e.keyCode === 32) {
+				if (e.keyCode === 13) {
 					if (!tag.includes(value) && (value !== "")) {
 						tag.push(value);
 					}
@@ -370,7 +360,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										className="input"
 										value={content}
 										id='content'
-										onChange={this.handleCanEnter.bind(this)}
+										onChange={this.handleInputChange.bind(this)}
 									></textarea>
 									<label className="label">會議內容<div className='error_msg'>*</div></label>
 								</div>

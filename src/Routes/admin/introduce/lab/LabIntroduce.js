@@ -6,6 +6,7 @@ import searchbtn from '../../style/img/searchButton.png';
 import { GET_LabIntroduce, POST_AddLabIntroduce, PUT_UpdateLabIntroduce, DELETE_LabIntroduce, GET_LabInfo, } from '../../../../Action/IntroduceAction';
 import { Editor as ClassEditor } from 'ckeditor5-custom-build/build/ckeditor';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
+import { handleGetPage } from '../../../../Utils/MyClass';
 
 const mapStateToProps = state => {
 	const { introduceReducer } = state;
@@ -75,24 +76,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				search: nowsearch,
 			})
 			const callback = (res) => {
+				const pagearray = handleGetPage(nowpage, res.page);
 				this.setState({
+					pagearray,
 					maxpage: res.page,
 				})
-				this.handleGetPage(nowpage, res.page);
 			}
 			this.props.GET_LabIntroduce(nowpage, nowsearch, callback);
-		}
-		//取得頁面
-		handleGetPage = (nowpage, maxpage) => {
-			let pagearray = [];
-			for (let i = (Number(nowpage) - 2); i <= (Number(nowpage) + 2); i++) {
-				if (i > 0 && i <= Number(maxpage)) {
-					pagearray.push(i)
-				}
-			}
-			this.setState({
-				pagearray
-			})
 		}
 		//換頁
 		handleGoNextPage = (page, search = " ") => {
@@ -101,13 +91,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				const { params } = match;
 				const nowpage = params.page;
 				const nowsearch = params.search;
+				const pagearray = handleGetPage(nowpage, res.page);
 				this.setState({
+					pagearray,
+					maxpage: res.page,
 					page: nowpage,
 					search: nowsearch,
-					maxpage: res.page,
-					pagearray: [],
 				})
-				this.handleGetPage(nowpage, res.page);
 			}
 			this.props.history.push(`/labintroduce/${page}/${search}`);
 			this.props.GET_LabIntroduce(page, search, callback);
@@ -115,14 +105,22 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		//新增
 		AddLabIntroduce = () => {
 			const { page, search } = this.state;
-			const { newTitle, newContent } = this.state;
+			let { newTitle, newContent } = this.state;
+			newTitle=newTitle.trim();
 			if (newTitle !== "" && newContent !== "") {
 				const payload = {
 					Title: newTitle,
 					Content: newContent,
 				};
 				const callback = () => {
-					this.props.GET_LabIntroduce(page, search);
+					const callbackpage = res => {
+						const pagearray = handleGetPage(page, res.page);
+						this.setState({
+							pagearray,
+							maxpage: res.page,
+						})
+					}
+					this.props.GET_LabIntroduce(page, search,callbackpage);
 					this.setState({
 						add: false,
 						newTitle: "",
@@ -154,7 +152,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		//修改
 		UpdateLabIntroduce = () => {
 			const { page, search } = this.state;
-			const { newTitle, newContent, nowItem } = this.state;
+			let { newTitle, newContent, nowItem } = this.state;
+			newTitle=newTitle.trim();
 			if (newTitle !== "" && newContent !== "") {
 				const payload = {
 					Id: nowItem.Id,
@@ -263,7 +262,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			const target = event.target;
 			let { value, id } = target;
 			if (id === 'search') {
-				value = value.trim();
 				if (value !== "") {
 					this.setState({
 						[id]: value,
@@ -276,19 +274,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				}
 			}
 			else {
-				value = value.trim();
 				this.setState({
 					[id]: value,
 				});
 			}
-		}
-		//可以空格
-		handleCanEnter = event => {
-			const target = event.target;
-			let { value, id } = target;
-			this.setState({
-				[id]: value,
-			});
 		}
 		//CKEditor
 		handleCKEditor = (event, editor) => {

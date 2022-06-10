@@ -37,7 +37,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			delAll: false,
 			previview: false,
 			array: [],
-			mimes_type: ['svg', 'png', 'jpg', 'jpeg', 'csv',],//媒體類型
+			mimes_type: ['ico','gif','png','jpg','jpeg','svg',],//媒體類型
 			all_file_max_size: 1024 * 1024 * 50,//50M
 			one_file_max_size: 1024 * 1024 * 30,//30M
 			table_header: [
@@ -57,28 +57,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				search: nowsearch,
 			})
 			const callback = (res) => {
-				this.setState({
-					maxpage: res.page,
-				})
 				const pagearray = handleGetPage(nowpage, res.page);
 				this.setState({
-					pagearray
+					pagearray,
+					maxpage: res.page,
 				})
 			}
 			this.props.GET_AdminAlbum(nowpage, nowsearch, callback);
 		}
-		//取得頁面
-		// handleGetPage = (nowpage, maxpage) => {
-		// 	let pagearray = [];
-		// 	for (let i = (Number(nowpage) - 2); i <= (Number(nowpage) + 2); i++) {
-		// 		if (i > 0 && i <= Number(maxpage)) {
-		// 			pagearray.push(i)
-		// 		}
-		// 	}
-		// 	this.setState({
-		// 		pagearray
-		// 	})
-		// }
 		//換頁
 		handleGoNextPage = (page, search = " ") => {
 			const callback = (res) => {
@@ -86,15 +72,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				const { params } = match;
 				const nowpage = params.page;
 				const nowsearch = params.search;
+				const pagearray = handleGetPage(nowpage, res.page);
 				this.setState({
+					pagearray,
 					page: nowpage,
 					search: nowsearch,
 					maxpage: res.page,
-					pagearray: [],
-				})
-				const pagearray = handleGetPage(nowpage, res.page);
-				this.setState({
-					pagearray
 				})
 			}
 			this.props.history.push(`/adminalbum/${page}/${search}`);
@@ -103,16 +86,25 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		//新增
 		AddAlbum = () => {
 			const { page, search } = this.state;
-			const { newTitle, upload } = this.state;
+			const { upload } = this.state;
+			let {newTitle}=this.state;
+			newTitle=newTitle.trim();
 			if (newTitle === "" || upload.name === undefined) {
-				alert("您有必填欄位尚未填寫，請確認");
+				alert("您有必填欄位尚未填寫，請確認(請輸入空格外字元)");
 			}
 			else {
 				let data = new FormData();
 				data.append('Title', newTitle);
 				data.append('Image', upload);
 				const callback = () => {
-					this.props.GET_AdminAlbum(page, search);
+					const callbackpage = res => {
+						const pagearray = handleGetPage(page, res.page);
+						this.setState({
+							pagearray,
+							maxpage: res.page,
+						})
+					}
+					this.props.GET_AdminAlbum(page, search, callbackpage);
 					this.setState({
 						add: !this.state.add,
 						newTitle: "",
@@ -124,7 +116,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		//修改
 		UpdateAlbum = () => {
 			const { page, search } = this.state;
-			const { newTitle, upload, now } = this.state;
+			const { upload, now } = this.state;
+			let { newTitle } = this.state;
+			newTitle=newTitle.trim();
 			if (newTitle === "") {
 				alert("您有必填欄位尚未填寫，請確認");
 			}
@@ -236,7 +230,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			const target = event.target;
 			let { value, id } = target;
 			if (id === 'search') {
-				value = value.trim();
 				if (value !== "") {
 					this.setState({
 						[id]: value,
@@ -249,7 +242,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				}
 			}
 			else {
-				value = value.trim();
 				this.setState({
 					[id]: value,
 				});
@@ -359,7 +351,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							<tbody>
 								{(AlbumList === undefined || AlbumList.list.length === 0) ?
 									<tr>
-										<td className='nocontent' colSpan={table_header === undefined ? "1" : table_header.length+3}>
+										<td className='nocontent' colSpan={table_header === undefined ? "1" : table_header.length + 3}>
 											暫無資料
 										</td>
 									</tr>

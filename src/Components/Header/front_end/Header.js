@@ -21,9 +21,7 @@ export default class Header extends Component {
 	UpdateMyPassword = () => {
 		const { oldpassword, password, password_confirm } = this.state;
 		if (oldpassword !== "" && password !== "" && password_confirm !== "") {
-			const err = " ";
-			if (password.substr(0, 1) !== err && password.substr(-1, 1) !== err &&
-				password_confirm.substr(0, 1) !== err && password_confirm.substr(-1, 1) !== err) {
+			if (this.handlePasswordCheck(password) &&this.handlePasswordCheck(password_confirm)) {
 				if (password === password_confirm) {
 					const payload = {
 						oldpassword: oldpassword,
@@ -56,7 +54,7 @@ export default class Header extends Component {
 					password: "",
 					password_confirm: "",
 				})
-				alert("密碼首尾字元不可為空格")
+				alert("密碼首尾字元不可為空格");
 			}
 		}
 		else {
@@ -103,6 +101,9 @@ export default class Header extends Component {
 		}
 	}
 
+	handlePasswordCheck = password => {
+		return (password.substr(0, 1) !== " " && password.substr(-1, 1) !== " ")
+	}
 	render() {
 		const { drop, revise, logout, oldpassword, password, password_confirm } = this.state;
 		return (

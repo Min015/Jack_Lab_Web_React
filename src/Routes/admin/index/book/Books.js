@@ -6,6 +6,7 @@ import '../../../../Mixin/popup_window.scss';
 import './book.scss';
 import camera from '../../style/img/camera.png';
 import searchbtn from '../../style/img/searchButton.png';
+import { handleGetPage } from '../../../../Utils/MyClass';
 
 import { GET_PublicMembers } from '../../../../Action/MemberAction';
 import {
@@ -51,7 +52,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			delAll: false,
 			drop: false,
 			photo: false,
-			mimes_type: ['svg', 'png', 'jpg', 'jpeg', 'csv',],//媒體類型
+			mimes_type: ['ico', 'gif', 'png', 'jpg', 'jpeg', 'svg',],//媒體類型
 			all_file_max_size: 1024 * 1024 * 50,//50M
 			one_file_max_size: 1024 * 1024 * 30,//30M
 			Id: "",
@@ -76,22 +77,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				this.setState({
 					maxpage: res.page,
 				})
-				this.handleGetPage(nowpage, res.page);
+				const pagearray = handleGetPage(nowpage, res.page);
+				this.setState({
+					pagearray
+				})
 			}
 			this.props.GET_PublicMembers();
 			this.props.GET_Book(nowpage, nowsearch, callback);
-		}
-		//取得頁面
-		handleGetPage = (nowpage, maxpage) => {
-			let pagearray = [];
-			for (let i = (Number(nowpage) - 2); i <= (Number(nowpage) + 2); i++) {
-				if (i > 0 && i <= Number(maxpage)) {
-					pagearray.push(i)
-				}
-			}
-			this.setState({
-				pagearray
-			})
 		}
 		//換頁
 		handleGoNextPage = (page, search = " ") => {
@@ -106,14 +98,20 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					maxpage: res.page,
 					pagearray: [],
 				})
-				this.handleGetPage(nowpage, res.page);
+				const pagearray = handleGetPage(nowpage, res.page);
+				this.setState({
+					pagearray
+				})
 			}
 			this.props.history.push(`/books/${page}/${search}`);
 			this.props.GET_Book(page, search, callback);
 		}
 		AddBook = () => {
 			const { page, search } = this.state;
-			const { Title, Publisher, Time, ISBN, participate, upload, } = this.state;
+			let { Title, Publisher, Time, ISBN, participate, upload, } = this.state;
+			Title = Title.trim();
+			Publisher = Publisher.trim();
+			ISBN = ISBN.trim();
 			if (Title !== "" && Publisher !== "" && Time !== "" && ISBN !== "" && participate.length !== 0 && upload.name !== undefined) {
 				const addmember = participate.map((item) => { return (item.account) });
 				let data = new FormData();
@@ -126,7 +124,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					data.append(`Authors[${index}]`, item)
 				);
 				const callback = () => {
-					this.props.GET_Book(page, search);
+					const callbackpage = res => {
+						const pagearray = handleGetPage(page, res.page);
+						this.setState({
+							pagearray,
+							maxpage: res.page,
+						})
+					}
+					this.props.GET_Book(page, search, callbackpage);
 					this.setState({
 						add: false,
 						Title: "",
@@ -159,7 +164,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 		UpdateBookInfo = () => {
 			const { page, search } = this.state;
-			const { Id, Title, Publisher, Time, ISBN, participate } = this.state;
+			let { Id, Title, Publisher, Time, ISBN, participate } = this.state;
+			Title = Title.trim();
+			Publisher = Publisher.trim();
+			ISBN = ISBN.trim();
 			if (Id !== "" && Title !== "" && Publisher !== "" && Time !== "" && ISBN !== "" && participate.length !== 0) {
 				const addmember = participate.map((item) => { return (item.account) });
 				const payload = {
@@ -345,7 +353,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			const target = event.target;
 			let { value, id } = target;
 			if (id === 'search') {
-				value = value.trim();
 				if (value !== "") {
 					this.setState({
 						[id]: value,
@@ -358,7 +365,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				}
 			}
 			else {
-				value = value.trim();
 				this.setState({
 					[id]: value,
 				});

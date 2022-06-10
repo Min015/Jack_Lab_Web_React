@@ -4,7 +4,7 @@ import BackLayout from '../../../Components/Layout/back/BackLayout';
 import '../style/mainstyle.scss';
 import searchbtn from '../style/img/searchButton.png';
 import { Link } from 'react-router-dom';
-
+import { handleGetPage } from '../../../Utils/MyClass';
 import { GET_Meeting, DELETE_Meeting } from '../../../Action/MeetingAction';
 
 const mapStateToProps = state => {
@@ -44,24 +44,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				search: nowsearch,
 			})
 			const callback = (res) => {
+				const pagearray = handleGetPage(nowpage, res.page);
 				this.setState({
+					pagearray,
 					maxpage: res.page,
 				})
-				this.handleGetPage(nowpage, res.page);
 			}
 			this.props.GET_Meeting(nowpage, nowsearch, callback);
-		}
-		//取得頁面
-		handleGetPage = (nowpage, maxpage) => {
-			let pagearray = [];
-			for (let i = (Number(nowpage) - 2); i <= (Number(nowpage) + 2); i++) {
-				if (i > 0 && i <= Number(maxpage)) {
-					pagearray.push(i)
-				}
-			}
-			this.setState({
-				pagearray
-			})
 		}
 		//換頁
 		handleGoNextPage = (page, search = " ") => {
@@ -70,13 +59,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				const { params } = match;
 				const nowpage = params.page;
 				const nowsearch = params.search;
+				const pagearray = handleGetPage(nowpage, res.page);
 				this.setState({
+					pagearray,
 					page: nowpage,
 					search: nowsearch,
 					maxpage: res.page,
-					pagearray: [],
 				})
-				this.handleGetPage(nowpage, res.page);
 			}
 			this.props.history.push(`/meetingmanage/${page}/${search}`);
 			this.props.GET_Meeting(page, search, callback);
@@ -145,7 +134,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			const target = event.target;
 			let { value, id } = target;
 			if (id === 'search') {
-				value = value.trim();
 				if (value !== "") {
 					this.setState({
 						[id]: value,
@@ -158,7 +146,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				}
 			}
 			else {
-				value = value.trim();
 				this.setState({
 					[id]: value,
 				});

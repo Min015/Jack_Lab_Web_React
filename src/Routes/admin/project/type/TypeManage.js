@@ -4,6 +4,7 @@ import BackLayout from '../../../../Components/Layout/back/BackLayout';
 import '../../style/mainstyle.scss';
 import '../../../../Mixin/popup_window.scss';
 import searchbtn from '../../style/img/searchButton.png';
+import { handleGetPage } from '../../../../Utils/MyClass';
 import { GET_ProjectType, POST_AddProjectType, PUT_UpdateProjectType, DELETE_ProjectType } from '../../../../Action/ProjectAction';
 const mapStateToProps = state => {
   const { projectReducer } = state;
@@ -47,27 +48,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         search: nowsearch,
       })
       const callback = (res) => {
+        const pagearray = handleGetPage(nowpage, res.page);
         this.setState({
+          pagearray,
           maxpage: res.page,
         })
-        this.handleGetPage(nowpage, res.page);
       }
-
-
-
       this.props.GET_ProjectType(nowpage, nowsearch, callback);
-    }
-    //取得頁面
-    handleGetPage = (nowpage, maxpage) => {
-      let pagearray = [];
-      for (let i = (Number(nowpage) - 2); i <= (Number(nowpage) + 2); i++) {
-        if (i > 0 && i <= Number(maxpage)) {
-          pagearray.push(i)
-        }
-      }
-      this.setState({
-        pagearray
-      })
     }
     //換頁
     handleGoNextPage = (page, search = " ") => {
@@ -76,13 +63,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         const { params } = match;
         const nowpage = params.page;
         const nowsearch = params.search;
+        const pagearray = handleGetPage(nowpage, res.page);
         this.setState({
+          pagearray,
           page: nowpage,
           search: nowsearch,
           maxpage: res.page,
-          pagearray: [],
         })
-        this.handleGetPage(nowpage, res.page);
       }
       this.props.history.push(`/typemange/${page}/${search}`);
       this.props.GET_ProjectType(page, search, callback);
@@ -96,7 +83,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(
           Name: newType
         };
         const callback = () => {
-          this.props.GET_ProjectType(page, search);
+          const callbackpage = res => {
+            const pagearray = handleGetPage(page, res.page);
+            this.setState({
+              pagearray,
+              maxpage: res.page,
+            })
+          }
+          this.props.GET_ProjectType(page, search,callbackpage);
           this.setState({
             add: false,
             newType: "",
@@ -203,7 +197,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
       const target = event.target;
       let { value, id } = target;
       if (id === 'search') {
-        value = value.trim();
         if (value !== "") {
           this.setState({
             [id]: value,
@@ -216,7 +209,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         }
       }
       else {
-        value = value.trim();
         this.setState({
           [id]: value,
         });

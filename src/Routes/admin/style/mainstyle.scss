@@ -47,6 +47,7 @@
 		@include ali-set();
 		@include border-set();
 		@extend %row;
+		width: 184px;
 
 		input {
 			padding-left: 5px;
@@ -83,18 +84,20 @@
 		@extend %row;
 
 		input {
-			margin-left: 5px;
+			margin-left: 15px;
 			height     : 100%;
 		}
 	}
 
 	.searchBtn {
 		font-size       : $m;
-		background-color: $button_color;
 		color           : $font_maincolor;
+		background-color: $button_color;
 		border          : $button_color;
-		padding         : 0px 10px;
+		width           : 68px;
 		cursor          : pointer;
+		@include ali-set();
+		@include jus-set();
 	}
 }
 
@@ -199,11 +202,7 @@
 			height: 100%;
 			@include ali-set();
 			@extend %row;
-			flex-wrap       : wrap;
-			// overflow     : hidden;
-			// text-overflow: ellipsis;
-			// white-space  : nowrap;
-			// width        : 240px;
+			flex-wrap: wrap;
 
 			.tag {
 				color           : $font_maincolor;
@@ -286,4 +285,51 @@
 
 .canenter {
 	white-space: pre-line;
+}
+
+@media screen and (max-width:768px) {
+	.work {
+		flex-direction: column;
+
+		.searchform,
+		.searchbar {
+			margin-top: 15px;
+			min-height: 34px;
+			flex-wrap : wrap;
+		}
+
+		.edit_button {
+			// justify-content: space-between;
+		}
+
+		.searchform {
+			* {
+				margin-right: 15px;
+				height      : 34px;
+			}
+
+			.searchBtn {
+				width       : 66px;
+				height      : 36px;
+				margin-right: 0px;
+			}
+		}
+	}
+}
+
+@media screen and (max-width:480px) {
+	
+	.searchform {
+		flex-direction: column;
+		margin-top: 0px !important;
+		* {
+			margin-top: 15px;
+			margin-right: 0px !important;
+			height      : 34px;
+		}
+
+		.searchBtn {
+			margin-top: 12px;
+		}
+	}
 }
