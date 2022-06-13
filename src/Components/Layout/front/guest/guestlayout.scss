@@ -4,7 +4,7 @@
     .content {
         padding-top     : $header_height;
         padding-bottom  : 30px;
-        min-height      : calc(100vh - 86px);
+        min-height      : calc(100vh - 126px);
         background-color: $front_desk_content_background;
 
         .contentin {
@@ -13,4 +13,11 @@
             @extend %col;
         }
     }
+}
+
+footer {
+    width           : 100%;
+    height          : 40px;
+    color           : $font_maincolor;
+    background-color: $header_background;
 }

@@ -34,6 +34,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 					<div className="content">
 						{children}
 					</div>
+					<footer className='absolutely_center'>© 2022 JackLab</footer>
 				</div>
 			)
 		}
