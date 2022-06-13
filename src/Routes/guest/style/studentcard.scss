@@ -79,8 +79,8 @@
 		.stu_n,
 		.stu_t {
 			@include ali-set();
-			@include jus-set(start);
-			padding-left: 20px;
+			@include jus-set();
+			// padding-left: 20px;
 		}
 
 		.stu_n {
