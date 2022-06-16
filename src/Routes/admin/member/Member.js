@@ -175,7 +175,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			const { page, search, academic } = this.state;
 			const { password, password2, now } = this.state;
 			if (password !== "" && password2 !== "") {
-				if (this.handlePasswordCheck(password) &&this.handlePasswordCheck(password2)) {
+				if (this.handlePasswordCheck(password) && this.handlePasswordCheck(password2)) {
 					if (password === password2) {
 						const payload = {
 							account: now.Account,
@@ -413,7 +413,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									)}
 								</select>
 								<input type="text" placeholder="搜尋" id="search" value={search} onChange={this.handleInputChange.bind(this)} />
-								<input type="submit" value="送出" className="searchBtn" onClick={() => this.handleGoNextPage(1, search.trim(), academic)} />
+								<input type="submit" value="送出" className="searchBtn" onClick={() => this.handleGoNextPage(1, search.trim() === "" ? " " : search.trim(), academic)} />
 							</div>
 						</div>
 						<table className="col-12 admin_table">

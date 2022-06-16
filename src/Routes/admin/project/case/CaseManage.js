@@ -234,7 +234,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									)}
 								</select>
 								<input type="text" placeholder="搜尋" id="search" value={search} onChange={this.handleInputChange.bind(this)} />
-								<input type="submit" value="送出" className="searchBtn" id="casesearch" onClick={() => this.handleGoNextPage(1, search.trim(), ptype)} />
+								<input type="submit" value="送出" className="searchBtn" id="casesearch" onClick={() => this.handleGoNextPage(1, search.trim() === "" ? " " : search.trim(), ptype)} />
 							</div>
 						</div>
 						<table className="col-12 admin_table">
