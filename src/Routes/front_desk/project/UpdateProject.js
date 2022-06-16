@@ -372,7 +372,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										<input
 											type="text"
 											name=""
-											placeholder=""
+											placeholder="按下 Enter 組成一個標籤"
 											size={long}
 											className='input_tag'
 											disabled={disabled}
