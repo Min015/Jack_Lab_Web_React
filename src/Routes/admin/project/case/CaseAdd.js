@@ -62,28 +62,35 @@ export default connect(mapStateToProps, mapDispatchToProps)(
     }
     //送出
     Submit = async () => {
-      const { title, content, participate, tag, type } = this.state;
+      let { title, content, participate, tag, type } = this.state;
       if (title !== "" && content !== "" && type !== "" && participate.length !== 0) {
-        const addmember = participate?.map((item) => { return (item.account) });
-        const payload = {
-          Name: title,
-          Description: content,
-          Proj_type: type,
-          Tag: tag,
-          Member: addmember,
+        title = title.trim();
+        content = content.trim();
+        if (title !== "" && content !== "") {
+          const addmember = participate?.map((item) => { return (item.account) });
+          const payload = {
+            Name: title,
+            Description: content,
+            Proj_type: type,
+            Tag: tag,
+            Member: addmember,
+          }
+          const callback = () => {
+            this.setState({
+              add: false,
+              title: "",
+              content: "",
+              type: "1",
+              tag: [],
+              participate: [],
+            })
+            this.props.history.push("/casemanage");
+          }
+          this.props.POST_AddProject(payload, callback);
         }
-        const callback = () => {
-          this.setState({
-            add: false,
-            title: "",
-            content: "",
-            type: "1",
-            tag: [],
-            participate: [],
-          })
-          this.props.history.push("/casemanage");
+        else {
+          alert("專案名稱、內容描述不可皆為空格字元");
         }
-        this.props.POST_AddProject(payload, callback);
       }
       else {
         alert("您有必填欄位尚未填寫，請確認");
@@ -228,7 +235,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                       )
                     })}
                   </select>
-                  <label className="label">專案類型*</label>
+                  <label className="label">選擇專案類型*</label>
                 </div>
               </div>
               {/* 輸入專案名稱 */}
@@ -247,11 +254,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                   <label className="label">輸入專案名稱*</label>
                 </div>
               </div>
-              {/* 輸入內容描入 */}
+              {/* 輸入內容描述 */}
               <div className="inputbox">
                 <div className="set col-12">
                   <textarea
-                    placeholder="內容描入"
+                    placeholder="內容描述"
                     rows="20"
                     required
                     maxLength="2000"
@@ -260,7 +267,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                     value={content}
                     onChange={this.handleInputChange.bind(this)}
                   ></textarea>
-                  <label className="label">內容描入*</label>
+                  <label className="label">輸入內容描述*</label>
                 </div>
               </div>
               {/* 參與人員 */}

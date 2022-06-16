@@ -290,7 +290,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									<label className="label">輸入會議內容*</label>
 								</div>
 							</div>
-							{/* 輸入會議時間地點 */}
+							{/* 選擇會議時間地點 */}
 							<div className="inputbox">
 								<div className="set col-4">
 									<input
@@ -302,7 +302,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										id='time'
 										onChange={this.handleInputChange.bind(this)}
 									/>
-									<label className="label">輸入會議時間*</label>
+									<label className="label">選擇會議時間*</label>
 								</div>
 								<div className="set col-4">
 									<input type="text"

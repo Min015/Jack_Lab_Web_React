@@ -365,7 +365,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									<label className="label">會議內容<div className='error_msg'>*</div></label>
 								</div>
 							</div>
-							{/* 輸入會議時間地點 */}
+							{/* 選擇會議時間地點 */}
 							<div className="inputbox">
 								<div className="set col-4">
 									<input

@@ -77,7 +77,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
     //新增
     AddType = () => {
       const { page, search } = this.state;
-      const { newType } = this.state;
+      let { newType } = this.state;
+      newType = newType.trim();
       if (newType !== "") {
         const payload = {
           Name: newType
@@ -90,7 +91,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
               maxpage: res.page,
             })
           }
-          this.props.GET_ProjectType(page, search,callbackpage);
+          this.props.GET_ProjectType(page, search, callbackpage);
           this.setState({
             add: false,
             newType: "",
@@ -99,13 +100,14 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         this.props.POST_AddProjectType(payload, callback);
       }
       else {
-        alert("您有必填欄位尚未填寫，請確認");
+        alert("專案類型不可為空值或皆為空格字元");
       }
     }
     //修改
     UpdateType = () => {
       const { page, search } = this.state;
-      const { newType, } = this.state
+      let { newType } = this.state;
+      newType = newType.trim();
       if (newType !== "") {
         const payload = {
           Id: this.state.nowItem.Id,
@@ -121,7 +123,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
         this.props.PUT_UpdateProjectType(payload, callback);
       }
       else {
-        alert("您有必填欄位尚未填寫，請確認");
+        alert("專案類型不可為空值或皆為空格字元");
       }
     }
     //刪除

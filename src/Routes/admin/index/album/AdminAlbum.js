@@ -37,7 +37,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			delAll: false,
 			previview: false,
 			array: [],
-			mimes_type: ['ico','gif','png','jpg','jpeg','svg',],//媒體類型
+			mimes_type: ['ico', 'gif', 'png', 'jpg', 'jpeg', 'svg',],//媒體類型
 			all_file_max_size: 1024 * 1024 * 50,//50M
 			one_file_max_size: 1024 * 1024 * 30,//30M
 			table_header: [
@@ -87,8 +87,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		AddAlbum = () => {
 			const { page, search } = this.state;
 			const { upload } = this.state;
-			let {newTitle}=this.state;
-			newTitle=newTitle.trim();
+			let { newTitle } = this.state;
+			newTitle = newTitle.trim();
 			if (newTitle === "" || upload.name === undefined) {
 				alert("您有必填欄位尚未填寫，請確認(請輸入空格外字元)");
 			}
@@ -118,7 +118,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			const { page, search } = this.state;
 			const { upload, now } = this.state;
 			let { newTitle } = this.state;
-			newTitle=newTitle.trim();
+			newTitle = newTitle.trim();
 			if (newTitle === "") {
 				alert("您有必填欄位尚未填寫，請確認");
 			}
@@ -471,7 +471,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								<div className='enter'>
 									<input type='file' id='f' onChange={e => this.handleSelectFile(e.target.files)} />
 									<label htmlFor='f' className='nowfile'>
-										上傳檔案
+										選擇相片
 									</label>
 								</div>
 								<div className='btn_block'>
@@ -526,7 +526,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								<div className='enter'>
 									<input type='file' id='f' onChange={e => this.handleSelectFile(e.target.files)} />
 									<label htmlFor='f' className='nowfile'>
-										更新檔案
+										更新相片
 									</label>
 								</div>
 								<div className='btn_block'>
