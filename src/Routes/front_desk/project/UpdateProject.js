@@ -87,28 +87,36 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 		//修改專案
 		EditProject = () => {
-			const { title, content, participate, tag, type, Id } = this.state;
+			const { participate, tag, type, Id } = this.state;
+			let { title, content, } = this.state;
 			if (title !== "" && content !== "" && type !== "" && participate.length !== 0) {
-				const addmember = participate?.map((item) => { return (item.account) });
-				const payload = {
-					Id: Id,
-					Name: title,
-					Description: content,
-					Proj_type: type,
-					Tag: tag,
-					Member: addmember,
+				title = title.trim();
+				content = content.trim();
+				if (title !== "" && content !== "") {
+					const addmember = participate?.map((item) => { return (item.account) });
+					const payload = {
+						Id: Id,
+						Name: title,
+						Description: content,
+						Proj_type: type,
+						Tag: tag,
+						Member: addmember,
+					}
+					const callback = () => {
+						this.setState({
+							title: "",
+							content: "",
+							type: "",
+							tag: [],
+							participate: [],
+						})
+						this.props.history.push(`/project/projectinfo/${Id}/1/ `);
+					}
+					this.props.PUT_UpdateProject(payload, callback);
 				}
-				const callback = () => {
-					this.setState({
-						title: "",
-						content: "",
-						type: "",
-						tag: [],
-						participate: [],
-					})
-					this.props.history.push(`/project/projectinfo/${Id}/1/ `);
+				else {
+					alert("專案名稱、內容描述不可皆為空格字元");
 				}
-				this.props.PUT_UpdateProject(payload, callback);
 			}
 			else {
 				alert("您有必填欄位尚未填寫，請確認");

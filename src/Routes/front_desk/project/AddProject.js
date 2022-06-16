@@ -62,28 +62,36 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 		//送出
 		Submit = async () => {
-			const { title, content, participate, tag, type } = this.state;
+			const { participate, tag, type } = this.state;
+			let { title, content, } = this.state;
 			if (title !== "" && content !== "" && type !== "" && participate.length !== 0) {
-				const addmember = participate?.map((item) => { return (item.account) });
-				const payload = {
-					Name: title,
-					Description: content,
-					Proj_type: type,
-					Tag: tag,
-					Member: addmember,
+				title = title.trim();
+				content = content.trim();
+				if (title !== "" && content !== "") {
+					const addmember = participate?.map((item) => { return (item.account) });
+					const payload = {
+						Name: title,
+						Description: content,
+						Proj_type: type,
+						Tag: tag,
+						Member: addmember,
+					}
+					const callback = () => {
+						this.setState({
+							add: false,
+							title: "",
+							content: "",
+							type: " ",
+							tag: [],
+							participate: [],
+						})
+						this.props.history.push("/project");
+					}
+					this.props.POST_AddProject(payload, callback);
 				}
-				const callback = () => {
-					this.setState({
-						add: false,
-						title: "",
-						content: "",
-						type: " ",
-						tag: [],
-						participate: [],
-					})
-					this.props.history.push("/project");
+				else {
+					alert("專案名稱、內容描述不可皆為空格字元");
 				}
-				this.props.POST_AddProject(payload, callback);
 			}
 			else {
 				alert("您有必填欄位尚未填寫，請確認");

@@ -64,27 +64,36 @@ export default connect(mapStateToProps, mapDispatchToProps)(
     }
     //送出
     Submit = () => {
-      const { title, content, time, place, array, participate, tag } = this.state;
+      const { time, array, participate, tag } = this.state;
+      let { title, content, place, } = this.state;
       if (title !== "" && content !== "" && time !== "" && place !== "" && participate.length !== 0) {
-        const addmember = participate.map((item) => { return (item.account) });
-        let data = new FormData();
-        data.append('Title', title);
-        data.append('Content', content);
-        data.append('Time', time);
-        data.append('Place', place);
-        array.map((item, index) =>
-          data.append(`Files[${index}]`, item)
-        );
-        addmember.map((item, index) =>
-          data.append(`Member[${index}]`, item)
-        )
-        tag.map((item, index) =>
-          data.append(`Tag[${index}]`, item)
-        );
-        const callback = () => {
-          this.props.history.push("/meeting");
+        title = title.trim();
+        content = content.trim();
+        place = place.trim();
+        if (title !== "" && content !== "" && place !== "") {
+          const addmember = participate.map((item) => { return (item.account) });
+          let data = new FormData();
+          data.append('Title', title);
+          data.append('Content', content);
+          data.append('Time', time);
+          data.append('Place', place);
+          array.map((item, index) =>
+            data.append(`Files[${index}]`, item)
+          );
+          addmember.map((item, index) =>
+            data.append(`Member[${index}]`, item)
+          )
+          tag.map((item, index) =>
+            data.append(`Tag[${index}]`, item)
+          );
+          const callback = () => {
+            this.props.history.push("/meeting");
+          }
+          this.props.POST_AddMeeting(data, callback);
         }
-        this.props.POST_AddMeeting(data, callback);
+        else {
+          alert("會議主題、會議內容、會議地點不可皆為空格字元");
+        }
       }
       else {
         alert("您有必填欄位尚未填寫，請確認");

@@ -110,7 +110,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 										)
 									})}
 								</select> */}
-								<input type="text" placeholder="輸入搜尋值" className="search" id="search" value={search} onChange={this.handleInputChange.bind(this)} />
+								<input type="text" placeholder="" className="search" id="search" value={search} onChange={this.handleInputChange.bind(this)} />
 								<input type="submit" value="送出" className="submit" onClick={() => this.handleGoNextPage(1, search.trim())} />
 							</div>
 							<div className={(MyPermission !== undefined && MyPermission !== [] && MyPermission.includes('M001')) ? "search_add" : "none"}>

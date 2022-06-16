@@ -121,8 +121,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		//修改自我介紹
 		UpdateMyIntroduction = () => {
 			let { introduction } = this.state;
+			introduction = introduction.trim();
 			if (introduction === "") {
-				alert("您有必填欄位尚未填寫，請確認");
+				alert("個人簡介不可為空值或皆為空格字元");
 			}
 			else {
 				const payload = {

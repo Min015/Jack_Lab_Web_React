@@ -123,32 +123,38 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 		//新增專案記錄
 		AddProjectRecord = () => {
-			const { Id, page, search } = this.state;
-			const { upload, remark } = this.state;
-			if (remark !== "" && upload.name !== undefined) {
-				let data = new FormData();
-				data.append('Project_Id', Id);
-				data.append('Remark', remark);
-				data.append('File', upload);
-				const callback = () => {
-					const callbackpage = res => {
-						const pagearray = handleGetPage(page, res.page);
+			const { Id, page, search, upload, } = this.state;
+			let { remark } = this.state;
+			remark = remark.trim();
+			if (remark !== "") {
+				if (upload.name !== undefined) {
+					let data = new FormData();
+					data.append('Project_Id', Id);
+					data.append('Remark', remark);
+					data.append('File', upload);
+					const callback = () => {
+						const callbackpage = res => {
+							const pagearray = handleGetPage(page, res.page);
+							this.setState({
+								pagearray,
+								maxpage: res.page,
+							})
+						}
+						this.props.GET_ProjectRecord(Id, page, search, callbackpage);
 						this.setState({
-							pagearray,
-							maxpage: res.page,
+							add: false,
+							remark: "",
+							upload: {},
 						})
 					}
-					this.props.GET_ProjectRecord(Id, page, search, callbackpage);
-					this.setState({
-						add: false,
-						remark: "",
-						upload: {},
-					})
+					this.props.POST_AddProjectRecord(data, callback);
 				}
-				this.props.POST_AddProjectRecord(data, callback);
+				else {
+					alert("請選擇上傳檔案");
+				}
 			}
 			else {
-				alert("請輸入備註及選擇檔案");
+				alert("備註不可為空值或皆為空格字元");
 			}
 		}
 		//下載專案記錄
@@ -158,8 +164,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 		}
 		//更新專案記錄
 		UpdateProjectRecord = () => {
-			const { Id, page, search } = this.state;
-			const { upload, remark, nowRecord } = this.state;
+			const { Id, page, search, upload, nowRecord } = this.state;
+			let { remark, } = this.state;
+			remark = remark.trim();
 			if (remark !== "") {
 				let data = new FormData();
 				data.append('_method', 'PUT');
@@ -179,7 +186,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				this.props.POST_UpdateProjectRecord(data, callback);
 			}
 			else {
-				alert("請輸入備註");
+				alert("備註不可為空值或皆為空格字元");
 			}
 		}
 		//刪除專案紀錄
@@ -241,7 +248,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			const target = event.target;
 			let { value, id } = target;
 			if (id === 'search') {
-				value = value.trim();
 				if (value !== "") {
 					this.setState({
 						[id]: value,
@@ -394,8 +400,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 							{/* 搜尋列 */}
 							<div className="works_area">
 								<div className="select_list">
-									<input type="text" placeholder="輸入搜尋值" className="search" id="search" value={search} onChange={this.handleInputChange.bind(this)} />
-									<input type="submit" value="送出" className="submit" onClick={() => this.handleGoNextPage(1, search)} />
+									<input type="text" placeholder="" className="search" id="search" value={search} onChange={this.handleInputChange.bind(this)} />
+									<input type="submit" value="送出" className="submit" onClick={() => this.handleGoNextPage(1, search.trim())} />
 								</div>
 							</div>
 							{/* 表格 */}
