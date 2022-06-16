@@ -97,7 +97,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			const target = event.target;
 			let { value, id } = target;
 			if (id === 'search') {
-				value = value.trim();
 				if (value !== "") {
 					this.setState({
 						[id]: value,
@@ -137,7 +136,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									)}
 								</select>
 								<input type="text" placeholder="搜尋" className="search" id="search" value={search} onChange={this.handleInputChange.bind(this)} />
-								<input type="submit" value="送出" className="submit" onClick={() => this.handleGoNextPage(1, search, ptype)} />
+								<input type="submit" value="送出" className="submit" onClick={() => this.handleGoNextPage(1, search.trim(), ptype)} />
 							</div>
 							<div className={(MyPermission !== undefined && MyPermission !== [] && MyPermission.includes('P001')) ? "search_add" : "none"}>
 								<div className="add">

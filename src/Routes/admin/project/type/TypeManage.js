@@ -197,7 +197,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
       const target = event.target;
       let { value, id } = target;
       if (id === 'search') {
-        value = value.trim();
         if (value !== "") {
           this.setState({
             [id]: value,
@@ -285,7 +284,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
               <div className="searchbar">
                 <input type="text" placeholder="搜尋" id="search" value={search} onChange={this.handleInputChange.bind(this)} />
                 <div className="submit">
-                  <input type="image" src={searchbtn} alt="送出" onClick={() => this.handleGoNextPage(1, search)} />
+                  <input type="image" src={searchbtn} alt="送出" onClick={() => this.handleGoNextPage(1, search.trim())} />
                 </div>
               </div>
             </div>

@@ -151,7 +151,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 			const target = event.target;
 			let { value, id } = target;
 			if (id === 'search') {
-				value = value.trim();
 				if (value !== "") {
 					this.setState({
 						[id]: value,
@@ -235,7 +234,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									)}
 								</select>
 								<input type="text" placeholder="搜尋" id="search" value={search} onChange={this.handleInputChange.bind(this)} />
-								<input type="submit" value="送出" className="searchBtn" id="casesearch" onClick={() => this.handleGoNextPage(1, search, ptype)} />
+								<input type="submit" value="送出" className="searchBtn" id="casesearch" onClick={() => this.handleGoNextPage(1, search.trim(), ptype)} />
 							</div>
 						</div>
 						<table className="col-12 admin_table">
