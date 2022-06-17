@@ -242,7 +242,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 				<div onClick={this.handleMouseDown.bind(this)}>
 					<MemberLayout>
 						<div className="add_title">
-							<h2>新增專案</h2>
+							<h2>修改專案</h2>
 						</div>
 						<div className="add_form">
 							<div className="inputbox">
