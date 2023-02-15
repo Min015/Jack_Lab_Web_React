@@ -76,7 +76,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
                     <div className='card_in'>
                       <div className='stu_i'>
                         <div className='img'>
-                          <img src={Student === undefined ? "" : `https://jacklab.servehttp.com/${item.Image}`} alt="學生頭像" />
+                          <img src={Student === undefined ? "" : `http://jacklab.ddns.net/${item.Image}`} alt="學生頭像" />
                         </div>
                       </div>
                       <div className='stu_n'>{item.Name}</div>

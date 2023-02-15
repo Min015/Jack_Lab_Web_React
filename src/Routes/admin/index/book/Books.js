@@ -743,7 +743,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 									<div className='bookinfo'>
 										<div className='bookimg'>
 											<div className='imgbox'>
-												<img src={BookInfo === undefined ? "" : `https://jacklab.servehttp.com/${BookInfo.Image}`} alt="出版品" />
+												<img src={BookInfo === undefined ? "" : `http://jacklab.ddns.net/${BookInfo.Image}`} alt="出版品" />
 											</div>
 											<img src={camera} alt="更換頭像" onClick={() => this.drop_down('photo')} className='camera' />
 										</div>

@@ -37,7 +37,7 @@ export default class BooksList extends Component {
 							}
 							return (
 								<div key={`book${index}`} className='book' >
-									<img src={booklist === undefined ? "" : `https://jacklab.servehttp.com/${item.Image}`} alt="出版品" />
+									<img src={booklist === undefined ? "" : `http://jacklab.ddns.net/${item.Image}`} alt="出版品" />
 									<div className='booktitle'>
 										{`${title}`}
 										<label>{item.Title}</label>

@@ -509,7 +509,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 													<td>{((page - 1) * 10) + index + 1}</td>
 													<td>
 														<div className='photo'>
-															<img src={item === undefined ? "" : `https://jacklab.servehttp.com/${item.Image}`} alt="教師頭像" className='Image' />
+															<img src={item === undefined ? "" : `http://jacklab.ddns.net/${item.Image}`} alt="教師頭像" className='Image' />
 															<div className='camera' onClick={() => this.drop_down('photo')}  >
 																<img
 																	src={camera} alt="更換頭像"

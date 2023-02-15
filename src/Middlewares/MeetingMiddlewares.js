@@ -4,13 +4,13 @@
 import axios from "axios";
 
 const token = localStorage.getItem("user_token");
-const BaseURL = 'https://jacklab.servehttp.com/api';
+const BaseURL = 'http://jacklab.ddns.net/api';
 const _axios = axios.create({
 	baseURL: BaseURL,
 	timeout: 30000,
 	headers: {
 		'Content-Type': 'application/json',
-		'Access-Control-Allow-Origin': '*',
+		//'Access-Control-Allow-Origin': '*',
 		'Authorization': `bearer ${token}`
 	}
 })

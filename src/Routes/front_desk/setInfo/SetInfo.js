@@ -204,7 +204,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
 								<div className="card_banner"></div>
 								<div className="card_content">
 									<div className="head_stickers">
-										<img src={MyInfo === undefined ? "" : `https://jacklab.servehttp.com/${MyInfo.Image}`} alt={`大頭貼`} />
+										<img src={MyInfo === undefined ? "" : `http://jacklab.ddns.net/${MyInfo.Image}`} alt={`大頭貼`} />
 									</div>
 									<div className="information">
 										<div className="edit_pen">
